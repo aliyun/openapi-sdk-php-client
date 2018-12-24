@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client;
@@ -113,24 +113,22 @@ function block($result, $title)
 
 /**
  * @param array $arrays
- * @param bool  $preserveInteger
  *
  * @return array
  */
-function arrayMerge(array $arrays, $preserveInteger = false)
+function arrayMerge(array $arrays)
 {
     $result = [];
     foreach ($arrays as $array) {
         foreach ($array as $key => $value) {
-            if (is_int($key) && !$preserveInteger) {
+            if (is_int($key)) {
                 $result[] = $value;
                 continue;
             }
 
             if (isset($result[$key]) && is_array($result[$key])) {
                 $result[$key] = arrayMerge(
-                    [$result[$key], $value],
-                    $preserveInteger
+                    [$result[$key], $value]
                 );
                 continue;
             }

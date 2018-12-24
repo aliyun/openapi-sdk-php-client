@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Exception;
@@ -31,13 +31,13 @@ use AlibabaCloud\Client\Result\Result;
 /**
  * Class ServerException
  *
- * @package AlibabaCloud\Client\Exception
+ * @package   AlibabaCloud\Client\Exception
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class ServerException extends AlibabaCloudException
 {
@@ -61,42 +61,49 @@ class ServerException extends AlibabaCloudException
     public function __construct(Result $result, $errorMessage = '', $errorCode = '')
     {
         $this->result = $result;
-
-        if (isset($result['message'])) {
-            $this->errorMessage = $result['message'];
-            $this->errorCode    = $result['code'];
-        }
-        if (isset($result['Message'])) {
-            $this->errorMessage = $result['Message'];
-            $this->errorCode    = $result['Code'];
-        }
-        if (isset($result['errorMsg'])) {
-            $this->errorMessage = $result['errorMsg'];
-            $this->errorCode    = $result['errorCode'];
-        }
+        $this->settingProperties();
         if ($errorMessage !== '') {
             $this->errorMessage = $errorMessage;
         }
         if ($errorCode !== '') {
             $this->errorCode = $errorCode;
         }
-        if (isset($result['requestId'])) {
-            $this->requestId = $result['requestId'];
-        }
-        if (isset($result['RequestId'])) {
-            $this->requestId = $result['RequestId'];
-        }
         if (!$this->errorMessage) {
-            $this->errorMessage = $result->getResponse()->getBody()->getContents();
+            $this->errorMessage = (string)$this->result->getResponse()->getBody();
         }
         $message = $this->errorCode
                    . ': '
                    . $this->errorMessage
                    . ' HTTP Status: '
-                   . $result->getResponse()->getStatusCode()
+                   . $this->result->getResponse()->getStatusCode()
                    . ' RequestID: '
                    . $this->requestId;
-        parent::__construct($message, $result->getResponse()->getStatusCode());
+        parent::__construct($message, $this->result->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @return void
+     */
+    private function settingProperties()
+    {
+        if (isset($this->result['message'])) {
+            $this->errorMessage = $this->result['message'];
+            $this->errorCode    = $this->result['code'];
+        }
+        if (isset($this->result['Message'])) {
+            $this->errorMessage = $this->result['Message'];
+            $this->errorCode    = $this->result['Code'];
+        }
+        if (isset($this->result['errorMsg'])) {
+            $this->errorMessage = $this->result['errorMsg'];
+            $this->errorCode    = $this->result['errorCode'];
+        }
+        if (isset($this->result['requestId'])) {
+            $this->requestId = $this->result['requestId'];
+        }
+        if (isset($this->result['RequestId'])) {
+            $this->requestId = $this->result['RequestId'];
+        }
     }
 
     /**

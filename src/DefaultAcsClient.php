@@ -24,6 +24,7 @@
 
 namespace AlibabaCloud\Client;
 
+use AlibabaCloud\Client\Clients\Client;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\Request;
@@ -53,12 +54,12 @@ class DefaultAcsClient
     /**
      * DefaultAcsClient constructor.
      *
-     * @param AlibabaCloud $alibabaCloud
+     * @param Client $client
      */
-    public function __construct(AlibabaCloud $alibabaCloud)
+    public function __construct(Client $client)
     {
         $this->randClientName = \uniqid('', false);
-        $alibabaCloud->name($this->randClientName);
+        $client->name($this->randClientName);
     }
 
     /**

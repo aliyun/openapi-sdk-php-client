@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Tests\Mock\Services\Ecs;
@@ -32,13 +32,13 @@ use GuzzleHttp\Psr7\Response;
 /**
  * Class DescribeAccessPointsRequestMock
  *
- * @package AlibabaCloud\Client\Tests\Mock\Services\Ecs
+ * @package   AlibabaCloud\Client\Tests\Mock\Services\Ecs
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class DescribeRegionsRequestMock extends DescribeRegionsRequest
 {

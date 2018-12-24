@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Credentials;
@@ -29,13 +29,13 @@ namespace AlibabaCloud\Client\Credentials;
 /**
  * Use the RAM role of an ECS instance to complete the authentication.
  *
- * @package AlibabaCloud\Client\Credentials
+ * @package   AlibabaCloud\Client\Credentials
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class EcsRamRoleCredential implements CredentialsInterface
 {
@@ -43,10 +43,10 @@ class EcsRamRoleCredential implements CredentialsInterface
     /**
      * @var string
      */
-    public $roleName;
+    private $roleName;
 
     /**
-     * EcsRamRoleCredential constructor.
+     * Class constructor.
      *
      * @param string $roleName
      */
@@ -61,5 +61,13 @@ class EcsRamRoleCredential implements CredentialsInterface
     public function getRoleName()
     {
         return $this->roleName;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return "roleName#$this->roleName";
     }
 }

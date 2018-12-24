@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 /*
@@ -77,4 +77,4 @@ defined('ROLE_ARN_EXPIRE_TIME') || define('ROLE_ARN_EXPIRE_TIME', 3600);
 /**
  * For EcsRamRole
  */
-defined('ECS_ROLE_EXPIRE_TIME') || define('ECS_ROLE_EXPIRE_TIME', 3600);
+defined('ECS_ROLE_EXPIRE_TIME') || define('ECS_ROLE_EXPIRE_TIME', 5);

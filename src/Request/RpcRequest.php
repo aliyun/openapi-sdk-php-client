@@ -13,7 +13,7 @@
  *
  * --------------------------------------------------------------------------
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
@@ -27,14 +27,13 @@ namespace AlibabaCloud\Client\Request;
 
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
-use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class RpcRequest
  *
- * @package AlibabaCloud\Client\Request
+ * @package   AlibabaCloud\Client\Request
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
@@ -51,23 +50,75 @@ class RpcRequest extends Request
     private $dateTimeFormat = 'Y-m-d\TH:i:s\Z';
 
     /**
-     * RpcRequest constructor.
+     * Handling the query parameter.
      *
-     * @param array $options
+     * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
+     *
+     * @throws ClientException
      */
-    public function __construct(array $options = [])
+    private function resolveQuery($credential)
     {
-        $this->method('GET');
-        $this->format('JSON');
-        parent::__construct($options);
+        if (isset($this->options['query'])) {
+            foreach ($this->options['query'] as $key => $value) {
+                $this->options['query'][$key] = $this->booleanValueToString($value);
+            }
+        }
+        $signature                                  = $this->httpClient()->getSignature();
+        $this->options['query']['RegionId']         = $this->realRegionId();
+        $this->options['query']['AccessKeyId']      = $credential->getAccessKeyId();
+        $this->options['query']['Format']           = $this->format;
+        $this->options['query']['SignatureMethod']  = $signature->getMethod();
+        $this->options['query']['SignatureVersion'] = $signature->getVersion();
+        if ($signature->getType()) {
+            $this->options['query']['SignatureType'] = $signature->getType();
+        }
+        $this->options['query']['SignatureNonce'] = md5(uniqid(mt_rand(), true));
+        $this->options['query']['Timestamp']      = gmdate($this->dateTimeFormat);
+        $this->options['query']['Action']         = $this->action;
+        $this->options['query']['Version']        = $this->version;
+        if ($credential instanceof StsCredential) {
+            $this->options['query']['SecurityToken'] = $credential->getSecurityToken();
+        }
+        if ($credential instanceof BearerTokenCredential) {
+            $this->options['query']['BearerToken'] = $credential->getBearerToken();
+        }
     }
 
     /**
+     * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
+     *
+     * @throws ClientException
+     */
+    public function resolveParameters($credential)
+    {
+        $this->resolveQuery($credential);
+
+        $this->options['query']['Signature'] = $this->computeSignature(
+            $this->options['query'],
+            $credential->getAccessKeySecret()
+        );
+
+        if ($this->method === 'POST') {
+            foreach ($this->options['query'] as $apiParamKey => $apiParamValue) {
+                $this->options['form_params'][$apiParamKey] = $apiParamValue;
+            }
+            unset($this->options['query']);
+        }
+
+        $this->uri = $this->uriComponents->getScheme()
+                     . '://'
+                     . $this->uriComponents->getHost()
+                     . '/';
+    }
+
+    /**
+     * Convert a Boolean value to a string.
+     *
      * @param bool|string $value
      *
      * @return string
      */
-    private function prepareValue($value)
+    private function booleanValueToString($value)
     {
         if (is_bool($value)) {
             if ($value) {
@@ -80,53 +131,8 @@ class RpcRequest extends Request
     }
 
     /**
-     * @param AccessKeyCredential|BearerTokenCredential|CredentialsInterface $credential
+     * Sign the parameters.
      *
-     * @throws ClientException
-     */
-    public function preparationParameters($credential)
-    {
-        if (isset($this->options['query'])) {
-            foreach ($this->options['query'] as $key => $value) {
-                $this->options['query'][$key] = $this->prepareValue($value);
-            }
-        }
-        $this->options['query']['RegionId']         = $this->realRegionId();
-        $this->options['query']['AccessKeyId']      = $credential->getAccessKeyId();
-        $this->options['query']['Format']           = $this->format;
-        $this->options['query']['SignatureMethod']  = $this->httpClient()->getSignature()->getMethod();
-        $this->options['query']['SignatureVersion'] = $this->httpClient()->getSignature()->getVersion();
-        if ($this->httpClient()->getSignature()->getType() !== '') {
-            $this->options['query']['SignatureType'] = $this->httpClient()->getSignature()->getType();
-        }
-        $this->options['query']['SignatureNonce'] = md5(uniqid(mt_rand(), true));
-        $this->options['query']['Timestamp']      = gmdate($this->dateTimeFormat);
-        $this->options['query']['Action']         = $this->action;
-        $this->options['query']['Version']        = $this->version;
-        if ($credential instanceof StsCredential) {
-            $this->options['query']['SecurityToken'] = $credential->getSecurityToken();
-        }
-        if ($credential instanceof BearerTokenCredential) {
-            $this->options['query']['BearerToken'] = $credential->getBearerToken();
-        }
-
-        $this->options['query']['Signature'] =
-            $this->computeSignature($this->options['query'], $credential->getAccessKeySecret());
-
-        /**----------------------------------------------------------------
-         *   POST Method
-         *---------------------------------------------------------------*/
-        if ($this->method === 'POST') {
-            foreach ($this->options['query'] as $apiParamKey => $apiParamValue) {
-                $this->options['form_params'][$apiParamKey] = $apiParamValue;
-            }
-            unset($this->options['query']);
-        }
-
-        $this->uri = $this->protocol . '://' . $this->domain . '/';
-    }
-
-    /**
      * @param array  $parameters
      * @param string $accessKeySecret
      *
@@ -145,16 +151,16 @@ class RpcRequest extends Request
     }
 
     /**
-     * @param string $str
+     * @param string $string
      *
      * @return null|string|string[]
      */
-    protected function percentEncode($str)
+    protected function percentEncode($string)
     {
-        $res = urlencode($str);
-        $res = str_replace(['+', '*'], ['%20', '%2A'], $res);
-        $res = preg_replace('/%7E/', '~', $res);
-        return $res;
+        $result = urlencode($string);
+        $result = str_replace(['+', '*'], ['%20', '%2A'], $result);
+        $result = preg_replace('/%7E/', '~', $result);
+        return $result;
     }
 
     /**
@@ -166,48 +172,15 @@ class RpcRequest extends Request
     public function __call($name, $arguments)
     {
         if (\strpos($name, 'get', 0) !== false) {
-            return $this->__get($this->propertyNameByMethodName($name));
+            $name = $this->propertyNameByMethodName($name);
+            return isset($this->options['query'][$name])
+                ? $this->options['query'][$name]
+                : null;
         }
         if (\strpos($name, 'set', 0) !== false) {
-            $this->__set($this->propertyNameByMethodName($name), $arguments[0]);
+            $name                          = $this->propertyNameByMethodName($name);
+            $this->options['query'][$name] = $arguments[0];
         }
         return $this;
-    }
-
-    /**
-     * When get a property that does not exist, it can be understood as a custom request parameter.
-     *
-     * @param string $name
-     *
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        return isset($this->options['query'][$name])
-            ? $this->options['query'][$name]
-            : null;
-    }
-
-    /**
-     * When set a property that does not exist, it can be understood as a custom request parameter.
-     *
-     * @param string $name
-     * @param        $value
-     */
-    public function __set($name, $value)
-    {
-        $this->options['query'][$name] = $value;
-    }
-
-    /**
-     * When accessing a property that does not exist, it can be understood as a custom request parameter.
-     *
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function __isset($name)
-    {
-        return isset($this->options['query'][$name]);
     }
 }

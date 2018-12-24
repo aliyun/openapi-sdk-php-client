@@ -15,31 +15,32 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Result;
 
 use AlibabaCloud\Client\Request\Request;
+use Exception;
 use GuzzleHttp\Psr7\Response;
 use JmesPath\Env as JmesPath;
 
 /**
  * Result from Alibaba Cloud
  *
- * @package AlibabaCloud\Client\Result
+ * @package   AlibabaCloud\Client\Result
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class Result implements \ArrayAccess, \IteratorAggregate, \Countable
 {
@@ -91,19 +92,19 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
 
         switch ($format) {
             case 'JSON':
-                $this->data = $this->jsonDecode($response->getBody()->getContents());
+                $this->data = $this->jsonToArray($response->getBody()->getContents());
                 break;
             case 'XML':
-                $this->data = @simplexml_load_string($response->getBody()->getContents());
+                $this->data = $this->xmlToArray($response->getBody()->getContents());
                 break;
             case 'RAW':
-                $this->data = $this->jsonDecode($response->getBody()->getContents());
+                $this->data = $this->jsonToArray($response->getBody()->getContents());
                 break;
             default:
-                $this->data = $this->jsonDecode($response->getBody()->getContents());
+                $this->data = $this->jsonToArray($response->getBody()->getContents());
         }
 
-        if (!$this->data) {
+        if (empty($this->data)) {
             $this->data = [];
         }
         $this->response = $response;
@@ -111,11 +112,25 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
     }
 
     /**
+     * @param string $string
+     *
+     * @return array
+     */
+    private function xmlToArray($string)
+    {
+        try {
+            return json_decode(json_encode(simplexml_load_string($string)), true);
+        } catch (Exception $exception) {
+            return [];
+        }
+    }
+
+    /**
      * @param string $response
      *
      * @return array
      */
-    private function jsonDecode($response)
+    private function jsonToArray($response)
     {
         try {
             return \GuzzleHttp\json_decode($response, true);

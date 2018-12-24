@@ -15,41 +15,44 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Request;
 
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
-use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
 
 /**
  * Class RoaRequest
  *
- * @package AlibabaCloud\Client\Request
+ * @package   AlibabaCloud\Client\Request
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
+ *
+ * @mixin     RoaRequest
  */
 class RoaRequest extends Request
 {
-
+    use /** @scrutinizer ignore-deprecated */
+        DeprecatedRoaTrait;
     /**
      * @var string
      */
-    public $uriPattern;
+    public $pathPattern;
     /**
      * @var array
      */
@@ -75,16 +78,26 @@ class RoaRequest extends Request
     public function __construct(array $options = [])
     {
         parent::__construct($options);
-        $this->method('RAW');
-        $this->format('JSON');
+        $this->options['query']['Version']         = &$this->version;
+        $this->options['headers']['x-acs-version'] = &$this->version;
     }
 
     /**
-     * @param AccessKeyCredential|BearerTokenCredential|CredentialsInterface $credential
+     * @return string
+     */
+    private function contentMD5()
+    {
+        return base64_encode(
+            md5(json_encode($this->options['form_params']), true)
+        );
+    }
+
+    /**
+     * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
      *
      * @throws ClientException
      */
-    public function preparationParameters($credential)
+    public function resolveParameters($credential)
     {
         $signature                                           = $this->httpClient()->getSignature();
         $this->options['headers']['Date']                    = gmdate($this->dateTimeFormat);
@@ -96,13 +109,9 @@ class RoaRequest extends Request
         }
         $this->options['headers']['x-acs-region-id'] = $this->realRegionId();
         if (isset($this->options['form_params'])) {
-            $this->options['headers']['Content-MD5'] =
-                base64_encode(md5(json_encode($this->options['form_params']), true));
+            $this->options['headers']['Content-MD5'] = $this->contentMD5();
         }
-        $this->options['headers']['Content-Type'] = 'application/octet-stream;charset=utf-8';
-        if ($this->format === 'JSON') {
-            $this->options['headers']['Content-Type'] = 'application/json;chrset=utf-8';
-        }
+        $this->options['headers']['Content-Type'] = "{$this->options['headers']['Accept']};chrset=utf-8";
         if ($credential instanceof StsCredential) {
             $this->options['headers']['x-acs-security-token'] = $credential->getSecurityToken();
         }
@@ -113,7 +122,7 @@ class RoaRequest extends Request
     }
 
     /**
-     * @param AccessKeyCredential|BearerTokenCredential|CredentialsInterface $credential
+     * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
      *
      * @throws ClientException
      */
@@ -142,8 +151,9 @@ class RoaRequest extends Request
 
         $signString .= $this->buildCanonicalHeaders();
 
-        $queryString                               = $this->buildQueryString($this->replaceOccupiedParameters());
-        $signString                                .= $queryString;
+        $queryString = $this->buildQueryString($this->assignPathParameters());
+        $signString  .= $queryString;
+
         $this->options['headers']['Authorization'] = 'acs '
                                                      . $credential->getAccessKeyId()
                                                      . ':'
@@ -154,15 +164,20 @@ class RoaRequest extends Request
                                                                 $credential->getAccessKeySecret()
                                                             );
 
-        $this->uri = $this->protocol . '://' . $this->domain . $queryString;
+        $this->uri = $this->uriComponents->getScheme()
+                     . '://'
+                     . $this->uriComponents->getHost()
+                     . $queryString;
     }
 
     /**
+     * Assign path parameters to the url.
+     *
      * @return string
      */
-    private function replaceOccupiedParameters()
+    private function assignPathParameters()
     {
-        $result = $this->uriPattern;
+        $result = $this->pathPattern;
         foreach ($this->pathParameters as $pathParameterKey => $apiParameterValue) {
             $target = '[' . $pathParameterKey . ']';
             $result = str_replace($target, $apiParameterValue, $result);
@@ -185,7 +200,7 @@ class RoaRequest extends Request
         ksort($sortMap);
         $headerString = '';
         foreach ($sortMap as $sortMapKey => $sortMapValue) {
-            $headerString = $headerString . $sortMapKey . ':' . $sortMapValue . self::$headerSeparator;
+            $headerString .= $sortMapKey . ':' . $sortMapValue . self::$headerSeparator;
         }
         return $headerString;
     }
@@ -217,7 +232,9 @@ class RoaRequest extends Request
     private function buildQueryString($uri)
     {
         $uriParts = $this->splitSubResource($uri);
-        $sortMap  = $this->options['query'];
+        $sortMap  = isset($this->options['query'])
+            ? $this->options['query']
+            : [];
         if (isset($uriParts[1])) {
             $sortMap[$uriParts[1]] = null;
         }
@@ -225,16 +242,31 @@ class RoaRequest extends Request
         if (count($uriParts)) {
             $queryString .= '?';
         }
+
+        $queryString = $this->ksort($queryString, $sortMap);
+
+        if (0 < count($sortMap)) {
+            $queryString = substr($queryString, 0, -1);
+        }
+
+        return $queryString;
+    }
+
+    /**
+     * @param string $queryString
+     * @param array  $sortMap
+     *
+     * @return string
+     */
+    private function ksort(&$queryString, array $sortMap)
+    {
         ksort($sortMap);
         foreach ($sortMap as $sortMapKey => $sortMapValue) {
             $queryString .= $sortMapKey;
             if ($sortMapValue !== null) {
-                $queryString = $queryString . '=' . $sortMapValue;
+                $queryString .= '=' . $sortMapValue;
             }
             $queryString .= self::$querySeparator;
-        }
-        if (0 < count($sortMap)) {
-            $queryString = substr($queryString, 0, -1);
         }
         return $queryString;
     }
@@ -257,30 +289,6 @@ class RoaRequest extends Request
     }
 
     /**
-     * @deprecated
-     * @codeCoverageIgnore
-     * @return array
-     */
-    public function getPathParameters()
-    {
-        return $this->pathParameters;
-    }
-
-    /**
-     * @deprecated
-     * @codeCoverageIgnore
-     *
-     * @param string $name
-     * @param string $value
-     *
-     * @return RoaRequest
-     */
-    public function putPathParameter($name, $value)
-    {
-        return $this->pathParameter($name, $value);
-    }
-
-    /**
      * @param string $name
      * @param string $value
      *
@@ -293,48 +301,13 @@ class RoaRequest extends Request
     }
 
     /**
-     * @codeCoverageIgnore
-     * @deprecated
-     * @return mixed
-     */
-    public function getUriPattern()
-    {
-        return $this->uriPattern;
-    }
-
-    /**
-     * @deprecated
-     * @codeCoverageIgnore
-     *
-     * @param string $uriPattern
+     * @param string $pattern
      *
      * @return self
      */
-    public function setUriPattern($uriPattern)
+    public function pathPattern($pattern)
     {
-        return $this->uriPattern($uriPattern);
-    }
-
-    /**
-     * @param string $uriPattern
-     *
-     * @return self
-     */
-    public function uriPattern($uriPattern)
-    {
-        $this->uriPattern = $uriPattern;
-        return $this;
-    }
-
-    /**
-     * @param string $version
-     *
-     * @return RoaRequest
-     */
-    public function version($version)
-    {
-        $this->options['query']['Version']         = $version;
-        $this->options['headers']['x-acs-version'] = $version;
+        $this->pathPattern = $pattern;
         return $this;
     }
 
@@ -347,49 +320,17 @@ class RoaRequest extends Request
     public function __call($name, $arguments)
     {
         if (\strpos($name, 'get', 0) !== false) {
-            return $this->__get($this->propertyNameByMethodName($name));
+            $name = $this->propertyNameByMethodName($name);
+            return isset($this->pathParameters[$name])
+                ? $this->pathParameters[$name]
+                : null;
         }
+
         if (\strpos($name, 'set', 0) !== false) {
-            $this->__set($this->propertyNameByMethodName($name), $arguments[0]);
+            $name                        = $this->propertyNameByMethodName($name);
+            $this->pathParameters[$name] = $arguments[0];
         }
+
         return $this;
-    }
-
-    /**
-     * When get a property that does not exist, it can be understood as a custom request parameter.
-     *
-     * @param string $name
-     *
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        return isset($this->pathParameters[$name])
-            ? $this->pathParameters[$name]
-            : null;
-    }
-
-    /**
-     * When set a property that does not exist, it can be understood as a custom request parameter.
-     *
-     * @param string       $name
-     * @param string|mixed $value
-     */
-    public function __set($name, $value)
-    {
-        $this->pathParameters[$name] = $value;
-    }
-
-    /**
-     * When accessing a property that does not exist, it can be understood as a custom request parameter.
-     *
-     * @param string $name
-     *
-     * @codeCoverageIgnore
-     * @return bool
-     */
-    public function __isset($name)
-    {
-        return isset($this->pathParameters[$name]);
     }
 }

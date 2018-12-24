@@ -13,7 +13,7 @@
  *
  * --------------------------------------------------------------------------
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
@@ -30,13 +30,13 @@ use AlibabaCloud\Client\Request\RoaRequest;
 /**
  * Class DescribeClusterServicesRequest
  *
- * @package AlibabaCloud\Client\Tests\Mock\Services\CS
+ * @package   AlibabaCloud\Client\Tests\Mock\Services\CS
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
  * @property-read string $ClusterId
  * @method string getClusterId()
@@ -44,6 +44,22 @@ use AlibabaCloud\Client\Request\RoaRequest;
  */
 class DescribeClusterServicesRequest extends RoaRequest
 {
+    /**
+     * @var string
+     */
+    public $pathPattern = '/clusters/[ClusterId]/services';
+    /**
+     * @var string
+     */
+    public $product = 'CS';
+    /**
+     * @var string
+     */
+    public $version = '2015-12-15';
+    /**
+     * @var string
+     */
+    public $action = 'DescribeClusterServices';
 
     /**
      * DescribeClusterServicesRequest constructor.
@@ -53,11 +69,6 @@ class DescribeClusterServicesRequest extends RoaRequest
     public function __construct(array $options = [])
     {
         parent::__construct($options);
-        $this->uriPattern('/clusters/[ClusterId]/services');
-        $this->method('GET');
-        $this->product('CS');
-        $this->version('2015-12-15');
-        $this->action('DescribeClusterServices');
         $this->options($options);
     }
 }

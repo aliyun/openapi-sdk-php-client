@@ -5,9 +5,10 @@ Alibaba Cloud Client for PHP
 
 
 [![Total Downloads](https://img.shields.io/packagist/dt/alibabacloud/client.svg?style=flat)](https://packagist.org/packages/alibabacloud/client)
-[![Build Status](https://travis-ci.org/aliyun/openapi-sdk-php-client.svg?branch=master)](https://travis-ci.org/aliyun/openapi-sdk-php-client)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client/badges/quality-score.png)](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client)
+[![Build Status](https://travis-ci.org/aliyun/openapi-sdk-php-client.svg)](https://travis-ci.org/aliyun/openapi-sdk-php-client)
 [![codecov](https://codecov.io/gh/aliyun/openapi-sdk-php-client/branch/master/graph/badge.svg)](https://codecov.io/gh/aliyun/openapi-sdk-php-client)
-[![Code Intelligence Status](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client/badges/code-intelligence.svg)](https://scrutinizer-ci.com/code-intelligence)
 [![Apache 2 License](https://img.shields.io/packagist/l/alibabacloud/client.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 ![](./src/Files/AlibabaCloud.svg)
@@ -271,8 +272,8 @@ Each request supports Chain Settings, Construct Settings, and so on. In addition
                                      ->locationServiceCode('cs') // Set ServiceCode for addressing, optional
                                      ->locationEndpointType('openAPI') // Set type, optional
                                      ->method('GET') // Set request method
-                                     ->domain('cs.aliyun.com') // Location Service will not be enabled if the Domain name is specified. For example, service with a Certification type-Bearer Token should be specified
-                                     ->uriPattern('/clusters/[ClusterId]/services') // Specify path rule with ROA-style
+                                     ->host('cs.aliyun.com') // Location Service will not be enabled if the Domain name is specified. For example, service with a Certification type-Bearer Token should be specified
+                                     ->pathPattern('/clusters/[ClusterId]/services') // Specify path rule with ROA-style
                                      ->connectTimeout(0.1) // 10 milliseconds of connection timeout. When the units < 1, units will be converted to milliseconds automatically
                                      ->timeout(0.1) // 10 milliseconds of timeout. When the units < 1, units will be converted to milliseconds automatically
                                      ->debug(true) // Enable Debug, details will be output under CLI
@@ -425,7 +426,7 @@ use AlibabaCloud\Client\Request\RpcRequest;
 $request = (new RpcRequest())->product('Sts')
                              ->version('2015-04-01')
                              ->action('GenerateSessionAccessKey')
-                             ->domain('sts.ap-northeast-1.aliyuncs.com') // Specify the domain
+                             ->host('sts.ap-northeast-1.aliyuncs.com') // Specify the domain
                              ->request();
 ```
 

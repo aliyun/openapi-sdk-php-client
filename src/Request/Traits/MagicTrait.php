@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Request\Traits;
@@ -31,13 +31,13 @@ use AlibabaCloud\Client\Request\Request;
 /**
  * Class MagicTrait
  *
- * @package AlibabaCloud\Client\Request\Traits
+ * @package   AlibabaCloud\Client\Request\Traits
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/aliyun-openapi-php-sdk
+ * @link      https://github.com/aliyun/aliyun-openapi-php-sdk
  *
  * @mixin     Request
  */
