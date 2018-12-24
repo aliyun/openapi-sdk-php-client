@@ -3,10 +3,11 @@
 Alibaba Cloud Client for PHP
 ======
 
-  
-[![Downloads](https://img.shields.io/packagist/dt/alibabacloud/sdk.svg?style=flat)](https://packagist.org/packages/alibabacloud/client)
+
+[![Total Downloads](https://img.shields.io/packagist/dt/alibabacloud/client.svg?style=flat)](https://packagist.org/packages/alibabacloud/client)
 [![Build Status](https://travis-ci.org/aliyun/openapi-sdk-php-client.svg?branch=master)](https://travis-ci.org/aliyun/openapi-sdk-php-client)
 [![codecov](https://codecov.io/gh/aliyun/openapi-sdk-php-client/branch/master/graph/badge.svg)](https://codecov.io/gh/aliyun/openapi-sdk-php-client)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 [![Apache 2 License](https://img.shields.io/packagist/l/alibabacloud/client.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 ![](./src/Files/Aliyun.svg)

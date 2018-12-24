@@ -3,7 +3,7 @@ Upgrading Guide
 
 
 
-Upgrade from Original SDK
+No version update
 -----------------------
 
-* Initial release of the Alibaba Cloud SDK for PHP Version 1.0.0 on Packagist See <https://github.com/aliyun/openapi-sdk-php-client> for more information.
+* There is no new version. See <https://github.com/aliyun/openapi-sdk-php-client> for more information.

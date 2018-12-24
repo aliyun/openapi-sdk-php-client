@@ -86,11 +86,5 @@
         "optimize-autoloader": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "scripts": {
-        "post-autoload-dump": [
-            "AlibabaCloud\\Client\\Regions\\EndpointProvider::updateEndpointsFromJson",
-            "./php-cs-fixer fix ./"
-        ]
-    }
+    "prefer-stable": true
 }

@@ -6,6 +6,7 @@ php:
     - 7.0
     - 7.1
     - 7.2
+    - 7.3
     - hhvm
     - nightly
 env:
@@ -14,7 +15,7 @@ env:
 
 matrix:
     allow_failures:
-        -   php: 7.2
+        -   php: 7.3
         -   php: hhvm
         -   php: nightly
     fast_finish: true
@@ -32,4 +33,4 @@ script:
     - make test
 
 after_success:
-    - 'if [ $(phpenv version-name) == "7.1" ]; then bash <(curl -s https://codecov.io/bash); fi'
+    - bash <(curl -s https://codecov.io/bash)
