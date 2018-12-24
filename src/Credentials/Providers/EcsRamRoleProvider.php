@@ -15,18 +15,17 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Credentials\Providers;
 
-use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
@@ -37,64 +36,60 @@ use GuzzleHttp\Exception\GuzzleException;
 /**
  * Class EcsRamRoleProvider
  *
- * @package AlibabaCloud\Client\Credentials\Providers
+ * @package   AlibabaCloud\Client\Credentials\Providers
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
-class EcsRamRoleProvider
+class EcsRamRoleProvider extends Provider
 {
-    use ProviderTrait;
 
     /**
      * @return StsCredential
      * @throws ClientException
      * @throws ServerException
      */
-    public function getSessionCredential()
+    public function get()
     {
-        /**
-         * @var EcsRamRoleCredential $credential
-         */
-        $credential = $this->client->getCredential();
-        $result     = $this->getCredentialsInCache($credential);
+        $result = $this->getCredentialsInCache();
         if ($result === null) {
-            $result = $this->getCredentialsFromMeta($credential);
-            $this->cache($credential, $result);
+            $result = $this->getCredentialsFromMeta();
+            $this->cache($result);
         }
-        return new StsCredential($result['AccessKeyId'], $result['AccessKeySecret'], $result['SecurityToken']);
+        return new StsCredential(
+            $result['AccessKeyId'],
+            $result['AccessKeySecret'],
+            $result['SecurityToken']
+        );
     }
 
     /**
-     * @param EcsRamRoleCredential $credential
-     *
      * @return Result
      * @throws ClientException
      * @throws ServerException
      */
-    private function getCredentialsFromMeta(EcsRamRoleCredential $credential)
+    private function getCredentialsFromMeta()
     {
         $url = 'http://100.100.100.200/latest/meta-data/ram/security-credentials/'
-               . $credential->getRoleName();
+               . $this->client->getCredential()->getRoleName();
+
+        $options = [
+            'http_errors'     => false,
+            'timeout'         => 1,
+            'connect_timeout' => 1,
+            'debug'           => $this->client->isDebug(),
+        ];
 
         try {
-            $response = (new Client())->request(
-                'GET',
-                $url,
-                [
-                    'http_errors'     => false,
-                    'timeout'         => 0.1,
-                    'connect_timeout' => 0.1,
-                    'debug'           => $this->client->isDebug(),
-                ]
-            );
-            $result   = new Result($response);
+            $response = (new Client())->request('GET', $url, $options);
         } catch (GuzzleException $e) {
             throw new ClientException($e->getMessage(), \ALI_SERVER_UNREACHABLE, $e);
         }
+
+        $result = new Result($response);
         if (!$result->isSuccess()) {
             throw new ServerException(
                 $result,
@@ -108,15 +103,5 @@ class EcsRamRoleProvider
         }
 
         return $result;
-    }
-
-    /**
-     * @param EcsRamRoleCredential $credential
-     *
-     * @return string
-     */
-    protected function key(EcsRamRoleCredential $credential)
-    {
-        return 'EcsRamRole#' . $credential->getRoleName();
     }
 }

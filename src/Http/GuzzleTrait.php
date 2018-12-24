@@ -24,16 +24,19 @@
 
 namespace AlibabaCloud\Client\Http;
 
+use AlibabaCloud\Client\Clients\Client;
+
 /**
  * Class GuzzleTrait
  *
- * @package AlibabaCloud\Client\Http
+ * @package   AlibabaCloud\Client\Http
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
+ * @mixin     Client
  */
 trait GuzzleTrait
 {

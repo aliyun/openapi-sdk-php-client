@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Tests\Mock\Services\Vpc;
@@ -31,13 +31,13 @@ use AlibabaCloud\Client\Request\RpcRequest;
 /**
  * Class DescribeVpcsRequest
  *
- * @package AlibabaCloud\Client\Tests\Mock\Services\Vpc
+ * @package   AlibabaCloud\Client\Tests\Mock\Services\Vpc
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class DescribeVpcsRequest extends RpcRequest
 {

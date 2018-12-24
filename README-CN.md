@@ -5,9 +5,10 @@ Alibaba Cloud Client for PHP
 
 
 [![Total Downloads](https://img.shields.io/packagist/dt/alibabacloud/client.svg?style=flat)](https://packagist.org/packages/alibabacloud/client)
-[![Build Status](https://travis-ci.org/aliyun/openapi-sdk-php-client.svg?branch=master)](https://travis-ci.org/aliyun/openapi-sdk-php-client)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client/badges/quality-score.png)](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client)
+[![Build Status](https://travis-ci.org/aliyun/openapi-sdk-php-client.svg)](https://travis-ci.org/aliyun/openapi-sdk-php-client)
 [![codecov](https://codecov.io/gh/aliyun/openapi-sdk-php-client/branch/master/graph/badge.svg)](https://codecov.io/gh/aliyun/openapi-sdk-php-client)
-[![Code Intelligence Status](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client/badges/code-intelligence.svg)](https://scrutinizer-ci.com/code-intelligence)
 [![Apache 2 License](https://img.shields.io/packagist/l/alibabacloud/client.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 ![](./src/Files/Aliyun.svg)
@@ -272,8 +273,8 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
                                      ->locationServiceCode('cs') // 设置 ServiceCode 以备寻址，非必须
                                      ->locationEndpointType('openAPI') // 设置类型，非必须
                                      ->method('GET') // 指定请求方式
-                                     ->domain('cs.aliyun.com') // 指定域名则不会启用寻址服务，如认证方式为 Bearer Token 的服务需要指定
-                                     ->uriPattern('/clusters/[ClusterId]/services') // 指定ROA风格路径规则
+                                     ->host('cs.aliyun.com') // 指定域名则不会启用寻址服务，如认证方式为 Bearer Token 的服务需要指定
+                                     ->pathPattern('/clusters/[ClusterId]/services') // 指定ROA风格路径规则
                                      ->connectTimeout(0.1) // 设置连接超时10毫秒，当单位小于1，则自动转换为毫秒
                                      ->timeout(0.1) // 设置超时10毫秒，当单位小于1，则自动转换为毫秒
                                      ->debug(true) // 开启调试，CLI下会输出详细信息
@@ -426,7 +427,7 @@ use AlibabaCloud\Client\Request\RpcRequest;
 $request = (new RpcRequest())->product('Sts')
                              ->version('2015-04-01')
                              ->action('GenerateSessionAccessKey')
-                             ->domain('sts.ap-northeast-1.aliyuncs.com') // 指定域名
+                             ->host('sts.ap-northeast-1.aliyuncs.com') // 指定域名
                              ->request();
 ```
 

@@ -15,34 +15,32 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Result;
 
+use JmesPath\Env as JmesPath;
+
 /**
- * Trait implementing ToArrayInterface, \ArrayAccess, \Countable, and
- * \IteratorAggregate
+ * Class HasDataTrait
  *
- * @package AlibabaCloud\Client\Result
+ * @package   AlibabaCloud\Client\Result
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 trait HasDataTrait
 {
-
-    /** @var array */
-    private $data = [];
 
     /**
      * @return \ArrayIterator
@@ -53,63 +51,40 @@ trait HasDataTrait
     }
 
     /**
-     * This method returns a reference to the variable to allow for indirect
-     * array modification (e.g., $foo['bar']['baz'] = 'qux').
-     *
-     * @param string $offset
-     *
-     * @return mixed|null
-     */
-    public function & offsetGet($offset)
-    {
-        if (isset($this->data[$offset])) {
-            return $this->data[$offset];
-        }
-
-        $value = null;
-        return $value;
-    }
-
-    /**
-     * @param string       $offset
-     * @param string|mixed $value
-     */
-    public function offsetSet($offset, $value)
-    {
-        $this->data[$offset] = $value;
-    }
-
-    /**
-     * @param string $offset
-     *
-     * @return bool
-     */
-    public function offsetExists($offset)
-    {
-        return isset($this->data[$offset]);
-    }
-
-    /**
-     * @param string $offset
-     */
-    public function offsetUnset($offset)
-    {
-        unset($this->data[$offset]);
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return $this->data;
-    }
-
-    /**
      * @return int
      */
     public function count()
     {
         return count($this->data);
+    }
+
+    /**
+     * @param string $expression
+     *
+     * @return mixed|null
+     */
+    public function search($expression)
+    {
+        return JmesPath::search($expression, $this->toArray());
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasKey($name)
+    {
+        return isset($this->data[$name]);
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return mixed|null
+     */
+    public function get($key)
+    {
+        return $this[$key];
     }
 }
