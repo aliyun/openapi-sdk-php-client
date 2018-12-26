@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Request\Traits;
@@ -29,18 +29,16 @@ namespace AlibabaCloud\Client\Request\Traits;
 use AlibabaCloud\Client\Request\Request;
 
 /**
- * @todo      Old methods point to new data structures, but they will be discarded in the future.
  * @deprecated
- * @package AlibabaCloud\Client\Request\Traits
+ * @package   AlibabaCloud\Client\Request\Traits
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
  * @mixin     Request
- * @codeCoverageIgnore
  */
 trait DeprecatedTrait
 {
@@ -94,20 +92,20 @@ trait DeprecatedTrait
      */
     public function getProtocol()
     {
-        return $this->protocol;
+        return $this->uriComponents->getScheme();
     }
 
     /**
-     * @deprecated  Use self::protocol instead.
+     * @deprecated  Use scheme() instead.
      * @codeCoverageIgnore
      *
-     * @param string $protocol
+     * @param string $scheme
      *
      * @return Request
      */
-    public function setProtocol($protocol)
+    public function setProtocol($scheme)
     {
-        return $this->protocol($protocol);
+        return $this->scheme($scheme);
     }
 
     /**
@@ -116,19 +114,19 @@ trait DeprecatedTrait
      */
     public function getProtocolType()
     {
-        return $this->protocol;
+        return $this->uriComponents->getScheme();
     }
 
     /**
-     * @deprecated
+     * @deprecated  Use scheme() instead.
      *
-     * @param string $protocol
+     * @param string $scheme
      *
      * @return DeprecatedTrait
      */
-    public function setProtocolType($protocol)
+    public function setProtocolType($scheme)
     {
-        return $this->protocol($protocol);
+        return $this->scheme($scheme);
     }
 
     /**

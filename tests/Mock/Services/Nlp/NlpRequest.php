@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Tests\Mock\Services\Nlp;
@@ -31,13 +31,13 @@ use AlibabaCloud\Client\Request\RoaRequest;
 /**
  * Class NlpRequest
  *
- * @package AlibabaCloud\Client\Tests\Mock\Services\Vpc
+ * @package   AlibabaCloud\Client\Tests\Mock\Services\Vpc
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class NlpRequest extends RoaRequest
 {
@@ -50,7 +50,7 @@ class NlpRequest extends RoaRequest
     public function __construct(array $options = [])
     {
         parent::__construct($options);
-        $this->uriPattern('/nlp/api/wordsegment/general');
+        $this->pathPattern('/nlp/api/wordsegment/general');
         $this->method('POST');
         $this->product('Nlp');
         $this->version('2018-04-08');

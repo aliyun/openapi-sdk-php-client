@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Tests\Framework;
@@ -35,21 +35,20 @@ use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeRegionsRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RequestCompatibilityTest
+ * Test the compatibility of the new SDK with the old SDK.
  *
- * @package AlibabaCloud\Client\Tests\Framework
+ * @package   AlibabaCloud\Client\Tests\Framework
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class RequestCompatibilityTest extends TestCase
 {
     public function testGetAcsResponse()
     {
-
         // Setup
         $regionId = 'cn-hangzhou';
         $key      = \getenv('ACCESS_KEY_ID');
@@ -111,6 +110,9 @@ class RequestCompatibilityTest extends TestCase
         }
     }
 
+    /**
+     * Clear sharing settings.
+     */
     public function tearDown()
     {
         parent::tearDown();

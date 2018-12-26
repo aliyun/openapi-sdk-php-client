@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Credentials;
@@ -32,13 +32,13 @@ use Exception;
 /**
  * Use the RSA key pair to complete the authentication (supported only on Japanese site)
  *
- * @package AlibabaCloud\Client\Credentials
+ * @package   AlibabaCloud\Client\Credentials
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/aliyun-openapi-php-sdk
+ * @link      https://github.com/aliyun/aliyun-openapi-php-sdk
  */
 class RsaKeyPairCredential implements CredentialsInterface
 {
@@ -84,5 +84,13 @@ class RsaKeyPairCredential implements CredentialsInterface
     public function getPublicKeyId()
     {
         return $this->publicKeyId;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return "publicKeyId#$this->publicKeyId";
     }
 }

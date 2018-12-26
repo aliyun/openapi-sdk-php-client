@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Credentials;
@@ -29,13 +29,13 @@ namespace AlibabaCloud\Client\Credentials;
 /**
  * Use the STS Token to complete the authentication.
  *
- * @package AlibabaCloud\Client\Credentials
+ * @package   AlibabaCloud\Client\Credentials
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/aliyun-openapi-php-sdk
+ * @link      https://github.com/aliyun/aliyun-openapi-php-sdk
  */
 class StsCredential implements CredentialsInterface
 {
@@ -43,17 +43,17 @@ class StsCredential implements CredentialsInterface
     /**
      * @var string
      */
-    public $accessKeyId;
+    private $accessKeyId;
 
     /**
      * @var string
      */
-    public $accessKeySecret;
+    private $accessKeySecret;
 
     /**
      * @var string
      */
-    public $securityToken;
+    private $securityToken;
 
     /**
      * StsCredential constructor.
@@ -91,5 +91,13 @@ class StsCredential implements CredentialsInterface
     public function getSecurityToken()
     {
         return $this->securityToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return "$this->accessKeyId#$this->accessKeySecret#$this->securityToken";
     }
 }

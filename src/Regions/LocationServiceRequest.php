@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Regions;
@@ -33,13 +33,13 @@ use AlibabaCloud\Client\Request\RpcRequest;
 /**
  * LocationServiceRequest
  *
- * @package AlibabaCloud\Client\Credentials\Providers
+ * @package   AlibabaCloud\Client\Credentials\Providers
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class LocationServiceRequest extends RpcRequest
 {
@@ -54,6 +54,7 @@ class LocationServiceRequest extends RpcRequest
      */
     public function __construct(Request $request, $domain)
     {
+        parent::__construct();
         $this->product('Location');
         $this->version('2015-06-12');
         $this->action('DescribeEndpoints');
@@ -63,7 +64,7 @@ class LocationServiceRequest extends RpcRequest
         $this->options['query']['ServiceCode'] = $request->locationServiceCode;
         $this->options['query']['Type']        = $request->locationEndpointType;
         $this->client($request->clientName);
-        $this->domain($domain);
+        $this->host($domain);
         if (isset($request->options['timeout'])) {
             $this->timeout($request->options['timeout']);
         }
@@ -71,6 +72,5 @@ class LocationServiceRequest extends RpcRequest
         if (isset($request->options['connect_timeout'])) {
             $this->connectTimeout($request->options['connect_timeout']);
         }
-        parent::__construct();
     }
 }

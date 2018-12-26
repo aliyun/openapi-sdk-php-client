@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Regions;
@@ -31,13 +31,13 @@ use AlibabaCloud\Client\Config\Config;
 /**
  * Class EndpointProvider
  *
- * @package AlibabaCloud\Client\Regions
+ * @package   AlibabaCloud\Client\Regions
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class EndpointProvider
 {
@@ -51,7 +51,7 @@ class EndpointProvider
      * @param string $regionId
      * @param string $product
      *
-     * @return string|null
+     * @return string
      */
     public static function findProductDomain($regionId, $product)
     {
@@ -62,7 +62,7 @@ class EndpointProvider
         if ($domain) {
             return $domain;
         }
-        return null;
+        return '';
     }
 
     /**
@@ -76,25 +76,5 @@ class EndpointProvider
     {
         self::$endpoints[$product][$regionId] = $domain;
         LocationService::addEndPoint($regionId, $product, $domain);
-    }
-
-    /**
-     * @codeCoverageIgnore
-     * @return bool
-     */
-    public static function updateEndpointsFromJson()
-    {
-        $ossUrl = 'https://openapi-endpoints.oss-cn-hangzhou.aliyuncs.com/endpoints.json';
-        $json   = \file_get_contents($ossUrl);
-        $list   = \json_decode($json, true);
-
-        foreach ($list['endpoints'] as $endpoint) {
-            Config::set(
-                "endpoints.{$endpoint['service']}.{$endpoint['regionid']}",
-                \strtolower($endpoint['endpoint'])
-            );
-        }
-
-        return true;
     }
 }

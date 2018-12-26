@@ -15,16 +15,15 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
-use AlibabaCloud\Client\AlibabaCloud;
 use Symfony\Component\Dotenv\Dotenv;
 
 /*
@@ -67,13 +66,7 @@ $env = __DIR__ . '/../.env';
 if (is_readable($env)) {
     $dotenv = new Dotenv();
     $dotenv->load($env);
-} else {
-    AlibabaCloud::accessKeyClient('key', 'secret')
-                ->asGlobalClient()
-                ->timeout(4)
-                ->connectTimeout(4);
 }
-AlibabaCloud::setGlobalRegionId('cn-hangzhou');
 
 /*
 |--------------------------------------------------------------------------
@@ -97,4 +90,29 @@ if (!getenv('ROLE_SESSION_NAME')) {
 }
 if (!getenv('ECS_ROLE_NAME')) {
     putenv('ECS_ROLE_NAME=ecs_role_name');
+}
+
+if (!getenv('NLP_ACCESS_KEY_ID')) {
+    putenv('NLP_ACCESS_KEY_ID=foo');
+}
+if (!getenv('NLP_ACCESS_KEY_SECRET')) {
+    putenv('NLP_ACCESS_KEY_SECRET=bar');
+}
+
+if (!getenv('JP_ACCESS_KEY_ID')) {
+    putenv('JP_ACCESS_KEY_ID=foo');
+}
+if (!getenv('JP_ACCESS_KEY_SECRET')) {
+    putenv('JP_ACCESS_KEY_SECRET=bar');
+}
+
+if (!getenv('BEARER_TOKEN')) {
+    putenv('BEARER_TOKEN=token');
+}
+if (!getenv('CCC_INSTANCE_ID')) {
+    putenv('CCC_INSTANCE_ID=ID');
+}
+
+if (!getenv('PUBLIC_KEY_ID')) {
+    putenv('PUBLIC_KEY_ID=public_key_id');
 }

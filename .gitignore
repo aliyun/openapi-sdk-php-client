@@ -7,5 +7,6 @@
 !.idea/icon.png
 !.idea/icon_dark.png
 *.pem
-/build/
+/build/coverage
+/build/coverage.clover
 /.php_cs.cache

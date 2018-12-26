@@ -15,49 +15,50 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Request;
 
-use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Http\GuzzleTrait;
-use AlibabaCloud\Client\Regions\EndpointProvider;
-use AlibabaCloud\Client\Regions\LocationService;
+use AlibabaCloud\Client\Request\Traits\AcsTrait;
 use AlibabaCloud\Client\Request\Traits\ClientTrait;
 use AlibabaCloud\Client\Request\Traits\DeprecatedTrait;
 use AlibabaCloud\Client\Request\Traits\MagicTrait;
 use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Uri;
 
 /**
  * Class Request
  *
- * @package AlibabaCloud\Client\Request
+ * @package   AlibabaCloud\Client\Request
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
- * @method string preparationParameters($credential)
+ * @method string resolveParameters($credential)
  */
 abstract class Request
 {
-    use DeprecatedTrait;
+    use /** @scrutinizer ignore-deprecated */
+        DeprecatedTrait;
     use GuzzleTrait;
     use MagicTrait;
     use ClientTrait;
+    use AcsTrait;
 
     /**
      * @var string
@@ -66,89 +67,59 @@ abstract class Request
     /**
      * @var string
      */
+    public $format = 'JSON';
+    /**
+     * @var string
+     */
     public $clientName = \ALIBABA_CLOUD_GLOBAL_CLIENT;
-    /**
-     * @var string
-     */
-    public $domain;
-    /**
-     * @var string
-     */
-    public $protocol = 'http';
     /**
      * @var string
      */
     public $uri;
     /**
-     * @var string
+     * @var Uri
      */
-    public $version;
+    public $uriComponents;
     /**
-     * @var string
+     * @var Client
      */
-    public $product;
-    /**
-     * @var string
-     */
-    public $action;
-    /**
-     * @var string
-     */
-    public $format;
-    /**
-     * @var string
-     */
-    public $locationServiceCode;
-    /**
-     * @var string
-     */
-    public $locationEndpointType;
+    public $guzzleClient;
 
     /**
-     * @param string $action
+     * Request constructor.
      *
-     * @return Request
+     * @param array $options
      */
-    public function action($action)
+    public function __construct(array $options = [])
     {
-        $this->action = $action;
-        return $this;
+        $this->uriComponents                    = new Uri();
+        $this->uriComponents                    = $this->uriComponents->withScheme('http');
+        $this->guzzleClient                     = new Client();
+        $this->options['http_errors']           = false;
+        $this->options['timeout']               = ALIBABA_CLOUD_TIMEOUT;
+        $this->options['connect_timeout']       = ALIBABA_CLOUD_CONNECT_TIMEOUT;
+        $this->options['headers']['User-Agent'] = $this->userAgent();
+        if ($options !== []) {
+            $this->options($options);
+        }
     }
 
     /**
-     * @param string $version
+     * Set the response data format.
      *
-     * @return Request
-     */
-    public function version($version)
-    {
-        $this->version = $version;
-        return $this;
-    }
-
-    /**
      * @param string $format
      *
      * @return Request
      */
     public function format($format)
     {
-        $this->format = $format;
+        $this->format = \strtoupper($format);
         return $this;
     }
 
     /**
-     * @param string $product
+     * Set the request body.
      *
-     * @return Request
-     */
-    public function product($product)
-    {
-        $this->product = $product;
-        return $this;
-    }
-
-    /**
      * @param string $content
      *
      * @return $this
@@ -160,40 +131,28 @@ abstract class Request
     }
 
     /**
-     * Request constructor.
+     * Set the request scheme.
      *
-     * @param array $options
-     */
-    public function __construct(array $options = [])
-    {
-        $this->options['http_errors']           = false;
-        $this->options['timeout']               = ALIBABA_CLOUD_TIMEOUT;
-        $this->options['connect_timeout']       = ALIBABA_CLOUD_CONNECT_TIMEOUT;
-        $this->options['headers']['User-Agent'] = $this->userAgent();
-        if ($options !== []) {
-            $this->options($options);
-        }
-    }
-
-    /**
-     * @param string $protocol
+     * @param string $scheme
      *
      * @return $this
      */
-    public function protocol($protocol)
+    public function scheme($scheme)
     {
-        $this->protocol = $protocol;
+        $this->uriComponents = $this->uriComponents->withScheme($scheme);
         return $this;
     }
 
     /**
-     * @param string $domain
+     * Set the request host.
+     *
+     * @param string $host
      *
      * @return Request
      */
-    public function domain($domain)
+    public function host($host)
     {
-        $this->domain = $domain;
+        $this->uriComponents = $this->uriComponents->withHost($host);
         return $this;
     }
 
@@ -204,7 +163,7 @@ abstract class Request
      */
     public function method($method)
     {
-        $this->method = $method;
+        $this->method = \strtoupper($method);
         return $this;
     }
 
@@ -217,117 +176,6 @@ abstract class Request
     {
         $this->clientName = $clientName;
         return $this;
-    }
-
-    /**
-     * @param string $locationEndpointType
-     *
-     * @return Request
-     */
-    public function locationEndpointType($locationEndpointType)
-    {
-        $this->locationEndpointType = $locationEndpointType;
-        return $this;
-    }
-
-    /**
-     * @param string $locationServiceCode
-     *
-     * @return Request
-     */
-    public function locationServiceCode($locationServiceCode)
-    {
-        $this->locationServiceCode = $locationServiceCode;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    private function userAgent()
-    {
-        $array = [
-            'alibabacloud' => null,
-            'sdk-php'      => \ALIBABA_CLOUD_SDK_VERSION,
-            \PHP_OS        => php_uname('r'),
-            'PHP'          => \PHP_VERSION,
-            'zend_version' => zend_version(),
-            'GuzzleHttp'   => \GuzzleHttp\Client::VERSION,
-            'curl_version' => \curl_version()['version'],
-        ];
-
-        $new = [];
-        foreach ($array as $key => $value) {
-            if ($value === null) {
-                $new[] = $key;
-                continue;
-            }
-            $new[] = $key . '=' . $value;
-        }
-        return \implode(';', $new);
-    }
-
-    /**
-     * @return Result
-     * @throws ClientException
-     * @throws ServerException
-     */
-    public function request()
-    {
-        try {
-            if (!$this->domain) {
-                $this->domain = EndpointProvider::findProductDomain(
-                    $this->realRegionId(),
-                    $this->product
-                );
-            }
-
-            /**----------------------------------------------------------------
-             *   Get the domain by specified `ServiceCode` and `RegionId`.
-             *---------------------------------------------------------------*/
-            if (!$this->domain && $this->locationServiceCode) {
-                $this->domain = LocationService::findProductDomain($this);
-            }
-
-            $this->preparationParameters($this->credential());
-
-            if (isset($this->options['form_params'])) {
-                $this->options['form_params'] =
-                    \GuzzleHttp\Psr7\parse_query(self::getPostHttpBody($this->options['form_params']));
-                if (!\is_array($this->options['form_params']) || empty($this->options['form_params'])) {
-                    unset($this->options['form_params']);
-                }
-            }
-            $this->mergeOptionsIntoClient();
-            $response = (new Client())->request($this->method, $this->uri, $this->options);
-            $result   = new Result($response, $this);
-        } catch (GuzzleException $e) {
-            throw new ClientException($e->getMessage(), \ALI_SERVER_UNREACHABLE, $e);
-        }
-
-        if (!$result->isSuccess()) {
-            throw new ServerException($result);
-        }
-
-        return $result;
-    }
-
-    /**
-     * @return string
-     * @throws ClientException
-     */
-    public function realRegionId()
-    {
-        if ($this->regionId !== null) {
-            return $this->regionId;
-        }
-        if ($this->httpClient()->regionId !== null) {
-            return $this->httpClient()->regionId;
-        }
-        if (AlibabaCloud::getGlobalRegionId() !== null) {
-            return AlibabaCloud::getGlobalRegionId();
-        }
-        throw new ClientException("Missing required 'RegionId' for Request", \ALI_INVALID_REGION_ID);
     }
 
     /**
@@ -344,5 +192,34 @@ abstract class Request
             return $this->httpClient()->options['debug'] === true && PHP_SAPI === 'cli';
         }
         return false;
+    }
+
+    /**
+     * @return Result
+     * @throws ClientException
+     * @throws ServerException
+     */
+    public function request()
+    {
+        try {
+            $this->resolveHost();
+            $this->resolveParameters($this->credential());
+            if (isset($this->options['form_params'])) {
+                $this->options['form_params'] = \GuzzleHttp\Psr7\parse_query(
+                    self::getPostHttpBody($this->options['form_params'])
+                );
+            }
+            $this->mergeOptionsIntoClient();
+            $response = $this->guzzleClient->request($this->method, $this->uri, $this->options);
+            $result   = new Result($response, $this);
+        } catch (GuzzleException $e) {
+            throw new ClientException($e->getMessage(), \ALI_SERVER_UNREACHABLE, $e);
+        }
+
+        if (!$result->isSuccess()) {
+            throw new ServerException($result);
+        }
+
+        return $result;
     }
 }

@@ -15,13 +15,13 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Credentials;
@@ -29,13 +29,13 @@ namespace AlibabaCloud\Client\Credentials;
 /**
  * Class BearerTokenCredential
  *
- * @package AlibabaCloud\Client\Credentials
+ * @package   AlibabaCloud\Client\Credentials
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class BearerTokenCredential implements CredentialsInterface
 {
@@ -43,7 +43,7 @@ class BearerTokenCredential implements CredentialsInterface
     /**
      * @var string
      */
-    public $bearerToken;
+    private $bearerToken;
 
     /**
      * Class constructor.
@@ -77,5 +77,13 @@ class BearerTokenCredential implements CredentialsInterface
     public function getAccessKeySecret()
     {
         return '';
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return "bearerToken#$this->bearerToken";
     }
 }

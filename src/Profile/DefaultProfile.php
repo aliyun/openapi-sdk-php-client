@@ -15,18 +15,19 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Profile;
 
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Clients\Client;
 
 /**
  * Class DefaultProfile
@@ -48,7 +49,7 @@ class DefaultProfile
      * @param string $accessKeyId
      * @param string $accessKeySecret
      *
-     * @return AlibabaCloud
+     * @return Client
      */
     public static function getProfile($regionId, $accessKeyId, $accessKeySecret)
     {
@@ -63,7 +64,7 @@ class DefaultProfile
      * @param string $roleArn
      * @param string $roleSessionName
      *
-     * @return AlibabaCloud
+     * @return Client
      */
     public static function getRamRoleArnProfile($regionId, $accessKeyId, $accessKeySecret, $roleArn, $roleSessionName)
     {
@@ -75,7 +76,7 @@ class DefaultProfile
      * @param string $regionId
      * @param string $roleName
      *
-     * @return AlibabaCloud
+     * @return Client
      */
     public static function getEcsRamRoleProfile($regionId, $roleName)
     {
@@ -87,7 +88,7 @@ class DefaultProfile
      * @param string $regionId
      * @param string $bearerToken
      *
-     * @return AlibabaCloud
+     * @return Client
      */
     public static function getBearerTokenProfile($regionId, $bearerToken)
     {

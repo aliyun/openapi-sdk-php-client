@@ -15,19 +15,20 @@
  *
  * PHP version 5
  *
- * @category AlibabaCloud
+ * @category  AlibabaCloud
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Credentials\Providers;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
+use AlibabaCloud\Client\Credentials\Requests\AssumeRoleRequest;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
@@ -35,64 +36,55 @@ use AlibabaCloud\Client\Exception\ServerException;
 /**
  * Class RamRoleArnProvider
  *
- * @package AlibabaCloud\Client\Credentials\Providers
+ * @package   AlibabaCloud\Client\Credentials\Providers
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
-class RamRoleArnProvider
+class RamRoleArnProvider extends Provider
 {
-    use ProviderTrait;
 
     /**
+     * @param int $timeout
+     *
      * @return StsCredential
      * @throws ClientException
      * @throws ServerException
      */
-    public function getSessionCredential()
+    public function get($timeout = \ALIBABA_CLOUD_TIMEOUT)
     {
         /**
          * @var RamRoleArnCredential $credential
          */
-        $credential     = $this->client->getCredential();
-        $trueCredential = $this->getCredentialsInCache($credential);
+        $trueCredential = $this->getCredentialsInCache();
 
         if (null === $trueCredential) {
             $clientName = __CLASS__ . \uniqid('ak', true);
             AlibabaCloud::accessKeyClient(
-                $credential->getAccessKeyId(),
-                $credential->getAccessKeySecret()
+                $this->client->getCredential()->getAccessKeyId(),
+                $this->client->getCredential()->getAccessKeySecret()
             )->name($clientName);
 
-            $result = (new AssumeRoleRequest($credential, $this->timeout))
+            $result = (new AssumeRoleRequest($this->client->getCredential()))
+                ->timeout($timeout)
+                ->connectTimeout($timeout)
                 ->client($clientName)
                 ->debug($this->client->isDebug())
                 ->request();
-
             if (!$result->hasKey('Credentials')) {
                 throw new ClientException('Result contains no credentials', \ALI_INVALID_CREDENTIAL);
             }
             $trueCredential = $result['Credentials'];
 
-            $this->cache($credential, $trueCredential);
+            $this->cache($trueCredential);
         }
         return new StsCredential(
             $trueCredential['AccessKeyId'],
             $trueCredential['AccessKeySecret'],
             $trueCredential['SecurityToken']
         );
-    }
-
-    /**
-     * @param RamRoleArnCredential $credential
-     *
-     * @return string
-     */
-    protected function key(RamRoleArnCredential $credential)
-    {
-        return $credential->getRoleArn() . '#' . $credential->getRoleSessionName();
     }
 }
