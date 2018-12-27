@@ -39,7 +39,7 @@ use AlibabaCloud\Client\Request\Request;
  *
  * @link      https://github.com/aliyun/aliyun-openapi-php-sdk
  *
- * @mixin     Request
+ * @mixin Request
  */
 trait MagicTrait
 {

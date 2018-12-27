@@ -36,13 +36,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class RpcRequestTest
  *
- * @package      AlibabaCloud\Client\Tests\Unit\Request
+ * @package   AlibabaCloud\Client\Tests\Unit\Request
  *
- * @author       Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright    Alibaba Group
- * @license      http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright Alibaba Group
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link         https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
  * @coversDefaultClass \AlibabaCloud\Client\Request\RpcRequest
  */
@@ -53,7 +53,7 @@ class RpcRequestTest extends TestCase
      * @param $value
      * @param $expected
      *
-     * @throws \ReflectionException
+     * @throws       \ReflectionException
      * @dataProvider booleanValueToString
      */
     public function testBuildCanonicalHeaders($value, $expected)
@@ -92,7 +92,7 @@ class RpcRequestTest extends TestCase
     /**
      * @param CredentialsInterface $credential
      *
-     * @throws \ReflectionException
+     * @throws       \ReflectionException
      * @dataProvider resolveQuery
      */
     public function testResolveQuery($credential)
@@ -102,11 +102,13 @@ class RpcRequestTest extends TestCase
         $request = new  RpcRequest();
         $request->client('token');
         $request->regionId('cn-hangzhou');
-        $request->options([
-                              'query' => [
-                                  'A' => 'A',
-                              ],
-                          ]);
+        $request->options(
+            [
+                'query' => [
+                    'A' => 'A',
+                ],
+            ]
+        );
 
         // Test
         $method = new \ReflectionMethod(
@@ -139,7 +141,7 @@ class RpcRequestTest extends TestCase
     /**
      * @param CredentialsInterface $credential
      *
-     * @throws \ReflectionException
+     * @throws       \ReflectionException
      * @dataProvider resolveQuery
      */
     public function testResolveParameters($credential)
@@ -150,11 +152,13 @@ class RpcRequestTest extends TestCase
         $request->client('token');
         $request->regionId('cn-hangzhou');
         $request->method('post');
-        $request->options([
-                              'query' => [
-                                  'A' => 'A',
-                              ],
-                          ]);
+        $request->options(
+            [
+                'query' => [
+                    'A' => 'A',
+                ],
+            ]
+        );
 
         // Test
         $method = new \ReflectionMethod(
@@ -173,7 +177,7 @@ class RpcRequestTest extends TestCase
      * @param $value
      * @param $expected
      *
-     * @throws \ReflectionException
+     * @throws       \ReflectionException
      * @dataProvider percentEncode
      */
     public function testPercentEncode($value, $expected)
@@ -216,7 +220,7 @@ class RpcRequestTest extends TestCase
      * @param $accessKeySecret
      * @param $expected
      *
-     * @throws \ReflectionException
+     * @throws       \ReflectionException
      * @dataProvider computeSignature
      */
     public function testComputeSignature($parameters, $accessKeySecret, $expected)

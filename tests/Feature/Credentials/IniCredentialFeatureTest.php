@@ -74,8 +74,8 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage       Format error: vfs://AlibabaCloud/credentials
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Format error: vfs://AlibabaCloud/credentials
      */
     public function testBadFormat()
     {
@@ -93,8 +93,8 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage       Credential file is not readable: /root/AlibabaCloud/NoneFile
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Credential file is not readable: /root/AlibabaCloud/NoneFile
      */
     public function testLoadDirectory()
     {
@@ -111,9 +111,9 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionCode          0
-     * @expectedExceptionMessage       Missing required 'type' option for 'phpunit'
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionCode    0
+     * @expectedExceptionMessage Missing required 'type' option for 'phpunit'
      */
     public function testNoType()
     {
@@ -121,9 +121,9 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionCode          0
-     * @expectedExceptionMessage       Invalid type 'invalidType' for 'phpunit'
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionCode    0
+     * @expectedExceptionMessage Invalid type 'invalidType' for 'phpunit'
      */
     public function testInvalidType()
     {
@@ -131,9 +131,9 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionCode          0
-     * @expectedExceptionMessage       Missing required 'access_key_id' option for 'phpunit'
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionCode    0
+     * @expectedExceptionMessage Missing required 'access_key_id' option for 'phpunit'
      */
     public function testNoKey()
     {
@@ -141,9 +141,9 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionCode          0
-     * @expectedExceptionMessage       Missing required 'access_key_secret' option for 'phpunit'
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionCode    0
+     * @expectedExceptionMessage Missing required 'access_key_secret' option for 'phpunit'
      */
     public function testNoSecret()
     {
@@ -160,9 +160,9 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionCode          0
-     * @expectedExceptionMessage       Missing required 'role_name' option for 'phpunit'
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionCode    0
+     * @expectedExceptionMessage Missing required 'role_name' option for 'phpunit'
      */
     public function testEcsRamRoleClientNoRoleName()
     {
@@ -179,9 +179,9 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionCode          0
-     * @expectedExceptionMessage       Missing required 'access_key_id' option for 'phpunit'
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionCode    0
+     * @expectedExceptionMessage Missing required 'access_key_id' option for 'phpunit'
      */
     public function testRamRoleArnClientNoKey()
     {
@@ -189,9 +189,9 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionCode          0
-     * @expectedExceptionMessage       Missing required 'access_key_secret' option for 'phpunit'
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionCode    0
+     * @expectedExceptionMessage Missing required 'access_key_secret' option for 'phpunit'
      */
     public function testRamRoleArnClientNoSecret()
     {
@@ -199,9 +199,9 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionCode          0
-     * @expectedExceptionMessage       Missing required 'role_arn' option for 'phpunit'
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionCode    0
+     * @expectedExceptionMessage Missing required 'role_arn' option for 'phpunit'
      */
     public function testRamRoleArnClientNoRoleArn()
     {
@@ -209,9 +209,9 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionCode          0
-     * @expectedExceptionMessage       Missing required 'role_session_name' option for 'phpunit'
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionCode    0
+     * @expectedExceptionMessage Missing required 'role_session_name' option for 'phpunit'
      */
     public function testRamRoleArnClientNoRoleSessionName()
     {
@@ -228,9 +228,9 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionCode          0
-     * @expectedExceptionMessage       Missing required 'bearer_token' option for 'phpunit'
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionCode    0
+     * @expectedExceptionMessage Missing required 'bearer_token' option for 'phpunit'
      */
     public function testBearerTokenClientNoToken()
     {
@@ -258,9 +258,9 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionCode          0
-     * @expectedExceptionMessage       Missing required 'public_key_id' option for 'phpunit'
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionCode    0
+     * @expectedExceptionMessage Missing required 'public_key_id' option for 'phpunit'
      */
     public function testNoPublicKeyId()
     {
@@ -268,9 +268,9 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionCode          0
-     * @expectedExceptionMessage       Missing required 'private_key_file' option for 'phpunit'
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionCode    0
+     * @expectedExceptionMessage Missing required 'private_key_file' option for 'phpunit'
      */
     public function testNoPrivateKeyFile()
     {
@@ -278,9 +278,9 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionCode          0
-     * @expectedExceptionMessage       file_get_contents(/bad/path.pem): failed to open stream: No such file or
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionCode    0
+     * @expectedExceptionMessage file_get_contents(/bad/path.pem): failed to open stream: No such file or
      *                                 directory
      */
     public function testBadPrivateKeyFilePath()

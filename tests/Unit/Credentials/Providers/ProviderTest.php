@@ -42,13 +42,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ProviderTest
  *
- * @package      AlibabaCloud\Client\Tests\Unit\Credentials\Providers
+ * @package   AlibabaCloud\Client\Tests\Unit\Credentials\Providers
  *
- * @author       Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright    Alibaba Group
- * @license      http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright Alibaba Group
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link         https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\Providers\EcsRamRoleProvider
  */
@@ -59,7 +59,7 @@ class ProviderTest extends TestCase
      * @param Client $client
      * @param string $key
      *
-     * @throws \ReflectionException
+     * @throws       \ReflectionException
      * @dataProvider key
      */
     public function testKey(Client $client, $key)
@@ -124,7 +124,7 @@ class ProviderTest extends TestCase
      * @param Client $client
      * @param array  $result
      *
-     * @throws \ReflectionException
+     * @throws       \ReflectionException
      * @dataProvider cache
      */
     public function testCache(Client $client, array $result)
@@ -163,7 +163,7 @@ class ProviderTest extends TestCase
      * @param array      $credential
      * @param array|null $result
      *
-     * @throws \ReflectionException
+     * @throws       \ReflectionException
      * @dataProvider cache
      */
     public function testGetCredentialsInCache(Client $client, array $credential, $result)

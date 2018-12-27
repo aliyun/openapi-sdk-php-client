@@ -30,21 +30,21 @@ use AlibabaCloud\Client\Request\Request;
 
 /**
  * @deprecated
- * @package   AlibabaCloud\Client\Request\Traits
+ * @package    AlibabaCloud\Client\Request\Traits
  *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author     Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright  2018 Alibaba Group
+ * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
+ * @link       https://github.com/aliyun/openapi-sdk-php-client
  *
- * @mixin     Request
+ * @mixin Request
  */
 trait DeprecatedTrait
 {
     /**
      * @deprecated
-     * @return string
+     * @return     string
      */
     public function getContent()
     {
@@ -65,7 +65,7 @@ trait DeprecatedTrait
 
     /**
      * @deprecated
-     * @return string
+     * @return     string
      */
     public function getMethod()
     {
@@ -88,7 +88,7 @@ trait DeprecatedTrait
     /**
      * @deprecated
      * @codeCoverageIgnore
-     * @return string
+     * @return             string
      */
     public function getProtocol()
     {
@@ -96,7 +96,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated  Use scheme() instead.
+     * @deprecated         Use scheme() instead.
      * @codeCoverageIgnore
      *
      * @param string $scheme
@@ -110,7 +110,7 @@ trait DeprecatedTrait
 
     /**
      * @deprecated
-     * @return string
+     * @return     string
      */
     public function getProtocolType()
     {
@@ -118,7 +118,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated  Use scheme() instead.
+     * @deprecated Use scheme() instead.
      *
      * @param string $scheme
      *
@@ -145,7 +145,7 @@ trait DeprecatedTrait
 
     /**
      * @deprecated
-     * @return array
+     * @return     array
      */
     public function getHeaders()
     {
@@ -170,7 +170,7 @@ trait DeprecatedTrait
 
     /**
      * @deprecated
-     * @return array
+     * @return     array
      */
     public function getQueryParameters()
     {
@@ -195,7 +195,7 @@ trait DeprecatedTrait
 
     /**
      * @deprecated
-     * @return array
+     * @return     array
      */
     public function getDomainParameter()
     {
@@ -232,7 +232,7 @@ trait DeprecatedTrait
 
     /**
      * @deprecated
-     * @return string
+     * @return     string
      */
     public function getActionName()
     {
@@ -253,7 +253,7 @@ trait DeprecatedTrait
 
     /**
      * @deprecated
-     * @return string
+     * @return     string
      */
     public function getAcceptFormat()
     {
@@ -262,7 +262,7 @@ trait DeprecatedTrait
 
     /**
      * @deprecated
-     * @return string
+     * @return     string
      */
     public function getLocationEndpointType()
     {
@@ -271,7 +271,7 @@ trait DeprecatedTrait
 
     /**
      * @deprecated
-     * @return string
+     * @return     string
      */
     public function getLocationServiceCode()
     {

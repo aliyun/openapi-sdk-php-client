@@ -44,11 +44,13 @@ use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
- * @mixin     RoaRequest
+ * @mixin RoaRequest
  */
 class RoaRequest extends Request
 {
-    use /** @scrutinizer ignore-deprecated */
+    use /**
+     * @scrutinizer ignore-deprecated
+     */
         DeprecatedRoaTrait;
     /**
      * @var string

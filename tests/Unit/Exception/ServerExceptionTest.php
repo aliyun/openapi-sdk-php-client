@@ -34,13 +34,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ServerExceptionTest
  *
- * @package      AlibabaCloud\Client\Tests\Unit\Exception
+ * @package   AlibabaCloud\Client\Tests\Unit\Exception
  *
- * @author       Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright    Alibaba Group
- * @license      http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright Alibaba Group
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link         https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
  * @coversDefaultClass \AlibabaCloud\Client\Exception\ServerException
  */
@@ -52,16 +52,18 @@ class ServerExceptionTest extends TestCase
         // Setup
         $errorMessage = 'message';
         $errorCode    = 'code';
-        $body         = \json_encode([
-                                         'message'   => 'message',
-                                         'code'      => 'code',
-                                         'Message'   => 'Message',
-                                         'Code'      => 'Code',
-                                         'errorMsg'  => 'errorMsg',
-                                         'errorCode' => 'errorCode',
-                                         'requestId' => 'requestId',
-                                         'RequestId' => 'RequestId',
-                                     ]);
+        $body         = \json_encode(
+            [
+                'message'   => 'message',
+                'code'      => 'code',
+                'Message'   => 'Message',
+                'Code'      => 'Code',
+                'errorMsg'  => 'errorMsg',
+                'errorCode' => 'errorCode',
+                'requestId' => 'requestId',
+                'RequestId' => 'RequestId',
+            ]
+        );
         $result       = new Result(new Response(200, [], $body));
 
         // Test
@@ -85,9 +87,11 @@ class ServerExceptionTest extends TestCase
     public function testNoContentAndParameter()
     {
         // Setup
-        $body   = \json_encode([
-                                   '1' => '1',
-                               ]);
+        $body   = \json_encode(
+            [
+                '1' => '1',
+            ]
+        );
         $result = new Result(new Response(200, [], $body));
 
         // Test

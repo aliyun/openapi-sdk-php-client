@@ -13,13 +13,13 @@
  *
  * --------------------------------------------------------------------------
  *
- * @category     AlibabaCloud
+ * @category  AlibabaCloud
  *
- * @author       Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright    Alibaba Group
- * @license      http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright Alibaba Group
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link         https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Tests\Unit\Result;
@@ -57,7 +57,7 @@ class HasDataTraitTest extends TestCase
     }
 
     /**
-     * @covers ::count
+     * @covers       ::count
      * @dataProvider countData
      *
      * @param array $data
@@ -93,7 +93,7 @@ class HasDataTraitTest extends TestCase
     }
 
     /**
-     * @covers ::search
+     * @covers       ::search
      * @dataProvider searchData
      *
      * @param array  $data
@@ -141,7 +141,7 @@ class HasDataTraitTest extends TestCase
     }
 
     /**
-     * @covers ::hasKey
+     * @covers       ::hasKey
      * @dataProvider hasKeyData
      *
      * @param array  $data
@@ -176,7 +176,7 @@ class HasDataTraitTest extends TestCase
     }
 
     /**
-     * @covers ::get
+     * @covers       ::get
      * @dataProvider getData
      *
      * @param array  $data

@@ -98,12 +98,14 @@ class RpcRequestTest extends TestCase
         // Assert
         try {
             $request = new DescribeRegionsRequest();
-            $request->options([
-                                  'query' => [
-                                      'test_true'  => 1,
-                                      'test_false' => 1,
-                                  ],
-                              ]);
+            $request->options(
+                [
+                    'query' => [
+                        'test_true'  => 1,
+                        'test_false' => 1,
+                    ],
+                ]
+            );
             $this->assertEquals(1, $request->options['query']['test_true']);
             $this->assertEquals(1, $request->options['query']['test_false']);
             $request->request();

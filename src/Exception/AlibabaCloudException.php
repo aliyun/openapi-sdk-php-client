@@ -90,7 +90,7 @@ abstract class AlibabaCloudException extends \Exception
     /**
      * @deprecated
      * @codeCoverageIgnore
-     * @return void
+     * @return             void
      */
     public function setErrorType()
     {

@@ -13,13 +13,13 @@
  *
  * --------------------------------------------------------------------------
  *
- * @category   AlibabaCloud
+ * @category  AlibabaCloud
  *
- * @author     Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright  Alibaba Group
- * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright Alibaba Group
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link       https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Tests\Unit\Clients;
@@ -69,7 +69,7 @@ class RsaKeyPairClientTest extends TestCase
     }
 
     /**
-     * @depends                  testConstruct
+     * @depends testConstruct
      *
      * @param RsaKeyPairClient $client
      *

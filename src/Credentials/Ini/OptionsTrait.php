@@ -38,7 +38,7 @@ use AlibabaCloud\Client\Clients\Client;
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
- * @mixin     IniCredential
+ * @mixin IniCredential
  */
 trait OptionsTrait
 {
@@ -53,21 +53,27 @@ trait OptionsTrait
         }
 
         if (isset($configures['debug'])) {
-            $client->options([
-                                 'debug' => (bool)$configures['debug'],
-                             ]);
+            $client->options(
+                [
+                    'debug' => (bool)$configures['debug'],
+                ]
+            );
         }
 
         if (self::isNotEmpty($configures, 'timeout')) {
-            $client->options([
-                                 'timeout' => $configures['timeout'],
-                             ]);
+            $client->options(
+                [
+                    'timeout' => $configures['timeout'],
+                ]
+            );
         }
 
         if (self::isNotEmpty($configures, 'connect_timeout')) {
-            $client->options([
-                                 'connect_timeout' => $configures['connect_timeout'],
-                             ]);
+            $client->options(
+                [
+                    'connect_timeout' => $configures['connect_timeout'],
+                ]
+            );
         }
     }
 
@@ -78,9 +84,11 @@ trait OptionsTrait
     private static function setProxy($configures, Client $client)
     {
         if (self::isNotEmpty($configures, 'proxy')) {
-            $client->options([
-                                 'proxy' => $configures['proxy'],
-                             ]);
+            $client->options(
+                [
+                    'proxy' => $configures['proxy'],
+                ]
+            );
         }
         $proxy = [];
         if (self::isNotEmpty($configures, 'proxy_http')) {
@@ -93,9 +101,11 @@ trait OptionsTrait
             $proxy['no'] = \explode(',', $configures['proxy_no']);
         }
         if ($proxy !== []) {
-            $client->options([
-                                 'proxy' => $proxy,
-                             ]);
+            $client->options(
+                [
+                    'proxy' => $proxy,
+                ]
+            );
         }
     }
 
@@ -106,18 +116,22 @@ trait OptionsTrait
     private static function setCert($configures, Client $client)
     {
         if (self::isNotEmpty($configures, 'cert_file') && !self::isNotEmpty($configures, 'cert_password')) {
-            $client->options([
-                                 'cert' => $configures['cert_file'],
-                             ]);
+            $client->options(
+                [
+                    'cert' => $configures['cert_file'],
+                ]
+            );
         }
 
         if (self::isNotEmpty($configures, 'cert_file') && self::isNotEmpty($configures, 'cert_password')) {
-            $client->options([
-                                 'cert' => [
-                                     $configures['cert_file'],
-                                     $configures['cert_password'],
-                                 ],
-                             ]);
+            $client->options(
+                [
+                    'cert' => [
+                        $configures['cert_file'],
+                        $configures['cert_password'],
+                    ],
+                ]
+            );
         }
     }
 }

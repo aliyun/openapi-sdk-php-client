@@ -20,7 +20,6 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php
- *
  */
 
 namespace AlibabaCloud\Client\Tests\Mock\Services\CS;
@@ -39,8 +38,8 @@ use AlibabaCloud\Client\Request\RoaRequest;
  * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
  * @property-read string $ClusterId
- * @method string getClusterId()
- * @method self setClusterId(string $clusterId)
+ * @method        string getClusterId()
+ * @method        self setClusterId(string $clusterId)
  */
 class DescribeClusterServicesRequest extends RoaRequest
 {

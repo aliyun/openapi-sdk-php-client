@@ -53,7 +53,9 @@ use GuzzleHttp\Psr7\Uri;
  */
 abstract class Request
 {
-    use /** @scrutinizer ignore-deprecated */
+    use /**
+     * @scrutinizer ignore-deprecated
+     */
         DeprecatedTrait;
     use GuzzleTrait;
     use MagicTrait;

@@ -37,13 +37,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class RsaKeyPairProviderTest
  *
- * @package      AlibabaCloud\Client\Tests\Unit\Credentials\Providers
+ * @package   AlibabaCloud\Client\Tests\Unit\Credentials\Providers
  *
- * @author       Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright    Alibaba Group
- * @license      http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright Alibaba Group
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link         https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\Providers\RamRoleArnProvider
  */
@@ -51,9 +51,9 @@ class RsaKeyPairProviderTest extends TestCase
 {
 
     /**
-     * @throws ClientException
-     * @throws ServerException
-     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @throws                         ClientException
+     * @throws                         ServerException
+     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessageRegExp /openssl_sign/
      */
     public function testGet()

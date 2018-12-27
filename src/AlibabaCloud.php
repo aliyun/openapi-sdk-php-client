@@ -13,13 +13,13 @@
  *
  * --------------------------------------------------------------------------
  *
- * @category   AlibabaCloud
+ * @category  AlibabaCloud
  *
- * @author     Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright  Alibaba Group
- * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright Alibaba Group
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link       https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client;
@@ -84,9 +84,12 @@ class AlibabaCloud
         if (self::has($clientName)) {
             return self::$clients[\strtolower($clientName)];
         }
-        throw new ClientException(ALIBABA_CLOUD
-                                  . ' Client Not Found: '
-                                  . $clientName, \ALI_CLIENT_NOT_FOUND);
+        throw new ClientException(
+            ALIBABA_CLOUD
+            . ' Client Not Found: '
+            . $clientName,
+            \ALI_CLIENT_NOT_FOUND
+        );
     }
 
     /**
