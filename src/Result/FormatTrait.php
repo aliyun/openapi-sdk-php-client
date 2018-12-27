@@ -29,7 +29,7 @@ namespace AlibabaCloud\Client\Result;
 use Exception;
 
 /**
- * Class FormatTrait
+ * Trait FormatTrait
  *
  * @package   AlibabaCloud\Client\Result
  *

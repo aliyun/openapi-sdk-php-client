@@ -990,7 +990,7 @@ return [
                     'cn-shenzhen-inner'   => 'drds.aliyuncs.com',
                     'us-west-1'           => 'drds.aliyuncs.com',
                     'cn-shanghai-inner'   => 'drds.aliyuncs.com',
-                    'cn-hangzhou'         => 'drds.aliyuncs.com',
+                    'cn-hangzhou'         => 'drds.cn-hangzhou.aliyuncs.com',
                     'cn-beijing-inner'    => 'drds.aliyuncs.com',
                     'cn-shenzhen'         => 'drds.aliyuncs.com',
                     'cn-qingdao'          => 'drds.aliyuncs.com',

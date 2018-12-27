@@ -27,7 +27,7 @@ namespace AlibabaCloud\Client\Http;
 use AlibabaCloud\Client\Clients\Client;
 
 /**
- * Class GuzzleTrait
+ * Trait GuzzleTrait
  *
  * @package   AlibabaCloud\Client\Http
  *

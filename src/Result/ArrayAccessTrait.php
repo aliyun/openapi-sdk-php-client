@@ -27,7 +27,7 @@
 namespace AlibabaCloud\Client\Result;
 
 /**
- * Class ArrayAccessTrait
+ * Trait ArrayAccessTrait
  *
  * @package   AlibabaCloud\Client\Result
  *

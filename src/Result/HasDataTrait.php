@@ -29,7 +29,7 @@ namespace AlibabaCloud\Client\Result;
 use JmesPath\Env as JmesPath;
 
 /**
- * Class HasDataTrait
+ * Trait HasDataTrait
  *
  * @package   AlibabaCloud\Client\Result
  *

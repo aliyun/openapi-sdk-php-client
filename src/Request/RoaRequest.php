@@ -28,6 +28,7 @@ namespace AlibabaCloud\Client\Request;
 
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
+use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
@@ -93,7 +94,7 @@ class RoaRequest extends Request
     }
 
     /**
-     * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
+     * @param AccessKeyCredential|BearerTokenCredential|StsCredential|CredentialsInterface $credential
      *
      * @throws ClientException
      */

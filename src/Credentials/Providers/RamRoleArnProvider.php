@@ -74,9 +74,11 @@ class RamRoleArnProvider extends Provider
                 ->client($clientName)
                 ->debug($this->client->isDebug())
                 ->request();
+
             if (!$result->hasKey('Credentials')) {
                 throw new ClientException('Result contains no credentials', \ALI_INVALID_CREDENTIAL);
             }
+
             $trueCredential = $result['Credentials'];
 
             $this->cache($trueCredential);
