@@ -57,33 +57,20 @@ trait CreateTrait
      */
     protected function createClient($clientName, array $credential)
     {
-<<<<<<< HEAD
         if (!isset($credential['enable']) || !$credential['enable']) {
-=======
-        if (isset($credential['enable']) && !$credential['enable']) {
->>>>>>> 7b972cb... change some config (#2)
             return false;
         }
 
         if (!isset($credential['type'])) {
-<<<<<<< HEAD
             $this->missingRequired('type', $clientName);
-=======
-            self::missingRequired('type', $clientName);
->>>>>>> 7b972cb... change some config (#2)
         }
 
         return $this->createClientByType($clientName, $credential)->name($clientName);
     }
 
     /**
-<<<<<<< HEAD
      * @param string $clientName
      * @param array  $credential
-=======
-     * @param       $clientName
-     * @param array $credential
->>>>>>> 7b972cb... change some config (#2)
      *
      * @return AccessKeyClient|BearerTokenClient|EcsRamRoleClient|RamRoleArnClient|RsaKeyPairClient
      * @throws ClientException
@@ -119,19 +106,11 @@ trait CreateTrait
     private function rsaKeyPairClient($clientName, array $credential)
     {
         if (!isset($credential['public_key_id'])) {
-<<<<<<< HEAD
             $this->missingRequired('public_key_id', $clientName);
         }
 
         if (!isset($credential['private_key_file'])) {
             $this->missingRequired('private_key_file', $clientName);
-=======
-            self::missingRequired('public_key_id', $clientName);
-        }
-
-        if (!isset($credential['private_key_file'])) {
-            self::missingRequired('private_key_file', $clientName);
->>>>>>> 7b972cb... change some config (#2)
         }
 
         return new RsaKeyPairClient(
@@ -150,19 +129,11 @@ trait CreateTrait
     private function accessKeyClient($clientName, array $credential)
     {
         if (!isset($credential['access_key_id'])) {
-<<<<<<< HEAD
             $this->missingRequired('access_key_id', $clientName);
         }
 
         if (!isset($credential['access_key_secret'])) {
             $this->missingRequired('access_key_secret', $clientName);
-=======
-            self::missingRequired('access_key_id', $clientName);
-        }
-
-        if (!isset($credential['access_key_secret'])) {
-            self::missingRequired('access_key_secret', $clientName);
->>>>>>> 7b972cb... change some config (#2)
         }
 
         return new AccessKeyClient(
@@ -181,11 +152,7 @@ trait CreateTrait
     private function ecsRamRoleClient($clientName, array $credential)
     {
         if (!isset($credential['role_name'])) {
-<<<<<<< HEAD
             $this->missingRequired('role_name', $clientName);
-=======
-            self::missingRequired('role_name', $clientName);
->>>>>>> 7b972cb... change some config (#2)
         }
 
         return new EcsRamRoleClient($credential['role_name']);
@@ -201,7 +168,6 @@ trait CreateTrait
     private function ramRoleArnClient($clientName, array $credential)
     {
         if (!isset($credential['access_key_id'])) {
-<<<<<<< HEAD
             $this->missingRequired('access_key_id', $clientName);
         }
 
@@ -215,21 +181,6 @@ trait CreateTrait
 
         if (!isset($credential['role_session_name'])) {
             $this->missingRequired('role_session_name', $clientName);
-=======
-            self::missingRequired('access_key_id', $clientName);
-        }
-
-        if (!isset($credential['access_key_secret'])) {
-            self::missingRequired('access_key_secret', $clientName);
-        }
-
-        if (!isset($credential['role_arn'])) {
-            self::missingRequired('role_arn', $clientName);
-        }
-
-        if (!isset($credential['role_session_name'])) {
-            self::missingRequired('role_session_name', $clientName);
->>>>>>> 7b972cb... change some config (#2)
         }
 
         return new RamRoleArnClient(
@@ -250,11 +201,7 @@ trait CreateTrait
     private function bearerTokenClient($clientName, array $credential)
     {
         if (!isset($credential['bearer_token'])) {
-<<<<<<< HEAD
             $this->missingRequired('bearer_token', $clientName);
-=======
-            self::missingRequired('bearer_token', $clientName);
->>>>>>> 7b972cb... change some config (#2)
         }
 
         return new BearerTokenClient($credential['bearer_token']);

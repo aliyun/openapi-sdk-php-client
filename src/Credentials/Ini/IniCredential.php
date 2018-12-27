@@ -62,7 +62,6 @@ class IniCredential
      */
     public function __construct($filename = '')
     {
-<<<<<<< HEAD
         $this->filename = $filename ?: $this->getDefaultFile();
     }
 
@@ -84,9 +83,6 @@ class IniCredential
     public function getFilename()
     {
         return $this->filename;
-=======
-        $this->filename = $filename ?: $this->getDefault();
->>>>>>> 7b972cb... change some config (#2)
     }
 
     /**
@@ -106,32 +102,14 @@ class IniCredential
     }
 
     /**
-<<<<<<< HEAD
      * @param array  $array
-=======
-     * @return string
-     */
-    private function getDefault()
-    {
-        return self::getHomeDirectory() . '/.alibabacloud/credentials';
-    }
-
-    /**
-     * @param array  $client
->>>>>>> 7b972cb... change some config (#2)
      * @param string $key
      *
      * @return bool
      */
-<<<<<<< HEAD
     protected static function isNotEmpty(array $array, $key)
     {
         return isset($array[$key]) && !empty($array[$key]);
-=======
-    protected static function isNotEmpty($client, $key)
-    {
-        return isset($client[$key]) && !empty($client[$key]);
->>>>>>> 7b972cb... change some config (#2)
     }
 
     /**
@@ -140,27 +118,17 @@ class IniCredential
      *
      * @throws ClientException
      */
-<<<<<<< HEAD
     public function missingRequired($key, $clientName)
     {
         throw new ClientException(
             "Missing required '$key' option for '$clientName' in " . $this->getFilename(),
-=======
-    public static function missingRequired($key, $clientName)
-    {
-        throw new ClientException(
-            "Missing required '$key' option for '$clientName'",
->>>>>>> 7b972cb... change some config (#2)
             \ALI_INVALID_CREDENTIAL
         );
     }
 
     /**
-<<<<<<< HEAD
      * Clear credential cache.
      *
-=======
->>>>>>> 7b972cb... change some config (#2)
      * @return void
      */
     public static function forgetLoadedCredentialsFile()
@@ -190,11 +158,7 @@ class IniCredential
     }
 
     /**
-<<<<<<< HEAD
      * Exceptions will be thrown if the file is unreadable and not the default file.
-=======
-     * Exceptions will be thrown if the file is unreadable and not the default file
->>>>>>> 7b972cb... change some config (#2)
      *
      * @return array|mixed
      * @throws ClientException
@@ -202,34 +166,23 @@ class IniCredential
     private function loadFile()
     {
         if (!\is_file($this->filename) || !\is_readable($this->filename)) {
-<<<<<<< HEAD
             if ($this->filename === $this->getDefaultFile()) {
-=======
-            if ($this->filename === $this->getDefault()) {
->>>>>>> 7b972cb... change some config (#2)
                 // @codeCoverageIgnoreStart
                 return [];
                 // @codeCoverageIgnoreEnd
             }
-<<<<<<< HEAD
             throw new ClientException(
                 'Credential file is not readable: ' . $this->getFilename(),
                 \ALI_INVALID_CREDENTIAL
             );
-=======
-            throw new ClientException('Credential file is not readable: ' . $this->filename, \ALI_INVALID_CREDENTIAL);
->>>>>>> 7b972cb... change some config (#2)
         }
 
         return $this->parseFile();
     }
 
     /**
-<<<<<<< HEAD
      * Decode the ini file into an array.
      *
-=======
->>>>>>> 7b972cb... change some config (#2)
      * @return array|mixed
      * @throws ClientException
      */
@@ -237,7 +190,6 @@ class IniCredential
     {
         try {
             $file = \parse_ini_file($this->filename, true);
-<<<<<<< HEAD
             if (\is_array($file) && $file !== []) {
                 return $this->initClients($file);
             }
@@ -245,23 +197,14 @@ class IniCredential
                 'Format error: ' . $this->getFilename(),
                 \ALI_INVALID_CREDENTIAL
             );
-=======
-            if (!$file || $file === false) {
-                throw new ClientException('Format error: ' . $this->filename, \ALI_INVALID_CREDENTIAL);
-            }
-            return $this->initClients($file);
->>>>>>> 7b972cb... change some config (#2)
         } catch (\Exception $e) {
             throw new ClientException($e->getMessage(), \ALI_INVALID_CREDENTIAL, $e);
         }
     }
 
     /**
-<<<<<<< HEAD
      * Initialize clients.
      *
-=======
->>>>>>> 7b972cb... change some config (#2)
      * @param array $file
      *
      * @return array|mixed

@@ -32,6 +32,7 @@ install:
 
 script:
 <<<<<<< HEAD
+<<<<<<< HEAD
     - make test-unit
     - if [ "$TRAVIS_BRANCH" == "master" ]; then make test-feature; fi
 
@@ -44,6 +45,10 @@ notifications:
     -  if [ "$TRAVIS_BRANCH" == "master" ]; then make test; fi
     -  if [ "$TRAVIS_BRANCH" != "master" ]; then make test-unit; fi
 >>>>>>> 7b972cb... change some config (#2)
+=======
+    -  if [ "$TRAVIS_BRANCH" == "master" ]; then make test; fi
+    -  if [ "$TRAVIS_BRANCH" != "master" ]; then make test-unit; fi
+>>>>>>> master
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)

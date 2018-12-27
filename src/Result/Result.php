@@ -27,7 +27,6 @@
 namespace AlibabaCloud\Client\Result;
 
 use AlibabaCloud\Client\Request\Request;
-use Exception;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -94,41 +93,7 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
     }
 
     /**
-<<<<<<< HEAD
      * @return Request
-=======
-     * @param string $string
-     *
-     * @return array
-     */
-    private function xmlToArray($string)
-    {
-        try {
-            return json_decode(json_encode(simplexml_load_string($string)), true);
-        } catch (Exception $exception) {
-            return [];
-        }
-    }
-
-    /**
-     * @param string $response
-     *
-     * @return array
-     */
-    private function jsonToArray($response)
-    {
-        try {
-            return \GuzzleHttp\json_decode($response, true);
-        } catch (\InvalidArgumentException $e) {
-            return [];
-        }
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return bool
->>>>>>> 7b972cb... change some config (#2)
      */
     public function getRequest()
     {

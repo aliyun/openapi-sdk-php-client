@@ -26,13 +26,9 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Credentials\Ini;
 
-<<<<<<< HEAD
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\Ini\IniCredential;
 use AlibabaCloud\Client\Exception\ClientException;
-=======
-use AlibabaCloud\Client\Credentials\Ini\IniCredential;
->>>>>>> 7b972cb... change some config (#2)
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -56,7 +52,6 @@ class IniCredentialTest extends TestCase
     }
 
     /**
-<<<<<<< HEAD
      * @covers ::__construct
      * @covers ::getDefaultFile
      * @covers ::getFilename
@@ -280,10 +275,6 @@ class IniCredentialTest extends TestCase
      * @throws \ReflectionException
      * @covers ::getHomeDirectory
      * @depends testParseFile
-=======
-     * @throws \ReflectionException
-     * @covers ::getHomeDirectory
->>>>>>> 7b972cb... change some config (#2)
      */
     public function testGetsHomeDirectoryForWindowsUser()
     {
@@ -299,27 +290,16 @@ class IniCredentialTest extends TestCase
     /**
      * @throws \ReflectionException
      * @covers ::getHomeDirectory
-<<<<<<< HEAD
      * @depends testGetsHomeDirectoryForWindowsUser
      */
     public function testGetsHomeDirectoryForLinuxUser()
     {
         putenv('HOME=/root');
-=======
-     */
-    public function testGetsHomeDirectoryForLinuxUser()
-    {
-        putenv('HOME=/root/');
->>>>>>> 7b972cb... change some config (#2)
         putenv('HOMEDRIVE=');
         putenv('HOMEPATH=');
         $ref    = new \ReflectionClass(IniCredential::class);
         $method = $ref->getMethod('getHomeDirectory');
         $method->setAccessible(true);
-<<<<<<< HEAD
         $this->assertEquals('/root', $method->invoke(null));
-=======
-        $this->assertEquals('/root/', $method->invoke(null));
->>>>>>> 7b972cb... change some config (#2)
     }
 }
