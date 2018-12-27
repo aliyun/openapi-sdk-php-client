@@ -26,10 +26,8 @@
 
 namespace AlibabaCloud\Client\Result;
 
-use JmesPath\Env as JmesPath;
-
 /**
- * Class HasDataTrait
+ * Class ArrayAccessTrait
  *
  * @package   AlibabaCloud\Client\Result
  *
@@ -39,52 +37,51 @@ use JmesPath\Env as JmesPath;
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
-trait HasDataTrait
+trait ArrayAccessTrait
 {
 
     /**
-     * @return \ArrayIterator
-     */
-    public function getIterator()
-    {
-        return new \ArrayIterator($this->data);
-    }
-
-    /**
-     * @return int
-     */
-    public function count()
-    {
-        return count($this->data);
-    }
-
-    /**
-     * @param string $expression
+     * This method returns a reference to the variable to allow for indirect
+     * array modification (e.g., $foo['bar']['baz'] = 'qux').
+     *
+     * @param string $offset
      *
      * @return mixed|null
      */
-    public function search($expression)
+    public function & offsetGet($offset)
     {
-        return JmesPath::search($expression, $this->toArray());
+        if (isset($this->data[$offset])) {
+            return $this->data[$offset];
+        }
+
+        $value = null;
+        return $value;
     }
 
     /**
-     * @param string $name
+     * @param string       $offset
+     * @param string|mixed $value
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->data[$offset] = $value;
+    }
+
+    /**
+     * @param string $offset
      *
      * @return bool
      */
-    public function hasKey($name)
+    public function offsetExists($offset)
     {
-        return isset($this->data[$name]);
+        return isset($this->data[$offset]);
     }
 
     /**
-     * @param string $key
-     *
-     * @return mixed|null
+     * @param string $offset
      */
-    public function get($key)
+    public function offsetUnset($offset)
     {
-        return $this[$key];
+        unset($this->data[$offset]);
     }
 }

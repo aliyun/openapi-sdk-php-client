@@ -24,76 +24,64 @@
  * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
-namespace AlibabaCloud\Client\Credentials;
+namespace AlibabaCloud\Client\Result;
 
-use AlibabaCloud\Client\Exception\ClientException;
 use Exception;
 
 /**
- * Use the RSA key pair to complete the authentication (supported only on Japanese site)
+ * Class FormatTrait
  *
- * @package   AlibabaCloud\Client\Credentials
+ * @package   AlibabaCloud\Client\Result
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2018 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link      https://github.com/aliyun/aliyun-openapi-php-sdk
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
-class RsaKeyPairCredential implements CredentialsInterface
+trait FormatTrait
 {
-
     /**
-     * @var string
-     */
-    private $publicKeyId;
-    /**
-     * @var string
-     */
-    private $privateKey;
-
-    /**
-     * RsaKeyPairCredential constructor.
+     * @param string $string
      *
-     * @param string $publicKeyId
-     * @param string $privateKeyFile
-     *
-     * @throws ClientException
+     * @return array
      */
-    public function __construct($publicKeyId, $privateKeyFile)
+    private function xmlToArray($string)
     {
-        $this->publicKeyId = $publicKeyId;
         try {
-            $this->privateKey = file_get_contents($privateKeyFile);
+            return json_decode(json_encode(simplexml_load_string($string)), true);
         } catch (Exception $exception) {
-            throw new ClientException(
-                $exception->getMessage(),
-                \ALI_INVALID_CREDENTIAL
-            );
+            return [];
         }
     }
 
     /**
-     * @return mixed
+     * @param string $response
+     *
+     * @return array
      */
-    public function getPrivateKey()
+    private function jsonToArray($response)
     {
-        return $this->privateKey;
+        try {
+            return \GuzzleHttp\json_decode($response, true);
+        } catch (\InvalidArgumentException $e) {
+            return [];
+        }
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getPublicKeyId()
+    public function toArray()
     {
-        return $this->publicKeyId;
+        return $this->data;
     }
 
     /**
-     * @return string
+     * @return false|string
      */
-    public function __toString()
+    public function toJson()
     {
-        return "publicKeyId#$this->publicKeyId";
+        return \json_encode($this->data);
     }
 }
