@@ -50,15 +50,15 @@ class RequestTest extends TestCase
     public function testConstruct()
     {
         // Setup
-        $options = ['testConstruct' => \time()];
+        $options = ['testConstruct' => __METHOD__];
 
         // Test
         $rpcRequest = new RpcRequest($options);
         $roaRequest = new RoaRequest($options);
 
         // Assert
-        self::assertEquals(\time(), $rpcRequest->options['testConstruct']);
-        self::assertEquals(\time(), $roaRequest->options['testConstruct']);
+        self::assertEquals(__METHOD__, $rpcRequest->options['testConstruct']);
+        self::assertEquals(__METHOD__, $roaRequest->options['testConstruct']);
     }
 
     public function testFormat()

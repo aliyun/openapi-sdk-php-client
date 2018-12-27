@@ -57,20 +57,20 @@ trait CreateTrait
      */
     protected function createClient($clientName, array $credential)
     {
-        if (isset($credential['enable']) && !$credential['enable']) {
+        if (!isset($credential['enable']) || !$credential['enable']) {
             return false;
         }
 
         if (!isset($credential['type'])) {
-            self::missingRequired('type', $clientName);
+            $this->missingRequired('type', $clientName);
         }
 
         return $this->createClientByType($clientName, $credential)->name($clientName);
     }
 
     /**
-     * @param       $clientName
-     * @param array $credential
+     * @param string $clientName
+     * @param array  $credential
      *
      * @return AccessKeyClient|BearerTokenClient|EcsRamRoleClient|RamRoleArnClient|RsaKeyPairClient
      * @throws ClientException
@@ -106,11 +106,11 @@ trait CreateTrait
     private function rsaKeyPairClient($clientName, array $credential)
     {
         if (!isset($credential['public_key_id'])) {
-            self::missingRequired('public_key_id', $clientName);
+            $this->missingRequired('public_key_id', $clientName);
         }
 
         if (!isset($credential['private_key_file'])) {
-            self::missingRequired('private_key_file', $clientName);
+            $this->missingRequired('private_key_file', $clientName);
         }
 
         return new RsaKeyPairClient(
@@ -129,11 +129,11 @@ trait CreateTrait
     private function accessKeyClient($clientName, array $credential)
     {
         if (!isset($credential['access_key_id'])) {
-            self::missingRequired('access_key_id', $clientName);
+            $this->missingRequired('access_key_id', $clientName);
         }
 
         if (!isset($credential['access_key_secret'])) {
-            self::missingRequired('access_key_secret', $clientName);
+            $this->missingRequired('access_key_secret', $clientName);
         }
 
         return new AccessKeyClient(
@@ -152,7 +152,7 @@ trait CreateTrait
     private function ecsRamRoleClient($clientName, array $credential)
     {
         if (!isset($credential['role_name'])) {
-            self::missingRequired('role_name', $clientName);
+            $this->missingRequired('role_name', $clientName);
         }
 
         return new EcsRamRoleClient($credential['role_name']);
@@ -168,19 +168,19 @@ trait CreateTrait
     private function ramRoleArnClient($clientName, array $credential)
     {
         if (!isset($credential['access_key_id'])) {
-            self::missingRequired('access_key_id', $clientName);
+            $this->missingRequired('access_key_id', $clientName);
         }
 
         if (!isset($credential['access_key_secret'])) {
-            self::missingRequired('access_key_secret', $clientName);
+            $this->missingRequired('access_key_secret', $clientName);
         }
 
         if (!isset($credential['role_arn'])) {
-            self::missingRequired('role_arn', $clientName);
+            $this->missingRequired('role_arn', $clientName);
         }
 
         if (!isset($credential['role_session_name'])) {
-            self::missingRequired('role_session_name', $clientName);
+            $this->missingRequired('role_session_name', $clientName);
         }
 
         return new RamRoleArnClient(
@@ -201,7 +201,7 @@ trait CreateTrait
     private function bearerTokenClient($clientName, array $credential)
     {
         if (!isset($credential['bearer_token'])) {
-            self::missingRequired('bearer_token', $clientName);
+            $this->missingRequired('bearer_token', $clientName);
         }
 
         return new BearerTokenClient($credential['bearer_token']);

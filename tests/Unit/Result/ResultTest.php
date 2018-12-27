@@ -24,12 +24,9 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Result;
 
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Result\Result;
-use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeRegionsRequest;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
@@ -46,10 +43,15 @@ use PHPUnit\Framework\TestCase;
  */
 class ResultTest extends TestCase
 {
-    public function testConstruct()
+    /**
+     * @dataProvider requests
+     *
+     * @param Request $request
+     */
+    public function testConstruct(Request $request)
     {
         // Setup
-        $result = new Result(new Response());
+        $result = new Result(new Response(), $request);
 
         // Assert
         self::assertEquals(false, $result->hasKey('key'));
@@ -61,60 +63,76 @@ class ResultTest extends TestCase
         self::assertEquals(false, isset($result['key']));
     }
 
-    public function testXml()
+    /**
+     * @return array
+     */
+    public function requests()
     {
-
-        // Setup
-        $request = (new RpcRequest())->format('XML');
-        $result  = new Result(new Response(), $request);
-
-        // Assert
-        self::assertEquals([], $result->toArray());
+        return [
+            [(new RpcRequest())->format('json')],
+            [(new RpcRequest())->format('xml')],
+            [(new RpcRequest())->format('RAW')],
+            [(new RpcRequest())->format('unknown')],
+        ];
     }
 
-    public function testXmlBad()
+    /**
+     * @dataProvider requests
+     *
+     * @param Request $request
+     */
+    public function testGetRequest(Request $request)
     {
         // Setup
-        $request = (new RpcRequest())->format('XML');
-        $result  = new Result(new Response(200, [], 'badFormat'), $request);
+        $result = new Result(new Response(), $request);
 
         // Assert
-        self::assertEquals([], $result->toArray());
+        self::assertInstanceOf(Request::class, $result->getRequest());
     }
 
-    public function testRaw()
-    {
-        // Setup
-        $request = (new RpcRequest())->format('RAW');
-        $result  = new Result(new Response(), $request);
-
-        // Assert
-        self::assertEquals([], $result->toArray());
-    }
-
-    public function testArrayAccess()
-    {
-        // Setup
-        $result        = new Result(new Response());
-        $result['key'] = 'value';
-
-        // Assert
-        self::assertEquals('value', $result['key']);
-
-        // Setup
-        unset($result['key']);
-
-        // Assert
-        self::assertEquals(false, isset($result['key']));
-    }
-
-    public function testIteratorAggregate()
+    public function testGetResponse()
     {
         // Setup
         $result = new Result(new Response());
 
         // Assert
-        self::assertInstanceOf(\ArrayIterator::class, $result->getIterator());
+        self::assertInstanceOf(Response::class, $result->getResponse());
+    }
+
+    /**
+     * @dataProvider responses
+     *
+     * @param Response $response
+     * @param bool     $bool
+     */
+    public function testIsSuccess(Response $response, $bool)
+    {
+        // Setup
+        $result = new Result($response);
+
+        // Assert
+        self::assertEquals($bool, $result->isSuccess());
+    }
+
+    /**
+     * @return array
+     */
+    public function responses()
+    {
+        return [
+            [
+                new Response(),
+                true,
+            ],
+            [
+                new Response(301),
+                false,
+            ],
+            [
+                new Response(199),
+                false,
+            ],
+        ];
     }
 
     public function testToString()
@@ -126,47 +144,108 @@ class ResultTest extends TestCase
         self::assertEquals('', (string)$result);
     }
 
-    public function test__get()
+    /**
+     * @dataProvider getData
+     *
+     * @param array  $data
+     * @param string $name
+     * @param string $expected
+     */
+    public function testGet(array $data, $name, $expected)
     {
         // Setup
-        AlibabaCloud::accessKeyClient(\getenv('ACCESS_KEY_ID'), \getenv('ACCESS_KEY_SECRET'))
-                    ->regionId('cn-hangzhou')
-                    ->name('get');
-
-        try {
-            $result = (new DescribeRegionsRequest())->client('get')
-                                                    ->request();
-            self::assertArrayHasKey('RequestId', $result);
-        } catch (ClientException $e) {
-            self::assertContains(
-                $e->getErrorCode(),
-                [
-                    \ALI_SERVER_UNREACHABLE,
-                ]
-            );
-        } catch (ServerException $e) {
-            self::assertInternalType('object', $e->getResult()->getRequest());
-            self::assertEquals('Specified access key is not found.', $e->getErrorMessage());
-        }
+        $response = new Response(200, [], \json_encode($data));
+        $result   = new Result($response);
+        self::assertEquals($expected, $result->$name);
     }
 
-    public function testIsset()
+    /**
+     * @return array
+     */
+    public function getData()
     {
-        // Setup
-        $result = new Result(new Response());
-
-        // Assert
-        self::assertFalse(isset($result->null));
+        return [
+            [
+                ['s' => 's'],
+                's',
+                's',
+            ],
+            [
+                [],
+                'null',
+                null,
+            ],
+        ];
     }
 
-    public function testToJson()
+    /**
+     * @dataProvider setData
+     *
+     * @param array  $data
+     * @param string $name
+     * @param string $value
+     */
+    public function testSet(array $data, $name, $value)
     {
         // Setup
-        $result        = new Result(new Response());
-        $time          = \time();
-        $result[$time] = $time;
+        $response      = new Response(200, [], \json_encode($data));
+        $result        = new Result($response);
+        $result->$name = 'test';
+        self::assertEquals($value, $result->get($name));
+    }
+
+    /**
+     * @return array
+     */
+    public function setData()
+    {
+        return [
+            [
+                ['key' => 'value'],
+                'string',
+                null,
+            ],
+            [
+                ['key' => 'value'],
+                'key',
+                'test',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider issetData
+     *
+     * @param array  $data
+     * @param string $name
+     * @param string $expected
+     */
+    public function testIsset(array $data, $name, $expected)
+    {
+        // Setup
+        $response = new Response(200, [], \json_encode($data));
+        $result   = new Result($response);
 
         // Assert
-        self::assertEquals('{"' . $time . '":' . $time . '}', $result->toJson());
+        self::assertEquals($expected, isset($result->$name));
+    }
+
+    /**
+     * @return array
+     */
+    public function issetData()
+    {
+        return [
+            [
+                ['key' => 'value'],
+                'key',
+                true,
+            ],
+            [
+                [],
+                'null',
+                false,
+            ],
+        ];
     }
 }

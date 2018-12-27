@@ -26,7 +26,10 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
+use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
+use AlibabaCloud\Client\Credentials\BearerTokenCredential;
+use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClusterServicesRequest;
@@ -402,19 +405,45 @@ class RoaRequestTest extends TestCase
     }
 
     /**
-     * @throws ClientException
+     * @return array
      */
-    public function testResolveParameters()
+    public function resolveQuery()
+    {
+        return [
+            [
+                new StsCredential('foo', 'bar', 'token'),
+            ],
+            [
+                new BearerTokenCredential('token'),
+            ],
+        ];
+    }
+
+    /**
+     * @param CredentialsInterface $credential
+     *
+     * @throws ClientException
+     * @dataProvider resolveQuery
+     */
+    public function testResolveParameters($credential)
     {
         // Setup
-        $credential = new StsCredential('key', 'secret', 'token');
-        $request    = new DescribeClusterServicesRequest();
+        AlibabaCloud::bearerTokenClient('token')->name('token');
+        $request = new  DescribeClusterServicesRequest();
+        $request->client('token');
         $request->options([
                               'form_params' => [
                                   'test' => 'test',
                               ],
                           ]);
-        $expected = 'http://localhost/clusters/[ClusterId]/services?Version=2015-12-15';
+        $request->regionId('cn-hangzhou');
+        $request->method('post');
+        $request->options([
+                              'query' => [
+                                  'A' => 'A',
+                              ],
+                          ]);
+        $expected = 'http://localhost/clusters/[ClusterId]/services?A=A&Version=2015-12-15';
 
         // Test
         $request->resolveParameters($credential);

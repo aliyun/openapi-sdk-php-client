@@ -39,7 +39,7 @@ use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\Request;
 
 /**
- * Class ClientTrait
+ * Trait ClientTrait
  *
  * @package   AlibabaCloud\Client\Request\Traits
  *

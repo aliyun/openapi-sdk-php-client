@@ -26,7 +26,9 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Credentials\Ini;
 
+use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\Ini\IniCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -50,8 +52,229 @@ class IniCredentialTest extends TestCase
     }
 
     /**
+     * @covers ::__construct
+     * @covers ::getDefaultFile
+     * @covers ::getFilename
+     * @dataProvider getFilename
+     *
+     * @param string $fileName
+     * @param string $getFileName
+     */
+    public function testGetFilename($fileName, $getFileName)
+    {
+        $object = new IniCredential($fileName);
+        self::assertEquals($getFileName, $object->getFilename());
+    }
+
+    /**
+     * @return array
+     */
+    public function getFilename()
+    {
+        return [
+            [
+                '',
+                (new IniCredential())->getDefaultFile(),
+            ],
+            [
+                '/no/no/no',
+                '/no/no/no',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider isNotEmpty
+     *
+     * @param array  $array
+     * @param string $key
+     * @param bool   $bool
+     *
+     * @throws \ReflectionException
+     */
+    public function testIsNotEmpty($array, $key, $bool)
+    {
+        $object = new IniCredential();
+        $ref    = new \ReflectionClass(
+            IniCredential::class
+        );
+        $method = $ref->getMethod('isNotEmpty');
+        $method->setAccessible(true);
+        $result = $method->invokeArgs($object, [$array, $key]);
+        self::assertEquals($result, $bool);
+    }
+
+    /**
+     * @return array
+     */
+    public function isNotEmpty()
+    {
+        return [
+            [
+                [],
+                'key',
+                false,
+            ],
+            [
+                [
+                    'key' => '',
+                ],
+                'key',
+                false,
+            ],
+            [
+                [
+                    'key' => 'false',
+                ],
+                'key',
+                true,
+            ],
+            [
+                [
+                    'key' => true,
+                ],
+                'key',
+                true,
+            ],
+            [
+                [
+                    'key' => 'value',
+                ],
+                'key',
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessageRegExp /Missing required 'key' option for 'name'/
+     */
+    public function testMissingRequired()
+    {
+        $object = new IniCredential();
+        $object->missingRequired('key', 'name');
+    }
+
+    /**
+     * @throws ClientException
+     * @throws \ReflectionException
+     */
+    public function testForgetLoadedCredentialsFile()
+    {
+        IniCredential::forgetLoadedCredentialsFile();
+
+        $ref        = new \ReflectionClass(IniCredential::class);
+        $properties = $ref->getStaticProperties();
+        self::assertEquals([], $properties['hasLoaded']);
+
+        AlibabaCloud::load(VirtualAccessKeyCredential::ok());
+
+        $ref        = new \ReflectionClass(IniCredential::class);
+        $properties = $ref->getStaticProperties();
+        self::assertArrayHasKey(VirtualAccessKeyCredential::ok(), $properties['hasLoaded']);
+
+        IniCredential::forgetLoadedCredentialsFile();
+        $ref        = new \ReflectionClass(IniCredential::class);
+        $properties = $ref->getStaticProperties();
+        self::assertEquals([], $properties['hasLoaded']);
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function testLoad()
+    {
+        $object = new IniCredential(VirtualAccessKeyCredential::ok());
+        self::assertEquals($object->load(), $object->load());
+    }
+
+    /**
+     * @dataProvider loadFile
+     *
+     * @param string $fileName
+     *
+     * @throws \ReflectionException
+     */
+    public function testLoadFile($fileName)
+    {
+        $object = new IniCredential($fileName);
+        $method = new \ReflectionMethod(
+            IniCredential::class,
+            'loadFile'
+        );
+        $method->setAccessible(true);
+        try {
+            $result = $method->invoke($object);
+            self::assertInternalType('array', $result);
+        } catch (ClientException $exception) {
+            self::assertEquals(
+                $exception->getErrorMessage(),
+                'Credential file is not readable: /no/no.no'
+            );
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function loadFile()
+    {
+        return [
+            [''],
+            ['/no/no.no'],
+        ];
+    }
+
+    /**
+     * @param string $fileName
+     * @param string $exceptionMessage
+     *
+     * @throws \ReflectionException
+     * @dataProvider parseFile
+     */
+    public function testParseFile($fileName, $exceptionMessage)
+    {
+        $object = new IniCredential($fileName);
+        $method = new \ReflectionMethod(
+            IniCredential::class,
+            'parseFile'
+        );
+        $method->setAccessible(true);
+        try {
+            $result = $method->invoke($object);
+            self::assertInternalType('array', $result);
+        } catch (ClientException $exception) {
+            self::assertEquals(
+                $exception->getErrorMessage(),
+                $exceptionMessage
+            );
+        }
+    }
+
+    /**
+     * Independent method, the file must exist.
+     *
+     * @return array
+     */
+    public function parseFile()
+    {
+        return [
+            [
+                VirtualAccessKeyCredential::badFormat(),
+                'Format error: vfs://AlibabaCloud/credentials',
+            ],
+            [
+                '/no/no.no',
+                'parse_ini_file(/no/no.no): failed to open stream: No such file or directory',
+            ],
+        ];
+    }
+
+    /**
      * @throws \ReflectionException
      * @covers ::getHomeDirectory
+     * @depends testParseFile
      */
     public function testGetsHomeDirectoryForWindowsUser()
     {
@@ -67,15 +290,16 @@ class IniCredentialTest extends TestCase
     /**
      * @throws \ReflectionException
      * @covers ::getHomeDirectory
+     * @depends testGetsHomeDirectoryForWindowsUser
      */
     public function testGetsHomeDirectoryForLinuxUser()
     {
-        putenv('HOME=/root/');
+        putenv('HOME=/root');
         putenv('HOMEDRIVE=');
         putenv('HOMEPATH=');
         $ref    = new \ReflectionClass(IniCredential::class);
         $method = $ref->getMethod('getHomeDirectory');
         $method->setAccessible(true);
-        $this->assertEquals('/root/', $method->invoke(null));
+        $this->assertEquals('/root', $method->invoke(null));
     }
 }

@@ -33,7 +33,7 @@ use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Request\Request;
 
 /**
- * Class AcsTrait
+ * Trait AcsTrait
  *
  * @package   AlibabaCloud\Client\Request\Traits
  *

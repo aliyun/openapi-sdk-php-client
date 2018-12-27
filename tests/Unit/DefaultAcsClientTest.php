@@ -226,6 +226,8 @@ class DefaultAcsClientTest extends TestCase
     {
         try {
             $request = new DescribeRegionsRequest();
+            $request->timeout(\ALIBABA_CLOUD_TIMEOUT);
+            $request->connectTimeout(\ALIBABA_CLOUD_CONNECT_TIMEOUT);
             $request->product('BadProduct');
             $response = self::$client->getAcsResponse($request);
             $this->assertNotNull($response);

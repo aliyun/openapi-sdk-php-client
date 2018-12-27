@@ -31,8 +31,8 @@ install:
     - travis_retry composer update $COMPOSER_OPTS --no-interaction --prefer-source
 
 script:
-    -  if [ "$TRAVIS_BRANCH" == "master" ]; then make test; fi
-    -  if [ "$TRAVIS_BRANCH" != "master" ]; then make test-unit; fi
+    - make test-unit
+    - if [ "$TRAVIS_BRANCH" == "master" ]; then make test-feature; fi
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)

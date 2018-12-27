@@ -27,9 +27,7 @@
 namespace AlibabaCloud\Client\Result;
 
 use AlibabaCloud\Client\Request\Request;
-use Exception;
 use GuzzleHttp\Psr7\Response;
-use JmesPath\Env as JmesPath;
 
 /**
  * Result from Alibaba Cloud
@@ -44,7 +42,9 @@ use JmesPath\Env as JmesPath;
  */
 class Result implements \ArrayAccess, \IteratorAggregate, \Countable
 {
+    use ArrayAccessTrait;
     use HasDataTrait;
+    use FormatTrait;
 
     /**
      * @var Response
@@ -57,28 +57,9 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
     private $request;
 
     /**
-     * @return Request
+     * @var array
      */
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    /**
-     * @return Response
-     */
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isSuccess()
-    {
-        return 200 <= $this->response->getStatusCode() && 300 > $this->response->getStatusCode();
-    }
+    private $data = [];
 
     /**
      * Result constructor.
@@ -112,61 +93,27 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
     }
 
     /**
-     * @param string $string
-     *
-     * @return array
+     * @return Request
      */
-    private function xmlToArray($string)
+    public function getRequest()
     {
-        try {
-            return json_decode(json_encode(simplexml_load_string($string)), true);
-        } catch (Exception $exception) {
-            return [];
-        }
+        return $this->request;
     }
 
     /**
-     * @param string $response
-     *
-     * @return array
+     * @return Response
      */
-    private function jsonToArray($response)
+    public function getResponse()
     {
-        try {
-            return \GuzzleHttp\json_decode($response, true);
-        } catch (\InvalidArgumentException $e) {
-            return [];
-        }
+        return $this->response;
     }
 
     /**
-     * @param string $name
-     *
      * @return bool
      */
-    public function hasKey($name)
+    public function isSuccess()
     {
-        return isset($this->data[$name]);
-    }
-
-    /**
-     * @param string $key
-     *
-     * @return mixed|null
-     */
-    public function get($key)
-    {
-        return $this[$key];
-    }
-
-    /**
-     * @param string $expression
-     *
-     * @return mixed|null
-     */
-    public function search($expression)
-    {
-        return JmesPath::search($expression, $this->toArray());
+        return 200 <= $this->response->getStatusCode() && 300 > $this->response->getStatusCode();
     }
 
     /**
@@ -178,8 +125,6 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
     }
 
     /**
-     * @codeCoverageIgnore
-     *
      * @param string $name
      *
      * @return mixed|null
@@ -193,8 +138,6 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
     }
 
     /**
-     * @codeCoverageIgnore
-     *
      * @param string $name
      * @param string $value
      */
@@ -213,13 +156,5 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
     public function __isset($name)
     {
         return isset($this->data[$name]);
-    }
-
-    /**
-     * @return false|string
-     */
-    public function toJson()
-    {
-        return \json_encode($this->data);
     }
 }

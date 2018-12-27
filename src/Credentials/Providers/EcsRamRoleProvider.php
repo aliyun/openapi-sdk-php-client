@@ -86,7 +86,11 @@ class EcsRamRoleProvider extends Provider
         try {
             $response = (new Client())->request('GET', $url, $options);
         } catch (GuzzleException $e) {
-            throw new ClientException($e->getMessage(), \ALI_SERVER_UNREACHABLE, $e);
+            throw new ClientException(
+                $e->getMessage(),
+                \ALI_SERVER_UNREACHABLE,
+                $e
+            );
         }
 
         $result = new Result($response);
@@ -99,7 +103,11 @@ class EcsRamRoleProvider extends Provider
         }
 
         if (!isset($result['AccessKeyId'], $result['AccessKeySecret'], $result['SecurityToken'])) {
-            throw new ServerException($result, 'Result contains no credentials', \ALI_INVALID_CREDENTIAL);
+            throw new ServerException(
+                $result,
+                'Result contains no credentials',
+                \ALI_INVALID_CREDENTIAL
+            );
         }
 
         return $result;

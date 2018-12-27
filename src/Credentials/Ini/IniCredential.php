@@ -62,7 +62,27 @@ class IniCredential
      */
     public function __construct($filename = '')
     {
-        $this->filename = $filename ?: $this->getDefault();
+        $this->filename = $filename ?: $this->getDefaultFile();
+    }
+
+    /**
+     * Get the default credential file.
+     *
+     * @return string
+     */
+    public function getDefaultFile()
+    {
+        return self::getHomeDirectory() . '/.alibabacloud/credentials';
+    }
+
+    /**
+     * Get the credential file.
+     *
+     * @return string
+     */
+    public function getFilename()
+    {
+        return $this->filename;
     }
 
     /**
@@ -82,22 +102,14 @@ class IniCredential
     }
 
     /**
-     * @return string
-     */
-    private function getDefault()
-    {
-        return self::getHomeDirectory() . '/.alibabacloud/credentials';
-    }
-
-    /**
-     * @param array  $client
+     * @param array  $array
      * @param string $key
      *
      * @return bool
      */
-    protected static function isNotEmpty($client, $key)
+    protected static function isNotEmpty(array $array, $key)
     {
-        return isset($client[$key]) && !empty($client[$key]);
+        return isset($array[$key]) && !empty($array[$key]);
     }
 
     /**
@@ -106,15 +118,17 @@ class IniCredential
      *
      * @throws ClientException
      */
-    public static function missingRequired($key, $clientName)
+    public function missingRequired($key, $clientName)
     {
         throw new ClientException(
-            "Missing required '$key' option for '$clientName'",
+            "Missing required '$key' option for '$clientName' in " . $this->getFilename(),
             \ALI_INVALID_CREDENTIAL
         );
     }
 
     /**
+     * Clear credential cache.
+     *
      * @return void
      */
     public static function forgetLoadedCredentialsFile()
@@ -144,7 +158,7 @@ class IniCredential
     }
 
     /**
-     * Exceptions will be thrown if the file is unreadable and not the default file
+     * Exceptions will be thrown if the file is unreadable and not the default file.
      *
      * @return array|mixed
      * @throws ClientException
@@ -152,18 +166,23 @@ class IniCredential
     private function loadFile()
     {
         if (!\is_file($this->filename) || !\is_readable($this->filename)) {
-            if ($this->filename === $this->getDefault()) {
+            if ($this->filename === $this->getDefaultFile()) {
                 // @codeCoverageIgnoreStart
                 return [];
                 // @codeCoverageIgnoreEnd
             }
-            throw new ClientException('Credential file is not readable: ' . $this->filename, \ALI_INVALID_CREDENTIAL);
+            throw new ClientException(
+                'Credential file is not readable: ' . $this->getFilename(),
+                \ALI_INVALID_CREDENTIAL
+            );
         }
 
         return $this->parseFile();
     }
 
     /**
+     * Decode the ini file into an array.
+     *
      * @return array|mixed
      * @throws ClientException
      */
@@ -171,16 +190,21 @@ class IniCredential
     {
         try {
             $file = \parse_ini_file($this->filename, true);
-            if (!$file || $file === false) {
-                throw new ClientException('Format error: ' . $this->filename, \ALI_INVALID_CREDENTIAL);
+            if (\is_array($file) && $file !== []) {
+                return $this->initClients($file);
             }
-            return $this->initClients($file);
+            throw new ClientException(
+                'Format error: ' . $this->getFilename(),
+                \ALI_INVALID_CREDENTIAL
+            );
         } catch (\Exception $e) {
             throw new ClientException($e->getMessage(), \ALI_INVALID_CREDENTIAL, $e);
         }
     }
 
     /**
+     * Initialize clients.
+     *
      * @param array $file
      *
      * @return array|mixed
