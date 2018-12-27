@@ -32,13 +32,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class DefaultProfileTest
  *
- * @package      AlibabaCloud\Client\Tests\Unit\Profile
+ * @package   AlibabaCloud\Client\Tests\Unit\Profile
  *
- * @author       Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright    Alibaba Group
- * @license      http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright Alibaba Group
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link         https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
  * @coversDefaultClass \AlibabaCloud\Client\Profile\DefaultProfile
  */

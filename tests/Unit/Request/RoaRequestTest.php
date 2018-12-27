@@ -38,13 +38,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class RoaRequestTest
  *
- * @package      AlibabaCloud\Client\Tests\Unit\Request
+ * @package   AlibabaCloud\Client\Tests\Unit\Request
  *
- * @author       Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright    Alibaba Group
- * @license      http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright Alibaba Group
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link         https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
  * @coversDefaultClass \AlibabaCloud\Client\Request\RoaRequest
  */
@@ -58,11 +58,13 @@ class RoaRequestTest extends TestCase
     {
         // Setup
         $request = new  DescribeClusterServicesRequest();
-        $request->options([
-                              'form_params' => [
-                                  'test' => 'test',
-                              ],
-                          ]);
+        $request->options(
+            [
+                'form_params' => [
+                    'test' => 'test',
+                ],
+            ]
+        );
         $expected = 'govO+HY8G8YW4loGvkuQ/w==';
 
         // Test
@@ -151,7 +153,7 @@ class RoaRequestTest extends TestCase
      * @param $uri
      * @param $expected
      *
-     * @throws \ReflectionException
+     * @throws       \ReflectionException
      * @dataProvider splitSubResource
      */
     public function testSplitSubResource($uri, $expected)
@@ -198,18 +200,20 @@ class RoaRequestTest extends TestCase
      * @param $expected
      * @param $uri
      *
-     * @throws \ReflectionException
+     * @throws       \ReflectionException
      * @dataProvider buildQueryString
      */
     public function testBuildQueryString($expected, $uri)
     {
         // Setup
         $request = new  DescribeClusterServicesRequest();
-        $request->options([
-                              'query' => [
-                                  'Abc' => 'Abc',
-                              ],
-                          ]);
+        $request->options(
+            [
+                'query' => [
+                    'Abc' => 'Abc',
+                ],
+            ]
+        );
 
         // Test
         $request->pathParameter('ClusterId', \time());
@@ -245,7 +249,7 @@ class RoaRequestTest extends TestCase
      * @param $format
      * @param $expected
      *
-     * @throws \ReflectionException
+     * @throws       \ReflectionException
      * @dataProvider formatToAccept
      */
     public function testFormatToAccept($format, $expected)
@@ -422,7 +426,7 @@ class RoaRequestTest extends TestCase
     /**
      * @param CredentialsInterface $credential
      *
-     * @throws ClientException
+     * @throws       ClientException
      * @dataProvider resolveQuery
      */
     public function testResolveParameters($credential)
@@ -431,18 +435,22 @@ class RoaRequestTest extends TestCase
         AlibabaCloud::bearerTokenClient('token')->name('token');
         $request = new  DescribeClusterServicesRequest();
         $request->client('token');
-        $request->options([
-                              'form_params' => [
-                                  'test' => 'test',
-                              ],
-                          ]);
+        $request->options(
+            [
+                'form_params' => [
+                    'test' => 'test',
+                ],
+            ]
+        );
         $request->regionId('cn-hangzhou');
         $request->method('post');
-        $request->options([
-                              'query' => [
-                                  'A' => 'A',
-                              ],
-                          ]);
+        $request->options(
+            [
+                'query' => [
+                    'A' => 'A',
+                ],
+            ]
+        );
         $expected = 'http://localhost/clusters/[ClusterId]/services?A=A&Version=2015-12-15';
 
         // Test

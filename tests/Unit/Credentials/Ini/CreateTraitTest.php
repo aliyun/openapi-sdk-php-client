@@ -55,8 +55,8 @@ class CreateTraitTest extends TestCase
      *
      * @param string $errorMessage
      *
-     * @throws \ReflectionException
-     * @dataProvider             createClient
+     * @throws       \ReflectionException
+     * @dataProvider createClient
      */
     public function testCreateClient($clientName, array $credential, $errorMessage)
     {
@@ -113,8 +113,8 @@ class CreateTraitTest extends TestCase
      *
      * @param string $errorMessage
      *
-     * @throws \ReflectionException
-     * @dataProvider  createClientByType
+     * @throws       \ReflectionException
+     * @dataProvider createClientByType
      */
     public function testCreateClientByType($clientName, array $credential, $errorMessage)
     {
@@ -192,8 +192,8 @@ class CreateTraitTest extends TestCase
      *
      * @param string $errorMessage
      *
-     * @throws \ReflectionException
-     * @dataProvider             rsaKeyPairClient
+     * @throws       \ReflectionException
+     * @dataProvider rsaKeyPairClient
      */
     public function testRsaKeyPairClient($clientName, array $credential, $errorMessage)
     {
@@ -251,8 +251,8 @@ class CreateTraitTest extends TestCase
      *
      * @param string $errorMessage
      *
-     * @throws \ReflectionException
-     * @dataProvider             accessKeyClient
+     * @throws       \ReflectionException
+     * @dataProvider accessKeyClient
      */
     public function testAccessKeyClient($clientName, array $credential, $errorMessage)
     {
@@ -309,7 +309,7 @@ class CreateTraitTest extends TestCase
      *
      * @param string $errorMessage
      *
-     * @dataProvider   ecsRamRoleClient
+     * @dataProvider ecsRamRoleClient
      *
      * @throws \ReflectionException
      */
@@ -360,7 +360,7 @@ class CreateTraitTest extends TestCase
      *
      * @param string $errorMessage
      *
-     * @dataProvider   ramRoleArnClient
+     * @dataProvider ramRoleArnClient
      *
      * @throws \ReflectionException
      */
@@ -438,7 +438,7 @@ class CreateTraitTest extends TestCase
      *
      * @param string $errorMessage
      *
-     * @dataProvider   bearerTokenClient
+     * @dataProvider bearerTokenClient
      *
      * @throws \ReflectionException
      */

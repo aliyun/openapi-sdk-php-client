@@ -20,7 +20,6 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php
- *
  */
 
 namespace AlibabaCloud\Client\Tests\Mock\Services\Dds;

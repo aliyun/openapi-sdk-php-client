@@ -33,13 +33,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ShaHmac256WithRsaSignatureTest
  *
- * @package      AlibabaCloud\Client\Tests\Unit\Signature
+ * @package   AlibabaCloud\Client\Tests\Unit\Signature
  *
- * @author       Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright    Alibaba Group
- * @license      http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright Alibaba Group
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link         https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
  * @coversDefaultClass \AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature
  */
@@ -76,7 +76,7 @@ class ShaHmac256WithRsaSignatureTest extends TestCase
     }
 
     /**
-     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionCode    0
      * @expectedExceptionMessage openssl_sign(): supplied key param cannot be coerced into a private key
      */

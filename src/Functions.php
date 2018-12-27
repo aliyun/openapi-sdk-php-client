@@ -95,7 +95,9 @@ function json($array)
  */
 function redTable($array)
 {
-    /** @noinspection PhpUndefinedMethodInspection */
+    /**
+     * @noinspection PhpUndefinedMethodInspection
+     */
     (new CLImate())->redTable($array);
 }
 

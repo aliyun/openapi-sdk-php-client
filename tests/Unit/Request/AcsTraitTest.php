@@ -35,13 +35,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class AcsTraitTest
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Request
+ * @package            AlibabaCloud\Client\Tests\Unit\Request
  *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author             Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright          2018 Alibaba Group
+ * @license            http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
+ * @link               https://github.com/aliyun/openapi-sdk-php-client
  * @coversDefaultClass \AlibabaCloud\Client\Request\Request
  */
 class AcsTraitTest extends TestCase
@@ -181,9 +181,9 @@ class AcsTraitTest extends TestCase
     }
 
     /**
-     * @expectedException \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage  Missing required 'RegionId' for Request
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Missing required 'RegionId' for Request
+     * @throws                   \AlibabaCloud\Client\Exception\ClientException
      */
     public function testRealRegionIdException()
     {

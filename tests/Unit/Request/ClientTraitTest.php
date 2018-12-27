@@ -38,13 +38,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ClientTraitTest
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Request
+ * @package            AlibabaCloud\Client\Tests\Unit\Request
  *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author             Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright          2018 Alibaba Group
+ * @license            http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
+ * @link               https://github.com/aliyun/openapi-sdk-php-client
  * @coversDefaultClass \AlibabaCloud\Client\Request\Request
  */
 class ClientTraitTest extends TestCase
@@ -63,21 +63,25 @@ class ClientTraitTest extends TestCase
         AlibabaCloud::accessKeyClient('key', 'secret')
                     ->asGlobalClient()
                     ->regionId('cn-hangzhou')
-                    ->options([
-                                  'headers' => [
-                                      'client' => 'client',
-                                  ],
-                              ])
+                    ->options(
+                        [
+                            'headers' => [
+                                'client' => 'client',
+                            ],
+                        ]
+                    )
                     ->name($clientName);
 
         $request = (new DescribeCdnServiceRequest())->client($clientName)
                                                     ->options(['request1' => 'request'])
                                                     ->options(['request2' => 'request2'])
-                                                    ->options([
-                                                                  'headers' => [
-                                                                      'client' => $expected,
-                                                                  ],
-                                                              ]);
+                                                    ->options(
+                                                        [
+                                                            'headers' => [
+                                                                'client' => $expected,
+                                                            ],
+                                                        ]
+                                                    );
         $request->mergeOptionsIntoClient();
 
         // Assert
@@ -113,12 +117,14 @@ class ClientTraitTest extends TestCase
                     ->regionId('cn-hangzhou')
                     ->name($clientName);
 
-        $request = (new AssumeRoleRequest(new RamRoleArnCredential(
-                                              'key',
-                                              'secret',
-                                              'arn',
-                                              'name'
-                                          )))->client($clientName);
+        $request = (new AssumeRoleRequest(
+            new RamRoleArnCredential(
+                'key',
+                'secret',
+                'arn',
+                'name'
+            )
+        ))->client($clientName);
 
         // Assert
         self::assertEquals('key', $request->credential()->getAccessKeyId());
@@ -136,10 +142,12 @@ class ClientTraitTest extends TestCase
                     ->regionId('cn-hangzhou')
                     ->name($clientName);
 
-        $request = (new GenerateSessionAccessKeyRequest(new RsaKeyPairCredential(
-                                                            'key',
-                                                            VirtualRsaKeyPairCredential::ok()
-                                                        )))->client($clientName);
+        $request = (new GenerateSessionAccessKeyRequest(
+            new RsaKeyPairCredential(
+                'key',
+                VirtualRsaKeyPairCredential::ok()
+            )
+        ))->client($clientName);
 
         // Assert
         self::assertEquals('key', $request->credential()->getAccessKeyId());

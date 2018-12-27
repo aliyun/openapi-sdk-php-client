@@ -32,6 +32,7 @@ use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class EcsRamRoleProvider
@@ -48,6 +49,8 @@ class EcsRamRoleProvider extends Provider
 {
 
     /**
+     * Get credential.
+     *
      * @return StsCredential
      * @throws ClientException
      * @throws ServerException
@@ -55,10 +58,20 @@ class EcsRamRoleProvider extends Provider
     public function get()
     {
         $result = $this->getCredentialsInCache();
+
         if ($result === null) {
-            $result = $this->getCredentialsFromMeta();
+            $result = $this->request(1);
+
+            if (!isset($result['AccessKeyId'], $result['AccessKeySecret'], $result['SecurityToken'])) {
+                throw new ServerException(
+                    $result,
+                    'Result contains no credentials',
+                    \ALI_INVALID_CREDENTIAL
+                );
+            }
             $this->cache($result);
         }
+
         return new StsCredential(
             $result['AccessKeyId'],
             $result['AccessKeySecret'],
@@ -67,33 +80,18 @@ class EcsRamRoleProvider extends Provider
     }
 
     /**
+     * Get credentials by request.
+     *
+     * @param int $timeout
+     *
      * @return Result
      * @throws ClientException
      * @throws ServerException
      */
-    private function getCredentialsFromMeta()
+    public function request($timeout)
     {
-        $url = 'http://100.100.100.200/latest/meta-data/ram/security-credentials/'
-               . $this->client->getCredential()->getRoleName();
+        $result = new Result($this->getResponse($timeout));
 
-        $options = [
-            'http_errors'     => false,
-            'timeout'         => 1,
-            'connect_timeout' => 1,
-            'debug'           => $this->client->isDebug(),
-        ];
-
-        try {
-            $response = (new Client())->request('GET', $url, $options);
-        } catch (GuzzleException $e) {
-            throw new ClientException(
-                $e->getMessage(),
-                \ALI_SERVER_UNREACHABLE,
-                $e
-            );
-        }
-
-        $result = new Result($response);
         if (!$result->isSuccess()) {
             throw new ServerException(
                 $result,
@@ -102,14 +100,37 @@ class EcsRamRoleProvider extends Provider
             );
         }
 
-        if (!isset($result['AccessKeyId'], $result['AccessKeySecret'], $result['SecurityToken'])) {
-            throw new ServerException(
-                $result,
-                'Result contains no credentials',
-                \ALI_INVALID_CREDENTIAL
+        return $result;
+    }
+
+    /**
+     * Get data from meta.
+     *
+     * @param $timeout
+     *
+     * @return mixed|ResponseInterface
+     * @throws ClientException
+     */
+    public function getResponse($timeout)
+    {
+        $url = 'http://100.100.100.200/latest/meta-data/ram/security-credentials/'
+               . $this->client->getCredential()->getRoleName();
+
+        $options = [
+            'http_errors'     => false,
+            'timeout'         => $timeout,
+            'connect_timeout' => $timeout,
+            'debug'           => $this->client->isDebug(),
+        ];
+
+        try {
+            return (new Client())->request('GET', $url, $options);
+        } catch (GuzzleException $e) {
+            throw new ClientException(
+                $e->getMessage(),
+                \ALI_SERVER_UNREACHABLE,
+                $e
             );
         }
-
-        return $result;
     }
 }

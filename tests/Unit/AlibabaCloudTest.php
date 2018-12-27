@@ -13,13 +13,13 @@
  *
  * --------------------------------------------------------------------------
  *
- * @category     AlibabaCloud
+ * @category  AlibabaCloud
  *
- * @author       Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright    Alibaba Group
- * @license      http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright Alibaba Group
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link         https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 
 namespace AlibabaCloud\Client\Tests\Unit;
@@ -34,13 +34,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class AlibabaCloudTest
  *
- * @package      AlibabaCloud\Client\Tests\Unit\Client
+ * @package   AlibabaCloud\Client\Tests\Unit\Client
  *
- * @author       Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright    Alibaba Group
- * @license      http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright Alibaba Group
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link         https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
  * @coversDefaultClass \AlibabaCloud\Client\AlibabaCloud
  */
@@ -116,9 +116,9 @@ class AlibabaCloudTest extends TestCase
     }
 
     /**
-     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Credential file is not readable: /no/no
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws                   \AlibabaCloud\Client\Exception\ClientException
      */
     public function testLoadWithException()
     {
@@ -157,9 +157,9 @@ class AlibabaCloudTest extends TestCase
     }
 
     /**
-     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Alibaba Cloud Client Not Found: global
-     * @throws ClientException
+     * @throws                   ClientException
      */
     public function testGetGlobalClient()
     {

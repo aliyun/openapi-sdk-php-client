@@ -33,13 +33,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class RsaKeyPaireCredentialTest
  *
- * @package      AlibabaCloud\Client\Tests\Unit\Credentials
+ * @package   AlibabaCloud\Client\Tests\Unit\Credentials
  *
- * @author       Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright    Alibaba Group
- * @license      http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright Alibaba Group
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link         https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\RsaKeyPairCredential
  */
@@ -72,8 +72,8 @@ class RsaKeyPaireCredentialTest extends TestCase
     }
 
     /**
-     * @covers ::__construct
-     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @covers                   ::__construct
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage file_get_contents(/no/no.no): failed to open stream: No such file or directory
      */
     public function testException()

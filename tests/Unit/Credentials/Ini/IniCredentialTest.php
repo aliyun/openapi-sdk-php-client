@@ -52,9 +52,9 @@ class IniCredentialTest extends TestCase
     }
 
     /**
-     * @covers ::__construct
-     * @covers ::getDefaultFile
-     * @covers ::getFilename
+     * @covers       ::__construct
+     * @covers       ::getDefaultFile
+     * @covers       ::getFilename
      * @dataProvider getFilename
      *
      * @param string $fileName
@@ -147,7 +147,7 @@ class IniCredentialTest extends TestCase
     }
 
     /**
-     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessageRegExp /Missing required 'key' option for 'name'/
      */
     public function testMissingRequired()
@@ -230,7 +230,7 @@ class IniCredentialTest extends TestCase
      * @param string $fileName
      * @param string $exceptionMessage
      *
-     * @throws \ReflectionException
+     * @throws       \ReflectionException
      * @dataProvider parseFile
      */
     public function testParseFile($fileName, $exceptionMessage)
@@ -272,8 +272,8 @@ class IniCredentialTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
-     * @covers ::getHomeDirectory
+     * @throws  \ReflectionException
+     * @covers  ::getHomeDirectory
      * @depends testParseFile
      */
     public function testGetsHomeDirectoryForWindowsUser()
@@ -288,8 +288,8 @@ class IniCredentialTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
-     * @covers ::getHomeDirectory
+     * @throws  \ReflectionException
+     * @covers  ::getHomeDirectory
      * @depends testGetsHomeDirectoryForWindowsUser
      */
     public function testGetsHomeDirectoryForLinuxUser()

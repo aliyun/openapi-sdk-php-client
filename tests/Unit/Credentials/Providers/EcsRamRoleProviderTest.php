@@ -37,13 +37,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class EcsRamRoleProviderTest
  *
- * @package      AlibabaCloud\Client\Tests\Unit\Credentials\Providers
+ * @package   AlibabaCloud\Client\Tests\Unit\Credentials\Providers
  *
- * @author       Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright    Alibaba Group
- * @license      http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
+ * @copyright Alibaba Group
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link         https://github.com/aliyun/openapi-sdk-php-client
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\Providers\EcsRamRoleProvider
  */
@@ -51,21 +51,20 @@ class EcsRamRoleProviderTest extends TestCase
 {
 
     /**
-     * @throws ClientException
-     * @throws ServerException
-     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @throws                         ClientException
+     * @throws                         ServerException
+     * @expectedException              \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessageRegExp /cURL error/
      */
     public function testGet()
     {
         // Setup
-        $client   = new EcsRamRoleClient(
-            'foo'
-        );
+        $client   = new EcsRamRoleClient('foo');
         $provider = new EcsRamRoleProvider($client);
 
         // Test
         $actual = $provider->get();
+
         // Assert
         self::assertInstanceOf(StsCredential::class, $actual);
     }
@@ -96,8 +95,8 @@ class EcsRamRoleProviderTest extends TestCase
             'SecurityToken'   => 'token',
         ];
         $cacheMethod->invokeArgs($provider, [$result]);
-
         $actual = $provider->get();
+
         // Assert
         self::assertInstanceOf(StsCredential::class, $actual);
     }
@@ -132,11 +131,11 @@ class EcsRamRoleProviderTest extends TestCase
         $client   = new EcsRamRoleClient($roleName);
 
         // Test
-        $credential = new EcsRamRoleProvider($client);
+        $provider = new EcsRamRoleProvider($client);
 
         // Assert
         try {
-            $credential->get();
+            $provider->get();
         } catch (ServerException $e) {
             $this->assertEquals($e->getErrorCode(), \ALI_INVALID_CREDENTIAL);
         }

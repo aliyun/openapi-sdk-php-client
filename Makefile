@@ -12,19 +12,19 @@ install:
 	composer install --dev
 
 test:
-	vendor/bin/phpunit --coverage-clover=build/coverage.clover --coverage-html=build/coverage
+	vendor/bin/phpunit
 
 test-unit:
-	vendor/bin/phpunit --testsuite=Unit --coverage-clover=build/coverage.clover --coverage-html=build/coverage
+	vendor/bin/phpunit --testsuite=Unit
 
 test-feature:
-	vendor/bin/phpunit --testsuite=Feature --coverage-clover=build/coverage.clover --coverage-html=build/coverage
+	vendor/bin/phpunit --testsuite=Feature
 
 coverage-show:
 	open build/coverage/index.html
 
 cs:
-	php php-cs-fixer fix ./
+	vendor/bin/php-cs-fixer fix ./
 
 update-endpoints:
 	php build/update-endpoints.php

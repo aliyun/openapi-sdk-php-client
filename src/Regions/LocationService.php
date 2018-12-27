@@ -114,7 +114,7 @@ class LocationService
     /**
      * @deprecated
      * @codeCoverageIgnore
-     * @return void
+     * @return             void
      */
     public static function modifyServiceDomain()
     {
