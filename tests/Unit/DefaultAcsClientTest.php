@@ -227,14 +227,13 @@ class DefaultAcsClientTest extends TestCase
         try {
             $request = new DescribeRegionsRequest();
             $request->timeout(\ALIBABA_CLOUD_TIMEOUT);
-            $request->connectTimeout(\ALIBABA_CLOUD_CONNECT_TIMEOUT);
+            $request->connectTimeout(10);
             $request->product('BadProduct');
             $response = self::$client->getAcsResponse($request);
             $this->assertNotNull($response);
         } catch (ClientException $e) {
             $expected = [
                 'The specified parameter "Action or Version" is not valid.',
-                'cURL error 6: Could not resolve host: location.aliyuncs.com (see http://curl.haxx.se/libcurl/c/libcurl-errors.html)',
             ];
 
             $this->assertContains($e->getErrorMessage(), $expected);

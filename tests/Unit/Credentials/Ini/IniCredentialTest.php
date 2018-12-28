@@ -243,7 +243,7 @@ class IniCredentialTest extends TestCase
         $method->setAccessible(true);
         try {
             $result = $method->invoke($object);
-            self::assertInternalType('array', $result);
+            self::assertArrayHasKey('ok', $result);
         } catch (ClientException $exception) {
             self::assertEquals(
                 $exception->getErrorMessage(),
@@ -261,8 +261,12 @@ class IniCredentialTest extends TestCase
     {
         return [
             [
-                VirtualAccessKeyCredential::badFormat(),
+                VirtualAccessKeyCredential::ok(),
                 'Format error: vfs://AlibabaCloud/credentials',
+            ],
+            [
+                VirtualAccessKeyCredential::badFormat(),
+                'Format error: vfs://AlibabaCloud/credentials/badFormat',
             ],
             [
                 '/no/no.no',

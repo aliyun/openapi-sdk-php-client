@@ -51,6 +51,7 @@ class RpcRequestTest extends TestCase
     public function testWithCredential()
     {
         // Setup
+        $nameClient      = 'name';
         $regionId        = 'cn-hangzhou';
         $accessKeyId     = \getenv('ACCESS_KEY_ID');
         $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
@@ -58,12 +59,14 @@ class RpcRequestTest extends TestCase
         // Test
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
                     ->regionId($regionId)
-                    ->name(\time());
+                    ->name($nameClient);
 
         // Assert
 
         try {
-            $response = (new DescribeRegionsRequest())->client(\time())->request();
+            $response = (new DescribeRegionsRequest())->client($nameClient)
+                                                      ->request();
+
             $this->assertNotNull($response->RequestId);
             $this->assertNotNull($response->Regions->Region[0]->LocalName);
             $this->assertNotNull($response->Regions->Region[0]->RegionId);

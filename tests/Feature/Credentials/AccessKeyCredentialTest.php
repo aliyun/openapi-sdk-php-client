@@ -152,9 +152,12 @@ class AccessKeyCredentialTest extends TestCase
      */
     public function testSlb()
     {
+        // Setup
+        $clusterId = \time();
+
         try {
             $request = new DescribeRulesRequest();
-            $request->setLoadBalancerId(\time());
+            $request->setLoadBalancerId($clusterId);
             $request->setListenerPort(55656);
             $request->client($this->clientName)
                     ->request();
@@ -176,9 +179,12 @@ class AccessKeyCredentialTest extends TestCase
      */
     public function testRam()
     {
+        // Setup
+        $userName = \time();
+
         try {
             (new ListAccessKeysRequest())->client($this->clientName)
-                                         ->setUserName(\time())
+                                         ->setUserName($userName)
                                          ->request();
         } catch (ClientException $e) {
             self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());

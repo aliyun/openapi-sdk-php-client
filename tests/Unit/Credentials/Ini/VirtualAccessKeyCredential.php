@@ -27,6 +27,7 @@
 namespace AlibabaCloud\Client\Tests\Unit\Credentials\Ini;
 
 use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
 
 /**
  * Class VirtualAccessKeyCredential
@@ -48,15 +49,25 @@ class VirtualAccessKeyCredential
      * @var string Virtual Credential Content
      */
     private $content;
+    /**
+     * @var string File Name
+     */
+    private $fileName;
+    /**
+     * @var vfsStreamDirectory
+     */
+    private static $root;
 
     /**
      * VirtualCredential constructor.
      *
-     * @param $content
+     * @param string $content
+     * @param string $fileName
      */
-    protected function __construct($content)
+    protected function __construct($content, $fileName = '')
     {
-        $this->content = $content;
+        $this->content  = $content;
+        $this->fileName = $fileName;
     }
 
     /**
@@ -64,10 +75,18 @@ class VirtualAccessKeyCredential
      */
     public function url()
     {
-        $root = vfsStream::setup('AlibabaCloud');
-        return vfsStream::newFile('credentials')
+        $fileName = 'credentials';
+        if ($this->fileName) {
+            $fileName .= "/$this->fileName";
+        }
+
+        if (self::$root === null) {
+            self::$root = vfsStream::setup('AlibabaCloud');
+        }
+
+        return vfsStream::newFile($fileName)
                         ->withContent($this->content)
-                        ->at($root)
+                        ->at(self::$root)
                         ->url();
     }
 
@@ -163,7 +182,7 @@ EOT;
         $content = <<<EOT
 badFormat
 EOT;
-        return (new static($content))->url();
+        return (new static($content, 'badFormat'))->url();
     }
 
     /**
@@ -234,6 +253,6 @@ proxy_http = tcp://localhost:8125
 proxy_https = tcp://localhost:9124
 proxy_no = .mit.edu,foo.com
 EOT;
-        return (new static($content))->url();
+        return (new static($content, 'ok'))->url();
     }
 }

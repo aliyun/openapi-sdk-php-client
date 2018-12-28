@@ -26,12 +26,9 @@
 
 namespace AlibabaCloud\Client\Request\Traits;
 
-use AlibabaCloud\Client\Http\GuzzleTrait;
-use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Request\RoaRequest;
 
 /**
- * @deprecated
  * @package    AlibabaCloud\Client\Request\Traits
  *
  * @author     Alibaba Cloud SDK <sdk-team@alibabacloud.com>
@@ -39,9 +36,6 @@ use AlibabaCloud\Client\Request\RoaRequest;
  * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link       https://github.com/aliyun/openapi-sdk-php-client
- *
- * @mixin Request
- * @mixin GuzzleTrait
  */
 trait DeprecatedRoaTrait
 {

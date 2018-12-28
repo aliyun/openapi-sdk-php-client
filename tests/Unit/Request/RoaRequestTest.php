@@ -82,11 +82,12 @@ class RoaRequestTest extends TestCase
     public function testAssignPathParametersWithMagicMethod()
     {
         // Setup
-        $request  = new  DescribeClusterServicesRequest();
-        $expected = '/clusters/' . \time() . '/services';
+        $request   = new  DescribeClusterServicesRequest();
+        $clusterId = \time();
+        $expected  = '/clusters/' . $clusterId . '/services';
 
         // Test
-        $request->setClusterId(\time());
+        $request->setClusterId($clusterId);
         $method = new \ReflectionMethod(
             DescribeClusterServicesRequest::class,
             'assignPathParameters'
@@ -104,11 +105,12 @@ class RoaRequestTest extends TestCase
     public function testAssignPathParametersWithOption()
     {
         // Setup
-        $request  = new  DescribeClusterServicesRequest();
-        $expected = '/clusters/' . \time() . '/services';
+        $request   = new  DescribeClusterServicesRequest();
+        $clusterId = \time();
+        $expected  = '/clusters/' . $clusterId . '/services';
 
         // Test
-        $request->pathParameter('ClusterId', \time());
+        $request->pathParameter('ClusterId', $clusterId);
         $method = new \ReflectionMethod(
             DescribeClusterServicesRequest::class,
             'assignPathParameters'
@@ -129,6 +131,7 @@ class RoaRequestTest extends TestCase
         // Setup
         $request = new  DescribeClusterServicesRequest();
         $request->regionId('cn-hangzhou');
+        $clusterId  = \time();
         $credential = new AccessKeyCredential('key', 'secret');
         $request->resolveParameters($credential);
         $expected = "x-acs-region-id:cn-hangzhou\n" .
@@ -137,7 +140,7 @@ class RoaRequestTest extends TestCase
                     "x-acs-version:2015-12-15\n";
 
         // Test
-        $request->pathParameter('ClusterId', \time());
+        $request->pathParameter('ClusterId', $clusterId);
         $method = new \ReflectionMethod(
             DescribeClusterServicesRequest::class,
             'buildCanonicalHeaders'
@@ -159,10 +162,11 @@ class RoaRequestTest extends TestCase
     public function testSplitSubResource($uri, $expected)
     {
         // Setup
-        $request = new  DescribeClusterServicesRequest();
+        $request   = new  DescribeClusterServicesRequest();
+        $clusterId = \time();
 
         // Test
-        $request->pathParameter('ClusterId', \time());
+        $request->pathParameter('ClusterId', $clusterId);
         $method = new \ReflectionMethod(
             DescribeClusterServicesRequest::class,
             'splitSubResource'
@@ -206,7 +210,8 @@ class RoaRequestTest extends TestCase
     public function testBuildQueryString($expected, $uri)
     {
         // Setup
-        $request = new  DescribeClusterServicesRequest();
+        $request   = new  DescribeClusterServicesRequest();
+        $clusterId = \time();
         $request->options(
             [
                 'query' => [
@@ -216,7 +221,7 @@ class RoaRequestTest extends TestCase
         );
 
         // Test
-        $request->pathParameter('ClusterId', \time());
+        $request->pathParameter('ClusterId', $clusterId);
         $method = new \ReflectionMethod(
             DescribeClusterServicesRequest::class,
             'buildQueryString'
@@ -255,10 +260,11 @@ class RoaRequestTest extends TestCase
     public function testFormatToAccept($format, $expected)
     {
         // Setup
-        $request = new  DescribeClusterServicesRequest();
+        $request   = new  DescribeClusterServicesRequest();
+        $clusterId = \time();
 
         // Test
-        $request->pathParameter('ClusterId', \time());
+        $request->pathParameter('ClusterId', $clusterId);
         $method = new \ReflectionMethod(
             DescribeClusterServicesRequest::class,
             'formatToAccept'
