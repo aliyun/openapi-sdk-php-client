@@ -1682,6 +1682,7 @@ return [
                     'us-east-1'      => 'petadata.aliyuncs.com',
                     'eu-central-1'   => 'petadata.eu-central-1.aliyuncs.com',
                     'me-east-1'      => 'petadata.me-east-1.aliyuncs.com',
+                    'cn-hongkong'    => 'petadata.aliyuncs.com',
                 ],
             'gpdb'            =>
                 [
@@ -1946,7 +1947,8 @@ return [
                 ],
             'alidfs'          =>
                 [
-                    'cn-beijing' => 'dfs.cn-beijing.aliyuncs.com',
+                    'cn-beijing'  => 'dfs.cn-beijing.aliyuncs.com',
+                    'cn-shanghai' => 'dfs.cn-shanghai.aliyuncs.com',
                 ],
         ],
 ];
