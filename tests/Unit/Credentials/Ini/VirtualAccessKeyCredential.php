@@ -27,7 +27,6 @@
 namespace AlibabaCloud\Client\Tests\Unit\Credentials\Ini;
 
 use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
 
 /**
  * Class VirtualAccessKeyCredential
@@ -53,10 +52,6 @@ class VirtualAccessKeyCredential
      * @var string File Name
      */
     private $fileName;
-    /**
-     * @var vfsStreamDirectory
-     */
-    private static $root;
 
     /**
      * VirtualCredential constructor.
@@ -77,16 +72,12 @@ class VirtualAccessKeyCredential
     {
         $fileName = 'credentials';
         if ($this->fileName) {
-            $fileName .= "/$this->fileName";
-        }
-
-        if (self::$root === null) {
-            self::$root = vfsStream::setup('AlibabaCloud');
+            $fileName .= "-$this->fileName";
         }
 
         return vfsStream::newFile($fileName)
                         ->withContent($this->content)
-                        ->at(self::$root)
+                        ->at(vfsStream::setup('AlibabaCloud'))
                         ->url();
     }
 

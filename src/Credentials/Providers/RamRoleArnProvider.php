@@ -71,7 +71,6 @@ class RamRoleArnProvider extends Provider
             }
 
             $credential = $result['Credentials'];
-
             $this->cache($credential);
         }
 

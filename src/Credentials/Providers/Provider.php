@@ -74,7 +74,7 @@ class Provider
     /**
      * Cache credentials.
      *
-     * @param mixed $result
+     * @param array $result
      */
     protected function cache(array $result)
     {

@@ -26,6 +26,7 @@
 
 namespace AlibabaCloud\Client\Credentials\Providers;
 
+use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
@@ -69,7 +70,7 @@ class EcsRamRoleProvider extends Provider
                     \ALI_INVALID_CREDENTIAL
                 );
             }
-            $this->cache($result);
+            $this->cache($result->toArray());
         }
 
         return new StsCredential(
@@ -113,8 +114,12 @@ class EcsRamRoleProvider extends Provider
      */
     public function getResponse($timeout)
     {
-        $url = 'http://100.100.100.200/latest/meta-data/ram/security-credentials/'
-               . $this->client->getCredential()->getRoleName();
+        /**
+         * @var EcsRamRoleCredential $credential
+         */
+        $credential = $this->client->getCredential();
+        $url        = 'http://100.100.100.200/latest/meta-data/ram/security-credentials/'
+                      . $credential->getRoleName();
 
         $options = [
             'http_errors'     => false,
