@@ -2,10 +2,6 @@
 /vendor
 /.env
 .idea/*
-!.idea/encodings.xml
-!.idea/inspectionProfiles
-!.idea/icon.png
-!.idea/icon_dark.png
 *.pem
 /build/coverage
 /build/coverage.clover
