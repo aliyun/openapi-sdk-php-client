@@ -53,10 +53,7 @@ use GuzzleHttp\Psr7\Uri;
  */
 abstract class Request
 {
-    use /**
-     * @scrutinizer ignore-deprecated
-     */
-        DeprecatedTrait;
+    use DeprecatedTrait;
     use GuzzleTrait;
     use MagicTrait;
     use ClientTrait;
@@ -203,25 +200,44 @@ abstract class Request
      */
     public function request()
     {
-        try {
-            $this->resolveHost();
-            $this->resolveParameters($this->credential());
-            if (isset($this->options['form_params'])) {
-                $this->options['form_params'] = \GuzzleHttp\Psr7\parse_query(
-                    self::getPostHttpBody($this->options['form_params'])
-                );
-            }
-            $this->mergeOptionsIntoClient();
-            $response = $this->guzzleClient->request($this->method, $this->uri, $this->options);
-            $result   = new Result($response, $this);
-        } catch (GuzzleException $e) {
-            throw new ClientException($e->getMessage(), \ALI_SERVER_UNREACHABLE, $e);
+        $this->resolveHost();
+
+        $this->resolveParameters($this->credential());
+
+        if (isset($this->options['form_params'])) {
+            $this->options['form_params'] = \GuzzleHttp\Psr7\parse_query(
+                self::getPostHttpBody($this->options['form_params'])
+            );
         }
+
+        $this->mergeOptionsIntoClient();
+
+        $result = new Result($this->response(), $this);
 
         if (!$result->isSuccess()) {
             throw new ServerException($result);
         }
 
         return $result;
+    }
+
+    /**
+     * @throws ClientException
+     */
+    private function response()
+    {
+        try {
+            return $this->guzzleClient->request(
+                $this->method,
+                $this->uri,
+                $this->options
+            );
+        } catch (GuzzleException $e) {
+            throw new ClientException(
+                $e->getMessage(),
+                \ALI_SERVER_UNREACHABLE,
+                $e
+            );
+        }
     }
 }

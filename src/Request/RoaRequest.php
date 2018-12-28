@@ -48,10 +48,8 @@ use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
  */
 class RoaRequest extends Request
 {
-    use /**
-     * @scrutinizer ignore-deprecated
-     */
-        DeprecatedRoaTrait;
+    use DeprecatedRoaTrait;
+
     /**
      * @var string
      */

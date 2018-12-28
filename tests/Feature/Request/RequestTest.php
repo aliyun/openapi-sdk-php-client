@@ -119,11 +119,12 @@ class RequestTest extends TestCase
         $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
                     ->regionId($regionId)
-                    ->name(\time());
+                    ->name(__METHOD__);
 
         // Test
         try {
-            (new  DescribeClusterServicesRequest())->client(\time())->request();
+            (new  DescribeClusterServicesRequest())->client(__METHOD__)
+                                                   ->request();
         } catch (ServerException $e) {
             // Assert
             if (\getenv('ACCESS_KEY_ID') === 'foo') {
