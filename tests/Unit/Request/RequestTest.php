@@ -187,6 +187,8 @@ class RequestTest extends TestCase
         $request = new DeleteDatabaseRequest();
         AlibabaCloud::accessKeyClient('key', 'secret')
                     ->regionId('cn-hangzhou')
+                    ->connectTimeout(15)
+                    ->timeout(10)
                     ->name('temp');
 
         try {

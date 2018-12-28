@@ -207,14 +207,14 @@ class IniCredential
     /**
      * Initialize clients.
      *
-     * @param array $file
+     * @param array $array
      *
      * @return array|mixed
      * @throws ClientException
      */
-    private function initClients($file)
+    private function initClients($array)
     {
-        foreach (\array_change_key_case($file) as $clientName => $configures) {
+        foreach (\array_change_key_case($array) as $clientName => $configures) {
             $configures     = \array_change_key_case($configures);
             $clientInstance = $this->createClient($clientName, $configures);
             if ($clientInstance instanceof Client) {

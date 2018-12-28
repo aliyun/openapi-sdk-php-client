@@ -131,9 +131,15 @@ class AlibabaCloudTest extends TestCase
      */
     public function testGlobalRegionId()
     {
+        // Setup
+        $regionId = 'test';
         $this->assertNull(AlibabaCloud::getGlobalRegionId());
-        AlibabaCloud::setGlobalRegionId(\time());
-        $this->assertEquals(\time(), AlibabaCloud::getGlobalRegionId());
+
+        // Test
+        AlibabaCloud::setGlobalRegionId($regionId);
+
+        // Assert
+        $this->assertEquals($regionId, AlibabaCloud::getGlobalRegionId());
     }
 
     /**
@@ -142,10 +148,13 @@ class AlibabaCloudTest extends TestCase
      */
     public function testDel()
     {
-        AlibabaCloud::accessKeyClient(\time(), \time())->name(\time());
-        $this->assertEquals(true, AlibabaCloud::has(\time()));
-        AlibabaCloud::del(time());
-        $this->assertEquals(false, AlibabaCloud::has(\time()));
+        // Setup
+        $clientName = 'test';
+
+        AlibabaCloud::accessKeyClient(\time(), \time())->name($clientName);
+        $this->assertEquals(true, AlibabaCloud::has($clientName));
+        AlibabaCloud::del($clientName);
+        $this->assertEquals(false, AlibabaCloud::has($clientName));
     }
 
     public function testAll()
@@ -172,9 +181,13 @@ class AlibabaCloudTest extends TestCase
      */
     public function testGet()
     {
+        // setup
         $rand = \mt_rand(1, 10000);
         AlibabaCloud::accessKeyClient($rand, \time())->name('client1');
-        $this->assertEquals($rand, AlibabaCloud::get('client1')->getCredential()->getAccessKeyId());
+        $this->assertEquals(
+            $rand,
+            AlibabaCloud::get('client1')->getCredential()->getAccessKeyId()
+        );
 
         try {
             AlibabaCloud::get('None')->getCredential()->getAccessKeyId();

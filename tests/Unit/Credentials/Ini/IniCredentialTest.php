@@ -242,8 +242,7 @@ class IniCredentialTest extends TestCase
         );
         $method->setAccessible(true);
         try {
-            $result = $method->invoke($object);
-            self::assertInternalType('array', $result);
+            self::assertArrayHasKey('ok', $method->invoke($object));
         } catch (ClientException $exception) {
             self::assertEquals(
                 $exception->getErrorMessage(),
@@ -261,7 +260,7 @@ class IniCredentialTest extends TestCase
     {
         return [
             [
-                VirtualAccessKeyCredential::badFormat(),
+                VirtualAccessKeyCredential::ok(),
                 'Format error: vfs://AlibabaCloud/credentials',
             ],
             [
@@ -269,6 +268,28 @@ class IniCredentialTest extends TestCase
                 'parse_ini_file(/no/no.no): failed to open stream: No such file or directory',
             ],
         ];
+    }
+
+    /**
+     * @throws       \ReflectionException
+     * @dataProvider parseFile
+     */
+    public function testParseFileBadFormat()
+    {
+        $object = new IniCredential(VirtualAccessKeyCredential::badFormat());
+        $method = new \ReflectionMethod(
+            IniCredential::class,
+            'parseFile'
+        );
+        $method->setAccessible(true);
+        try {
+            self::assertArrayHasKey('ok', $method->invoke($object));
+        } catch (ClientException $exception) {
+            self::assertEquals(
+                $exception->getErrorMessage(),
+                'Format error: vfs://AlibabaCloud/credentials-badFormat'
+            );
+        }
     }
 
     /**
