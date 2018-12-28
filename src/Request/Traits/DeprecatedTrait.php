@@ -29,7 +29,6 @@ namespace AlibabaCloud\Client\Request\Traits;
 use AlibabaCloud\Client\Request\Request;
 
 /**
- * @deprecated
  * @package    AlibabaCloud\Client\Request\Traits
  *
  * @author     Alibaba Cloud SDK <sdk-team@alibabacloud.com>
@@ -48,7 +47,9 @@ trait DeprecatedTrait
      */
     public function getContent()
     {
-        return $this->options['body'];
+        return isset($this->options['body'])
+            ? $this->options['body']
+            : null;
     }
 
     /**
@@ -77,17 +78,16 @@ trait DeprecatedTrait
      *
      * @param string $method
      *
-     * @return DeprecatedTrait
+     * @return $this
      */
     public function setMethod($method)
     {
-        $this->method = $method;
-        return $this;
+        return $this->method($method);
     }
 
     /**
      * @deprecated
-     * @codeCoverageIgnore
+     *
      * @return             string
      */
     public function getProtocol()
@@ -97,7 +97,6 @@ trait DeprecatedTrait
 
     /**
      * @deprecated         Use scheme() instead.
-     * @codeCoverageIgnore
      *
      * @param string $scheme
      *
@@ -118,7 +117,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated Use scheme() instead.
+     * @deprecated
      *
      * @param string $scheme
      *
@@ -130,21 +129,8 @@ trait DeprecatedTrait
     }
 
     /**
-     * @param array $post
-     *
-     * @return bool|string
-     */
-    public static function getPostHttpBody(array $post)
-    {
-        $content = '';
-        foreach ($post as $apiParamKey => $apiParamValue) {
-            $content .= "$apiParamKey=" . urlencode($apiParamValue) . '&';
-        }
-        return substr($content, 0, -1);
-    }
-
-    /**
      * @deprecated
+     *
      * @return     array
      */
     public function getHeaders()
@@ -276,5 +262,19 @@ trait DeprecatedTrait
     public function getLocationServiceCode()
     {
         return $this->locationServiceCode;
+    }
+
+    /**
+     * @param array $post
+     *
+     * @return bool|string
+     */
+    public static function getPostHttpBody(array $post)
+    {
+        $content = '';
+        foreach ($post as $apiParamKey => $apiParamValue) {
+            $content .= "$apiParamKey=" . urlencode($apiParamValue) . '&';
+        }
+        return substr($content, 0, -1);
     }
 }

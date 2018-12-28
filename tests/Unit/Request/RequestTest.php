@@ -27,6 +27,8 @@
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\RoaRequest;
 use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
@@ -174,5 +176,44 @@ class RequestTest extends TestCase
 
         unset($request->options['debug'], AlibabaCloud::get('temp')->options['debug']);
         self::assertFalse($request->isDebug());
+    }
+
+    /**
+     * @throws \AlibabaCloud\Client\Exception\ClientException
+     */
+    public function testRequestWithServiceException()
+    {
+        // Setup
+        $request = new DeleteDatabaseRequest();
+        AlibabaCloud::accessKeyClient('key', 'secret')
+                    ->regionId('cn-hangzhou')
+                    ->name('temp');
+
+        try {
+            $request->client('temp')
+                    ->request();
+        } catch (ServerException $e) {
+            self::assertEquals('Specified access key is not found.', $e->getErrorMessage());
+        }
+    }
+
+    /**
+     * @throws \AlibabaCloud\Client\Exception\ServerException
+     */
+    public function testRequestWithClientException()
+    {
+        // Setup
+        $request = new DeleteDatabaseRequest();
+        AlibabaCloud::accessKeyClient('key', 'secret')
+                    ->regionId('cn-hangzhou')
+                    ->name('temp');
+
+        try {
+            $request->client('temp')
+                    ->timeout(0.01)
+                    ->request();
+        } catch (ClientException $e) {
+            self::assertStringStartsWith('cURL error', $e->getErrorMessage());
+        }
     }
 }

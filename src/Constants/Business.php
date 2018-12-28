@@ -45,11 +45,11 @@ defined('ALIBABA_CLOUD_GLOBAL_CLIENT') || define('ALIBABA_CLOUD_GLOBAL_CLIENT', 
 /**
  * Request Timeout
  */
-defined('ALIBABA_CLOUD_CONNECT_TIMEOUT') || define('ALIBABA_CLOUD_CONNECT_TIMEOUT', 10);
+defined('ALIBABA_CLOUD_TIMEOUT') || define('ALIBABA_CLOUD_TIMEOUT', 15);
 /**
  * Request Connect Timeout
  */
-defined('ALIBABA_CLOUD_TIMEOUT') || define('ALIBABA_CLOUD_TIMEOUT', 15);
+defined('ALIBABA_CLOUD_CONNECT_TIMEOUT') || define('ALIBABA_CLOUD_CONNECT_TIMEOUT', 3);
 /**
  * SDK Version
  */
