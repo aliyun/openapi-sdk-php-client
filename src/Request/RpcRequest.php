@@ -81,11 +81,6 @@ class RpcRequest extends Request
             }
             unset($this->options['query']);
         }
-
-        $this->uri = $this->uriComponents->getScheme()
-                     . '://'
-                     . $this->uriComponents->getHost()
-                     . '/';
     }
 
     /**
@@ -141,6 +136,8 @@ class RpcRequest extends Request
     }
 
     /**
+     * Magic method for set or get request parameters.
+     *
      * @param string $name
      * @param mixed  $arguments
      *
@@ -149,14 +146,14 @@ class RpcRequest extends Request
     public function __call($name, $arguments)
     {
         if (\strpos($name, 'get', 0) !== false) {
-            $name = $this->propertyNameByMethodName($name);
-            return isset($this->options['query'][$name])
-                ? $this->options['query'][$name]
-                : null;
+            $parameterName = $this->propertyNameByMethodName($name);
+            return $this->__get($parameterName);
         }
+
         if (\strpos($name, 'set', 0) !== false) {
-            $name                          = $this->propertyNameByMethodName($name);
-            $this->options['query'][$name] = $arguments[0];
+            $parameterName = $this->propertyNameByMethodName($name);
+            $this->__set($parameterName, $arguments[0]);
+            $this->options['query'][$parameterName] = $arguments[0];
         }
         return $this;
     }

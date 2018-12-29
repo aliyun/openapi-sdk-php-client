@@ -15,53 +15,98 @@ use League\CLImate\CLImate;
 */
 
 /**
- * @param string $string
- *
- * @return void
+ * @return CLImate
  */
-function backgroundRed($string)
+function cliMate()
 {
-    (new CLImate())->br()->backgroundRed($string);
+    return new CLImate();
 }
 
 /**
- * @param string $string
+ * @param string      $string
+ *
+ * @param string|null $flank
+ * @param string|null $char
+ * @param string|null $length
  *
  * @return void
  */
-function backgroundGreen($string)
+function backgroundRed($string, $flank = null, $char = null, $length = null)
 {
-    (new CLImate())->br()->backgroundGreen($string);
+    cliMate()->br();
+    if ($flank !== null) {
+        cliMate()->backgroundRed()->flank($flank, $char, $length);
+        cliMate()->br();
+    }
+    cliMate()->backgroundRed($string);
+    cliMate()->br();
 }
 
 /**
- * @param string $string
+ * @param string      $string
+ *
+ * @param string|null $flank
+ * @param string|null $char
+ * @param string|null $length
  *
  * @return void
  */
-function backgroundBlue($string)
+function backgroundGreen($string, $flank = null, $char = null, $length = null)
 {
-    (new CLImate())->br()->backgroundBlue($string);
+    cliMate()->br();
+    if ($flank !== null) {
+        cliMate()->backgroundGreen()->flank($flank, $char, $length);
+    }
+    cliMate()->backgroundGreen($string);
+    cliMate()->br();
 }
 
 /**
- * @param string $string
+ * @param string      $string
+ *
+ * @param string|null $flank
+ * @param string|null $char
+ * @param string|null $length
  *
  * @return void
  */
-function backgroundMagenta($string)
+function backgroundBlue($string, $flank = null, $char = null, $length = null)
 {
-    (new CLImate())->br()->backgroundMagenta($string);
+    cliMate()->br();
+    if ($flank !== null) {
+        cliMate()->backgroundBlue()->flank($flank, $char, $length);
+    }
+    cliMate()->backgroundBlue($string);
+    cliMate()->br();
+}
+
+/**
+ * @param string      $string
+ *
+ * @param string|null $flank
+ * @param string|null $char
+ * @param string|null $length
+ *
+ * @return void
+ */
+function backgroundMagenta($string, $flank = null, $char = null, $length = null)
+{
+    cliMate()->br();
+    if ($flank !== null) {
+        cliMate()->backgroundMagenta()->flank($flank, $char, $length);
+    }
+    cliMate()->backgroundMagenta($string);
+    cliMate()->br();
 }
 
 /**
  * @param array $array
- *
- * @return void
  */
-function json($array)
+function json(array $array)
 {
-    (new CLImate())->br()->backgroundGreen()->json($array);
+    cliMate()->br();
+    cliMate()->backgroundGreen()->json($array);
+    cliMate()->br();
 }
 
 /**
@@ -74,7 +119,7 @@ function redTable($array)
     /**
      * @noinspection PhpUndefinedMethodInspection
      */
-    (new CLImate())->redTable($array);
+    cliMate()->redTable($array);
 }
 
 /**
@@ -85,7 +130,7 @@ function redTable($array)
  */
 function block($result, $title)
 {
-    (new CLImate())->br()->backgroundGreen()->flank($title, '--', 20);
+    cliMate()->backgroundGreen()->flank($title, '--', 20);
     dump($result);
 }
 

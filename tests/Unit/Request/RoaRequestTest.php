@@ -34,6 +34,7 @@ class RoaRequestTest extends TestCase
     {
         // Setup
         $request = new  DescribeClusterServicesRequest();
+        $request->setClusterId(\time());
         $request->options(
             [
                 'form_params' => [
@@ -106,6 +107,7 @@ class RoaRequestTest extends TestCase
     {
         // Setup
         $request = new  DescribeClusterServicesRequest();
+        $request->setClusterId(\time());
         $request->regionId('cn-hangzhou');
         $clusterId  = \time();
         $credential = new AccessKeyCredential('key', 'secret');
@@ -129,84 +131,26 @@ class RoaRequestTest extends TestCase
     }
 
     /**
-     * @param $uri
-     * @param $expected
+     * @param array  $query
+     * @param string $expected
      *
-     * @throws       \ReflectionException
-     * @dataProvider splitSubResource
-     */
-    public function testSplitSubResource($uri, $expected)
-    {
-        // Setup
-        $request   = new  DescribeClusterServicesRequest();
-        $clusterId = \time();
-
-        // Test
-        $request->pathParameter('ClusterId', $clusterId);
-        $method = new \ReflectionMethod(
-            DescribeClusterServicesRequest::class,
-            'splitSubResource'
-        );
-        $method->setAccessible(true);
-        $actual = $method->invokeArgs($request, [$uri]);
-
-        // Assert
-        self::assertEquals($expected, $actual);
-    }
-
-    /**
-     * @return array
-     */
-    public function splitSubResource()
-    {
-        return [
-            [
-                '/clusters/1234/services?a=a&b=b',
-                [
-                    0 => '/clusters/1234/services',
-                    1 => 'a=a&b=b',
-                ],
-            ],
-            [
-                '/clusters/1234/services',
-                [
-                    0 => '/clusters/1234/services',
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @param $expected
-     * @param $uri
-     *
-     * @throws       \ReflectionException
      * @dataProvider buildQueryString
+     * @throws ClientException
      */
-    public function testBuildQueryString($expected, $uri)
+    public function testBuildQueryString(array $query, $expected)
     {
         // Setup
-        $request   = new  DescribeClusterServicesRequest();
-        $clusterId = \time();
-        $request->options(
-            [
-                'query' => [
-                    'Abc' => 'Abc',
-                ],
-            ]
-        );
+        $request = new  DescribeClusterServicesRequest();
+        AlibabaCloud::accessKeyClient('foo', 'bar')
+                    ->regionId('cn-hangzhou')
+                    ->asGlobalClient();
 
         // Test
-        $request->pathParameter('ClusterId', $clusterId);
-        $method = new \ReflectionMethod(
-            DescribeClusterServicesRequest::class,
-            'buildQueryString'
-        );
-        $method->setAccessible(true);
-        $actual = $method->invokeArgs($request, [$uri]);
+        $request->options(['query' => $query]);
+        $request->resolveParameters(AlibabaCloud::getGlobalClient()->getCredential());
 
         // Assert
-        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $request->queryString());
     }
 
     /**
@@ -216,12 +160,18 @@ class RoaRequestTest extends TestCase
     {
         return [
             [
-                '/clusters/1234/services?Abc=Abc&Version=2015-12-15&a=a&b=b',
-                '/clusters/1234/services?a=a&b=b',
+                [
+                    'a' => 'a',
+                    'b' => 'b',
+                ],
+                'Version=2015-12-15&a=a&b=b',
             ],
             [
-                '/clusters/1234/services?Abc=Abc&Version=2015-12-15',
-                '/clusters/1234/services',
+                [
+                    'b' => 'b',
+                    'c' => 'c',
+                ],
+                'Version=2015-12-15&b=b&c=c',
             ],
         ];
     }
@@ -330,14 +280,19 @@ class RoaRequestTest extends TestCase
      * @param $version
      *
      * @dataProvider version
+     * @throws ClientException
      */
     public function testVersion($version)
     {
         // Setup
         $request = new  DescribeClusterServicesRequest();
+        AlibabaCloud::accessKeyClient('foo', 'bar')
+                    ->regionId('cn-hangzhou')
+                    ->asGlobalClient();
 
         // Test
         $request->version($version);
+        $request->resolveParameters(AlibabaCloud::getGlobalClient()->getCredential());
 
         // Assert
         self::assertEquals($version, $request->version);
@@ -415,7 +370,9 @@ class RoaRequestTest extends TestCase
     {
         // Setup
         AlibabaCloud::bearerTokenClient('token')->name('token');
-        $request = new  DescribeClusterServicesRequest();
+        $clusterId = time();
+        $request   = new  DescribeClusterServicesRequest();
+        $request->setClusterId($clusterId);
         $request->client('token');
         $request->options(
             [
@@ -433,12 +390,12 @@ class RoaRequestTest extends TestCase
                 ],
             ]
         );
-        $expected = 'http://localhost/clusters/[ClusterId]/services?A=A&Version=2015-12-15';
+        $expected = "http://localhost/clusters/{$clusterId}/services?A=A&Version=2015-12-15";
 
         // Test
         $request->resolveParameters($credential);
 
         // Assert
-        self::assertEquals($expected, $request->uri);
+        self::assertEquals($expected, (string)$request->uri);
     }
 }

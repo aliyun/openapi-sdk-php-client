@@ -146,7 +146,7 @@ class RpcRequestTest extends TestCase
 
         // Assert
         self::assertFalse(isset($request->options['query']));
-        self::assertEquals('http://localhost/', $request->uri);
+        self::assertEquals('http://localhost', (string)$request->uri);
     }
 
     /**

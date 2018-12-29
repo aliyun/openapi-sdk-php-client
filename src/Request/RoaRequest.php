@@ -48,18 +48,6 @@ class RoaRequest extends Request
     private static $querySeparator = '&';
 
     /**
-     * RoaRequest constructor.
-     *
-     * @param array $options
-     */
-    public function __construct(array $options = [])
-    {
-        parent::__construct($options);
-        $this->options['query']['Version']         = &$this->version;
-        $this->options['headers']['x-acs-version'] = &$this->version;
-    }
-
-    /**
      * @return string
      */
     private function contentMD5()
@@ -76,6 +64,8 @@ class RoaRequest extends Request
      */
     public function resolveParameters($credential)
     {
+        $this->options['query']['Version']                   = $this->version;
+        $this->options['headers']['x-acs-version']           = $this->version;
         $signature                                           = $this->httpClient()->getSignature();
         $this->options['headers']['Date']                    = gmdate($this->dateTimeFormat);
         $this->options['headers']['Accept']                  = $this->formatToAccept($this->format);
@@ -128,8 +118,11 @@ class RoaRequest extends Request
 
         $signString .= $this->buildCanonicalHeaders();
 
-        $queryString = $this->buildQueryString($this->assignPathParameters());
-        $signString  .= $queryString;
+        $this->uri = $this->uri
+            ->withPath($this->assignPathParameters())
+            ->withQuery($this->queryString());
+
+        $signString .= $this->uri->getPath() . '?' . $this->uri->getQuery();
 
         $this->options['headers']['Authorization'] = 'acs '
                                                      . $credential->getAccessKeyId()
@@ -140,11 +133,6 @@ class RoaRequest extends Request
                                                                 $signString,
                                                                 $credential->getAccessKeySecret()
                                                             );
-
-        $this->uri = $this->uriComponents->getScheme()
-                     . '://'
-                     . $this->uriComponents->getHost()
-                     . $queryString;
     }
 
     /**
@@ -183,46 +171,17 @@ class RoaRequest extends Request
     }
 
     /**
-     * @param string $uri
-     *
-     * @return array
-     */
-    private function splitSubResource($uri)
-    {
-        $queIndex = strpos($uri, '?');
-        $uriParts = [];
-        if (false !== $queIndex) {
-            $uriParts[] = substr($uri, 0, $queIndex);
-            $uriParts[] = substr($uri, $queIndex + 1);
-            return $uriParts;
-        }
-
-        $uriParts[] = $uri;
-        return $uriParts;
-    }
-
-    /**
-     * @param string $uri
-     *
      * @return bool|mixed|string
      */
-    private function buildQueryString($uri)
+    public function queryString()
     {
-        $uriParts = $this->splitSubResource($uri);
-        $sortMap  = isset($this->options['query'])
+        $query = isset($this->options['query'])
             ? $this->options['query']
             : [];
-        if (isset($uriParts[1])) {
-            $sortMap[$uriParts[1]] = null;
-        }
-        $queryString = $uriParts[0];
-        if (count($uriParts)) {
-            $queryString .= '?';
-        }
 
-        $queryString = $this->ksort($queryString, $sortMap);
+        $queryString = $this->ksort($queryString, $query);
 
-        if (0 < count($sortMap)) {
+        if (0 < count($query)) {
             $queryString = substr($queryString, 0, -1);
         }
 
@@ -289,6 +248,8 @@ class RoaRequest extends Request
     }
 
     /**
+     * Magic method for set or get request parameters.
+     *
      * @param string $name
      * @param mixed  $arguments
      *
@@ -297,15 +258,14 @@ class RoaRequest extends Request
     public function __call($name, $arguments)
     {
         if (\strpos($name, 'get', 0) !== false) {
-            $name = $this->propertyNameByMethodName($name);
-            return isset($this->pathParameters[$name])
-                ? $this->pathParameters[$name]
-                : null;
+            $parameterName = $this->propertyNameByMethodName($name);
+            return $this->__get($parameterName);
         }
 
         if (\strpos($name, 'set', 0) !== false) {
-            $name                        = $this->propertyNameByMethodName($name);
-            $this->pathParameters[$name] = $arguments[0];
+            $parameterName = $this->propertyNameByMethodName($name);
+            $this->__set($parameterName, $arguments[0]);
+            $this->pathParameters[$parameterName] = $arguments[0];
         }
 
         return $this;
