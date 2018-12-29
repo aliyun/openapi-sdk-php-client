@@ -8,7 +8,7 @@ use AlibabaCloud\Client\Request\Request;
  * @package    AlibabaCloud\Client\Request\Traits
  *
  * @author     Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright  2018 Alibaba Group
+ * @copyright  2019 Alibaba Group
  * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link       https://github.com/aliyun/openapi-sdk-php-client
@@ -19,6 +19,7 @@ trait DeprecatedTrait
 {
     /**
      * @deprecated
+     *
      * @return     string
      */
     public function getContent()
@@ -42,6 +43,7 @@ trait DeprecatedTrait
 
     /**
      * @deprecated
+     *
      * @return     string
      */
     public function getMethod()
@@ -76,7 +78,7 @@ trait DeprecatedTrait
      *
      * @param string $scheme
      *
-     * @return Request
+     * @return $this
      */
     public function setProtocol($scheme)
     {
@@ -97,7 +99,7 @@ trait DeprecatedTrait
      *
      * @param string $scheme
      *
-     * @return DeprecatedTrait
+     * @return $this
      */
     public function setProtocolType($scheme)
     {
@@ -122,7 +124,7 @@ trait DeprecatedTrait
      * @param string $headerKey
      * @param string $headerValue
      *
-     * @return Request
+     * @return $this
      */
     public function addHeader($headerKey, $headerValue)
     {
@@ -147,7 +149,7 @@ trait DeprecatedTrait
      * @param string       $name
      * @param string|mixed $value
      *
-     * @return Request
+     * @return $this
      */
     public function setQueryParameters($name, $value)
     {
@@ -172,7 +174,7 @@ trait DeprecatedTrait
      * @param string $name
      * @param string $value
      *
-     * @return Request
+     * @return $this
      */
     public function putDomainParameters($name, $value)
     {
@@ -228,7 +230,7 @@ trait DeprecatedTrait
      */
     public function getLocationEndpointType()
     {
-        return $this->locationEndpointType;
+        return $this->endpointType;
     }
 
     /**
@@ -237,7 +239,7 @@ trait DeprecatedTrait
      */
     public function getLocationServiceCode()
     {
-        return $this->locationServiceCode;
+        return $this->serviceCode;
     }
 
     /**

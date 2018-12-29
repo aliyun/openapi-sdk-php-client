@@ -7,12 +7,12 @@ use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
- * LocationServiceRequest
+ * Class LocationServiceRequest
  *
- * @package   AlibabaCloud\Client\Credentials\Providers
+ * @package   AlibabaCloud\Client\Regions
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
+ * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
@@ -37,9 +37,9 @@ class LocationServiceRequest extends RpcRequest
         $this->regionId(LOCATION_SERVICE_REGION);
         $this->format('JSON');
         $this->options['query']['Id']          = $request->realRegionId();
-        $this->options['query']['ServiceCode'] = $request->locationServiceCode;
-        $this->options['query']['Type']        = $request->locationEndpointType;
-        $this->client($request->clientName);
+        $this->options['query']['ServiceCode'] = $request->serviceCode;
+        $this->options['query']['Type']        = $request->endpointType;
+        $this->client($request->client);
         $this->host($domain);
         if (isset($request->options['timeout'])) {
             $this->timeout($request->options['timeout']);

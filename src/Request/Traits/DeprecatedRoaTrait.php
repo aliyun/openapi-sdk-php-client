@@ -8,7 +8,7 @@ use AlibabaCloud\Client\Request\RoaRequest;
  * @package    AlibabaCloud\Client\Request\Traits
  *
  * @author     Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright  2018 Alibaba Group
+ * @copyright  2019 Alibaba Group
  * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link       https://github.com/aliyun/openapi-sdk-php-client
@@ -21,7 +21,7 @@ trait DeprecatedRoaTrait
      *
      * @param string $uriPattern
      *
-     * @return self
+     * @return $this
      */
     public function setUriPattern($uriPattern)
     {
@@ -31,7 +31,7 @@ trait DeprecatedRoaTrait
     /**
      * @deprecated
      *
-     * @return mixed
+     * @return string
      */
     public function getUriPattern()
     {
@@ -44,7 +44,7 @@ trait DeprecatedRoaTrait
      * @param string $name
      * @param string $value
      *
-     * @return RoaRequest
+     * @return $this
      */
     public function putPathParameter($name, $value)
     {

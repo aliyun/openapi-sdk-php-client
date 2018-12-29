@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Request\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Regions\EndpointProvider;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Request\Request;
@@ -14,12 +15,12 @@ use AlibabaCloud\Client\Request\Request;
  * @package   AlibabaCloud\Client\Request\Traits
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
+ * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link      https://github.com/aliyun/aliyun-openapi-php-sdk
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
- * @mixin Request
+ * @mixin     Request
  */
 trait AcsTrait
 {
@@ -38,16 +39,16 @@ trait AcsTrait
     /**
      * @var string
      */
-    public $locationServiceCode;
+    public $serviceCode;
     /**
      * @var string
      */
-    public $locationEndpointType;
+    public $endpointType;
 
     /**
      * @param string $action
      *
-     * @return Request
+     * @return $this
      */
     public function action($action)
     {
@@ -58,7 +59,7 @@ trait AcsTrait
     /**
      * @param string $version
      *
-     * @return Request
+     * @return $this
      */
     public function version($version)
     {
@@ -69,7 +70,7 @@ trait AcsTrait
     /**
      * @param string $product
      *
-     * @return Request
+     * @return $this
      */
     public function product($product)
     {
@@ -78,24 +79,24 @@ trait AcsTrait
     }
 
     /**
-     * @param string $locationEndpointType
+     * @param string $endpointType
      *
-     * @return Request
+     * @return $this
      */
-    public function locationEndpointType($locationEndpointType)
+    public function endpointType($endpointType)
     {
-        $this->locationEndpointType = $locationEndpointType;
+        $this->endpointType = $endpointType;
         return $this;
     }
 
     /**
-     * @param string $locationServiceCode
+     * @param string $serviceCode
      *
-     * @return Request
+     * @return $this
      */
-    public function locationServiceCode($locationServiceCode)
+    public function serviceCode($serviceCode)
     {
-        $this->locationServiceCode = $locationServiceCode;
+        $this->serviceCode = $serviceCode;
         return $this;
     }
 
@@ -104,7 +105,7 @@ trait AcsTrait
      */
     private function userAgent()
     {
-        $array = [
+        $userAgent = [
             'alibabacloud' => null,
             'sdk-php'      => \ALIBABA_CLOUD_SDK_VERSION,
             \PHP_OS        => php_uname('r'),
@@ -114,15 +115,15 @@ trait AcsTrait
             'curl_version' => \curl_version()['version'],
         ];
 
-        $new = [];
-        foreach ($array as $key => $value) {
+        $newUserAgent = [];
+        foreach ($userAgent as $key => $value) {
             if ($value === null) {
-                $new[] = $key;
+                $newUserAgent[] = $key;
                 continue;
             }
-            $new[] = $key . '=' . $value;
+            $newUserAgent[] = $key . '=' . $value;
         }
-        return \implode(';', $new);
+        return \implode(';', $newUserAgent);
     }
 
     /**
@@ -147,18 +148,18 @@ trait AcsTrait
      * Resolve Uri.
      *
      * @throws ClientException
-     * @throws \AlibabaCloud\Client\Exception\ServerException
+     * @throws ServerException
      */
     public function resolveUri()
     {
         if ($this->uri->getHost() === 'localhost') {
             // Get the host by specified `ServiceCode` and `RegionId`.
-            $host = EndpointProvider::findProductDomain(
+            $host = EndpointProvider::resolveHost(
                 $this->realRegionId(),
                 $this->product
             );
-            if (!$host && $this->locationServiceCode) {
-                $host = LocationService::findProductDomain($this);
+            if (!$host && $this->serviceCode) {
+                $host = LocationService::resolveHost($this);
             }
             if ($host) {
                 $this->uri = $this->uri->withHost($host);

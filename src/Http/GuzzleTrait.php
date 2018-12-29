@@ -2,19 +2,16 @@
 
 namespace AlibabaCloud\Client\Http;
 
-use AlibabaCloud\Client\Clients\Client;
-
 /**
  * Trait GuzzleTrait
  *
  * @package   AlibabaCloud\Client\Http
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
+ * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
- * @mixin Client
  */
 trait GuzzleTrait
 {
@@ -32,7 +29,7 @@ trait GuzzleTrait
     /**
      * @param string $region
      *
-     * @return self
+     * @return $this
      */
     public function regionId($region)
     {
@@ -43,7 +40,7 @@ trait GuzzleTrait
     /**
      * @param int|float $timeout
      *
-     * @return self
+     * @return $this
      */
     public function timeout($timeout)
     {
@@ -54,7 +51,7 @@ trait GuzzleTrait
     /**
      * @param int|float $connectTimeout
      *
-     * @return self
+     * @return $this
      */
     public function connectTimeout($connectTimeout)
     {
@@ -65,7 +62,7 @@ trait GuzzleTrait
     /**
      * @param bool $debug
      *
-     * @return self
+     * @return $this
      */
     public function debug($debug)
     {
@@ -78,7 +75,7 @@ trait GuzzleTrait
      *
      * @param array $cert
      *
-     * @return self
+     * @return $this
      */
     public function cert($cert)
     {
@@ -91,7 +88,7 @@ trait GuzzleTrait
      *
      * @param array|string $proxy
      *
-     * @return self
+     * @return $this
      */
     public function proxy($proxy)
     {

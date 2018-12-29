@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  * @package   AlibabaCloud\Client\Tests\Framework
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
+ * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
@@ -39,7 +39,7 @@ class RequestCompatibilityTest extends TestCase
         try {
             $result = $client->getAcsResponse($request->client('test'));
             // Assert
-            self::assertNotEquals($result->getRequest()->clientName, 'test');
+            self::assertNotEquals($result->getRequest()->client, 'test');
         } catch (ClientException $e) {
             self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
@@ -68,7 +68,7 @@ class RequestCompatibilityTest extends TestCase
         try {
             $result = $client->getAcsResponse($request->client('test')->request());
             // Assert
-            self::assertEquals($result->getRequest()->clientName, 'test');
+            self::assertEquals($result->getRequest()->client, 'test');
         } catch (ClientException $e) {
             self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {

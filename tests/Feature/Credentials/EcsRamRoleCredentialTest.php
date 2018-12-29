@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
  * @package   AlibabaCloud\Client\Tests\Feature\Credentials
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright Alibaba Group
+ * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
@@ -101,7 +101,7 @@ class EcsRamRoleCredentialTest extends TestCase
         try {
             $result = (new DescribeRegionsRequest())->client($this->clientName)
                                                     ->request();
-            $this->assertTrue(isset($result['Regions']));
+            $this->assertTrue(isset($result['Endpoint']));
         } catch (ClientException $e) {
             // If the request is not from a bound ECS instance.
             self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());

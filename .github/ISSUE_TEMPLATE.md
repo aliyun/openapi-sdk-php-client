@@ -10,7 +10,7 @@ Output of `composer diagnose`:
 ...replace me...
 ```
 
-When I run this command:
+When I run this code:
 
 ```
 ...replace me...

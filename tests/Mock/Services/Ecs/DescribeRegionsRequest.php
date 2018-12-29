@@ -10,7 +10,7 @@ use AlibabaCloud\Client\Request\RpcRequest;
  * @package   AlibabaCloud\Client\Tests\Mock\Services\Ecs
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
+ * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
@@ -30,8 +30,8 @@ class DescribeRegionsRequest extends RpcRequest
         $this->product('Ecs');
         $this->version('2014-05-26');
         $this->action('DescribeRegions');
-        $this->locationServiceCode  = 'ecs';
-        $this->locationEndpointType = 'openAPI';
+        $this->serviceCode  = 'ecs';
+        $this->endpointType = 'openAPI';
         $this->options($options);
     }
 

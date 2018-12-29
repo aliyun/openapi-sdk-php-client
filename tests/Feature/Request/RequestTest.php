@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  * @package   AlibabaCloud\Client\Tests\Feature\Request
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
+ * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
@@ -160,8 +160,11 @@ class RequestTest extends TestCase
                     ->regionId('cn-shanghai');
 
         $request = new NlpRequest();
-        $request->debug(true);
-        $request->body('{"lang":"ZH","text":"Iphone专用数据线"}');
+        $request->pathParameter('Domain', 'general');
+        $request->jsonBody([
+                               'lang' => 'ZH',
+                               'text' => 'Iphone专用数据线',
+                           ]);
 
         try {
             $result = $request->client('content')->request();

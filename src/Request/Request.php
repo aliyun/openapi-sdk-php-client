@@ -21,7 +21,7 @@ use GuzzleHttp\Psr7\Uri;
  * @package   AlibabaCloud\Client\Request
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
+ * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
@@ -52,7 +52,7 @@ abstract class Request implements \ArrayAccess
     /**
      * @var string
      */
-    public $clientName = \ALIBABA_CLOUD_GLOBAL_CLIENT;
+    public $client = \ALIBABA_CLOUD_GLOBAL_CLIENT;
     /**
      * @var Uri
      */
@@ -60,11 +60,11 @@ abstract class Request implements \ArrayAccess
     /**
      * @var Client
      */
-    public $guzzleClient;
+    public $guzzle;
     /**
      * @var array The original parameters of the request object.
      */
-    public $requestParameters = [];
+    public $parameters = [];
 
     /**
      * Request constructor.
@@ -75,7 +75,7 @@ abstract class Request implements \ArrayAccess
     {
         $this->uri                              = new Uri();
         $this->uri                              = $this->uri->withScheme($this->scheme);
-        $this->guzzleClient                     = new Client();
+        $this->guzzle                           = new Client();
         $this->options['http_errors']           = false;
         $this->options['timeout']               = ALIBABA_CLOUD_TIMEOUT;
         $this->options['connect_timeout']       = ALIBABA_CLOUD_CONNECT_TIMEOUT;
@@ -90,7 +90,7 @@ abstract class Request implements \ArrayAccess
      *
      * @param string $format
      *
-     * @return Request
+     * @return $this
      */
     public function format($format)
     {
@@ -112,6 +112,21 @@ abstract class Request implements \ArrayAccess
     }
 
     /**
+     * Set the json as body.
+     *
+     * @param array|object $content
+     *
+     * @return $this
+     */
+    public function jsonBody($content)
+    {
+        if (\is_array($content) || \is_object($content)) {
+            $content = \json_encode($content);
+        }
+        return $this->body($content);
+    }
+
+    /**
      * Set the request scheme.
      *
      * @param string $scheme
@@ -130,7 +145,7 @@ abstract class Request implements \ArrayAccess
      *
      * @param string $host
      *
-     * @return Request
+     * @return $this
      */
     public function host($host)
     {
@@ -141,7 +156,7 @@ abstract class Request implements \ArrayAccess
     /**
      * @param string $method
      *
-     * @return Request
+     * @return $this
      */
     public function method($method)
     {
@@ -152,11 +167,11 @@ abstract class Request implements \ArrayAccess
     /**
      * @param string $clientName
      *
-     * @return static
+     * @return $this
      */
     public function client($clientName)
     {
-        $this->clientName = $clientName;
+        $this->client = $clientName;
         return $this;
     }
 
@@ -166,10 +181,6 @@ abstract class Request implements \ArrayAccess
      */
     public function isDebug()
     {
-        if (PHP_SAPI !== 'cli') {
-            return false;
-        }
-
         if (isset($this->options['debug'])) {
             return $this->options['debug'] === true;
         }
@@ -202,14 +213,6 @@ abstract class Request implements \ArrayAccess
 
         $result = new Result($this->response(), $this);
 
-        if ($this->isDebug()) {
-            \AlibabaCloud\Client\backgroundGreen(
-                $result->toJson(\JSON_UNESCAPED_UNICODE),
-                \get_class($this),
-                '----'
-            );
-        }
-
         if (!$result->isSuccess()) {
             throw new ServerException($result);
         }
@@ -223,7 +226,7 @@ abstract class Request implements \ArrayAccess
     private function response()
     {
         try {
-            return $this->guzzleClient->request(
+            return $this->guzzle->request(
                 $this->method,
                 (string)$this->uri,
                 $this->options
@@ -244,8 +247,8 @@ abstract class Request implements \ArrayAccess
      */
     public function __get($name)
     {
-        return isset($this->requestParameters[$name])
-            ? $this->requestParameters[$name]
+        return isset($this->parameters[$name])
+            ? $this->parameters[$name]
             : null;
     }
 
@@ -255,7 +258,7 @@ abstract class Request implements \ArrayAccess
      */
     public function __set($name, $value)
     {
-        $this->requestParameters[$name] = $value;
+        $this->parameters[$name] = $value;
     }
 
     /**
@@ -265,7 +268,7 @@ abstract class Request implements \ArrayAccess
      */
     public function __isset($name)
     {
-        return isset($this->requestParameters[$name]);
+        return isset($this->parameters[$name]);
     }
 
     /**
@@ -275,6 +278,6 @@ abstract class Request implements \ArrayAccess
      */
     public function __unset($name)
     {
-        unset($this->requestParameters[$name]);
+        unset($this->parameters[$name]);
     }
 }

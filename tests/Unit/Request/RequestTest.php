@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  * @package   AlibabaCloud\Client\Tests\Unit\Request
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
+ * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
@@ -69,6 +69,22 @@ class RequestTest extends TestCase
         // Assert
         self::assertEquals($body, $rpcRequest->options['body']);
         self::assertEquals($body, $roaRequest->options['body']);
+    }
+
+    public function testJsonBody()
+    {
+        // Setup
+        $body       = ['test' => 'test'];
+        $rpcRequest = new RpcRequest();
+        $roaRequest = new RoaRequest();
+
+        // Test
+        $rpcRequest->jsonBody($body);
+        $roaRequest->jsonBody($body);
+
+        // Assert
+        self::assertEquals('{"test":"test"}', $rpcRequest->options['body']);
+        self::assertEquals('{"test":"test"}', $roaRequest->options['body']);
     }
 
     public function testScheme()
@@ -134,8 +150,8 @@ class RequestTest extends TestCase
         $roaRequest->client($clientName);
 
         // Assert
-        self::assertEquals($clientName, $rpcRequest->clientName);
-        self::assertEquals($clientName, $roaRequest->clientName);
+        self::assertEquals($clientName, $rpcRequest->client);
+        self::assertEquals($clientName, $roaRequest->client);
     }
 
     /**

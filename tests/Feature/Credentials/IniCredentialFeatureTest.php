@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
  * @package   AlibabaCloud\Client\Tests\Feature\Credentials
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
+ * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client

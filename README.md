@@ -258,43 +258,44 @@ Each request supports Chain Settings, Construct Settings, and so on. In addition
 ```php
 <?php
 
-    use AlibabaCloud\Client\Request\RoaRequest;
-    use AlibabaCloud\Client\Request\RpcRequest;
+    use AlibabaCloud\Client\AlibabaCloud;
     use AlibabaCloud\Client\Exception\ClientException;
     use AlibabaCloud\Client\Exception\ServerException;
         
     try {
         // Chain calls and send ROA request
-        $roaResult = (new RoaRequest)->client('client1') // Specify client, if not, the global client is used by default
-                                     ->product('CS') // Specify product
-                                     ->version('2015-12-15') // Specify product version
-                                     ->action('DescribeClusterServices') // Specify product interface
-                                     ->locationServiceCode('cs') // Set ServiceCode for addressing, optional
-                                     ->locationEndpointType('openAPI') // Set type, optional
-                                     ->method('GET') // Set request method
-                                     ->host('cs.aliyun.com') // Location Service will not be enabled if the Domain name is specified. For example, service with a Certification type-Bearer Token should be specified
-                                     ->pathPattern('/clusters/[ClusterId]/services') // Specify path rule with ROA-style
-                                     ->connectTimeout(0.1) // 10 milliseconds of connection timeout. When the units < 1, units will be converted to milliseconds automatically
-                                     ->timeout(0.1) // 10 milliseconds of timeout. When the units < 1, units will be converted to milliseconds automatically
-                                     ->debug(true) // Enable Debug, details will be output under CLI
-                                     ->setClusterId('123456') // Assign values to parameters in the path. Method：set + parameters
-                                     ->request(); // Make a request and return to result object. The request is to be placed at the end of the setting
+        $roaResult = AlibabaCloud::roaRequest()
+                                 ->client('client1') // Specify client, if not, the global client is used by default
+                                 ->product('CS') // Specify product
+                                 ->version('2015-12-15') // Specify product version
+                                 ->action('DescribeClusterServices') // Specify product interface
+                                 ->serviceCode('cs') // Set ServiceCode for addressing, optional
+                                 ->endpointType('openAPI') // Set type, optional
+                                 ->method('GET') // Set request method
+                                 ->host('cs.aliyun.com') // Location Service will not be enabled if the host is specified. For example, service with a Certification type-Bearer Token should be specified
+                                 ->pathPattern('/clusters/[ClusterId]/services') // Specify path rule with ROA-style
+                                 ->connectTimeout(0.1) // 10 milliseconds of connection timeout. When the units < 1, units will be converted to milliseconds automatically
+                                 ->timeout(0.1) // 10 milliseconds of timeout. When the units < 1, units will be converted to milliseconds automatically
+                                 ->debug(true) // Enable Debug, details will be output under CLI
+                                 ->setClusterId('123456') // Assign values to parameters in the path. Method：set + parameters
+                                 ->request(); // Make a request and return to result object. The request is to be placed at the end of the setting
     
         // Chain calls and send RPC request
-        $rpcResult = (new RpcRequest)->client('client1') // Specify client, if not, the global client is used by default
-                                     ->product('Cdn')
-                                     ->version('2014-11-11')
-                                     ->action('DescribeCdnService')
-                                     ->method('POST')
-                                     ->connectTimeout(0.1) // 10 milliseconds of connection timeout. When the units < 1, units will be converted to milliseconds automatically
-                                     ->timeout(0.1) // 10 milliseconds of timeout. When the units < 1, units will be converted to milliseconds automatically
-                                     ->debug(true) // Enable Debug, details will be output under CLI
-                                     ->request();// Make a request and return to result object. The request is to be placed at the end of the setting
+        $rpcResult = AlibabaCloud::rpcRequest()
+                                 ->client('client1') // Specify client, if not, the global client is used by default
+                                 ->product('Cdn')
+                                 ->version('2014-11-11')
+                                 ->action('DescribeCdnService')
+                                 ->method('POST')
+                                 ->connectTimeout(0.1) // 10 milliseconds of connection timeout. When the units < 1, units will be converted to milliseconds automatically
+                                 ->timeout(0.1) // 10 milliseconds of timeout. When the units < 1, units will be converted to milliseconds automatically
+                                 ->debug(true) // Enable Debug, details will be output under CLI
+                                 ->request();// Make a request and return to result object. The request is to be placed at the end of the setting
             
 
     
         // Traditional calls and send RPC request
-        $request2 = new RpcRequest();
+        $request2 = AlibabaCloud::rpcRequest();
         $request2->client('client1'); 
         $request2->product('Cdn');
         $request2->version('2014-11-11');
@@ -303,7 +304,7 @@ Each request supports Chain Settings, Construct Settings, and so on. In addition
         $result2 = $request2->request();
     
         // Construct calls and send RPC request
-        $request3 = new RpcRequest([
+        $request3 = AlibabaCloud::rpcRequest([
                                      'debug'           => true,
                                      'timeout'         => 0.01,
                                      'connect_timeout' => 0.01,
@@ -316,7 +317,7 @@ Each request supports Chain Settings, Construct Settings, and so on. In addition
         $result3  = $request3->request();
     
         // Priority of setting
-        $result4 = (new RpcRequest([
+        $result4 = AlibabaCloud::rpcRequest([
                                        // All parameters can be set in the constructor function
                                        'debug'           => true,
                                        'timeout'         => 0.01,
@@ -326,7 +327,7 @@ Each request supports Chain Settings, Construct Settings, and so on. In addition
                                           'Version' => '2014-11-11',
                                           'Action'  => 'DescribeCdnService',
                                        ],
-                                    ]))->options([
+                                    ])->options([
                                                     // All parameters can be also set by Options method or reset
                                                     'query' => [
                                                         'Product'      => 'I will overlay this value of the constructor function',
@@ -348,20 +349,20 @@ Each request supports Chain Settings, Construct Settings, and so on. In addition
         
     } catch (ClientException $exception) {
         // Get error message
-        dump($exception->getErrorMessage());
+        print_r($exception->getErrorMessage());
     } catch (ServerException $exception) {
         // Get error code
-        dump($exception->getErrorCode());
+        print_r($exception->getErrorCode());
         // Get Request Id
-        dump($exception->getRequestId());
+        print_r($exception->getRequestId());
         // Get error message
-        dump($exception->getErrorMessage());
+        print_r($exception->getErrorMessage());
         // Get result object
-        dump($exception->getResult());
+        print_r($exception->getResult());
         // Get response object
-        dump($exception->getResult()->getResponse());
+        print_r($exception->getResult()->getResponse());
         // Get request object
-        dump($exception->getResult()->getRequest());
+        print_r($exception->getResult()->getRequest());
     }
     
 
@@ -413,31 +414,32 @@ Returned result is not just filed, but the objects with characters like `ArrayAc
 ```
 
 
-## Region and Domain
-Before sending the detailed request for each product, Alibaba Cloud Client for PHP will find the domain of the product in the region.
+## Region and Host
+Before sending the detailed request for each product, Alibaba Cloud Client for PHP will find the Host of the product in the region.
 
-#### Specify the domain for the request
-> The domain specified must be in the same region as your server, it must also be accessible.
+#### Specify the Host for the request
+> The Host specified must be in the same region as your server, it must also be accessible.
 
 ```php
 <?php
-use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\AlibabaCloud;
 
-$request = (new RpcRequest())->product('Sts')
-                             ->version('2015-04-01')
-                             ->action('GenerateSessionAccessKey')
-                             ->host('sts.ap-northeast-1.aliyuncs.com') // Specify the domain
-                             ->request();
+$request = AlibabaCloud::rpcRequest()
+                       ->product('Sts')
+                       ->version('2015-04-01')
+                       ->action('GenerateSessionAccessKey')
+                       ->host('sts.ap-northeast-1.aliyuncs.com') // Specify the Host
+                       ->request();
 ```
 
-#### Add a searchable domain for the addressing service
-> Before sending the request, you can set a domain in a region for a product. The addressing service will not make a request, but use this domain directly.
+#### Add a searchable Host for the addressing service
+> Before sending the request, you can set a Host in a region for a product. The addressing service will not make a request, but use this Host directly.
 
 ```php
 <?php
-use AlibabaCloud\Client\Regions\EndpointProvider;
+use AlibabaCloud\Client\AlibabaCloud;
 
-EndpointProvider::addEndpoint('cn-hangzhou', 'new', 'new.cn-hangzhou.aliyuncs.com');
+AlibabaCloud::addHost('cn-hangzhou', 'new', 'new.cn-hangzhou.aliyuncs.com');
 ```
 
 ## References

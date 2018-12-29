@@ -10,7 +10,7 @@ use AlibabaCloud\Client\Request\RpcRequest;
  * @package   AlibabaCloud\Client\Tests\Mock\Services\Vpc
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
+ * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
@@ -30,8 +30,8 @@ class DescribeVpcsRequest extends RpcRequest
         $this->product('Vpc');
         $this->version('2016-04-28');
         $this->action('DescribeVpcs');
-        $this->locationServiceCode  = 'vpc';
-        $this->locationEndpointType = 'openAPI';
+        $this->serviceCode  = 'vpc';
+        $this->endpointType = 'openAPI';
         $this->options($options);
     }
 

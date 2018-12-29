@@ -15,12 +15,10 @@ use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
  * @package   AlibabaCloud\Client\Request
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
+ * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
- *
- * @mixin RoaRequest
  */
 class RoaRequest extends Request
 {
@@ -41,7 +39,7 @@ class RoaRequest extends Request
     /**
      * @var string
      */
-    private static $headerSeparator = "\n";
+    private static $headerSeparator = \PHP_EOL;
     /**
      * @var string
      */

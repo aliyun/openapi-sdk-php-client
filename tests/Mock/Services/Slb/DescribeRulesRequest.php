@@ -10,7 +10,7 @@ use AlibabaCloud\Client\Request\RpcRequest;
  * @package   AlibabaCloud\Client\Tests\Mock\Services\Slb
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
+ * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
@@ -30,8 +30,8 @@ class DescribeRulesRequest extends RpcRequest
         $this->product('Slb');
         $this->version('2014-05-15');
         $this->action('DescribeRules');
-        $this->locationServiceCode  = 'slb';
-        $this->locationEndpointType = 'openAPI';
+        $this->serviceCode  = 'slb';
+        $this->endpointType = 'openAPI';
         $this->options($options);
     }
 
