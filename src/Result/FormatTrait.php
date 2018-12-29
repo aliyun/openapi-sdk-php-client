@@ -54,10 +54,12 @@ trait FormatTrait
     }
 
     /**
+     * @param int $options
+     *
      * @return false|string
      */
-    public function toJson()
+    public function toJson($options = 0)
     {
-        return \json_encode($this->data);
+        return \json_encode($this->data, $options);
     }
 }

@@ -83,8 +83,11 @@ class RequestTest extends TestCase
         $roaRequest->scheme($scheme);
 
         // Assert
-        self::assertEquals($scheme, $rpcRequest->uriComponents->getScheme());
-        self::assertEquals($scheme, $roaRequest->uriComponents->getScheme());
+        self::assertEquals($scheme, $rpcRequest->scheme);
+        self::assertEquals($scheme, $rpcRequest->uri->getScheme());
+
+        self::assertEquals($scheme, $roaRequest->scheme);
+        self::assertEquals($scheme, $roaRequest->uri->getScheme());
     }
 
     public function testHost()
@@ -99,8 +102,8 @@ class RequestTest extends TestCase
         $roaRequest->host($host);
 
         // Assert
-        self::assertEquals($host, $rpcRequest->uriComponents->getHost());
-        self::assertEquals($host, $roaRequest->uriComponents->getHost());
+        self::assertEquals($host, $rpcRequest->uri->getHost());
+        self::assertEquals($host, $roaRequest->uri->getHost());
     }
 
     public function testMethod()
@@ -193,5 +196,25 @@ class RequestTest extends TestCase
         } catch (ClientException $e) {
             self::assertStringStartsWith('cURL error', $e->getErrorMessage());
         }
+    }
+
+    public function testIsset()
+    {
+        // Setup
+        $request = new DeleteDatabaseRequest();
+
+        // Get
+        self::assertFalse(isset($request->object));
+
+        // Set
+        $request->object = 'object';
+
+        // Isset
+        self::assertTrue(isset($request->object));
+        self::assertEquals('object', $request->object);
+
+        // Unset
+        unset($request->object);
+        self::assertEquals(null, $request->object);
     }
 }

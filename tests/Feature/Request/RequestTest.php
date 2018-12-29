@@ -100,6 +100,7 @@ class RequestTest extends TestCase
         // Test
         try {
             (new  DescribeClusterServicesRequest())->client(__METHOD__)
+                                                   ->setClusterId(\time())
                                                    ->request();
         } catch (ServerException $e) {
             // Assert
@@ -111,7 +112,7 @@ class RequestTest extends TestCase
             } else {
                 $this->assertEquals(
                     $e->getErrorCode(),
-                    'InvalidUrl'
+                    'ErrorClusterNotFound'
                 );
             }
         } catch (ClientException $e) {
@@ -159,7 +160,9 @@ class RequestTest extends TestCase
                     ->regionId('cn-shanghai');
 
         $request = new NlpRequest();
+        $request->debug(true);
         $request->body('{"lang":"ZH","text":"Iphone专用数据线"}');
+
         try {
             $result = $request->client('content')->request();
             self::assertEquals('Iphone', $result['data'][0]['word']);

@@ -144,14 +144,15 @@ trait AcsTrait
     }
 
     /**
-     * Get the host by specified `ServiceCode` and `RegionId`.
+     * Resolve Uri.
      *
      * @throws ClientException
      * @throws \AlibabaCloud\Client\Exception\ServerException
      */
-    public function resolveHost()
+    public function resolveUri()
     {
-        if ($this->uriComponents->getHost() === 'localhost') {
+        if ($this->uri->getHost() === 'localhost') {
+            // Get the host by specified `ServiceCode` and `RegionId`.
             $host = EndpointProvider::findProductDomain(
                 $this->realRegionId(),
                 $this->product
@@ -160,7 +161,7 @@ trait AcsTrait
                 $host = LocationService::findProductDomain($this);
             }
             if ($host) {
-                $this->uriComponents = $this->uriComponents->withHost($host);
+                $this->uri = $this->uri->withHost($host);
             }
         }
     }

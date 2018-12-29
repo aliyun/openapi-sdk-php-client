@@ -1823,6 +1823,7 @@ return [
                     'cn-hangzhou' => 'dms-enterprise.aliyuncs.com',
                     'cn-shanghai' => 'dms-enterprise.aliyuncs.com',
                     'cn-shenzhen' => 'dms-enterprise.aliyuncs.com',
+                    'cn-beijing'  => 'dms-enterprise.aliyuncs.com',
                 ],
             'baas'            =>
                 [

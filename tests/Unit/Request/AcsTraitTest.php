@@ -196,12 +196,12 @@ class AcsTraitTest extends TestCase
         $request = new RpcRequest();
         $request->client($regionId);
         $request->product('ecs');
-        $request->resolveHost();
+        $request->resolveUri();
 
         // Assert
         self::assertEquals(
             'ecs-cn-hangzhou.aliyuncs.com',
-            $request->uriComponents->getHost()
+            $request->uri->getHost()
         );
     }
 
@@ -221,7 +221,7 @@ class AcsTraitTest extends TestCase
 
         // Assert
         try {
-            $request->resolveHost();
+            $request->resolveUri();
         } catch (ServerException $exception) {
             self::assertEquals('InvalidAccessKeyId.NotFound', $exception->getErrorCode());
         } catch (ClientException $exception) {

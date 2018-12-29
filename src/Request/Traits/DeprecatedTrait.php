@@ -68,7 +68,7 @@ trait DeprecatedTrait
      */
     public function getProtocol()
     {
-        return $this->uriComponents->getScheme();
+        return $this->uri->getScheme();
     }
 
     /**
@@ -89,7 +89,7 @@ trait DeprecatedTrait
      */
     public function getProtocolType()
     {
-        return $this->uriComponents->getScheme();
+        return $this->uri->getScheme();
     }
 
     /**

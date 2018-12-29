@@ -6,6 +6,7 @@ use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Http\GuzzleTrait;
 use AlibabaCloud\Client\Request\Traits\AcsTrait;
+use AlibabaCloud\Client\Request\Traits\ArrayAccessTrait;
 use AlibabaCloud\Client\Request\Traits\ClientTrait;
 use AlibabaCloud\Client\Request\Traits\DeprecatedTrait;
 use AlibabaCloud\Client\Request\Traits\MagicTrait;
@@ -27,14 +28,19 @@ use GuzzleHttp\Psr7\Uri;
  *
  * @method string resolveParameters($credential)
  */
-abstract class Request
+abstract class Request implements \ArrayAccess
 {
     use DeprecatedTrait;
     use GuzzleTrait;
     use MagicTrait;
     use ClientTrait;
     use AcsTrait;
+    use ArrayAccessTrait;
 
+    /**
+     * @var string
+     */
+    public $scheme = 'http';
     /**
      * @var string
      */
@@ -48,17 +54,17 @@ abstract class Request
      */
     public $clientName = \ALIBABA_CLOUD_GLOBAL_CLIENT;
     /**
-     * @var string
-     */
-    public $uri;
-    /**
      * @var Uri
      */
-    public $uriComponents;
+    public $uri;
     /**
      * @var Client
      */
     public $guzzleClient;
+    /**
+     * @var array The original parameters of the request object.
+     */
+    public $requestParameters = [];
 
     /**
      * Request constructor.
@@ -67,8 +73,8 @@ abstract class Request
      */
     public function __construct(array $options = [])
     {
-        $this->uriComponents                    = new Uri();
-        $this->uriComponents                    = $this->uriComponents->withScheme('http');
+        $this->uri                              = new Uri();
+        $this->uri                              = $this->uri->withScheme($this->scheme);
         $this->guzzleClient                     = new Client();
         $this->options['http_errors']           = false;
         $this->options['timeout']               = ALIBABA_CLOUD_TIMEOUT;
@@ -114,7 +120,8 @@ abstract class Request
      */
     public function scheme($scheme)
     {
-        $this->uriComponents = $this->uriComponents->withScheme($scheme);
+        $this->scheme = \strtolower($scheme);
+        $this->uri    = $this->uri->withScheme($this->scheme);
         return $this;
     }
 
@@ -127,7 +134,7 @@ abstract class Request
      */
     public function host($host)
     {
-        $this->uriComponents = $this->uriComponents->withHost($host);
+        $this->uri = $this->uri->withHost($host);
         return $this;
     }
 
@@ -159,13 +166,18 @@ abstract class Request
      */
     public function isDebug()
     {
+        if (PHP_SAPI !== 'cli') {
+            return false;
+        }
+
         if (isset($this->options['debug'])) {
-            return $this->options['debug'] === true && PHP_SAPI === 'cli';
+            return $this->options['debug'] === true;
         }
 
         if (isset($this->httpClient()->options['debug'])) {
-            return $this->httpClient()->options['debug'] === true && PHP_SAPI === 'cli';
+            return $this->httpClient()->options['debug'] === true;
         }
+
         return false;
     }
 
@@ -176,7 +188,7 @@ abstract class Request
      */
     public function request()
     {
-        $this->resolveHost();
+        $this->resolveUri();
 
         $this->resolveParameters($this->credential());
 
@@ -189,6 +201,14 @@ abstract class Request
         $this->mergeOptionsIntoClient();
 
         $result = new Result($this->response(), $this);
+
+        if ($this->isDebug()) {
+            \AlibabaCloud\Client\backgroundGreen(
+                $result->toJson(\JSON_UNESCAPED_UNICODE),
+                \get_class($this),
+                '----'
+            );
+        }
 
         if (!$result->isSuccess()) {
             throw new ServerException($result);
@@ -205,7 +225,7 @@ abstract class Request
         try {
             return $this->guzzleClient->request(
                 $this->method,
-                $this->uri,
+                (string)$this->uri,
                 $this->options
             );
         } catch (GuzzleException $e) {
@@ -215,5 +235,46 @@ abstract class Request
                 $e
             );
         }
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return mixed|null
+     */
+    public function __get($name)
+    {
+        return isset($this->requestParameters[$name])
+            ? $this->requestParameters[$name]
+            : null;
+    }
+
+    /**
+     * @param string $name
+     * @param mixed  $value
+     */
+    public function __set($name, $value)
+    {
+        $this->requestParameters[$name] = $value;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function __isset($name)
+    {
+        return isset($this->requestParameters[$name]);
+    }
+
+    /**
+     * @param $name
+     *
+     * @return void
+     */
+    public function __unset($name)
+    {
+        unset($this->requestParameters[$name]);
     }
 }
