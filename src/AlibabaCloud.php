@@ -42,7 +42,6 @@ class AlibabaCloud
         $serviceName = \ucfirst($serviceName);
 
         $class = 'AlibabaCloud' . '\\' . $serviceName . '\\' . $serviceName;
-
         if (\class_exists($class)) {
             return new $class;
         }
