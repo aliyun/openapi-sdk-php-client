@@ -23,19 +23,19 @@ use AlibabaCloud\Client\Request\Request;
  * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link      https://github.com/aliyun/aliyun-openapi-php-sdk
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
- * @mixin Request
+ * @mixin     Request
  */
 trait ClientTrait
 {
     /**
      * @return Client
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function httpClient()
     {
-        return AlibabaCloud::get($this->clientName);
+        return AlibabaCloud::get($this->client);
     }
 
     /**

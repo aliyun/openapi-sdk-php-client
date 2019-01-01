@@ -2,9 +2,11 @@
 
 namespace AlibabaCloud\Client\Regions;
 
-use AlibabaCloud\Client\Config\Config;
+use AlibabaCloud\Client\Traits\EndpointTrait;
 
 /**
+ * @deprecated
+ *
  * Class EndpointProvider
  *
  * @package   AlibabaCloud\Client\Regions
@@ -17,40 +19,5 @@ use AlibabaCloud\Client\Config\Config;
  */
 class EndpointProvider
 {
-
-    /**
-     * @var array
-     */
-    private static $endpoints = [];
-
-    /**
-     * @param string $regionId
-     * @param string $product
-     *
-     * @return string
-     */
-    public static function findProductDomain($regionId, $product)
-    {
-        if (isset(self::$endpoints[$product][$regionId])) {
-            return self::$endpoints[$product][$regionId];
-        }
-        $domain = Config::get("endpoints.{$product}.{$regionId}");
-        if ($domain) {
-            return $domain;
-        }
-        return '';
-    }
-
-    /**
-     * @param string $regionId
-     * @param string $product
-     * @param string $domain
-     *
-     * @return void
-     */
-    public static function addEndpoint($regionId, $product, $domain)
-    {
-        self::$endpoints[$product][$regionId] = $domain;
-        LocationService::addEndPoint($regionId, $product, $domain);
-    }
+    use EndpointTrait;
 }

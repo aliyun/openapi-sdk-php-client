@@ -3,6 +3,5 @@
 /.env
 .idea/*
 *.pem
-/build/coverage
-/build/coverage.clover
 /.php_cs.cache
+/coverage/

@@ -30,8 +30,8 @@ class DescribeRulesRequest extends RpcRequest
         $this->product('Slb');
         $this->version('2014-05-15');
         $this->action('DescribeRules');
-        $this->locationServiceCode  = 'slb';
-        $this->locationEndpointType = 'openAPI';
+        $this->serviceCode  = 'slb';
+        $this->endpointType = 'openAPI';
         $this->options($options);
     }
 

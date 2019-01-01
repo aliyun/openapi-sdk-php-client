@@ -30,8 +30,8 @@ class DescribeVpcsRequest extends RpcRequest
         $this->product('Vpc');
         $this->version('2016-04-28');
         $this->action('DescribeVpcs');
-        $this->locationServiceCode  = 'vpc';
-        $this->locationEndpointType = 'openAPI';
+        $this->serviceCode  = 'vpc';
+        $this->endpointType = 'openAPI';
         $this->options($options);
     }
 

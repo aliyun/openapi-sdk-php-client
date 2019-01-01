@@ -101,7 +101,7 @@ class EcsRamRoleCredentialTest extends TestCase
         try {
             $result = (new DescribeRegionsRequest())->client($this->clientName)
                                                     ->request();
-            $this->assertTrue(isset($result['Regions']));
+            $this->assertTrue(isset($result['Endpoint']));
         } catch (ClientException $e) {
             // If the request is not from a bound ECS instance.
             self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());

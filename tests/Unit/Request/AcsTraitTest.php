@@ -64,32 +64,32 @@ class AcsTraitTest extends TestCase
     public function testLocationEndpointType()
     {
         // Setup
-        $locationEndpointType = 'locationEndpointType';
+        $endpointType = 'endpointType';
         $request              = new RpcRequest();
 
         // Test
-        $request->locationEndpointType($locationEndpointType);
+        $request->endpointType($endpointType);
 
         // Assert
         self::assertEquals(
-            $locationEndpointType,
-            $request->locationEndpointType
+            $endpointType,
+            $request->endpointType
         );
     }
 
     public function testLocationServiceCode()
     {
         // Setup
-        $locationServiceCode = 'locationServiceCode';
+        $serviceCode = 'serviceCode';
         $request             = new RpcRequest();
 
         // Test
-        $request->locationServiceCode($locationServiceCode);
+        $request->serviceCode($serviceCode);
 
         // Assert
         self::assertEquals(
-            $locationServiceCode,
-            $request->locationServiceCode
+            $serviceCode,
+            $request->serviceCode
         );
     }
 
@@ -217,7 +217,7 @@ class AcsTraitTest extends TestCase
         $request = new RpcRequest();
         $request->client($regionId);
         $request->product('ecs2');
-        $request->locationServiceCode('ecs');
+        $request->serviceCode('ecs');
 
         // Assert
         try {

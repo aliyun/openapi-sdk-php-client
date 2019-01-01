@@ -13,7 +13,7 @@ use AlibabaCloud\Client\Request\Request;
  * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link      https://github.com/aliyun/aliyun-openapi-php-sdk
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
  *
  * @mixin     Request
  */
@@ -29,8 +29,8 @@ trait ArrayAccessTrait
      */
     public function & offsetGet($offset)
     {
-        if (isset($this->requestParameters[$offset])) {
-            return $this->requestParameters[$offset];
+        if (isset($this->parameters[$offset])) {
+            return $this->parameters[$offset];
         }
 
         $value = null;
@@ -43,7 +43,7 @@ trait ArrayAccessTrait
      */
     public function offsetSet($offset, $value)
     {
-        $this->requestParameters[$offset] = $value;
+        $this->parameters[$offset] = $value;
     }
 
     /**
@@ -53,7 +53,7 @@ trait ArrayAccessTrait
      */
     public function offsetExists($offset)
     {
-        return isset($this->requestParameters[$offset]);
+        return isset($this->parameters[$offset]);
     }
 
     /**
@@ -61,6 +61,6 @@ trait ArrayAccessTrait
      */
     public function offsetUnset($offset)
     {
-        unset($this->requestParameters[$offset]);
+        unset($this->parameters[$offset]);
     }
 }

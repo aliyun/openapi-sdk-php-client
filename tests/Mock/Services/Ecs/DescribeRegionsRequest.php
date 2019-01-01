@@ -30,8 +30,8 @@ class DescribeRegionsRequest extends RpcRequest
         $this->product('Ecs');
         $this->version('2014-05-26');
         $this->action('DescribeRegions');
-        $this->locationServiceCode  = 'ecs';
-        $this->locationEndpointType = 'openAPI';
+        $this->serviceCode  = 'ecs';
+        $this->endpointType = 'openAPI';
         $this->options($options);
     }
 

@@ -30,8 +30,8 @@ class DeleteDatabaseRequest extends RpcRequest
         $this->product('Rds');
         $this->version('2014-08-15');
         $this->action('DeleteDatabase');
-        $this->locationServiceCode  = 'rds';
-        $this->locationEndpointType = 'openAPI';
+        $this->serviceCode  = 'rds';
+        $this->endpointType = 'openAPI';
         $this->options($options);
     }
 

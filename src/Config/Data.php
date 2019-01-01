@@ -1820,10 +1820,12 @@ return [
                 ],
             'dmsenterprise'   =>
                 [
-                    'cn-hangzhou' => 'dms-enterprise.aliyuncs.com',
-                    'cn-shanghai' => 'dms-enterprise.aliyuncs.com',
-                    'cn-shenzhen' => 'dms-enterprise.aliyuncs.com',
-                    'cn-beijing'  => 'dms-enterprise.aliyuncs.com',
+                    'cn-hangzhou'    => 'dms-enterprise.aliyuncs.com',
+                    'cn-shanghai'    => 'dms-enterprise.aliyuncs.com',
+                    'cn-shenzhen'    => 'dms-enterprise.aliyuncs.com',
+                    'cn-beijing'     => 'dms-enterprise.aliyuncs.com',
+                    'cn-qingdao'     => 'dms-enterprise.aliyuncs.com',
+                    'ap-northeast-1' => 'dms-enterprise.aliyuncs.com',
                 ],
             'baas'            =>
                 [

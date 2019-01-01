@@ -21,7 +21,7 @@ trait DeprecatedRoaTrait
      *
      * @param string $uriPattern
      *
-     * @return self
+     * @return $this
      */
     public function setUriPattern($uriPattern)
     {
@@ -31,7 +31,7 @@ trait DeprecatedRoaTrait
     /**
      * @deprecated
      *
-     * @return mixed
+     * @return string
      */
     public function getUriPattern()
     {
@@ -44,7 +44,7 @@ trait DeprecatedRoaTrait
      * @param string $name
      * @param string $value
      *
-     * @return RoaRequest
+     * @return $this
      */
     public function putPathParameter($name, $value)
     {

@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class LocationServiceTest
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Regions
+ * @package   AlibabaCloud\Client\Tests\Unit\Endpoint
  *
  * @category  AlibabaCloud
  *

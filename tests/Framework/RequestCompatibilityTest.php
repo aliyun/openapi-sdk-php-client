@@ -39,7 +39,7 @@ class RequestCompatibilityTest extends TestCase
         try {
             $result = $client->getAcsResponse($request->client('test'));
             // Assert
-            self::assertNotEquals($result->getRequest()->clientName, 'test');
+            self::assertNotEquals($result->getRequest()->client, 'test');
         } catch (ClientException $e) {
             self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
@@ -68,7 +68,7 @@ class RequestCompatibilityTest extends TestCase
         try {
             $result = $client->getAcsResponse($request->client('test')->request());
             // Assert
-            self::assertEquals($result->getRequest()->clientName, 'test');
+            self::assertEquals($result->getRequest()->client, 'test');
         } catch (ClientException $e) {
             self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {

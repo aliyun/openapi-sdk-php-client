@@ -29,8 +29,8 @@ class ListPhoneNumbersRequest extends RpcRequest
         $this->product('CCC');
         $this->version('2017-07-05');
         $this->action('ListPhoneNumbers');
-        $this->locationServiceCode  = 'ccc';
-        $this->locationEndpointType = 'openAPI';
+        $this->serviceCode  = 'ccc';
+        $this->endpointType = 'openAPI';
         $this->method('POST');
         $this->options($options);
     }

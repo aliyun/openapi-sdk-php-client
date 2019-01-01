@@ -159,7 +159,7 @@ class DeprecatedTraitTest extends TestCase
         $content = 'test';
 
         // Test
-        $request->locationEndpointType = $content;
+        $request->endpointType = $content;
 
         // Assert
         self::assertEquals($content, $request->getLocationEndpointType());
@@ -175,7 +175,7 @@ class DeprecatedTraitTest extends TestCase
         $content = 'test';
 
         // Test
-        $request->locationServiceCode = $content;
+        $request->serviceCode = $content;
 
         // Assert
         self::assertEquals($content, $request->getLocationServiceCode());

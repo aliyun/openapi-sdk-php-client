@@ -19,7 +19,7 @@ use AlibabaCloud\Client\Result\Result;
  *
  * @link       https://github.com/aliyun/openapi-sdk-php-client
  *
- * @deprecated since version 2.0
+ * @deprecated
  */
 class DefaultAcsClient
 {

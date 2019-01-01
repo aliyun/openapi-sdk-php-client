@@ -9,7 +9,7 @@ build:
                 override:
                     -   command: make test
                         coverage:
-                            file: build/coverage.clover
+                            file: coverage/coverage.clover
                             format: clover
 
 filter:

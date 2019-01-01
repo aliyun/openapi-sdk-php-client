@@ -1,7 +1,8 @@
 <?php
 
-namespace AlibabaCloud\Client;
+namespace AlibabaCloud\Client\Traits;
 
+use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Clients\AccessKeyClient;
 use AlibabaCloud\Client\Clients\BearerTokenClient;
 use AlibabaCloud\Client\Clients\Client;
@@ -10,23 +11,133 @@ use AlibabaCloud\Client\Clients\RamRoleArnClient;
 use AlibabaCloud\Client\Clients\RsaKeyPairClient;
 use AlibabaCloud\Client\Clients\StsClient;
 use AlibabaCloud\Client\Credentials\CredentialsInterface;
+use AlibabaCloud\Client\Credentials\Ini\IniCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Signature\SignatureInterface;
 
 /**
- * Trait ClientCreateTrait
+ * Trait ClientTrait
  *
- * @package   \AlibabaCloud\Client
+ * @package   AlibabaCloud\Client\Traits
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
- * @link      https://github.com/aliyun/aliyun-openapi-php-sdk
- * @mixin AlibabaCloud
+ * @link      https://github.com/aliyun/openapi-sdk-php-client
+ * @mixin     AlibabaCloud
  */
-trait ClientCreateTrait
+trait ClientTrait
 {
+    /**
+     * @var array Containers of Clients
+     */
+    private static $clients = [];
+
+    /**
+     * Get the Client instance by name.
+     *
+     * @param string $clientName
+     *
+     * @return Client
+     * @throws ClientException
+     */
+    public static function get($clientName)
+    {
+        if (self::has($clientName)) {
+            return self::$clients[\strtolower($clientName)];
+        }
+        throw new ClientException(
+            ALIBABA_CLOUD
+            . ' Client Not Found: '
+            . $clientName,
+            \ALI_CLIENT_NOT_FOUND
+        );
+    }
+
+    /**
+     * @param string $clientName
+     * @param Client $client
+     *
+     * @return Client
+     */
+    public static function set($clientName, Client $client)
+    {
+        return self::$clients[\strtolower($clientName)] = $client;
+    }
+
+    /**
+     * Get all clients.
+     *
+     * @return array
+     */
+    public static function all()
+    {
+        return self::$clients;
+    }
+
+    /**
+     * Delete the client by specifying name.
+     *
+     * @param string $name
+     */
+    public static function del($name)
+    {
+        unset(self::$clients[\strtolower($name)]);
+    }
+
+    /**
+     * Delete all clients.
+     *
+     * @return void
+     */
+    public static function flush()
+    {
+        self::$clients        = [];
+        self::$globalRegionId = null;
+    }
+
+    /**
+     * Get the global client.
+     *
+     * @return Client
+     * @throws ClientException
+     */
+    public static function getGlobalClient()
+    {
+        return self::get(\ALIBABA_CLOUD_GLOBAL_CLIENT);
+    }
+
+    /**
+     * Determine whether there is a client.
+     *
+     * @param string $clientName
+     *
+     * @return bool
+     */
+    public static function has($clientName)
+    {
+        return isset(self::$clients[\strtolower($clientName)]);
+    }
+
+    /**
+     * A list of additional files to load.
+     *
+     * @return array
+     * @throws ClientException when a file has a syntax error or does not exist or is not readable
+     */
+    public static function load()
+    {
+        if (\func_get_args() === []) {
+            return (new IniCredential())->load();
+        }
+        $list = [];
+        foreach (\func_get_args() as $filename) {
+            $list[$filename] = (new IniCredential($filename))->load();
+        }
+        return $list;
+    }
+
     /**
      * Custom Client.
      *

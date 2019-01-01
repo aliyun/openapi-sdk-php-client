@@ -40,6 +40,8 @@ class LocationService
     }
 
     /**
+     * @deprecated
+     *
      * @param Request $request
      * @param string  $domain
      *
@@ -48,6 +50,19 @@ class LocationService
      * @throws ServerException
      */
     public static function findProductDomain(Request $request, $domain = LOCATION_SERVICE_DOMAIN)
+    {
+        return self::resolveHost($request, $domain);
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $domain
+     *
+     * @return mixed
+     * @throws ClientException
+     * @throws ServerException
+     */
+    public static function resolveHost(Request $request, $domain = LOCATION_SERVICE_DOMAIN)
     {
         $instance = new static($request);
         $key      = $instance->request->realRegionId() . '#' . $instance->request->product;
@@ -77,11 +92,23 @@ class LocationService
     }
 
     /**
+     * @deprecated
+     *
      * @param string $regionId
      * @param string $product
      * @param string $domain
      */
     public static function addEndPoint($regionId, $product, $domain)
+    {
+        self::addHost($regionId, $product, $domain);
+    }
+
+    /**
+     * @param string $regionId
+     * @param string $product
+     * @param string $domain
+     */
+    public static function addHost($regionId, $product, $domain)
     {
         $key               = $regionId . '#' . $product;
         self::$cache[$key] = $domain;

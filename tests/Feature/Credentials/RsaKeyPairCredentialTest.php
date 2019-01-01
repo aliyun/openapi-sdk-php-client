@@ -110,7 +110,7 @@ class RsaKeyPairCredentialTest extends TestCase
         try {
             $result = (new DescribeRegionsRequest())->client($this->clientName)
                                                     ->request();
-            $this->assertTrue(isset($result['Regions']));
+            $this->assertTrue(isset($result['Endpoint']));
         } catch (ClientException $e) {
             self::assertContains(
                 $e->getErrorCode(),
@@ -138,7 +138,7 @@ class RsaKeyPairCredentialTest extends TestCase
         try {
             $result = (new DescribeCdnServiceRequest())->client($this->clientName)
                                                        ->request();
-            $this->assertTrue(isset($result['Regions']));
+            $this->assertTrue(isset($result['Endpoint']));
         } catch (ClientException $e) {
             self::assertContains(
                 $e->getErrorCode(),

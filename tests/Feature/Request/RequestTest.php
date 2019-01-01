@@ -160,8 +160,11 @@ class RequestTest extends TestCase
                     ->regionId('cn-shanghai');
 
         $request = new NlpRequest();
-        $request->debug(true);
-        $request->body('{"lang":"ZH","text":"Iphone专用数据线"}');
+        $request->pathParameter('Domain', 'general');
+        $request->jsonBody([
+                               'lang' => 'ZH',
+                               'text' => 'Iphone专用数据线',
+                           ]);
 
         try {
             $result = $request->client('content')->request();

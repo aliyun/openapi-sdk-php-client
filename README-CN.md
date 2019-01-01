@@ -259,43 +259,44 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
 ```php
 <?php
 
-    use AlibabaCloud\Client\Request\RoaRequest;
-    use AlibabaCloud\Client\Request\RpcRequest;
+    use AlibabaCloud\Client\AlibabaCloud;
     use AlibabaCloud\Client\Exception\ClientException;
     use AlibabaCloud\Client\Exception\ServerException;
         
     try {
         // 链式调用发送 ROA 风格请求
-        $roaResult = (new RoaRequest)->client('client1') // 指定客户端，不指定默认使用全局客户端
-                                     ->product('CS') // 指定产品
-                                     ->version('2015-12-15') // 指定产品版本
-                                     ->action('DescribeClusterServices') // 指定产品接口
-                                     ->locationServiceCode('cs') // 设置 ServiceCode 以备寻址，非必须
-                                     ->locationEndpointType('openAPI') // 设置类型，非必须
-                                     ->method('GET') // 指定请求方式
-                                     ->host('cs.aliyun.com') // 指定域名则不会启用寻址服务，如认证方式为 Bearer Token 的服务需要指定
-                                     ->pathPattern('/clusters/[ClusterId]/services') // 指定ROA风格路径规则
-                                     ->connectTimeout(0.1) // 设置连接超时10毫秒，当单位小于1，则自动转换为毫秒
-                                     ->timeout(0.1) // 设置超时10毫秒，当单位小于1，则自动转换为毫秒
-                                     ->debug(true) // 开启调试，CLI下会输出详细信息
-                                     ->setClusterId('123456') // 为路径中参数赋值，方法名：set + 参数
-                                     ->request(); // 发起请求并返回结果对象，请求需要放在设置的最后面
+        $roaResult = AlibabaCloud::roaRequest()
+                                 ->client('client1') // 指定客户端，不指定默认使用全局客户端
+                                 ->product('CS') // 指定产品
+                                 ->version('2015-12-15') // 指定产品版本
+                                 ->action('DescribeClusterServices') // 指定产品接口
+                                 ->serviceCode('cs') // 设置 ServiceCode 以备寻址，非必须
+                                 ->endpointType('openAPI') // 设置类型，非必须
+                                 ->method('GET') // 指定请求方式
+                                 ->host('cs.aliyun.com') // 指定域名则不会启用寻址服务，如认证方式为 Bearer Token 的服务需要指定
+                                 ->pathPattern('/clusters/[ClusterId]/services') // 指定ROA风格路径规则
+                                 ->connectTimeout(0.1) // 设置连接超时10毫秒，当单位小于1，则自动转换为毫秒
+                                 ->timeout(0.1) // 设置超时10毫秒，当单位小于1，则自动转换为毫秒
+                                 ->debug(true) // 开启调试，CLI下会输出详细信息
+                                 ->setClusterId('123456') // 为路径中参数赋值，方法名：set + 参数
+                                 ->request(); // 发起请求并返回结果对象，请求需要放在设置的最后面
     
         // 链式调用发送 RPC 风格请求
-        $rpcResult = (new RpcRequest)->client('client1') // 指定客户端，不指定默认使用全局客户端
-                                     ->product('Cdn')
-                                     ->version('2014-11-11')
-                                     ->action('DescribeCdnService')
-                                     ->method('POST')
-                                     ->connectTimeout(0.1) // 设置连接超时10毫秒，当单位小于1，则自动转换为毫秒
-                                     ->timeout(0.1) // 设置超时10毫秒，当单位小于1，则自动转换为毫秒
-                                     ->debug(true) // 开启调试CLI下会输出详细信息
-                                     ->request();
+        $rpcResult = AlibabaCloud::rpcRequest()
+                                 ->client('client1') // 指定客户端，不指定默认使用全局客户端
+                                 ->product('Cdn')
+                                 ->version('2014-11-11')
+                                 ->action('DescribeCdnService')
+                                 ->method('POST')
+                                 ->connectTimeout(0.1) // 设置连接超时10毫秒，当单位小于1，则自动转换为毫秒
+                                 ->timeout(0.1) // 设置超时10毫秒，当单位小于1，则自动转换为毫秒
+                                 ->debug(true) // 开启调试CLI下会输出详细信息
+                                 ->request();
             
 
     
         // 传统调用发送 RPC 风格请求
-        $request2 = new RpcRequest();
+        $request2 = AlibabaCloud::rpcRequest();
         $request2->client('client1');
         $request2->product('Cdn');
         $request2->version('2014-11-11');
@@ -304,7 +305,7 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
         $result2 = $request2->request();
     
         // 构造调用发送 RPC 风格请求
-        $request3 = new RpcRequest([
+        $request3 = AlibabaCloud::rpcRequest([
                                      'debug'           => true,
                                      'timeout'         => 0.01,
                                      'connect_timeout' => 0.01,
@@ -317,7 +318,7 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
         $result3  = $request3->request();
     
         // 设置的优先级
-        $result4 = (new RpcRequest([
+        $result4 = AlibabaCloud::rpcRequest([
                                        // 所有参数都可以在构造函数中设置
                                        'debug'           => true,
                                        'timeout'         => 0.01,
@@ -325,9 +326,8 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
                                        'query'           => [
                                           'Product' => 'Cdn',
                                           'Version' => '2014-11-11',
-                                          'Action'  => 'DescribeCdnService',
-                                       ],
-                                    ]))->options([
+                                          'Action'  => 'DescribeCdnService']
+                                    ])->options([
                                                     // 所有参数也可以在 options 方法中设置或重新设置
                                                     'query' => [
                                                         'Product'      => '我会覆盖构造函数的这个值',
@@ -349,20 +349,20 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
         
     } catch (ClientException $exception) {
         // 获取错误消息
-        dump($exception->getErrorMessage());
+        print_r($exception->getErrorMessage());
     } catch (ServerException $exception) {
         // 获取错误代码
-        dump($exception->getErrorCode());
+        print_r($exception->getErrorCode());
         // 获取 Request Id
-        dump($exception->getRequestId());
+        print_r($exception->getRequestId());
         // 获取错误消息
-        dump($exception->getErrorMessage());
+        print_r($exception->getErrorMessage());
         // 获取结果对象
-        dump($exception->getResult());
+        print_r($exception->getResult());
         // 获取响应对象
-        dump($exception->getResult()->getResponse());
+        print_r($exception->getResult()->getResponse());
         // 获取请求对象
-        dump($exception->getResult()->getRequest());
+        print_r($exception->getResult()->getRequest());
     }
     
 
@@ -422,13 +422,14 @@ Alibaba Cloud Client for PHP 在发送每个产品的具体请求前，会查找
 
 ```php
 <?php
-use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\AlibabaCloud;
 
-$request = (new RpcRequest())->product('Sts')
-                             ->version('2015-04-01')
-                             ->action('GenerateSessionAccessKey')
-                             ->host('sts.ap-northeast-1.aliyuncs.com') // 指定域名
-                             ->request();
+$request = AlibabaCloud::rpcRequest()
+                       ->product('Sts')
+                       ->version('2015-04-01')
+                       ->action('GenerateSessionAccessKey')
+                       ->host('sts.ap-northeast-1.aliyuncs.com') // 指定域名
+                       ->request();
 ```
 
 #### 为寻址服务增加可查找的域名
@@ -436,9 +437,9 @@ $request = (new RpcRequest())->product('Sts')
 
 ```php
 <?php
-use AlibabaCloud\Client\Regions\EndpointProvider;
+use AlibabaCloud\Client\AlibabaCloud;
 
-EndpointProvider::addEndpoint('cn-hangzhou', 'new', 'new.cn-hangzhou.aliyuncs.com');
+AlibabaCloud::addHost('cn-hangzhou', 'new', 'new.cn-hangzhou.aliyuncs.com');
 ```
 
 ## 相关

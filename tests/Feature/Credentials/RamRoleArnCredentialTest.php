@@ -102,7 +102,7 @@ class RamRoleArnCredentialTest extends TestCase
         try {
             $result = (new DescribeRegionsRequest())->client($this->clientName)
                                                     ->request();
-            $this->assertTrue(isset($result['Regions']));
+            $this->assertTrue(isset($result['Endpoint']));
         } catch (ClientException $e) {
             self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {

@@ -71,6 +71,22 @@ class RequestTest extends TestCase
         self::assertEquals($body, $roaRequest->options['body']);
     }
 
+    public function testJsonBody()
+    {
+        // Setup
+        $body       = ['test' => 'test'];
+        $rpcRequest = new RpcRequest();
+        $roaRequest = new RoaRequest();
+
+        // Test
+        $rpcRequest->jsonBody($body);
+        $roaRequest->jsonBody($body);
+
+        // Assert
+        self::assertEquals('{"test":"test"}', $rpcRequest->options['body']);
+        self::assertEquals('{"test":"test"}', $roaRequest->options['body']);
+    }
+
     public function testScheme()
     {
         // Setup
@@ -134,8 +150,8 @@ class RequestTest extends TestCase
         $roaRequest->client($clientName);
 
         // Assert
-        self::assertEquals($clientName, $rpcRequest->clientName);
-        self::assertEquals($clientName, $roaRequest->clientName);
+        self::assertEquals($clientName, $rpcRequest->client);
+        self::assertEquals($clientName, $roaRequest->client);
     }
 
     /**

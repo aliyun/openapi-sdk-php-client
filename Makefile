@@ -21,7 +21,7 @@ test-feature:
 	vendor/bin/phpunit --testsuite=Feature
 
 coverage-show:
-	open build/coverage/index.html
+	open coverage/coverage/index.html
 
 cs:
 	vendor/bin/php-cs-fixer fix ./
