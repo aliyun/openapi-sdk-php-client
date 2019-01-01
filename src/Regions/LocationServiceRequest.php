@@ -34,7 +34,7 @@ class LocationServiceRequest extends RpcRequest
         $this->product('Location');
         $this->version('2015-06-12');
         $this->action('DescribeEndpoints');
-        $this->regionId(LOCATION_SERVICE_REGION);
+        $this->regionId('cn-hangzhou');
         $this->format('JSON');
         $this->options['query']['Id']          = $request->realRegionId();
         $this->options['query']['ServiceCode'] = $request->serviceCode;

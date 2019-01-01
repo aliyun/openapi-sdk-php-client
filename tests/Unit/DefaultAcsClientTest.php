@@ -194,7 +194,7 @@ class DefaultAcsClientTest extends TestCase
                 ]
             );
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         }
     }
 
@@ -240,7 +240,7 @@ class DefaultAcsClientTest extends TestCase
             );
         } catch (ClientException $e) {
             // Assert
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         }
     }
 

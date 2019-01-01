@@ -13,28 +13,24 @@
 /**
  * Credential
  */
-define('ALI_INVALID_CREDENTIAL', 'SDK.InvalidCredential');
+define('ALIBABA_CLOUD_INVALID_CREDENTIAL', 'SDK.InvalidCredential');
 /**
  * Client Not Found
  */
-define('ALI_CLIENT_NOT_FOUND', 'SDK.ClientNotFound');
-/**
- * Action Not Found
- */
-define('ALI_ACTION_NOT_FOUND', 'SDK.ActionNotFound');
+define('ALIBABA_CLOUD_CLIENT_NOT_FOUND', 'SDK.ClientNotFound');
 /**
  * Server Unreachable
  */
-define('ALI_SERVER_UNREACHABLE', 'SDK.ServerUnreachable');
+define('ALIBABA_CLOUD_SERVER_UNREACHABLE', 'SDK.ServerUnreachable');
 /**
  * Invalid RegionId
  */
-define('ALI_INVALID_REGION_ID', 'SDK.InvalidRegionId');
+define('ALIBABA_CLOUD_INVALID_REGION_ID', 'SDK.InvalidRegionId');
 /**
  * Invalid Argument
  */
-define('ALI_INVALID_ARGUMENT', 'SDK.InvalidArgument');
+define('ALIBABA_CLOUD_INVALID_ARGUMENT', 'SDK.InvalidArgument');
 /**
  * Service Not Found
  */
-define('ALI_SERVICE_NOT_FOUND', 'SDK.ServiceNotFound');
+define('ALIBABA_CLOUD_SERVICE_NOT_FOUND', 'SDK.ServiceNotFound');

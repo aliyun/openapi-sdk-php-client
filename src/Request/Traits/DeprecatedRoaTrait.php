@@ -2,8 +2,6 @@
 
 namespace AlibabaCloud\Client\Request\Traits;
 
-use AlibabaCloud\Client\Request\RoaRequest;
-
 /**
  * @package    AlibabaCloud\Client\Request\Traits
  *

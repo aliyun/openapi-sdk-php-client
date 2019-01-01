@@ -58,7 +58,10 @@ class RsaKeyPairClientTest extends TestCase
         try {
             $client->getSessionCredential();
         } catch (ClientException $exception) {
-            self::assertEquals($exception->getErrorCode(), \ALI_INVALID_CREDENTIAL);
+            self::assertEquals(
+                $exception->getErrorCode(),
+                \ALIBABA_CLOUD_INVALID_CREDENTIAL
+            );
         }
     }
 }

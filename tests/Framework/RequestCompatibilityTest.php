@@ -41,7 +41,7 @@ class RequestCompatibilityTest extends TestCase
             // Assert
             self::assertNotEquals($result->getRequest()->client, 'test');
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             if (\getenv('ACCESS_KEY_ID') === 'foo') {
                 $this->assertEquals(
@@ -70,7 +70,7 @@ class RequestCompatibilityTest extends TestCase
             // Assert
             self::assertEquals($result->getRequest()->client, 'test');
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             if (\getenv('ACCESS_KEY_ID') === 'foo') {
                 $this->assertEquals(

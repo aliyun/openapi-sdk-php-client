@@ -39,13 +39,16 @@ class EcsRamRoleProvider extends Provider
         if ($result === null) {
             $result = $this->request(1);
 
-            if (!isset($result['AccessKeyId'], $result['AccessKeySecret'], $result['SecurityToken'])) {
+            if (!isset($result['AccessKeyId'],
+                $result['AccessKeySecret'],
+                $result['SecurityToken'])) {
                 throw new ServerException(
                     $result,
                     'Result contains no credentials',
-                    \ALI_INVALID_CREDENTIAL
+                    \ALIBABA_CLOUD_INVALID_CREDENTIAL
                 );
             }
+
             $this->cache($result->toArray());
         }
 
@@ -73,7 +76,7 @@ class EcsRamRoleProvider extends Provider
             throw new ServerException(
                 $result,
                 'Error in retrieving assume role credentials.',
-                \ALI_INVALID_CREDENTIAL
+                \ALIBABA_CLOUD_INVALID_CREDENTIAL
             );
         }
 
@@ -109,7 +112,7 @@ class EcsRamRoleProvider extends Provider
         } catch (GuzzleException $e) {
             throw new ClientException(
                 $e->getMessage(),
-                \ALI_SERVER_UNREACHABLE,
+                \ALIBABA_CLOUD_SERVER_UNREACHABLE,
                 $e
             );
         }

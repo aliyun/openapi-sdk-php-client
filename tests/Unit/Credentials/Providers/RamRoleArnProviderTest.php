@@ -40,7 +40,7 @@ class RamRoleArnProviderTest extends TestCase
             $actual = $provider->get();
             self::assertInstanceOf(StsCredential::class, $actual);
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             self::assertEquals('InvalidAccessKeyId.NotFound', $e->getErrorCode());
         }

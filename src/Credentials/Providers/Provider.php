@@ -50,11 +50,11 @@ class Provider
     /**
      * Cache credentials.
      *
-     * @param array $result
+     * @param array $credential
      */
-    protected function cache(array $result)
+    protected function cache(array $credential)
     {
-        self::$credentialsCache[$this->key()] = $result;
+        self::$credentialsCache[$this->key()] = $credential;
     }
 
     /**
@@ -66,7 +66,7 @@ class Provider
     {
         if (isset(self::$credentialsCache[$this->key()])) {
             $result = self::$credentialsCache[$this->key()];
-            if (\strtotime($result['Expiration']) - \time() >= ECS_ROLE_EXPIRE_TIME) {
+            if (\strtotime($result['Expiration']) - \time() >= \ALIBABA_CLOUD_EXPIRATION_INTERVAL) {
                 return $result;
             }
         }

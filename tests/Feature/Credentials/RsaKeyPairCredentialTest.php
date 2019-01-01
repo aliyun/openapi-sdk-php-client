@@ -12,7 +12,6 @@ use AlibabaCloud\Client\Tests\Mock\Services\Ram\ListAccessKeysRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\Slb\DescribeRulesRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\Vpc\DescribeVpcsRequest;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
-use Exception;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -55,8 +54,8 @@ class RsaKeyPairCredentialTest extends TestCase
             $credential = AlibabaCloud::get($this->clientName)->getSessionCredential();
             self::assertObjectHasAttribute('accessKeyId', $credential);
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_INVALID_CREDENTIAL, $e->getErrorCode());
-        } catch (Exception $e) {
+            self::assertEquals(\ALIBABA_CLOUD_INVALID_CREDENTIAL, $e->getErrorCode());
+        } catch (ServerException $e) {
             self::assertEquals('InvalidAccessKeyId.NotFound', $e->getErrorCode());
         }
     }
@@ -87,9 +86,9 @@ class RsaKeyPairCredentialTest extends TestCase
             self::assertContains(
                 $e->getErrorCode(),
                 [
-                    \ALI_SERVER_UNREACHABLE,
-                    \ALI_INVALID_CREDENTIAL,
-                    \ALI_CLIENT_NOT_FOUND,
+                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                    \ALIBABA_CLOUD_INVALID_CREDENTIAL,
+                    \ALIBABA_CLOUD_CLIENT_NOT_FOUND,
                 ]
             );
         } catch (ServerException $e) {
@@ -115,9 +114,9 @@ class RsaKeyPairCredentialTest extends TestCase
             self::assertContains(
                 $e->getErrorCode(),
                 [
-                    \ALI_SERVER_UNREACHABLE,
-                    \ALI_INVALID_CREDENTIAL,
-                    \ALI_CLIENT_NOT_FOUND,
+                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                    \ALIBABA_CLOUD_INVALID_CREDENTIAL,
+                    \ALIBABA_CLOUD_CLIENT_NOT_FOUND,
                 ]
             );
         } catch (ServerException $e) {
@@ -143,9 +142,9 @@ class RsaKeyPairCredentialTest extends TestCase
             self::assertContains(
                 $e->getErrorCode(),
                 [
-                    \ALI_SERVER_UNREACHABLE,
-                    \ALI_INVALID_CREDENTIAL,
-                    \ALI_CLIENT_NOT_FOUND,
+                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                    \ALIBABA_CLOUD_INVALID_CREDENTIAL,
+                    \ALIBABA_CLOUD_CLIENT_NOT_FOUND,
                 ]
             );
         } catch (ServerException $e) {
@@ -174,9 +173,9 @@ class RsaKeyPairCredentialTest extends TestCase
             self::assertContains(
                 $e->getErrorCode(),
                 [
-                    \ALI_SERVER_UNREACHABLE,
-                    \ALI_INVALID_CREDENTIAL,
-                    \ALI_CLIENT_NOT_FOUND,
+                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                    \ALIBABA_CLOUD_INVALID_CREDENTIAL,
+                    \ALIBABA_CLOUD_CLIENT_NOT_FOUND,
                 ]
             );
         } catch (ServerException $e) {
@@ -203,9 +202,9 @@ class RsaKeyPairCredentialTest extends TestCase
             self::assertContains(
                 $e->getErrorCode(),
                 [
-                    \ALI_SERVER_UNREACHABLE,
-                    \ALI_INVALID_CREDENTIAL,
-                    \ALI_CLIENT_NOT_FOUND,
+                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                    \ALIBABA_CLOUD_INVALID_CREDENTIAL,
+                    \ALIBABA_CLOUD_CLIENT_NOT_FOUND,
                 ]
             );
         } catch (ServerException $e) {
@@ -233,9 +232,9 @@ class RsaKeyPairCredentialTest extends TestCase
             self::assertContains(
                 $e->getErrorCode(),
                 [
-                    \ALI_SERVER_UNREACHABLE,
-                    \ALI_INVALID_CREDENTIAL,
-                    \ALI_CLIENT_NOT_FOUND,
+                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                    \ALIBABA_CLOUD_INVALID_CREDENTIAL,
+                    \ALIBABA_CLOUD_CLIENT_NOT_FOUND,
                 ]
             );
         } catch (ServerException $e) {

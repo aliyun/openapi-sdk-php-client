@@ -16,7 +16,7 @@ use AlibabaCloud\Client\Request\RpcRequest;
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
-class GenerateSessionAccessKeyRequest extends RpcRequest
+class GenerateSessionAccessKey extends RpcRequest
 {
 
     /**
@@ -32,7 +32,7 @@ class GenerateSessionAccessKeyRequest extends RpcRequest
         $this->action('GenerateSessionAccessKey');
         $this->host('sts.ap-northeast-1.aliyuncs.com');
         $this->options['query']['PublicKeyId']     = $credential->getPublicKeyId();
-        $this->options['query']['DurationSeconds'] = ROLE_ARN_EXPIRE_TIME;
+        $this->options['query']['DurationSeconds'] = ALIBABA_CLOUD_STS_EXPIRE;
         $this->scheme('https');
         $this->regionId('cn-hangzhou');
     }

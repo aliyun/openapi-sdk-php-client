@@ -53,7 +53,7 @@ class EcsRamRoleClientTest extends TestCase
         try {
             $client->getSessionCredential(1000);
         } catch (ClientException $exception) {
-            self::assertEquals($exception->getErrorCode(), \ALI_SERVER_UNREACHABLE);
+            self::assertEquals($exception->getErrorCode(), \ALIBABA_CLOUD_SERVER_UNREACHABLE);
         }
     }
 }

@@ -8,7 +8,7 @@ use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 
 /**
- * Class RpcRequest
+ * RESTful RPC Request.
  *
  * @package   AlibabaCloud\Client\Request
  *
@@ -27,7 +27,7 @@ class RpcRequest extends Request
     private $dateTimeFormat = 'Y-m-d\TH:i:s\Z';
 
     /**
-     * Handling the query parameter.
+     * Resolve request query.
      *
      * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
      *
@@ -62,6 +62,8 @@ class RpcRequest extends Request
     }
 
     /**
+     * Resolve request parameter.
+     *
      * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
      *
      * @throws ClientException

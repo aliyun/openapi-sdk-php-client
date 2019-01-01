@@ -32,7 +32,7 @@ class RpcRequestTest extends TestCase
      * @throws       \ReflectionException
      * @dataProvider booleanValueToString
      */
-    public function testBuildCanonicalHeaders($value, $expected)
+    public function testConstructAcsHeader($value, $expected)
     {
         // Setup
         $request = new  RpcRequest();

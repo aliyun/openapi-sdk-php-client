@@ -93,7 +93,7 @@ class EcsRamRoleProviderTest extends TestCase
         try {
             $credential->get();
         } catch (ClientException $e) {
-            $this->assertEquals($e->getErrorCode(), \ALI_SERVER_UNREACHABLE);
+            $this->assertEquals($e->getErrorCode(), \ALIBABA_CLOUD_SERVER_UNREACHABLE);
         }
     }
 
@@ -113,7 +113,10 @@ class EcsRamRoleProviderTest extends TestCase
         try {
             $provider->get();
         } catch (ServerException $e) {
-            $this->assertEquals($e->getErrorCode(), \ALI_INVALID_CREDENTIAL);
+            $this->assertEquals(
+                $e->getErrorCode(),
+                \ALIBABA_CLOUD_INVALID_CREDENTIAL
+            );
         }
     }
 }

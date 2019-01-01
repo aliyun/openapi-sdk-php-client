@@ -103,7 +103,7 @@ class RoaRequestTest extends TestCase
      * @throws \ReflectionException
      * @throws ClientException
      */
-    public function testBuildCanonicalHeaders()
+    public function testConstructAcsHeader()
     {
         // Setup
         $request = new  DescribeClusterServicesRequest();
@@ -121,7 +121,7 @@ class RoaRequestTest extends TestCase
         $request->pathParameter('ClusterId', $clusterId);
         $method = new \ReflectionMethod(
             DescribeClusterServicesRequest::class,
-            'buildCanonicalHeaders'
+            'constructAcsHeader'
         );
         $method->setAccessible(true);
         $actual = $method->invoke($request);

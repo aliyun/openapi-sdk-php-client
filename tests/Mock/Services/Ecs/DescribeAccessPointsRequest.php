@@ -84,8 +84,8 @@ class DescribeAccessPointsRequest extends RpcRequest
     {
         $this->Filters = $Filters;
         foreach ($Filters as $i => $iValue) {
-            for ($j = 0, $jMax = count($Filters[$i]['Values']); $j < $jMax; $j++) {
-                $this->options['query']['Filter.' . ($i + 1) . '.Value.' . ($j + 1)] = $Filters[$i]['Values'][$j];
+            foreach ($Filters[$i]['Values'] as $j => $jValue) {
+                $this->options['query']['Filter.' . ($i + 1) . '.Value.' . ($j + 1)] = $jValue;
             }
             $this->options['query']['Filter.' . ($i + 1) . '.Key'] = $Filters[$i]['Key'];
         }

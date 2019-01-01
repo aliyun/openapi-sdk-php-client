@@ -10,7 +10,7 @@ use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
 
 /**
- * Class RoaRequest
+ * RESTful ROA Request.
  *
  * @package   AlibabaCloud\Client\Request
  *
@@ -28,24 +28,30 @@ class RoaRequest extends Request
      * @var string
      */
     public $pathPattern;
+
     /**
      * @var array
      */
     public $pathParameters = [];
+
     /**
      * @var string
      */
     private $dateTimeFormat = "D, d M Y H:i:s \G\M\T";
+
     /**
      * @var string
      */
     private static $headerSeparator = \PHP_EOL;
+
     /**
      * @var string
      */
     private static $querySeparator = '&';
 
     /**
+     * Calculate the md5 value of the content.
+     *
      * @return string
      */
     private function contentMD5()
@@ -56,6 +62,8 @@ class RoaRequest extends Request
     }
 
     /**
+     * Resolve request parameter.
+     *
      * @param AccessKeyCredential|BearerTokenCredential|StsCredential|CredentialsInterface $credential
      *
      * @throws ClientException
@@ -87,6 +95,8 @@ class RoaRequest extends Request
     }
 
     /**
+     * Sign the request message.
+     *
      * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
      *
      * @throws ClientException
@@ -114,7 +124,7 @@ class RoaRequest extends Request
         }
         $signString .= self::$headerSeparator;
 
-        $signString .= $this->buildCanonicalHeaders();
+        $signString .= $this->constructAcsHeader();
 
         $this->uri = $this->uri
             ->withPath($this->assignPathParameters())
@@ -149,9 +159,11 @@ class RoaRequest extends Request
     }
 
     /**
+     * Construct standard Header for Alibaba Cloud.
+     *
      * @return string
      */
-    private function buildCanonicalHeaders()
+    private function constructAcsHeader()
     {
         $sortMap = [];
         foreach ($this->options['headers'] as $headerKey => $headerValue) {
@@ -169,6 +181,8 @@ class RoaRequest extends Request
     }
 
     /**
+     * Get the query string.
+     *
      * @return bool|mixed|string
      */
     public function queryString()
@@ -187,15 +201,17 @@ class RoaRequest extends Request
     }
 
     /**
+     * Sort the entries by key.
+     *
      * @param string $queryString
-     * @param array  $sortMap
+     * @param array  $map
      *
      * @return string
      */
-    private function ksort(&$queryString, array $sortMap)
+    private function ksort(&$queryString, array $map)
     {
-        ksort($sortMap);
-        foreach ($sortMap as $sortMapKey => $sortMapValue) {
+        ksort($map);
+        foreach ($map as $sortMapKey => $sortMapValue) {
             $queryString .= $sortMapKey;
             if ($sortMapValue !== null) {
                 $queryString .= '=' . $sortMapValue;
@@ -206,6 +222,8 @@ class RoaRequest extends Request
     }
 
     /**
+     * Returns the accept header according to format.
+     *
      * @param string $format
      *
      * @return string
@@ -223,6 +241,8 @@ class RoaRequest extends Request
     }
 
     /**
+     * Set path parameter by name.
+     *
      * @param string $name
      * @param string $value
      *
@@ -235,6 +255,8 @@ class RoaRequest extends Request
     }
 
     /**
+     * Set path pattern.
+     *
      * @param string $pattern
      *
      * @return self

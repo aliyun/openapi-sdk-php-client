@@ -51,7 +51,7 @@ class LocationServiceTest extends TestCase
         try {
             LocationService::findProductDomain($request);
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             self::assertEquals('Specified access key is not found.', $e->getErrorMessage());
         }

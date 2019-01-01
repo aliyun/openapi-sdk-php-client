@@ -1,11 +1,11 @@
 <?php
 
-namespace AlibabaCloud\Client\Result;
+namespace AlibabaCloud\Client\Traits;
 
 /**
  * Trait ArrayAccessTrait
  *
- * @package   AlibabaCloud\Client\Result
+ * @package   AlibabaCloud\Client\Traits
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2019 Alibaba Group
@@ -15,7 +15,6 @@ namespace AlibabaCloud\Client\Result;
  */
 trait ArrayAccessTrait
 {
-
     /**
      * This method returns a reference to the variable to allow for indirect
      * array modification (e.g., $foo['bar']['baz'] = 'qux').

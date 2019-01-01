@@ -30,9 +30,17 @@ class ShaHmac256WithRsaSignature implements SignatureInterface
     {
         $binarySignature = '';
         try {
-            openssl_sign($string, $binarySignature, $privateKey, \OPENSSL_ALGO_SHA256);
+            openssl_sign(
+                $string,
+                $binarySignature,
+                $privateKey,
+                \OPENSSL_ALGO_SHA256
+            );
         } catch (Exception $exception) {
-            throw  new ClientException($exception->getMessage(), \ALI_INVALID_CREDENTIAL);
+            throw  new ClientException(
+                $exception->getMessage(),
+                \ALIBABA_CLOUD_INVALID_CREDENTIAL
+            );
         }
 
         return base64_encode($binarySignature);

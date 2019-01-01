@@ -20,7 +20,7 @@ use AlibabaCloud\Client\Exception\ClientException;
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
- * @mixin IniCredential
+ * @mixin     IniCredential
  */
 trait CreateTrait
 {
@@ -67,7 +67,7 @@ trait CreateTrait
             default:
                 throw new ClientException(
                     "Invalid type '{$credential['type']}' for '$clientName' in {$this->filename}",
-                    \ALI_INVALID_CREDENTIAL
+                    \ALIBABA_CLOUD_INVALID_CREDENTIAL
                 );
         }
     }

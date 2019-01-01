@@ -61,7 +61,7 @@ class RequestTest extends TestCase
                 );
             }
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         }
     }
 
@@ -83,7 +83,7 @@ class RequestTest extends TestCase
             // Assert
             $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         }
     }
 
@@ -117,7 +117,7 @@ class RequestTest extends TestCase
             }
         } catch (ClientException $e) {
             // Assert
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         }
     }
 
@@ -147,7 +147,7 @@ class RequestTest extends TestCase
                 );
             }
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         }
     }
 

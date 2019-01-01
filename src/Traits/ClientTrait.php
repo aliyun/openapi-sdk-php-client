@@ -16,7 +16,7 @@ use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Signature\SignatureInterface;
 
 /**
- * Trait ClientTrait
+ * Trait of the manage clients.
  *
  * @package   AlibabaCloud\Client\Traits
  *
@@ -32,7 +32,7 @@ trait ClientTrait
     /**
      * @var array Containers of Clients
      */
-    private static $clients = [];
+    protected static $clients = [];
 
     /**
      * Get the Client instance by name.
@@ -48,10 +48,8 @@ trait ClientTrait
             return self::$clients[\strtolower($clientName)];
         }
         throw new ClientException(
-            ALIBABA_CLOUD
-            . ' Client Not Found: '
-            . $clientName,
-            \ALI_CLIENT_NOT_FOUND
+            'Client Not Found: ' . $clientName,
+            \ALIBABA_CLOUD_CLIENT_NOT_FOUND
         );
     }
 
