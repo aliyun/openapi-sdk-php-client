@@ -28,6 +28,11 @@ class AlibabaCloud
     use RequestTrait;
 
     /**
+     * Version of the Client
+     */
+    const VERSION = '0.0.1';
+
+    /**
      * This static method can directly call the specific service.
      *
      * @param string $serviceName
@@ -49,13 +54,13 @@ class AlibabaCloud
         if (\trait_exists("AlibabaCloud\\ServiceResolverTrait")) {
             throw new ClientException(
                 "Please confirm that $serviceName exists.",
-                \ALI_SERVICE_NOT_FOUND
+                \ALIBABA_CLOUD_SERVICE_NOT_FOUND
             );
         }
 
         throw new ClientException(
             'Please install alibabacloud/sdk first.',
-            \ALI_SERVICE_NOT_FOUND
+            \ALIBABA_CLOUD_SERVICE_NOT_FOUND
         );
     }
 }

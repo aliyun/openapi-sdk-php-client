@@ -65,7 +65,7 @@ class AcsTraitTest extends TestCase
     {
         // Setup
         $endpointType = 'endpointType';
-        $request              = new RpcRequest();
+        $request      = new RpcRequest();
 
         // Test
         $request->endpointType($endpointType);
@@ -81,7 +81,7 @@ class AcsTraitTest extends TestCase
     {
         // Setup
         $serviceCode = 'serviceCode';
-        $request             = new RpcRequest();
+        $request     = new RpcRequest();
 
         // Test
         $request->serviceCode($serviceCode);
@@ -225,7 +225,7 @@ class AcsTraitTest extends TestCase
         } catch (ServerException $exception) {
             self::assertEquals('InvalidAccessKeyId.NotFound', $exception->getErrorCode());
         } catch (ClientException $exception) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $exception->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $exception->getErrorCode());
         }
     }
 }

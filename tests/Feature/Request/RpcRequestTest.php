@@ -47,7 +47,7 @@ class RpcRequestTest extends TestCase
             $this->assertNotNull($response->Regions->Region[0]->LocalName);
             $this->assertNotNull($response->Regions->Region[0]->RegionId);
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             self::assertContains(
                 $e->getErrorMessage(),
@@ -89,7 +89,7 @@ class RpcRequestTest extends TestCase
             $this->assertEquals(1, $request->options['query']['test_false']);
             $request->request();
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertContains(
                 $e->getErrorCode(),
@@ -122,7 +122,7 @@ class RpcRequestTest extends TestCase
             self::assertContains(
                 $e->getErrorCode(),
                 [
-                    \ALI_SERVER_UNREACHABLE,
+                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
                 ]
             );
         } catch (ServerException $e) {

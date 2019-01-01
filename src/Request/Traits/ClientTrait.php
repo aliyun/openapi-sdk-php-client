@@ -7,8 +7,8 @@ use AlibabaCloud\Client\Clients\Client;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use AlibabaCloud\Client\Credentials\CredentialsInterface;
-use AlibabaCloud\Client\Credentials\Requests\AssumeRoleRequest;
-use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKeyRequest;
+use AlibabaCloud\Client\Credentials\Requests\AssumeRole;
+use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKey;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
@@ -30,6 +30,8 @@ use AlibabaCloud\Client\Request\Request;
 trait ClientTrait
 {
     /**
+     * Get the client based on the request's settings.
+     *
      * @return Client
      * @throws ClientException
      */
@@ -39,7 +41,7 @@ trait ClientTrait
     }
 
     /**
-     * Return credentials directly if it is an AssumeRoleRequest or GenerateSessionAccessKeyRequest.
+     * Return credentials directly if it is an AssumeRole or GenerateSessionAccessKey.
      *
      * @return AccessKeyCredential|BearerTokenCredential|CredentialsInterface|StsCredential
      * @throws ClientException
@@ -47,7 +49,7 @@ trait ClientTrait
      */
     public function credential()
     {
-        if ($this instanceof AssumeRoleRequest || $this instanceof GenerateSessionAccessKeyRequest) {
+        if ($this instanceof AssumeRole || $this instanceof GenerateSessionAccessKey) {
             return $this->httpClient()->getCredential();
         }
 
@@ -55,10 +57,17 @@ trait ClientTrait
     }
 
     /**
+     * Merged with the client's options, the same name will be overwritten.
+     *
      * @throws ClientException
      */
     public function mergeOptionsIntoClient()
     {
-        $this->options = \AlibabaCloud\Client\arrayMerge([$this->httpClient()->options, $this->options]);
+        $this->options = \AlibabaCloud\Client\arrayMerge(
+            [
+                $this->httpClient()->options,
+                $this->options,
+            ]
+        );
     }
 }

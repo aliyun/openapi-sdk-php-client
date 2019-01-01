@@ -3,6 +3,9 @@
 namespace AlibabaCloud\Client\Result;
 
 use AlibabaCloud\Client\Request\Request;
+use AlibabaCloud\Client\Traits\ArrayAccessTrait;
+use AlibabaCloud\Client\Traits\FormatTrait;
+use AlibabaCloud\Client\Traits\HasDataTrait;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -23,19 +26,25 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
     use FormatTrait;
 
     /**
+     * Instance of the response.
+     *
      * @var Response
      */
-    private $response;
+    protected $response;
 
     /**
+     * Instance of the request.
+     *
      * @var Request
      */
-    private $request;
+    protected $request;
 
     /**
+     * Array data of the response.
+     *
      * @var array
      */
-    private $data = [];
+    protected $data = [];
 
     /**
      * Result constructor.
@@ -89,7 +98,8 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
      */
     public function isSuccess()
     {
-        return 200 <= $this->response->getStatusCode() && 300 > $this->response->getStatusCode();
+        return 200 <= $this->response->getStatusCode()
+               && 300 > $this->response->getStatusCode();
     }
 
     /**

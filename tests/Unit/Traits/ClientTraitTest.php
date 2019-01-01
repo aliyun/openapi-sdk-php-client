@@ -168,7 +168,7 @@ class ClientTraitTest extends TestCase
         try {
             AlibabaCloud::get('None')->getCredential()->getAccessKeyId();
         } catch (ClientException $e) {
-            $this->assertEquals(\ALI_CLIENT_NOT_FOUND, $e->getErrorCode());
+            $this->assertEquals(\ALIBABA_CLOUD_CLIENT_NOT_FOUND, $e->getErrorCode());
         }
     }
 
@@ -181,7 +181,7 @@ class ClientTraitTest extends TestCase
 
     /**
      * @expectedException        \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage Alibaba Cloud Client Not Found: global
+     * @expectedExceptionMessage Client Not Found: global
      * @throws                   ClientException
      */
     public function testGetGlobalClient()

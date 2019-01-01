@@ -5,9 +5,9 @@ namespace AlibabaCloud\Client\Request\Traits;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Regions\EndpointProvider;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Request\Request;
+use GuzzleHttp\Client;
 
 /**
  * Trait AcsTrait
@@ -28,22 +28,31 @@ trait AcsTrait
      * @var string
      */
     public $version;
+
     /**
      * @var string
      */
     public $product;
+
     /**
      * @var string
      */
     public $action;
+
     /**
      * @var string
      */
     public $serviceCode;
+
     /**
      * @var string
      */
     public $endpointType;
+
+    /**
+     * @var array User Agent.
+     */
+    private $userAgent = [];
 
     /**
      * @param string $action
@@ -103,20 +112,23 @@ trait AcsTrait
     /**
      * @return string
      */
-    private function userAgent()
+    private function userAgentString()
     {
-        $userAgent = [
-            'alibabacloud' => null,
-            'sdk-php'      => \ALIBABA_CLOUD_SDK_VERSION,
-            \PHP_OS        => php_uname('r'),
-            'PHP'          => \PHP_VERSION,
-            'zend_version' => zend_version(),
-            'GuzzleHttp'   => \GuzzleHttp\Client::VERSION,
-            'curl_version' => \curl_version()['version'],
-        ];
+        $this->userAgent('alibabacloud', null);
+        $this->userAgent('client-php', AlibabaCloud::VERSION);
+        $this->userAgent('PHP', \PHP_VERSION);
+        $this->userAgent(\PHP_OS, php_uname('r'));
+        $this->userAgent('zend_version', zend_version());
+        $this->userAgent('GuzzleHttp', Client::VERSION);
+        $this->userAgent(
+            'curl_version',
+            isset(\curl_version()['version'])
+                ? \curl_version()['version']
+                : ''
+        );
 
         $newUserAgent = [];
-        foreach ($userAgent as $key => $value) {
+        foreach ($this->userAgent as $key => $value) {
             if ($value === null) {
                 $newUserAgent[] = $key;
                 continue;
@@ -124,6 +136,21 @@ trait AcsTrait
             $newUserAgent[] = $key . '=' . $value;
         }
         return \implode(';', $newUserAgent);
+    }
+
+    /**
+     * set User Agent of Alibaba Cloud.
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @return $this
+     */
+    public function userAgent($name, $value)
+    {
+        $this->userAgent[$name] = $value;
+
+        return $this;
     }
 
     /**
@@ -141,7 +168,10 @@ trait AcsTrait
         if (AlibabaCloud::getGlobalRegionId() !== null) {
             return AlibabaCloud::getGlobalRegionId();
         }
-        throw new ClientException("Missing required 'RegionId' for Request", \ALI_INVALID_REGION_ID);
+        throw new ClientException(
+            "Missing required 'RegionId' for Request",
+            \ALIBABA_CLOUD_INVALID_REGION_ID
+        );
     }
 
     /**
@@ -154,7 +184,7 @@ trait AcsTrait
     {
         if ($this->uri->getHost() === 'localhost') {
             // Get the host by specified `ServiceCode` and `RegionId`.
-            $host = EndpointProvider::resolveHost(
+            $host = AlibabaCloud::resolveHost(
                 $this->realRegionId(),
                 $this->product
             );

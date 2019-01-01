@@ -98,7 +98,7 @@ class IniCredential
     {
         throw new ClientException(
             "Missing required '$key' option for '$clientName' in " . $this->getFilename(),
-            \ALI_INVALID_CREDENTIAL
+            \ALIBABA_CLOUD_INVALID_CREDENTIAL
         );
     }
 
@@ -118,11 +118,7 @@ class IniCredential
      */
     public function load()
     {
-        /**
-         * ----------------------------------------------------------------
-         *   If it has been loaded, assign the client directly.
-         *---------------------------------------------------------------
-         */
+        // If it has been loaded, assign the client directly.
         if (isset(self::$hasLoaded[$this->filename])) {
             /**
              * @var $client Client
@@ -151,7 +147,7 @@ class IniCredential
             }
             throw new ClientException(
                 'Credential file is not readable: ' . $this->getFilename(),
-                \ALI_INVALID_CREDENTIAL
+                \ALIBABA_CLOUD_INVALID_CREDENTIAL
             );
         }
 
@@ -173,10 +169,14 @@ class IniCredential
             }
             throw new ClientException(
                 'Format error: ' . $this->getFilename(),
-                \ALI_INVALID_CREDENTIAL
+                \ALIBABA_CLOUD_INVALID_CREDENTIAL
             );
         } catch (\Exception $e) {
-            throw new ClientException($e->getMessage(), \ALI_INVALID_CREDENTIAL, $e);
+            throw new ClientException(
+                $e->getMessage(),
+                \ALIBABA_CLOUD_INVALID_CREDENTIAL,
+                $e
+            );
         }
     }
 

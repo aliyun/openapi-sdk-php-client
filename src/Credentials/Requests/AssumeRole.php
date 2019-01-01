@@ -16,7 +16,7 @@ use AlibabaCloud\Client\Request\RpcRequest;
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
-class AssumeRoleRequest extends RpcRequest
+class AssumeRole extends RpcRequest
 {
 
     /**
@@ -29,11 +29,11 @@ class AssumeRoleRequest extends RpcRequest
         parent::__construct();
         $this->options['query']['RoleArn']         = $arnCredential->getRoleArn();
         $this->options['query']['RoleSessionName'] = $arnCredential->getRoleSessionName();
-        $this->options['query']['DurationSeconds'] = ROLE_ARN_EXPIRE_TIME;
+        $this->options['query']['DurationSeconds'] = ALIBABA_CLOUD_STS_EXPIRE;
         $this->product('Sts');
         $this->version('2015-04-01');
         $this->action('AssumeRole');
-        $this->host(STS_DOMAIN);
+        $this->host('sts.aliyuncs.com');
         $this->scheme('https');
         $this->regionId('cn-hangzhou');
     }

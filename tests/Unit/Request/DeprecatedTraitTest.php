@@ -74,8 +74,6 @@ class DeprecatedTraitTest extends TestCase
         // Setup
         $request = new RpcRequest();
 
-        // Assert
-        self::assertArrayHasKey('User-Agent', $request->getHeaders());
         $value = 'test';
 
         // Test

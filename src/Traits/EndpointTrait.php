@@ -7,7 +7,7 @@ use AlibabaCloud\Client\Config\Config;
 use AlibabaCloud\Client\Regions\LocationService;
 
 /**
- * Trait EndpointTrait
+ * Help developers set up and get host.
  *
  * @package   AlibabaCloud\Client\Traits
  *
@@ -21,9 +21,9 @@ use AlibabaCloud\Client\Regions\LocationService;
 trait EndpointTrait
 {
     /**
-     * @var array
+     * @var array Host cache.
      */
-    private static $endpoints = [];
+    private static $hosts = [];
 
     /**
      * @deprecated
@@ -53,6 +53,8 @@ trait EndpointTrait
     }
 
     /**
+     * Resolve host based on product name and region.
+     *
      * @param string $regionId
      * @param string $product
      *
@@ -60,8 +62,8 @@ trait EndpointTrait
      */
     public static function resolveHost($regionId, $product)
     {
-        if (isset(self::$endpoints[$product][$regionId])) {
-            return self::$endpoints[$product][$regionId];
+        if (isset(self::$hosts[$product][$regionId])) {
+            return self::$hosts[$product][$regionId];
         }
         $domain = Config::get("endpoints.{$product}.{$regionId}");
         if ($domain) {
@@ -71,6 +73,8 @@ trait EndpointTrait
     }
 
     /**
+     * Add host based on product name and region.
+     *
      * @param string $regionId
      * @param string $product
      * @param string $domain
@@ -79,7 +83,7 @@ trait EndpointTrait
      */
     public static function addHost($regionId, $product, $domain)
     {
-        self::$endpoints[$product][$regionId] = $domain;
+        self::$hosts[$product][$regionId] = $domain;
         LocationService::addHost($regionId, $product, $domain);
     }
 }

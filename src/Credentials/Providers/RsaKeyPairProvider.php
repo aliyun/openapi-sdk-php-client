@@ -4,7 +4,7 @@ namespace AlibabaCloud\Client\Credentials\Providers;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
-use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKeyRequest;
+use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKey;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Result\Result;
@@ -40,10 +40,12 @@ class RsaKeyPairProvider extends Provider
         if ($credential === null) {
             $result = $this->request($timeout);
 
-            if (!$result->hasKey('SessionAccessKey')) {
-                throw new ClientException(
+            if (!isset($result['SessionAccessKey']['SessionAccessKeyId'],
+                $result['SessionAccessKey']['SessionAccessKeySecret'])) {
+                throw new ServerException(
+                    $result,
                     'Result contains no SessionAccessKey',
-                    \ALI_INVALID_CREDENTIAL
+                    \ALIBABA_CLOUD_INVALID_CREDENTIAL
                 );
             }
 
@@ -78,7 +80,7 @@ class RsaKeyPairProvider extends Provider
             new ShaHmac256WithRsaSignature()
         )->name($clientName);
 
-        return (new GenerateSessionAccessKeyRequest($this->client->getCredential()))
+        return (new GenerateSessionAccessKey($this->client->getCredential()))
             ->client($clientName)
             ->timeout($timeout)
             ->connectTimeout($timeout)

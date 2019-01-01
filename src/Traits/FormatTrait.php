@@ -1,13 +1,13 @@
 <?php
 
-namespace AlibabaCloud\Client\Result;
+namespace AlibabaCloud\Client\Traits;
 
 use Exception;
 
 /**
  * Trait FormatTrait
  *
- * @package   AlibabaCloud\Client\Result
+ * @package   AlibabaCloud\Client\Traits
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2019 Alibaba Group

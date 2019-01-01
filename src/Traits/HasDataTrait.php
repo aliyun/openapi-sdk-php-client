@@ -1,20 +1,19 @@
 <?php
 
-namespace AlibabaCloud\Client\Result;
+namespace AlibabaCloud\Client\Traits;
 
 use JmesPath\Env as JmesPath;
 
 /**
  * Trait HasDataTrait
  *
- * @package   AlibabaCloud\Client\Result
+ * @package   AlibabaCloud\Client\Traits
  *
  * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
  * @copyright 2019 Alibaba Group
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
- * @mixin     Result
  */
 trait HasDataTrait
 {
@@ -42,7 +41,7 @@ trait HasDataTrait
      */
     public function search($expression)
     {
-        return JmesPath::search($expression, $this->toArray());
+        return JmesPath::search($expression, $this->data);
     }
 
     /**

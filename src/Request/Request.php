@@ -6,11 +6,12 @@ use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Http\GuzzleTrait;
 use AlibabaCloud\Client\Request\Traits\AcsTrait;
-use AlibabaCloud\Client\Request\Traits\ArrayAccessTrait;
 use AlibabaCloud\Client\Request\Traits\ClientTrait;
 use AlibabaCloud\Client\Request\Traits\DeprecatedTrait;
 use AlibabaCloud\Client\Request\Traits\MagicTrait;
 use AlibabaCloud\Client\Result\Result;
+use AlibabaCloud\Client\Traits\ArrayAccessTrait;
+use AlibabaCloud\Client\Traits\ObjectAccessTrait;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Uri;
@@ -36,35 +37,42 @@ abstract class Request implements \ArrayAccess
     use ClientTrait;
     use AcsTrait;
     use ArrayAccessTrait;
+    use ObjectAccessTrait;
 
     /**
      * @var string
      */
     public $scheme = 'http';
+
     /**
      * @var string
      */
     public $method = 'GET';
+
     /**
      * @var string
      */
     public $format = 'JSON';
+
     /**
      * @var string
      */
     public $client = \ALIBABA_CLOUD_GLOBAL_CLIENT;
+
     /**
      * @var Uri
      */
     public $uri;
+
     /**
      * @var Client
      */
     public $guzzle;
+
     /**
-     * @var array The original parameters of the request object.
+     * @var array The original parameters of the request.
      */
-    public $parameters = [];
+    public $data = [];
 
     /**
      * Request constructor.
@@ -73,13 +81,12 @@ abstract class Request implements \ArrayAccess
      */
     public function __construct(array $options = [])
     {
-        $this->uri                              = new Uri();
-        $this->uri                              = $this->uri->withScheme($this->scheme);
-        $this->guzzle                           = new Client();
-        $this->options['http_errors']           = false;
-        $this->options['timeout']               = ALIBABA_CLOUD_TIMEOUT;
-        $this->options['connect_timeout']       = ALIBABA_CLOUD_CONNECT_TIMEOUT;
-        $this->options['headers']['User-Agent'] = $this->userAgent();
+        $this->uri                        = new Uri();
+        $this->uri                        = $this->uri->withScheme($this->scheme);
+        $this->guzzle                     = new Client();
+        $this->options['http_errors']     = false;
+        $this->options['timeout']         = ALIBABA_CLOUD_TIMEOUT;
+        $this->options['connect_timeout'] = ALIBABA_CLOUD_CONNECT_TIMEOUT;
         if ($options !== []) {
             $this->options($options);
         }
@@ -199,6 +206,8 @@ abstract class Request implements \ArrayAccess
      */
     public function request()
     {
+        $this->options['headers']['User-Agent'] = $this->userAgentString();
+
         $this->resolveUri();
 
         $this->resolveParameters($this->credential());
@@ -221,6 +230,20 @@ abstract class Request implements \ArrayAccess
     }
 
     /**
+     * @param array $post
+     *
+     * @return bool|string
+     */
+    public static function getPostHttpBody(array $post)
+    {
+        $content = '';
+        foreach ($post as $apiKey => $apiValue) {
+            $content .= "$apiKey=" . urlencode($apiValue) . '&';
+        }
+        return substr($content, 0, -1);
+    }
+
+    /**
      * @throws ClientException
      */
     private function response()
@@ -234,50 +257,9 @@ abstract class Request implements \ArrayAccess
         } catch (GuzzleException $e) {
             throw new ClientException(
                 $e->getMessage(),
-                \ALI_SERVER_UNREACHABLE,
+                \ALIBABA_CLOUD_SERVER_UNREACHABLE,
                 $e
             );
         }
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return mixed|null
-     */
-    public function __get($name)
-    {
-        return isset($this->parameters[$name])
-            ? $this->parameters[$name]
-            : null;
-    }
-
-    /**
-     * @param string $name
-     * @param mixed  $value
-     */
-    public function __set($name, $value)
-    {
-        $this->parameters[$name] = $value;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function __isset($name)
-    {
-        return isset($this->parameters[$name]);
-    }
-
-    /**
-     * @param $name
-     *
-     * @return void
-     */
-    public function __unset($name)
-    {
-        unset($this->parameters[$name]);
     }
 }

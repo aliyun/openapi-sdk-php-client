@@ -241,18 +241,4 @@ trait DeprecatedTrait
     {
         return $this->serviceCode;
     }
-
-    /**
-     * @param array $post
-     *
-     * @return bool|string
-     */
-    public static function getPostHttpBody(array $post)
-    {
-        $content = '';
-        foreach ($post as $apiParamKey => $apiParamValue) {
-            $content .= "$apiParamKey=" . urlencode($apiParamValue) . '&';
-        }
-        return substr($content, 0, -1);
-    }
 }

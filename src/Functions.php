@@ -9,8 +9,8 @@ use League\CLImate\CLImate;
 | Global Functions for Alibaba Cloud
 |--------------------------------------------------------------------------
 |
- * Some common global functions are defined here.
- * This file will be automatically loaded.
+| Some common global functions are defined here.
+| This file will be automatically loaded.
 |
 */
 
@@ -24,10 +24,9 @@ function cliMate()
 
 /**
  * @param string      $string
- *
  * @param string|null $flank
  * @param string|null $char
- * @param string|null $length
+ * @param int|null    $length
  *
  * @return void
  */
@@ -44,10 +43,9 @@ function backgroundRed($string, $flank = null, $char = null, $length = null)
 
 /**
  * @param string      $string
- *
  * @param string|null $flank
  * @param string|null $char
- * @param string|null $length
+ * @param int|null    $length
  *
  * @return void
  */
@@ -63,10 +61,9 @@ function backgroundGreen($string, $flank = null, $char = null, $length = null)
 
 /**
  * @param string      $string
- *
  * @param string|null $flank
  * @param string|null $char
- * @param string|null $length
+ * @param int|null    $length
  *
  * @return void
  */
@@ -82,10 +79,9 @@ function backgroundBlue($string, $flank = null, $char = null, $length = null)
 
 /**
  * @param string      $string
- *
  * @param string|null $flank
  * @param string|null $char
- * @param string|null $length
+ * @param int|null    $length
  *
  * @return void
  */

@@ -44,7 +44,7 @@ class RsaKeyPairCredential implements CredentialsInterface
         } catch (Exception $exception) {
             throw new ClientException(
                 $exception->getMessage(),
-                \ALI_INVALID_CREDENTIAL
+                \ALIBABA_CLOUD_INVALID_CREDENTIAL
             );
         }
     }

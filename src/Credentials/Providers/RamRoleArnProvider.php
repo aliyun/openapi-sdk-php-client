@@ -3,7 +3,7 @@
 namespace AlibabaCloud\Client\Credentials\Providers;
 
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Credentials\Requests\AssumeRoleRequest;
+use AlibabaCloud\Client\Credentials\Requests\AssumeRole;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
@@ -39,10 +39,13 @@ class RamRoleArnProvider extends Provider
         if (null === $credential) {
             $result = $this->request($timeout);
 
-            if (!$result->hasKey('Credentials')) {
-                throw new ClientException(
+            if (!isset($result['Credentials']['AccessKeyId'],
+                $result['Credentials']['AccessKeySecret'],
+                $result['Credentials']['SecurityToken'])) {
+                throw new ServerException(
+                    $result,
                     'Result contains no credentials',
-                    \ALI_INVALID_CREDENTIAL
+                    \ALIBABA_CLOUD_INVALID_CREDENTIAL
                 );
             }
 
@@ -75,7 +78,7 @@ class RamRoleArnProvider extends Provider
             $this->client->getCredential()->getAccessKeySecret()
         )->name($clientName);
 
-        return (new AssumeRoleRequest($this->client->getCredential()))
+        return (new AssumeRole($this->client->getCredential()))
             ->timeout($timeout)
             ->connectTimeout($timeout)
             ->client($clientName)

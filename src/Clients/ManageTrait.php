@@ -23,6 +23,7 @@ use AlibabaCloud\Client\Credentials\StsCredential;
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  *
  * @link      https://github.com/aliyun/openapi-sdk-php-client
+ * @mixin     Client
  */
 trait ManageTrait
 {

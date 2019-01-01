@@ -46,7 +46,7 @@ class RoaRequestTest extends TestCase
             self::assertContains(
                 $e->getErrorCode(),
                 [
-                    \ALI_SERVER_UNREACHABLE,
+                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
                 ]
             );
         } catch (ServerException $e) {

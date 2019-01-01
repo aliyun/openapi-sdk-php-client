@@ -62,7 +62,7 @@ class EcsRamRoleCredentialTest extends TestCase
             (new DescribeRegionsRequest())->client($this->clientName)->request();
         } catch (ClientException $e) {
             // If the request is not from a bound ECS instance.
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             self::assertEquals('Error in retrieving assume role credentials.', $e->getErrorMessage());
         }
@@ -80,7 +80,7 @@ class EcsRamRoleCredentialTest extends TestCase
             self::assertContains(
                 $e->getErrorCode(),
                 [
-                    \ALI_SERVER_UNREACHABLE,
+                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
                 ]
             );
         } catch (ServerException $e) {
@@ -104,7 +104,7 @@ class EcsRamRoleCredentialTest extends TestCase
             $this->assertTrue(isset($result['Endpoint']));
         } catch (ClientException $e) {
             // If the request is not from a bound ECS instance.
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             self::assertContains(
                 $e->getErrorMessage(),
@@ -126,14 +126,14 @@ class EcsRamRoleCredentialTest extends TestCase
                                              ->request();
         } catch (ClientException $e) {
             // If the request is not from a bound ECS instance.
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertContains(
                 $e->getErrorCode(),
                 [
                     'Forbidden.RAM',
                     'InvalidAccessKeyId.NotFound',
-                    \ALI_INVALID_CREDENTIAL,
+                    \ALIBABA_CLOUD_INVALID_CREDENTIAL,
                 ]
             );
         }
@@ -152,14 +152,14 @@ class EcsRamRoleCredentialTest extends TestCase
                 ->request();
         } catch (ClientException $e) {
             // If the request is not from a bound ECS instance.
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertContains(
                 $e->getErrorCode(),
                 [
                     'InvalidLoadBalancerId.NotFound',
                     'InvalidAccessKeyId.NotFound',
-                    \ALI_INVALID_CREDENTIAL,
+                    \ALIBABA_CLOUD_INVALID_CREDENTIAL,
                 ]
             );
         }
@@ -177,14 +177,14 @@ class EcsRamRoleCredentialTest extends TestCase
                 ->request();
         } catch (ClientException $e) {
             // If the request is not from a bound ECS instance.
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertContains(
                 $e->getErrorCode(),
                 [
                     'EntityNotExist.User',
                     'InvalidAccessKeyId.NotFound',
-                    \ALI_INVALID_CREDENTIAL,
+                    \ALIBABA_CLOUD_INVALID_CREDENTIAL,
                 ]
             );
         }
@@ -203,7 +203,7 @@ class EcsRamRoleCredentialTest extends TestCase
             $this->assertArrayHasKey('Vpcs', $result);
         } catch (ClientException $e) {
             // If the request is not from a bound ECS instance.
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             self::assertContains(
                 $e->getErrorMessage(),

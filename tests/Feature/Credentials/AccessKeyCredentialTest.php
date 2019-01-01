@@ -69,7 +69,7 @@ class AccessKeyCredentialTest extends TestCase
                                                          ->request();
             $this->assertTrue(isset($result['AccessPointSet']));
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             self::assertContains(
                 $e->getErrorMessage(),
@@ -90,7 +90,7 @@ class AccessKeyCredentialTest extends TestCase
                                                     ->request();
             $this->assertTrue(isset($result['Regions']));
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             self::assertContains(
                 $e->getErrorMessage(),
@@ -111,7 +111,7 @@ class AccessKeyCredentialTest extends TestCase
                                                        ->request();
             $this->assertTrue(isset($result['Endpoint']));
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertContains(
                 $e->getErrorCode(),
@@ -138,7 +138,7 @@ class AccessKeyCredentialTest extends TestCase
             $request->client($this->clientName)
                     ->request();
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertContains(
                 $e->getErrorCode(),
@@ -163,7 +163,7 @@ class AccessKeyCredentialTest extends TestCase
                                          ->setUserName($userName)
                                          ->request();
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertContains(
                 $e->getErrorCode(),
@@ -186,7 +186,7 @@ class AccessKeyCredentialTest extends TestCase
 
             $this->assertArrayHasKey('Vpcs', $result);
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             self::assertContains(
                 $e->getErrorMessage(),

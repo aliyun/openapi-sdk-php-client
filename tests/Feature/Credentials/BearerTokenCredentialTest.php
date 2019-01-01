@@ -71,7 +71,7 @@ class BearerTokenCredentialTest extends TestCase
             $result  = $request->request();
             self::assertArrayHasKey('PhoneNumbers', $result);
         } catch (ClientException $e) {
-            $this->assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            $this->assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             self::assertContains(
                 $e->getErrorCode(),
@@ -92,7 +92,7 @@ class BearerTokenCredentialTest extends TestCase
         try {
             (new DescribeAccessPointsRequest())->client($this->clientName)->request();
         } catch (ClientException $e) {
-            $this->assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            $this->assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
         }
@@ -106,7 +106,7 @@ class BearerTokenCredentialTest extends TestCase
         try {
             (new DescribeRegionsRequest())->client($this->clientName)->request();
         } catch (ClientException $e) {
-            $this->assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            $this->assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
         }
@@ -120,7 +120,7 @@ class BearerTokenCredentialTest extends TestCase
         try {
             (new DescribeCdnServiceRequest())->client($this->clientName)->request();
         } catch (ClientException $e) {
-            $this->assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            $this->assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
         }
@@ -134,7 +134,7 @@ class BearerTokenCredentialTest extends TestCase
         try {
             (new DescribeRulesRequest())->client($this->clientName)->request();
         } catch (ClientException $e) {
-            $this->assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            $this->assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
         }
@@ -148,7 +148,7 @@ class BearerTokenCredentialTest extends TestCase
         try {
             (new ListAccessKeysRequest())->client($this->clientName)->request();
         } catch (ClientException $e) {
-            $this->assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            $this->assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
         }
@@ -162,7 +162,7 @@ class BearerTokenCredentialTest extends TestCase
         try {
             (new DescribeVpcsRequest())->client($this->clientName)->request();
         } catch (ClientException $e) {
-            $this->assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            $this->assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
         }

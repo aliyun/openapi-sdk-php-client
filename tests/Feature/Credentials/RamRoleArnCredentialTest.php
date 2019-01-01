@@ -74,7 +74,7 @@ class RamRoleArnCredentialTest extends TestCase
                                                          ->request();
             $this->assertTrue(isset($result['AccessPointSet']));
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             if (\getenv('ACCESS_KEY_ID') === 'foo') {
                 self::assertContains(
@@ -104,7 +104,7 @@ class RamRoleArnCredentialTest extends TestCase
                                                     ->request();
             $this->assertTrue(isset($result['Endpoint']));
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             if (\getenv('ACCESS_KEY_ID') === 'foo') {
                 self::assertContains(
@@ -133,7 +133,7 @@ class RamRoleArnCredentialTest extends TestCase
             (new DescribeCdnServiceRequest())->client($this->clientName)
                                              ->request();
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             if (\getenv('ACCESS_KEY_ID') === 'foo') {
                 self::assertContains(
@@ -165,7 +165,7 @@ class RamRoleArnCredentialTest extends TestCase
                                         ->setListenerPort(55656)
                                         ->request();
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             if (\getenv('ACCESS_KEY_ID') === 'foo') {
                 self::assertContains(
@@ -196,7 +196,7 @@ class RamRoleArnCredentialTest extends TestCase
                                          ->setUserName(\time())
                                          ->request();
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             if (\getenv('ACCESS_KEY_ID') === 'foo') {
                 self::assertContains(
@@ -227,7 +227,7 @@ class RamRoleArnCredentialTest extends TestCase
                                                  ->request();
             $this->assertArrayHasKey('Vpcs', $result);
         } catch (ClientException $e) {
-            self::assertEquals(\ALI_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             if (\getenv('ACCESS_KEY_ID') === 'foo') {
                 self::assertContains(

@@ -49,7 +49,7 @@ class LocationService
      * @throws ClientException
      * @throws ServerException
      */
-    public static function findProductDomain(Request $request, $domain = LOCATION_SERVICE_DOMAIN)
+    public static function findProductDomain(Request $request, $domain = 'location.aliyuncs.com')
     {
         return self::resolveHost($request, $domain);
     }
@@ -62,7 +62,7 @@ class LocationService
      * @throws ClientException
      * @throws ServerException
      */
-    public static function resolveHost(Request $request, $domain = LOCATION_SERVICE_DOMAIN)
+    public static function resolveHost(Request $request, $domain = 'location.aliyuncs.com')
     {
         $instance = new static($request);
         $key      = $instance->request->realRegionId() . '#' . $instance->request->product;
@@ -73,14 +73,14 @@ class LocationService
             if (!isset($result['Endpoints']['Endpoint'][0]['Endpoint'])) {
                 throw new ClientException(
                     'Can Not Find RegionId From: ' . $domain,
-                    \ALI_INVALID_REGION_ID
+                    \ALIBABA_CLOUD_INVALID_REGION_ID
                 );
             }
 
             if (!$result['Endpoints']['Endpoint'][0]['Endpoint']) {
                 throw new ClientException(
                     'Invalid RegionId: ' . $result['Endpoints']['Endpoint'][0]['Endpoint'],
-                    \ALI_INVALID_REGION_ID
+                    \ALIBABA_CLOUD_INVALID_REGION_ID
                 );
             }
 

@@ -4,8 +4,8 @@ namespace AlibabaCloud\Client\Tests\Unit\Request;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
-use AlibabaCloud\Client\Credentials\Requests\AssumeRoleRequest;
-use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKeyRequest;
+use AlibabaCloud\Client\Credentials\Requests\AssumeRole;
+use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKey;
 use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
 use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
@@ -82,7 +82,7 @@ class ClientTraitTest extends TestCase
         self::assertEquals('secret', $request->credential()->getAccessKeySecret());
     }
 
-    public function testCredentialOnAssumeRoleRequest()
+    public function testCredentialOnAssumeRole()
     {
         // Setup
         $clientName = __METHOD__;
@@ -93,7 +93,7 @@ class ClientTraitTest extends TestCase
                     ->regionId('cn-hangzhou')
                     ->name($clientName);
 
-        $request = (new AssumeRoleRequest(
+        $request = (new AssumeRole(
             new RamRoleArnCredential(
                 'key',
                 'secret',
@@ -107,7 +107,7 @@ class ClientTraitTest extends TestCase
         self::assertEquals('secret', $request->credential()->getAccessKeySecret());
     }
 
-    public function testCredentialOnGenerateSessionAccessKeyRequest()
+    public function testCredentialOnGenerateSessionAccessKey()
     {
         // Setup
         $clientName = __METHOD__;
@@ -118,7 +118,7 @@ class ClientTraitTest extends TestCase
                     ->regionId('cn-hangzhou')
                     ->name($clientName);
 
-        $request = (new GenerateSessionAccessKeyRequest(
+        $request = (new GenerateSessionAccessKey(
             new RsaKeyPairCredential(
                 'key',
                 VirtualRsaKeyPairCredential::ok()
