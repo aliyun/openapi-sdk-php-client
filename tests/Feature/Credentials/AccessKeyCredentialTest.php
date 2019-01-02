@@ -17,12 +17,6 @@ use PHPUnit\Framework\TestCase;
  * Class AccessKeyCredentialTest
  *
  * @package   AlibabaCloud\Client\Tests\Feature\Credentials
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class AccessKeyCredentialTest extends TestCase
 {
@@ -133,8 +127,8 @@ class AccessKeyCredentialTest extends TestCase
 
         try {
             $request = new DescribeRulesRequest();
-            $request->setLoadBalancerId($clusterId);
-            $request->setListenerPort(55656);
+            $request->withLoadBalancerId($clusterId);
+            $request->withListenerPort(55656);
             $request->client($this->clientName)
                     ->request();
         } catch (ClientException $e) {
@@ -160,7 +154,7 @@ class AccessKeyCredentialTest extends TestCase
 
         try {
             (new ListAccessKeysRequest())->client($this->clientName)
-                                         ->setUserName($userName)
+                                         ->withUserName($userName)
                                          ->request();
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());

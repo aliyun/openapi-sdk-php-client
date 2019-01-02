@@ -11,11 +11,6 @@ use AlibabaCloud\Client\Regions\LocationService;
  *
  * @package   AlibabaCloud\Client\Traits
  *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2018 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  * @mixin     AlibabaCloud
  */
 trait EndpointTrait
@@ -26,7 +21,7 @@ trait EndpointTrait
     private static $hosts = [];
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use resolveHost() instead.
      *
      * @param string $regionId
      * @param string $product
@@ -39,7 +34,7 @@ trait EndpointTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use addHost() instead.
      *
      * @param string $regionId
      * @param string $product

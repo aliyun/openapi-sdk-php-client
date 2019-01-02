@@ -13,12 +13,6 @@ use PHPUnit\Framework\TestCase;
  * Class RequestTest
  *
  * @package   AlibabaCloud\Client\Tests\Feature\Request
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class RequestTest extends TestCase
 {
@@ -37,7 +31,7 @@ class RequestTest extends TestCase
         // Setup
         $request   = new  DescribeClusterServicesRequest();
         $clusterId = \time();
-        $request->setClusterId($clusterId);
+        $request->withClusterId($clusterId);
 
         // Test
         try {
@@ -77,7 +71,7 @@ class RequestTest extends TestCase
         // Test
         try {
             (new  DescribeClusterServicesRequest())->client('BEARER_TOKEN')
-                                                   ->setClusterId(\time())
+                                                   ->withClusterId(\time())
                                                    ->request();
         } catch (ServerException $e) {
             // Assert
@@ -100,7 +94,7 @@ class RequestTest extends TestCase
         // Test
         try {
             (new  DescribeClusterServicesRequest())->client(__METHOD__)
-                                                   ->setClusterId(\time())
+                                                   ->withClusterId(\time())
                                                    ->request();
         } catch (ServerException $e) {
             // Assert
@@ -127,7 +121,7 @@ class RequestTest extends TestCase
     {
         // Setup
         $request = new  DescribeClusterServicesRequest();
-        $request->setClusterId(\time());
+        $request->withClusterId(\time());
 
         // Test
         try {

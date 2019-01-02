@@ -10,12 +10,6 @@ use AlibabaCloud\Client\Request\Request;
  * Class LocationService
  *
  * @package   AlibabaCloud\Client\Regions
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class LocationService
 {
@@ -40,7 +34,7 @@ class LocationService
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use resolveHost() instead.
      *
      * @param Request $request
      * @param string  $domain
@@ -92,7 +86,7 @@ class LocationService
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use addHost() instead.
      *
      * @param string $regionId
      * @param string $product
@@ -115,9 +109,11 @@ class LocationService
     }
 
     /**
-     * @deprecated
      * @codeCoverageIgnore
-     * @return             void
+     *
+     * @deprecated deprecated since version 2.0.
+     *
+     * @return void
      */
     public static function modifyServiceDomain()
     {

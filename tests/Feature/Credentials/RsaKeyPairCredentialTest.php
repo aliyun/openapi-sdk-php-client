@@ -18,12 +18,6 @@ use PHPUnit\Framework\TestCase;
  * Class RsaKeyPairCredentialTest
  *
  * @package   AlibabaCloud\Client\Tests\Feature\Credentials
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class RsaKeyPairCredentialTest extends TestCase
 {
@@ -165,8 +159,8 @@ class RsaKeyPairCredentialTest extends TestCase
     {
         try {
             $request = new DescribeRulesRequest();
-            $request->setLoadBalancerId(\time());
-            $request->setListenerPort(55656);
+            $request->withLoadBalancerId(\time());
+            $request->withListenerPort(55656);
             $request->client($this->clientName)
                     ->request();
         } catch (ClientException $e) {
@@ -196,7 +190,7 @@ class RsaKeyPairCredentialTest extends TestCase
     {
         try {
             (new ListAccessKeysRequest())->client($this->clientName)
-                                         ->setUserName(\time())
+                                         ->withUserName(\time())
                                          ->request();
         } catch (ClientException $e) {
             self::assertContains(

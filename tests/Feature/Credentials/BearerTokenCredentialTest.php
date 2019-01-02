@@ -18,12 +18,6 @@ use PHPUnit\Framework\TestCase;
  * Class BearerTokenCredentialTest
  *
  * @package   AlibabaCloud\Client\Tests\Feature\Credentials
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class BearerTokenCredentialTest extends TestCase
 {
@@ -64,8 +58,8 @@ class BearerTokenCredentialTest extends TestCase
     {
         try {
             $request = (new ListPhoneNumbersRequest())->client($this->clientName)
-                                                      ->setInstanceId(\getenv('CC_INSTANCE_ID'))
-                                                      ->setOutboundOnly(true)
+                                                      ->withInstanceId(\getenv('CC_INSTANCE_ID'))
+                                                      ->withOutboundOnly(true)
                                                       ->scheme('https')
                                                       ->host('ccc.cn-shanghai.aliyuncs.com');
             $result  = $request->request();

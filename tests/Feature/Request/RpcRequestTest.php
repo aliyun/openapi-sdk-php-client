@@ -14,12 +14,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @package   AlibabaCloud\Client\Tests\Feature\Request
  *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
- *
  * @coversDefaultClass \AlibabaCloud\Client\Request\RpcRequest
  */
 class RpcRequestTest extends TestCase
@@ -38,14 +32,13 @@ class RpcRequestTest extends TestCase
                     ->name($nameClient);
 
         // Assert
-
         try {
-            $response = (new DescribeRegionsRequest())->client($nameClient)
-                                                      ->request();
+            $result = (new DescribeRegionsRequest())->client($nameClient)
+                                                    ->request();
 
-            $this->assertNotNull($response->RequestId);
-            $this->assertNotNull($response->Regions->Region[0]->LocalName);
-            $this->assertNotNull($response->Regions->Region[0]->RegionId);
+            $this->assertNotNull($result->RequestId);
+            $this->assertNotNull($result->Regions->Region[0]->LocalName);
+            $this->assertNotNull($result->Regions->Region[0]->RegionId);
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {

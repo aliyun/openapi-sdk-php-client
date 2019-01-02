@@ -16,12 +16,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @package   AlibabaCloud\Client\Tests\Unit\Request
  *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
- *
  * @coversDefaultClass \AlibabaCloud\Client\Request\RoaRequest
  */
 class RoaRequestTest extends TestCase
@@ -34,7 +28,7 @@ class RoaRequestTest extends TestCase
     {
         // Setup
         $request = new  DescribeClusterServicesRequest();
-        $request->setClusterId(\time());
+        $request->withClusterId(\time());
         $request->options(
             [
                 'form_params' => [
@@ -64,7 +58,7 @@ class RoaRequestTest extends TestCase
         $expected  = '/clusters/' . $clusterId . '/services';
 
         // Test
-        $request->setClusterId($clusterId);
+        $request->withClusterId($clusterId);
         $method = new \ReflectionMethod(
             DescribeClusterServicesRequest::class,
             'assignPathParameters'
@@ -107,7 +101,7 @@ class RoaRequestTest extends TestCase
     {
         // Setup
         $request = new  DescribeClusterServicesRequest();
-        $request->setClusterId(\time());
+        $request->withClusterId(\time());
         $request->regionId('cn-hangzhou');
         $clusterId  = \time();
         $credential = new AccessKeyCredential('key', 'secret');
@@ -340,8 +334,8 @@ class RoaRequestTest extends TestCase
     public function call()
     {
         return [
-            ['setGG', 'getGG', 'value', 'value'],
-            ['setGG', 'getNone', 'value', null],
+            ['withVirtualParameter', 'getVirtualParameter', 'value', 'value'],
+            ['withVirtualParameter', 'getNone', 'value', null],
         ];
     }
 
@@ -372,7 +366,7 @@ class RoaRequestTest extends TestCase
         AlibabaCloud::bearerTokenClient('token')->name('token');
         $clusterId = time();
         $request   = new  DescribeClusterServicesRequest();
-        $request->setClusterId($clusterId);
+        $request->withClusterId($clusterId);
         $request->client('token');
         $request->options(
             [

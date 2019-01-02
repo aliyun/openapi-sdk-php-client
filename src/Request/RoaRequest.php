@@ -13,12 +13,6 @@ use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
  * RESTful ROA Request.
  *
  * @package   AlibabaCloud\Client\Request
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class RoaRequest extends Request
 {
@@ -282,8 +276,8 @@ class RoaRequest extends Request
             return $this->__get($parameterName);
         }
 
-        if (\strpos($name, 'set', 0) !== false) {
-            $parameterName = $this->propertyNameByMethodName($name);
+        if (\strpos($name, 'with', 0) !== false) {
+            $parameterName = $this->propertyNameByMethodName($name, 4);
             $this->__set($parameterName, $arguments[0]);
             $this->pathParameters[$parameterName] = $arguments[0];
         }

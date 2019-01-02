@@ -17,12 +17,6 @@ use PHPUnit\Framework\TestCase;
  * Class RamRoleArnCredentialTest
  *
  * @package   AlibabaCloud\Client\Tests\Feature\Credentials
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class RamRoleArnCredentialTest extends TestCase
 {
@@ -161,8 +155,8 @@ class RamRoleArnCredentialTest extends TestCase
     {
         try {
             (new DescribeRulesRequest())->client($this->clientName)
-                                        ->setLoadBalancerId(\time())
-                                        ->setListenerPort(55656)
+                                        ->withLoadBalancerId(\time())
+                                        ->withListenerPort(55656)
                                         ->request();
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
@@ -193,7 +187,7 @@ class RamRoleArnCredentialTest extends TestCase
     {
         try {
             (new ListAccessKeysRequest())->client($this->clientName)
-                                         ->setUserName(\time())
+                                         ->withUserName(\time())
                                          ->request();
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());

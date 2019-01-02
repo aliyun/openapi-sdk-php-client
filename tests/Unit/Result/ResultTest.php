@@ -12,12 +12,6 @@ use PHPUnit\Framework\TestCase;
  * Class ResultTest
  *
  * @package   AlibabaCloud\Client\Tests\Unit\Result
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class ResultTest extends TestCase
 {
@@ -161,15 +155,14 @@ class ResultTest extends TestCase
      *
      * @param array  $data
      * @param string $name
-     * @param string $value
      */
-    public function testSet(array $data, $name, $value)
+    public function testSet(array $data, $name)
     {
         // Setup
         $response      = new Response(200, [], \json_encode($data));
         $result        = new Result($response);
         $result->$name = 'test';
-        self::assertEquals($value, $result->get($name));
+        self::assertEquals('test', $result->get($name));
     }
 
     /**
@@ -179,14 +172,12 @@ class ResultTest extends TestCase
     {
         return [
             [
-                ['key' => 'value'],
+                [],
                 'string',
-                null,
             ],
             [
-                ['key' => 'value'],
+                [],
                 'key',
-                'test',
             ],
         ];
     }

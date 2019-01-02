@@ -8,12 +8,6 @@ use AlibabaCloud\Client\Request\RpcRequest;
  * Class DescribeCdnServiceRequest
  *
  * @package   AlibabaCloud\Client\Tests\Mock\Services\Cdn
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class DescribeCdnServiceRequest extends RpcRequest
 {
@@ -54,7 +48,7 @@ class DescribeCdnServiceRequest extends RpcRequest
     /**
      * @param $securityToken
      */
-    public function setSecurityToken($securityToken)
+    public function withSecurityToken($securityToken)
     {
         $this->securityToken                     = $securityToken;
         $this->options['query']['SecurityToken'] = $securityToken;
@@ -71,7 +65,7 @@ class DescribeCdnServiceRequest extends RpcRequest
     /**
      * @param $ownerId
      */
-    public function setOwnerId($ownerId)
+    public function withOwnerId($ownerId)
     {
         $this->ownerId                     = $ownerId;
         $this->options['query']['OwnerId'] = $ownerId;

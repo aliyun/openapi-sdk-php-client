@@ -8,12 +8,6 @@ use AlibabaCloud\Client\Request\RpcRequest;
  * Class ListAccessKeysRequest
  *
  * @package   AlibabaCloud\Client\Tests\Mock\Services\Ram
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class ListAccessKeysRequest extends RpcRequest
 {
@@ -52,7 +46,7 @@ class ListAccessKeysRequest extends RpcRequest
      *
      * @return ListAccessKeysRequest
      */
-    public function setUserName($userName)
+    public function withUserName($userName)
     {
         $this->userName                     = $userName;
         $this->options['query']['UserName'] = $userName;

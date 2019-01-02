@@ -13,13 +13,7 @@ use AlibabaCloud\Client\Result\Result;
  *
  * @package    AlibabaCloud
  *
- * @author     Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright  2019 Alibaba Group
- * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link       https://github.com/aliyun/openapi-sdk-php-client
- *
- * @deprecated
+ * @deprecated deprecated since version 2.0, Use AlibabaCloud instead.
  */
 class DefaultAcsClient
 {
@@ -41,8 +35,6 @@ class DefaultAcsClient
     }
 
     /**
-     * @deprecated
-     *
      * @param Request|Result $request
      *
      * @return Result|string

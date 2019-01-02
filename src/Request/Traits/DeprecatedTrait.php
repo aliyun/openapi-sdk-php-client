@@ -7,18 +7,12 @@ use AlibabaCloud\Client\Request\Request;
 /**
  * @package    AlibabaCloud\Client\Request\Traits
  *
- * @author     Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright  2019 Alibaba Group
- * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link       https://github.com/aliyun/openapi-sdk-php-client
- *
  * @mixin Request
  */
 trait DeprecatedTrait
 {
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use $this->options['body'] instead.
      *
      * @return     string
      */
@@ -30,7 +24,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use body() instead.
      *
      * @param $content
      *
@@ -42,7 +36,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use method instead.
      *
      * @return     string
      */
@@ -52,7 +46,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use method() instead.
      *
      * @param string $method
      *
@@ -64,7 +58,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use uri->getScheme() instead.
      *
      * @return             string
      */
@@ -74,7 +68,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated         Use scheme() instead.
+     * @deprecated deprecated since version 2.0, Use scheme() instead.
      *
      * @param string $scheme
      *
@@ -86,7 +80,8 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use uri->getScheme() instead.
+     *
      * @return     string
      */
     public function getProtocolType()
@@ -95,7 +90,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use scheme() instead.
      *
      * @param string $scheme
      *
@@ -107,7 +102,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use $this->options['headers'] instead.
      *
      * @return     array
      */
@@ -119,7 +114,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use $this->options['headers'] instead.
      *
      * @param string $headerKey
      * @param string $headerValue
@@ -133,7 +128,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0.
      * @return     array
      */
     public function getQueryParameters()
@@ -144,7 +139,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0.
      *
      * @param string       $name
      * @param string|mixed $value
@@ -158,7 +153,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0.
      * @return     array
      */
     public function getDomainParameter()
@@ -169,7 +164,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0.
      *
      * @param string $name
      * @param string $value
@@ -183,7 +178,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use action() instead.
      *
      * @param $actionName
      *
@@ -195,7 +190,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0.
      * @return     string
      */
     public function getActionName()
@@ -204,7 +199,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use format() instead.
      *
      * @param string $format
      *
@@ -216,7 +211,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0.
      * @return     string
      */
     public function getAcceptFormat()
@@ -225,7 +220,7 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0.
      * @return     string
      */
     public function getLocationEndpointType()
@@ -234,7 +229,8 @@ trait DeprecatedTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0.
+     *
      * @return     string
      */
     public function getLocationServiceCode()

@@ -6,12 +6,6 @@ namespace AlibabaCloud\Client\Signature;
  * Class ShaHmac1Signature
  *
  * @package   AlibabaCloud\Signature
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class ShaHmac1Signature implements SignatureInterface
 {

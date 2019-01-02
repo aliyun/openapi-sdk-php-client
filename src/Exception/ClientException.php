@@ -6,12 +6,6 @@ namespace AlibabaCloud\Client\Exception;
  * Class ClientException
  *
  * @package   AlibabaCloud\Client\Exception
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class ClientException extends AlibabaCloudException
 {
@@ -31,9 +25,11 @@ class ClientException extends AlibabaCloudException
     }
 
     /**
-     * @deprecated
      * @codeCoverageIgnore
-     * @return             string
+     *
+     * @deprecated deprecated since version 2.0.
+     *
+     * @return string
      */
     public function getErrorType()
     {

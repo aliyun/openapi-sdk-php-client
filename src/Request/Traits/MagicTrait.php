@@ -9,23 +9,18 @@ use AlibabaCloud\Client\Request\Request;
  *
  * @package   AlibabaCloud\Client\Request\Traits
  *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
- *
  * @mixin Request
  */
 trait MagicTrait
 {
     /**
      * @param string $methodName
+     * @param int    $start
      *
      * @return string
      */
-    protected function propertyNameByMethodName($methodName)
+    protected function propertyNameByMethodName($methodName, $start = 3)
     {
-        return \mb_strcut($methodName, 3);
+        return \mb_strcut($methodName, $start);
     }
 }

@@ -7,13 +7,9 @@ use AlibabaCloud\Client\Request\RpcRequest;
 /**
  * Class DeleteDatabaseRequest
  *
+ * @property mixed|string|null object
+ *
  * @package   AlibabaCloud\Client\Tests\Mock\Services\Rds
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class DeleteDatabaseRequest extends RpcRequest
 {
@@ -76,7 +72,7 @@ class DeleteDatabaseRequest extends RpcRequest
     /**
      * @param $resourceOwnerId
      */
-    public function setResourceOwnerId($resourceOwnerId)
+    public function withResourceOwnerId($resourceOwnerId)
     {
         $this->resourceOwnerId                     = $resourceOwnerId;
         $this->options['query']['ResourceOwnerId'] = $resourceOwnerId;
@@ -93,7 +89,7 @@ class DeleteDatabaseRequest extends RpcRequest
     /**
      * @param $dBName
      */
-    public function setDBName($dBName)
+    public function withDBName($dBName)
     {
         $this->dBName                     = $dBName;
         $this->options['query']['DBName'] = $dBName;
@@ -110,7 +106,7 @@ class DeleteDatabaseRequest extends RpcRequest
     /**
      * @param $resourceOwnerAccount
      */
-    public function setResourceOwnerAccount($resourceOwnerAccount)
+    public function withResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->resourceOwnerAccount                     = $resourceOwnerAccount;
         $this->options['query']['ResourceOwnerAccount'] = $resourceOwnerAccount;
@@ -127,7 +123,7 @@ class DeleteDatabaseRequest extends RpcRequest
     /**
      * @param $ownerAccount
      */
-    public function setOwnerAccount($ownerAccount)
+    public function withOwnerAccount($ownerAccount)
     {
         $this->ownerAccount                     = $ownerAccount;
         $this->options['query']['OwnerAccount'] = $ownerAccount;
@@ -144,7 +140,7 @@ class DeleteDatabaseRequest extends RpcRequest
     /**
      * @param $dBInstanceId
      */
-    public function setDBInstanceId($dBInstanceId)
+    public function withDBInstanceId($dBInstanceId)
     {
         $this->dBInstanceId                     = $dBInstanceId;
         $this->options['query']['DBInstanceId'] = $dBInstanceId;
@@ -161,7 +157,7 @@ class DeleteDatabaseRequest extends RpcRequest
     /**
      * @param $ownerId
      */
-    public function setOwnerId($ownerId)
+    public function withOwnerId($ownerId)
     {
         $this->ownerId                     = $ownerId;
         $this->options['query']['OwnerId'] = $ownerId;

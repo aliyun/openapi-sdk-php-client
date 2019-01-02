@@ -8,12 +8,6 @@ use AlibabaCloud\Client\Request\RpcRequest;
  * Class ListPhoneNumbersRequest
  *
  * @package   AlibabaCloud\Client\Tests\Mock\Services\CCC
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class ListPhoneNumbersRequest extends RpcRequest
 {
@@ -58,7 +52,7 @@ class ListPhoneNumbersRequest extends RpcRequest
      *
      * @return ListPhoneNumbersRequest
      */
-    public function setOutboundOnly($outboundOnly)
+    public function withOutboundOnly($outboundOnly)
     {
         $this->outboundOnly                     = $outboundOnly;
         $this->options['query']['OutboundOnly'] = $outboundOnly;
@@ -78,7 +72,7 @@ class ListPhoneNumbersRequest extends RpcRequest
      *
      * @return ListPhoneNumbersRequest
      */
-    public function setInstanceId($instanceId)
+    public function withInstanceId($instanceId)
     {
         $this->instanceId                     = $instanceId;
         $this->options['query']['InstanceId'] = $instanceId;

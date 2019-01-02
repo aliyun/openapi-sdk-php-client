@@ -17,12 +17,6 @@ use PHPUnit\Framework\TestCase;
  * Class EcsRamRoleCredentialTest
  *
  * @package   AlibabaCloud\Client\Tests\Feature\Credentials
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class EcsRamRoleCredentialTest extends TestCase
 {
@@ -146,8 +140,8 @@ class EcsRamRoleCredentialTest extends TestCase
     {
         try {
             (new DescribeRulesRequest())
-                ->setLoadBalancerId(\time())
-                ->setListenerPort(55656)
+                ->withLoadBalancerId(\time())
+                ->withListenerPort(55656)
                 ->client($this->clientName)
                 ->request();
         } catch (ClientException $e) {
@@ -172,7 +166,7 @@ class EcsRamRoleCredentialTest extends TestCase
     {
         try {
             (new ListAccessKeysRequest())
-                ->setUserName(\time())
+                ->withUserName(\time())
                 ->client($this->clientName)
                 ->request();
         } catch (ClientException $e) {

@@ -8,12 +8,6 @@ use AlibabaCloud\Client\Request\RpcRequest;
  * Class DescribeVpcsRequest
  *
  * @package   AlibabaCloud\Client\Tests\Mock\Services\Vpc
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class DescribeVpcsRequest extends RpcRequest
 {
@@ -96,7 +90,7 @@ class DescribeVpcsRequest extends RpcRequest
     /**
      * @param $vpcName
      */
-    public function setVpcName($vpcName)
+    public function withVpcName($vpcName)
     {
         $this->vpcName                     = $vpcName;
         $this->options['query']['VpcName'] = $vpcName;
@@ -113,7 +107,7 @@ class DescribeVpcsRequest extends RpcRequest
     /**
      * @param $resourceGroupId
      */
-    public function setResourceGroupId($resourceGroupId)
+    public function withResourceGroupId($resourceGroupId)
     {
         $this->resourceGroupId                     = $resourceGroupId;
         $this->options['query']['ResourceGroupId'] = $resourceGroupId;
@@ -130,7 +124,7 @@ class DescribeVpcsRequest extends RpcRequest
     /**
      * @param $resourceOwnerId
      */
-    public function setResourceOwnerId($resourceOwnerId)
+    public function withResourceOwnerId($resourceOwnerId)
     {
         $this->resourceOwnerId                     = $resourceOwnerId;
         $this->options['query']['ResourceOwnerId'] = $resourceOwnerId;
@@ -147,7 +141,7 @@ class DescribeVpcsRequest extends RpcRequest
     /**
      * @param $resourceOwnerAccount
      */
-    public function setResourceOwnerAccount($resourceOwnerAccount)
+    public function withResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->resourceOwnerAccount                     = $resourceOwnerAccount;
         $this->options['query']['ResourceOwnerAccount'] = $resourceOwnerAccount;
@@ -164,7 +158,7 @@ class DescribeVpcsRequest extends RpcRequest
     /**
      * @param $vpcId
      */
-    public function setVpcId($vpcId)
+    public function withVpcId($vpcId)
     {
         $this->vpcId                     = $vpcId;
         $this->options['query']['VpcId'] = $vpcId;
@@ -181,7 +175,7 @@ class DescribeVpcsRequest extends RpcRequest
     /**
      * @param $ownerAccount
      */
-    public function setOwnerAccount($ownerAccount)
+    public function withOwnerAccount($ownerAccount)
     {
         $this->ownerAccount                     = $ownerAccount;
         $this->options['query']['OwnerAccount'] = $ownerAccount;
@@ -198,7 +192,7 @@ class DescribeVpcsRequest extends RpcRequest
     /**
      * @param $pageSize
      */
-    public function setPageSize($pageSize)
+    public function withPageSize($pageSize)
     {
         $this->pageSize                     = $pageSize;
         $this->options['query']['PageSize'] = $pageSize;
@@ -215,7 +209,7 @@ class DescribeVpcsRequest extends RpcRequest
     /**
      * @param $isDefault
      */
-    public function setIsDefault($isDefault)
+    public function withIsDefault($isDefault)
     {
         $this->isDefault                     = $isDefault;
         $this->options['query']['IsDefault'] = $isDefault;
@@ -232,7 +226,7 @@ class DescribeVpcsRequest extends RpcRequest
     /**
      * @param $ownerId
      */
-    public function setOwnerId($ownerId)
+    public function withOwnerId($ownerId)
     {
         $this->ownerId                     = $ownerId;
         $this->options['query']['OwnerId'] = $ownerId;
@@ -249,7 +243,7 @@ class DescribeVpcsRequest extends RpcRequest
     /**
      * @param $pageNumber
      */
-    public function setPageNumber($pageNumber)
+    public function withPageNumber($pageNumber)
     {
         $this->pageNumber                     = $pageNumber;
         $this->options['query']['PageNumber'] = $pageNumber;
