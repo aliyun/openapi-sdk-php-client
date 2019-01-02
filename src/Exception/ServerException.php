@@ -8,12 +8,6 @@ use AlibabaCloud\Client\Result\Result;
  * Class ServerException
  *
  * @package   AlibabaCloud\Client\Exception
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class ServerException extends AlibabaCloudException
 {
@@ -22,6 +16,7 @@ class ServerException extends AlibabaCloudException
      * @var string
      */
     protected $requestId;
+
     /**
      * @var Result
      */
@@ -111,7 +106,8 @@ class ServerException extends AlibabaCloudException
     /**
      * @deprecated
      * @codeCoverageIgnore
-     * @return             int
+     *
+     * @return int
      */
     public function getHttpStatus()
     {

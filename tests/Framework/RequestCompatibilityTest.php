@@ -14,12 +14,6 @@ use PHPUnit\Framework\TestCase;
  * Test the compatibility of the new SDK with the old SDK.
  *
  * @package   AlibabaCloud\Client\Tests\Framework
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class RequestCompatibilityTest extends TestCase
 {
