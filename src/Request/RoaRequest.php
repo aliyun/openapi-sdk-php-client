@@ -21,7 +21,7 @@ class RoaRequest extends Request
     /**
      * @var string
      */
-    public $pathPattern;
+    public $pathPattern = '/';
 
     /**
      * @var array

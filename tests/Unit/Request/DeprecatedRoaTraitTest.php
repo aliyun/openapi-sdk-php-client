@@ -18,8 +18,8 @@ class DeprecatedRoaTraitTest extends TestCase
         $request = new RoaRequest();
 
         // Assert
-        self::assertEquals(null, $request->pathPattern);
-        self::assertEquals(null, $request->getUriPattern());
+        self::assertEquals('/', $request->pathPattern);
+        self::assertEquals('/', $request->getUriPattern());
 
         // Setup
         $clientName = __METHOD__;
