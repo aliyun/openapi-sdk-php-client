@@ -4,12 +4,16 @@ Alibaba Cloud Client for PHP
 ======
 
 
-[![Total Downloads](https://img.shields.io/packagist/dt/alibabacloud/client.svg?style=flat)](https://packagist.org/packages/alibabacloud/client)
+[![Latest Stable Version](https://poser.pugx.org/alibabacloud/client/v/stable)](https://packagist.org/packages/alibabacloud/client)
+[![Total Downloads](https://poser.pugx.org/alibabacloud/client/downloads)](https://packagist.org/packages/alibabacloud/client)
+[![Latest Unstable Version](https://poser.pugx.org/alibabacloud/client/v/unstable)](https://packagist.org/packages/alibabacloud/client)
+[![License](https://poser.pugx.org/alibabacloud/client/license)](https://packagist.org/packages/alibabacloud/client)
+[![composer.lock](https://poser.pugx.org/alibabacloud/client/composerlock)](https://packagist.org/packages/alibabacloud/client)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client/badges/quality-score.png)](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client)
 [![Build Status](https://travis-ci.org/aliyun/openapi-sdk-php-client.svg)](https://travis-ci.org/aliyun/openapi-sdk-php-client)
 [![codecov](https://codecov.io/gh/aliyun/openapi-sdk-php-client/branch/master/graph/badge.svg)](https://codecov.io/gh/aliyun/openapi-sdk-php-client)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client/badges/code-intelligence.svg)](https://scrutinizer-ci.com/code-intelligence)
-[![Apache 2 License](https://img.shields.io/packagist/l/alibabacloud/client.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
+
 
 ![](./src/Files/AlibabaCloud.svg)
 
@@ -439,7 +443,7 @@ $request = AlibabaCloud::rpcRequest()
 <?php
 use AlibabaCloud\Client\AlibabaCloud;
 
-AlibabaCloud::addHost('cn-hangzhou', 'new', 'new.cn-hangzhou.aliyuncs.com');
+AlibabaCloud::addHost('cn-hangzhou', 'product_name', 'product_name.cn-hangzhou.aliyuncs.com');
 ```
 
 ## References
