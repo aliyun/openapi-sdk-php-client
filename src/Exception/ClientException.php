@@ -25,8 +25,9 @@ class ClientException extends AlibabaCloudException
     }
 
     /**
-     * @deprecated
      * @codeCoverageIgnore
+     *
+     * @deprecated deprecated since version 2.0.
      *
      * @return string
      */

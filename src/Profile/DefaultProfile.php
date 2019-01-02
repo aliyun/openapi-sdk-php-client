@@ -10,7 +10,7 @@ use AlibabaCloud\Client\Clients\Client;
  *
  * @package    AlibabaCloud\Client\Profile
  *
- * @deprecated
+ * @deprecated deprecated since version 2.0, Use AlibabaCloud instead.
  */
 class DefaultProfile
 {

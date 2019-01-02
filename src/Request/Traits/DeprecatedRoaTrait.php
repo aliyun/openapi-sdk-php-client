@@ -9,19 +9,19 @@ trait DeprecatedRoaTrait
 {
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use pathPattern() instead.
      *
-     * @param string $uriPattern
+     * @param string $pathPattern
      *
      * @return $this
      */
-    public function setUriPattern($uriPattern)
+    public function setUriPattern($pathPattern)
     {
-        return $this->pathPattern($uriPattern);
+        return $this->pathPattern($pathPattern);
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use pathPattern instead.
      *
      * @return string
      */
@@ -31,7 +31,7 @@ trait DeprecatedRoaTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use pathParameter() instead.
      *
      * @param string $name
      * @param string $value
@@ -44,7 +44,7 @@ trait DeprecatedRoaTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use pathParameters instead.
      *
      * @return array
      */

@@ -127,8 +127,8 @@ class AccessKeyCredentialTest extends TestCase
 
         try {
             $request = new DescribeRulesRequest();
-            $request->setLoadBalancerId($clusterId);
-            $request->setListenerPort(55656);
+            $request->withLoadBalancerId($clusterId);
+            $request->withListenerPort(55656);
             $request->client($this->clientName)
                     ->request();
         } catch (ClientException $e) {
@@ -154,7 +154,7 @@ class AccessKeyCredentialTest extends TestCase
 
         try {
             (new ListAccessKeysRequest())->client($this->clientName)
-                                         ->setUserName($userName)
+                                         ->withUserName($userName)
                                          ->request();
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());

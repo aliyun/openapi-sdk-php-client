@@ -12,7 +12,7 @@ use GuzzleHttp\Psr7\Response;
  *
  * @property-read string $ClusterId
  * @method        string getClusterId()
- * @method        self setClusterId(string $clusterId)
+ * @method        self withClusterId(string $clusterId)
  */
 class DescribeClusterServicesRequestMock extends DescribeClusterServicesRequest
 {

@@ -58,8 +58,8 @@ class BearerTokenCredentialTest extends TestCase
     {
         try {
             $request = (new ListPhoneNumbersRequest())->client($this->clientName)
-                                                      ->setInstanceId(\getenv('CC_INSTANCE_ID'))
-                                                      ->setOutboundOnly(true)
+                                                      ->withInstanceId(\getenv('CC_INSTANCE_ID'))
+                                                      ->withOutboundOnly(true)
                                                       ->scheme('https')
                                                       ->host('ccc.cn-shanghai.aliyuncs.com');
             $result  = $request->request();

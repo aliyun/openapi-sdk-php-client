@@ -282,7 +282,7 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
                                  ->connectTimeout(0.1) // 设置连接超时10毫秒，当单位小于1，则自动转换为毫秒
                                  ->timeout(0.1) // 设置超时10毫秒，当单位小于1，则自动转换为毫秒
                                  ->debug(true) // 开启调试，CLI下会输出详细信息
-                                 ->setClusterId('123456') // 为路径中参数赋值，方法名：set + 参数
+                                 ->withClusterId('123456') // 为路径中参数赋值，方法名：set + 参数
                                  ->request(); // 发起请求并返回结果对象，请求需要放在设置的最后面
     
         // 链式调用发送 RPC 风格请求

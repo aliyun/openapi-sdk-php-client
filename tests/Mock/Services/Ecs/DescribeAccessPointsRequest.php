@@ -74,7 +74,7 @@ class DescribeAccessPointsRequest extends RpcRequest
     /**
      * @param $Filters
      */
-    public function setFilters($Filters)
+    public function withFilters($Filters)
     {
         $this->Filters = $Filters;
         foreach ($Filters as $i => $iValue) {
@@ -96,7 +96,7 @@ class DescribeAccessPointsRequest extends RpcRequest
     /**
      * @param $resourceOwnerId
      */
-    public function setResourceOwnerId($resourceOwnerId)
+    public function withResourceOwnerId($resourceOwnerId)
     {
         $this->resourceOwnerId                     = $resourceOwnerId;
         $this->options['query']['ResourceOwnerId'] = $resourceOwnerId;
@@ -113,7 +113,7 @@ class DescribeAccessPointsRequest extends RpcRequest
     /**
      * @param $resourceOwnerAccount
      */
-    public function setResourceOwnerAccount($resourceOwnerAccount)
+    public function withResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->resourceOwnerAccount                     = $resourceOwnerAccount;
         $this->options['query']['ResourceOwnerAccount'] = $resourceOwnerAccount;
@@ -132,7 +132,7 @@ class DescribeAccessPointsRequest extends RpcRequest
      *
      * @return DescribeAccessPointsRequest
      */
-    public function setPageSize($pageSize)
+    public function withPageSize($pageSize)
     {
         $this->pageSize                     = $pageSize;
         $this->options['query']['PageSize'] = $pageSize;
@@ -150,7 +150,7 @@ class DescribeAccessPointsRequest extends RpcRequest
     /**
      * @param $ownerId
      */
-    public function setOwnerId($ownerId)
+    public function withOwnerId($ownerId)
     {
         $this->ownerId                     = $ownerId;
         $this->options['query']['OwnerId'] = $ownerId;
@@ -167,7 +167,7 @@ class DescribeAccessPointsRequest extends RpcRequest
     /**
      * @param $type
      */
-    public function setType($type)
+    public function withType($type)
     {
         $this->type                     = $type;
         $this->options['query']['Type'] = $type;
@@ -184,7 +184,7 @@ class DescribeAccessPointsRequest extends RpcRequest
     /**
      * @param $pageNumber
      */
-    public function setPageNumber($pageNumber)
+    public function withPageNumber($pageNumber)
     {
         $this->pageNumber                     = $pageNumber;
         $this->options['query']['PageNumber'] = $pageNumber;

@@ -72,7 +72,7 @@ class DescribeRulesRequest extends RpcRequest
     /**
      * @return mixed
      */
-    public function getaccess_key_id()
+    public function getAccessKeyId()
     {
         return $this->access_key_id;
     }
@@ -80,7 +80,7 @@ class DescribeRulesRequest extends RpcRequest
     /**
      * @param $access_key_id
      */
-    public function setaccess_key_id($access_key_id)
+    public function withAccessKeyId($access_key_id)
     {
         $this->access_key_id                     = $access_key_id;
         $this->options['query']['access_key_id'] = $access_key_id;
@@ -97,7 +97,7 @@ class DescribeRulesRequest extends RpcRequest
     /**
      * @param $resourceOwnerId
      */
-    public function setResourceOwnerId($resourceOwnerId)
+    public function withResourceOwnerId($resourceOwnerId)
     {
         $this->resourceOwnerId                     = $resourceOwnerId;
         $this->options['query']['ResourceOwnerId'] = $resourceOwnerId;
@@ -116,7 +116,7 @@ class DescribeRulesRequest extends RpcRequest
      *
      * @return DescribeRulesRequest
      */
-    public function setListenerPort($listenerPort)
+    public function withListenerPort($listenerPort)
     {
         $this->listenerPort                     = $listenerPort;
         $this->options['query']['ListenerPort'] = $listenerPort;
@@ -136,7 +136,7 @@ class DescribeRulesRequest extends RpcRequest
      *
      * @return DescribeRulesRequest
      */
-    public function setLoadBalancerId($loadBalancerId)
+    public function withLoadBalancerId($loadBalancerId)
     {
         $this->loadBalancerId                     = $loadBalancerId;
         $this->options['query']['LoadBalancerId'] = $loadBalancerId;
@@ -154,7 +154,7 @@ class DescribeRulesRequest extends RpcRequest
     /**
      * @param $resourceOwnerAccount
      */
-    public function setResourceOwnerAccount($resourceOwnerAccount)
+    public function withResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->resourceOwnerAccount                     = $resourceOwnerAccount;
         $this->options['query']['ResourceOwnerAccount'] = $resourceOwnerAccount;
@@ -171,7 +171,7 @@ class DescribeRulesRequest extends RpcRequest
     /**
      * @param $ownerAccount
      */
-    public function setOwnerAccount($ownerAccount)
+    public function withOwnerAccount($ownerAccount)
     {
         $this->ownerAccount                     = $ownerAccount;
         $this->options['query']['OwnerAccount'] = $ownerAccount;
@@ -188,7 +188,7 @@ class DescribeRulesRequest extends RpcRequest
     /**
      * @param $ownerId
      */
-    public function setOwnerId($ownerId)
+    public function withOwnerId($ownerId)
     {
         $this->ownerId                     = $ownerId;
         $this->options['query']['OwnerId'] = $ownerId;
@@ -205,7 +205,7 @@ class DescribeRulesRequest extends RpcRequest
     /**
      * @param $tags
      */
-    public function setTags($tags)
+    public function withTags($tags)
     {
         $this->tags                     = $tags;
         $this->options['query']['Tags'] = $tags;

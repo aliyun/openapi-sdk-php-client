@@ -21,7 +21,7 @@ trait EndpointTrait
     private static $hosts = [];
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use resolveHost() instead.
      *
      * @param string $regionId
      * @param string $product
@@ -34,7 +34,7 @@ trait EndpointTrait
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use addHost() instead.
      *
      * @param string $regionId
      * @param string $product

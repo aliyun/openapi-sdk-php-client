@@ -52,7 +52,7 @@ class ListPhoneNumbersRequest extends RpcRequest
      *
      * @return ListPhoneNumbersRequest
      */
-    public function setOutboundOnly($outboundOnly)
+    public function withOutboundOnly($outboundOnly)
     {
         $this->outboundOnly                     = $outboundOnly;
         $this->options['query']['OutboundOnly'] = $outboundOnly;
@@ -72,7 +72,7 @@ class ListPhoneNumbersRequest extends RpcRequest
      *
      * @return ListPhoneNumbersRequest
      */
-    public function setInstanceId($instanceId)
+    public function withInstanceId($instanceId)
     {
         $this->instanceId                     = $instanceId;
         $this->options['query']['InstanceId'] = $instanceId;

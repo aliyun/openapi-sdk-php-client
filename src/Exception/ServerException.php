@@ -78,9 +78,11 @@ class ServerException extends AlibabaCloudException
     }
 
     /**
-     * @deprecated
      * @codeCoverageIgnore
-     * @return             string
+     *
+     * @deprecated deprecated since version 2.0.
+     *
+     * @return string
      */
     public function getErrorType()
     {
@@ -104,8 +106,8 @@ class ServerException extends AlibabaCloudException
     }
 
     /**
-     * @deprecated
      * @codeCoverageIgnore
+     * @deprecated deprecated since version 2.0.
      *
      * @return int
      */

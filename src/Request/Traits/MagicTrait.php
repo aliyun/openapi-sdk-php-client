@@ -15,11 +15,12 @@ trait MagicTrait
 {
     /**
      * @param string $methodName
+     * @param int    $start
      *
      * @return string
      */
-    protected function propertyNameByMethodName($methodName)
+    protected function propertyNameByMethodName($methodName, $start = 3)
     {
-        return \mb_strcut($methodName, 3);
+        return \mb_strcut($methodName, $start);
     }
 }

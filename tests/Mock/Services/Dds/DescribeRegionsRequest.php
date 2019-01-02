@@ -65,7 +65,7 @@ class DescribeRegionsRequest extends RpcRequest
     /**
      * @param $resourceOwnerId
      */
-    public function setResourceOwnerId($resourceOwnerId)
+    public function withResourceOwnerId($resourceOwnerId)
     {
         $this->resourceOwnerId                     = $resourceOwnerId;
         $this->options['query']['ResourceOwnerId'] = $resourceOwnerId;
@@ -82,7 +82,7 @@ class DescribeRegionsRequest extends RpcRequest
     /**
      * @param $securityToken
      */
-    public function setSecurityToken($securityToken)
+    public function withSecurityToken($securityToken)
     {
         $this->securityToken                     = $securityToken;
         $this->options['query']['SecurityToken'] = $securityToken;
@@ -99,7 +99,7 @@ class DescribeRegionsRequest extends RpcRequest
     /**
      * @param $resourceOwnerAccount
      */
-    public function setResourceOwnerAccount($resourceOwnerAccount)
+    public function withResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->resourceOwnerAccount                     = $resourceOwnerAccount;
         $this->options['query']['ResourceOwnerAccount'] = $resourceOwnerAccount;
@@ -116,7 +116,7 @@ class DescribeRegionsRequest extends RpcRequest
     /**
      * @param $ownerAccount
      */
-    public function setOwnerAccount($ownerAccount)
+    public function withOwnerAccount($ownerAccount)
     {
         $this->ownerAccount                     = $ownerAccount;
         $this->options['query']['OwnerAccount'] = $ownerAccount;
@@ -133,7 +133,7 @@ class DescribeRegionsRequest extends RpcRequest
     /**
      * @param $ownerId
      */
-    public function setOwnerId($ownerId)
+    public function withOwnerId($ownerId)
     {
         $this->ownerId                     = $ownerId;
         $this->options['query']['OwnerId'] = $ownerId;

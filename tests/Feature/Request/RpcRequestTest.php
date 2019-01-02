@@ -32,7 +32,6 @@ class RpcRequestTest extends TestCase
                     ->name($nameClient);
 
         // Assert
-
         try {
             $result = (new DescribeRegionsRequest())->client($nameClient)
                                                     ->request();

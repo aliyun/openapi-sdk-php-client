@@ -159,8 +159,8 @@ class RsaKeyPairCredentialTest extends TestCase
     {
         try {
             $request = new DescribeRulesRequest();
-            $request->setLoadBalancerId(\time());
-            $request->setListenerPort(55656);
+            $request->withLoadBalancerId(\time());
+            $request->withListenerPort(55656);
             $request->client($this->clientName)
                     ->request();
         } catch (ClientException $e) {
@@ -190,7 +190,7 @@ class RsaKeyPairCredentialTest extends TestCase
     {
         try {
             (new ListAccessKeysRequest())->client($this->clientName)
-                                         ->setUserName(\time())
+                                         ->withUserName(\time())
                                          ->request();
         } catch (ClientException $e) {
             self::assertContains(

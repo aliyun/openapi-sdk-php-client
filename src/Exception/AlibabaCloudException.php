@@ -29,8 +29,9 @@ abstract class AlibabaCloudException extends \Exception
     }
 
     /**
-     * @deprecated
      * @codeCoverageIgnore
+     *
+     * @deprecated deprecated since version 2.0.
      *
      * @param $errorCode
      */
@@ -48,8 +49,9 @@ abstract class AlibabaCloudException extends \Exception
     }
 
     /**
-     * @deprecated
      * @codeCoverageIgnore
+     *
+     * @deprecated deprecated since version 2.0.
      *
      * @param $errorMessage
      */
@@ -59,8 +61,10 @@ abstract class AlibabaCloudException extends \Exception
     }
 
     /**
-     * @deprecated
      * @codeCoverageIgnore
+     *
+     * @deprecated deprecated since version 2.0.
+     *
      * @return             void
      */
     public function setErrorType()

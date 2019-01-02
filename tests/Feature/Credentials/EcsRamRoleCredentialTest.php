@@ -140,8 +140,8 @@ class EcsRamRoleCredentialTest extends TestCase
     {
         try {
             (new DescribeRulesRequest())
-                ->setLoadBalancerId(\time())
-                ->setListenerPort(55656)
+                ->withLoadBalancerId(\time())
+                ->withListenerPort(55656)
                 ->client($this->clientName)
                 ->request();
         } catch (ClientException $e) {
@@ -166,7 +166,7 @@ class EcsRamRoleCredentialTest extends TestCase
     {
         try {
             (new ListAccessKeysRequest())
-                ->setUserName(\time())
+                ->withUserName(\time())
                 ->client($this->clientName)
                 ->request();
         } catch (ClientException $e) {

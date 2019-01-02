@@ -256,8 +256,8 @@ class RpcRequestTest extends TestCase
     public function call()
     {
         return [
-            ['setGG', 'getGG', 'value', 'value'],
-            ['setGG', 'getNone', 'value', null],
+            ['withVirtualParameter', 'getVirtualParameter', 'value', 'value'],
+            ['withVirtualParameter', 'getNone', 'value', null],
         ];
     }
 }

@@ -146,11 +146,12 @@ class RpcRequest extends Request
             return $this->__get($parameterName);
         }
 
-        if (\strpos($name, 'set', 0) !== false) {
-            $parameterName = $this->propertyNameByMethodName($name);
+        if (\strpos($name, 'with', 0) !== false) {
+            $parameterName = $this->propertyNameByMethodName($name, 4);
             $this->__set($parameterName, $arguments[0]);
             $this->options['query'][$parameterName] = $arguments[0];
         }
+
         return $this;
     }
 }

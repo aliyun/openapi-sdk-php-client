@@ -46,7 +46,7 @@ class ListAccessKeysRequest extends RpcRequest
      *
      * @return ListAccessKeysRequest
      */
-    public function setUserName($userName)
+    public function withUserName($userName)
     {
         $this->userName                     = $userName;
         $this->options['query']['UserName'] = $userName;

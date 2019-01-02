@@ -34,7 +34,7 @@ class LocationService
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use resolveHost() instead.
      *
      * @param Request $request
      * @param string  $domain
@@ -86,7 +86,7 @@ class LocationService
     }
 
     /**
-     * @deprecated
+     * @deprecated deprecated since version 2.0, Use addHost() instead.
      *
      * @param string $regionId
      * @param string $product
@@ -109,9 +109,11 @@ class LocationService
     }
 
     /**
-     * @deprecated
      * @codeCoverageIgnore
-     * @return             void
+     *
+     * @deprecated deprecated since version 2.0.
+     *
+     * @return void
      */
     public static function modifyServiceDomain()
     {

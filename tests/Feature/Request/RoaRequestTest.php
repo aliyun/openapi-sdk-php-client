@@ -33,7 +33,7 @@ class RoaRequestTest extends TestCase
                                         ->product('CS')
                                         ->version('2015-12-15')
                                         ->action('DescribeClusterServices')
-                                        ->setClusterId($clusterId)
+                                        ->withClusterId($clusterId)
                                         ->request();
             \assertNotEmpty($result->toArray());
         } catch (ClientException $e) {
