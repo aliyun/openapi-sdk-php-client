@@ -6,24 +6,22 @@ use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Traits\ArrayAccessTrait;
 use AlibabaCloud\Client\Traits\FormatTrait;
 use AlibabaCloud\Client\Traits\HasDataTrait;
+use AlibabaCloud\Client\Traits\ObjectAccessTrait;
 use GuzzleHttp\Psr7\Response;
 
 /**
  * Result from Alibaba Cloud
  *
+ * @property string|null RequestId
+ *
  * @package   AlibabaCloud\Client\Result
- *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
  */
 class Result implements \ArrayAccess, \IteratorAggregate, \Countable
 {
     use ArrayAccessTrait;
     use HasDataTrait;
     use FormatTrait;
+    use ObjectAccessTrait;
 
     /**
      * Instance of the response.
@@ -108,39 +106,5 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
     public function __toString()
     {
         return $this->response->getBody()->getContents();
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return mixed|null
-     */
-    public function __get($name)
-    {
-        if (!isset($this->data[$name])) {
-            return null;
-        }
-        return \json_decode(\json_encode($this->data))->$name;
-    }
-
-    /**
-     * @param string $name
-     * @param string $value
-     */
-    public function __set($name, $value)
-    {
-        if (isset($this->data[$name])) {
-            $this->data[$name] = $value;
-        }
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function __isset($name)
-    {
-        return isset($this->data[$name]);
     }
 }

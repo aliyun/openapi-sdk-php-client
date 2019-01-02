@@ -10,13 +10,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @package   AlibabaCloud\Client\Tests\Unit\Request
  *
- * @author    Alibaba Cloud SDK <sdk-team@alibabacloud.com>
- * @copyright 2019 Alibaba Group
- * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- *
- * @link      https://github.com/aliyun/openapi-sdk-php-client
- *
- * @coversDefaultClass \AlibabaCloud\Client\Request\Traits\ArrayAccessTrait
+ * @coversDefaultClass \AlibabaCloud\Client\Traits\ArrayAccessTrait
  */
 class ArrayAccessTraitTest extends TestCase
 {
