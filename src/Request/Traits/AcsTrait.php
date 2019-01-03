@@ -36,12 +36,12 @@ trait AcsTrait
     /**
      * @var string
      */
-    public $serviceCode;
+    public $serviceCode = '';
 
     /**
      * @var string
      */
-    public $endpointType;
+    public $endpointType = 'openAPI';
 
     /**
      * @var array User Agent.
