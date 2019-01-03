@@ -334,7 +334,7 @@ Each request supports Chain Settings, Construct Settings, and so on. In addition
                                     ])->options([
                                                     // All parameters can be also set by Options method or reset
                                                     'query' => [
-                                                        'Product'      => 'I will overlay this value of the constructor function',
+                                                        'Product'      => 'I will overlay this value of the constructor',
                                                         'Version'      => 'I am the new added value',
                                                     ],
                                                   ])
