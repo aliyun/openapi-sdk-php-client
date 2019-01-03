@@ -18,7 +18,7 @@ Alibaba Cloud Client for PHP
 ![](./src/Files/Aliyun.svg)
 
 
-**Alibaba Cloud Client for PHP 支持PHP开发者轻松使用[阿里云][aliyun]服务，从而构建强大稳健的应用程序和软件。**
+**Alibaba Cloud Client for PHP** 支持 PHP 开发者轻松使用[阿里云][aliyun]，从而构建强大稳健的应用程序和软件。
 
 
 ## 要求
@@ -260,6 +260,8 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
 
 每个请求都支持链式设置、构造设置等，除请求参数外，还可单独设置 `客户端`、 `超时`、 `地域`、 `调试模式` 等。构造参数和 `options()` 参数请参考：[Guzzle Request Options][options]
 
+> [Alibaba Cloud SDK for PHP][SDK] 在继承 Alibaba Cloud Client for PHP 的基础上提供了产品快捷访问方法，让您更加轻松的使用阿里云服务。
+
 ```php
 <?php
 
@@ -473,3 +475,4 @@ AlibabaCloud::addHost('cn-hangzhou', 'product_name', 'product_name.cn-hangzhou.a
 [xdebug]: http://xdebug.org
 [OpenSSL]: http://php.net/manual/zh/book.openssl.php
 [RAM Role]: https://ram.console.aliyun.com/#/role/list
+[client]: https://github.com/aliyun/openapi-sdk-php-client
