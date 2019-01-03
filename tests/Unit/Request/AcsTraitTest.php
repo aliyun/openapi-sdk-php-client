@@ -6,6 +6,7 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -198,6 +199,26 @@ class AcsTraitTest extends TestCase
             'ecs-cn-hangzhou.aliyuncs.com',
             $request->uri->getHost()
         );
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Can not find host Cdn in us-west-no.
+     * @throws ClientException
+     * @throws ServerException
+     */
+    public function testNotFoundHost()
+    {
+        // Setup
+        $regionId = 'us-west-no';
+        AlibabaCloud::accessKeyClient('foo', 'bar')
+                    ->name($regionId);
+        AlibabaCloud::setGlobalRegionId($regionId);
+
+        // Test
+        $request = new DescribeCdnServiceRequest();
+        $request->client($regionId);
+        $request->resolveUri();
     }
 
     public function testFindDomainOnLocationService()

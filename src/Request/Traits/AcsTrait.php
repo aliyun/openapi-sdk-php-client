@@ -182,12 +182,19 @@ trait AcsTrait
                 $this->realRegionId(),
                 $this->product
             );
+
             if (!$host && $this->serviceCode) {
                 $host = LocationService::resolveHost($this);
             }
-            if ($host) {
-                $this->uri = $this->uri->withHost($host);
+
+            if (!$host) {
+                throw new ClientException(
+                    "Can not find host {$this->product} in " . $this->realRegionId() . '.',
+                    \ALIBABA_CLOUD_INVALID_REGION_ID
+                );
             }
+
+            $this->uri = $this->uri->withHost($host);
         }
     }
 }
