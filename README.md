@@ -18,13 +18,13 @@ Alibaba Cloud Client for PHP
 ![](./src/Files/AlibabaCloud.svg)
 
 
-**Alibaba Cloud Client for PHP Support PHP developers to easily use [Alibaba Cloud Services][alibabacloud] to build powerful and robust applications and software.**
+**Alibaba Cloud Client for PHP** Support PHP developers to easily use [Alibaba Cloud Services][alibabacloud] to build powerful and robust applications and software.
 
 
-## Requirement
+## Requirements
 You must use PHP5.5.0 or later, if you use the `RsaKeyPair` (Only Japan station is supported) client, you will also need [OpenSSL PHP extension][OpenSSL]. 
 
-## Recommendation
+## Recommendations
 - Use [Composer][composer] and optimize automatic loading `composer dump-autoload --optimize`
 - Install [cURL][cURL] 7.16.2 or later version
 - Use [OPCache][OPCache]
@@ -259,6 +259,8 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
 
 Each request supports Chain Settings, Construct Settings, and so on. In addition to the requesting parameters, the `Client`, `Timeout`, `Region`, `Debug Mode` et al. can be set separately.For the constructing and `options()` parameters, please refer to: [Guzzle Request Options][options]
 
+> The [Alibaba Cloud SDK for PHP][SDK] provides a quick access method for products based on the inheritance of Alibaba Cloud Client for PHP, making it easier for you to use Alibaba Cloud services.
+
 ```php
 <?php
 
@@ -473,3 +475,4 @@ AlibabaCloud::addHost('cn-hangzhou', 'product_name', 'product_name.cn-hangzhou.a
 [xdebug]: http://xdebug.org
 [OpenSSL]: http://php.net/manual/en/book.openssl.php
 [RAM Role]: https://ram.console.aliyun.com/#/role/list
+[client]: https://github.com/aliyun/openapi-sdk-php-client
