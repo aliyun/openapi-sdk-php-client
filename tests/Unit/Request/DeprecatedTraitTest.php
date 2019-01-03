@@ -147,14 +147,14 @@ class DeprecatedTraitTest extends TestCase
         $request = new RpcRequest();
 
         // Assert
-        self::assertEquals(null, $request->getLocationEndpointType());
-        $content = 'test';
+        self::assertEquals('openAPI', $request->getLocationEndpointType());
+        $endpointType = 'test';
 
         // Test
-        $request->endpointType = $content;
+        $request->endpointType = $endpointType;
 
         // Assert
-        self::assertEquals($content, $request->getLocationEndpointType());
+        self::assertEquals($endpointType, $request->getLocationEndpointType());
     }
 
     public function testGetLocationServiceCode()
