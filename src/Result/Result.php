@@ -105,6 +105,6 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
      */
     public function __toString()
     {
-        return $this->response->getBody()->getContents();
+        return (string)$this->response->getBody();
     }
 }
