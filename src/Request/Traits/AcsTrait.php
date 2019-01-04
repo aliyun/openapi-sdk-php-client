@@ -179,8 +179,8 @@ trait AcsTrait
         if ($this->uri->getHost() === 'localhost') {
             // Get the host by specified `ServiceCode` and `RegionId`.
             $host = AlibabaCloud::resolveHost(
-                $this->realRegionId(),
-                $this->product
+                $this->product,
+                $this->realRegionId()
             );
 
             if (!$host && $this->serviceCode) {

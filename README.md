@@ -438,7 +438,11 @@ $request = AlibabaCloud::rpcRequest()
 <?php
 use AlibabaCloud\Client\AlibabaCloud;
 
-AlibabaCloud::addHost('cn-hangzhou', 'product_name', 'product_name.cn-hangzhou.aliyuncs.com');
+// Add a Host in cn-hangzhou for the specified product
+AlibabaCloud::addHost('product_name', 'product_name.cn-hangzhou.aliyuncs.com', 'cn-hangzhou');
+
+// Add an unlimited Host for the specified product
+AlibabaCloud::addHost('product_name', 'product_name.aliyuncs.com');
 ```
 
 ## References

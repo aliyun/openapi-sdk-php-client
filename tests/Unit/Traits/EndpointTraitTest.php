@@ -25,11 +25,11 @@ class EndpointTraitTest extends TestCase
         );
         $this->assertEquals(
             'ecs-cn-hangzhou.aliyuncs.com',
-            EndpointProvider::resolveHost('cn-hangzhou', 'Ecs')
+            EndpointProvider::resolveHost('Ecs', 'cn-hangzhou')
         );
         $this->assertEquals(
             'kms.me-east-1.aliyuncs.com',
-            EndpointProvider::resolveHost('me-east-1', 'kms')
+            EndpointProvider::resolveHost('kms', 'me-east-1')
         );
         $this->assertEquals(
             'ecs-cn-hangzhou.aliyuncs.com',
@@ -41,11 +41,11 @@ class EndpointTraitTest extends TestCase
         );
         $this->assertEquals(
             'ecs-cn-hangzhou.aliyuncs.com',
-            AlibabaCloud::resolveHost('cn-hangzhou', 'Ecs')
+            AlibabaCloud::resolveHost('Ecs', 'cn-hangzhou')
         );
         $this->assertEquals(
             'kms.me-east-1.aliyuncs.com',
-            AlibabaCloud::resolveHost('me-east-1', 'kms')
+            AlibabaCloud::resolveHost('kms', 'me-east-1')
         );
     }
 
@@ -57,25 +57,45 @@ class EndpointTraitTest extends TestCase
         // Setup
         $regionId = 'cn-hangzhou';
         $product  = 'TestProduct';
-        $domain   = 'testproduct.aliyuncs.com';
+        $host     = 'testproduct.aliyuncs.com';
 
         // Test
-        EndpointProvider::addEndpoint($regionId, $product, $domain);
+        EndpointProvider::addEndpoint($regionId, $product, $host);
 
         // Assert
-        self::assertEquals($domain, EndpointProvider::findProductDomain($regionId, $product));
+        self::assertEquals($host, EndpointProvider::findProductDomain($regionId, $product));
 
         // Test
-        AlibabaCloud::addHost($regionId, $product, $domain);
+        AlibabaCloud::addHost($product, $host, $regionId);
 
         // Assert
-        self::assertEquals($domain, AlibabaCloud::findProductDomain($regionId, $product));
+        self::assertEquals($host, AlibabaCloud::findProductDomain($regionId, $product));
 
         // Test
-        AlibabaCloud::addHost($regionId, $product, $domain);
+        AlibabaCloud::addHost($product, $host, $regionId);
 
         // Assert
-        self::assertEquals($domain, AlibabaCloud::resolveHost($regionId, $product));
+        self::assertEquals($host, AlibabaCloud::resolveHost($product, $regionId));
+    }
+
+    public function testAddGlobalHost()
+    {
+        // Setup
+        $product = 'a';
+        $host    = 'a.com';
+
+        // Test
+        AlibabaCloud::addHost($product, $host);
+
+        // Assert
+        self::assertEquals($host, AlibabaCloud::resolveHost($product));
+    }
+
+    public function testGlobal()
+    {
+        // Assert
+        self::assertEquals('dysmsapi.aliyuncs.com', AlibabaCloud::resolveHost('dysmsapi'));
+        self::assertEquals('dysmsapi.aliyuncs.com', AlibabaCloud::resolveHost('dysmsapi', 'cn-hangzhou'));
     }
 
     /**
@@ -85,10 +105,10 @@ class EndpointTraitTest extends TestCase
     {
         // Setup
         $regionId = 'cn-hangzhou';
-        $product  = 'TestProduct2';
+        $product  = 'null';
 
         // Test
         self::assertEquals('', AlibabaCloud::findProductDomain($regionId, $product));
-        self::assertEquals('', AlibabaCloud::resolveHost($regionId, $product));
+        self::assertEquals('', AlibabaCloud::resolveHost($product, $regionId));
     }
 }

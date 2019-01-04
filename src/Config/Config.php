@@ -18,13 +18,19 @@ class Config
     private static $configManager;
 
     /**
-     * @param string $configPath
+     * @param string      $configPath
+     *
+     * @param string|null $defaultValue
      *
      * @return mixed
      */
-    public static function get($configPath)
+    public static function get($configPath, $defaultValue = null)
     {
-        return self::getConfigManager()->getValue(\strtolower($configPath));
+        return self::getConfigManager()
+                   ->getValue(
+                       \strtolower($configPath),
+                       $defaultValue
+                   );
     }
 
     /**

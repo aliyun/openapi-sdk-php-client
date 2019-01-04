@@ -18,10 +18,11 @@ class LocationService
      * @var Request
      */
     protected $request;
+
     /**
      * @var array
      */
-    private static $cache = [];
+    protected static $hosts = [];
 
     /**
      * LocationService constructor.
@@ -52,16 +53,26 @@ class LocationService
      * @param Request $request
      * @param string  $domain
      *
-     * @return mixed
+     * @return string
      * @throws ClientException
      * @throws ServerException
      */
     public static function resolveHost(Request $request, $domain = 'location.aliyuncs.com')
     {
         $instance = new static($request);
-        $key      = $instance->request->realRegionId() . '#' . $instance->request->product;
-        if (!isset(self::$cache[$key])) {
-            $result = (new LocationServiceRequest($instance->request, $domain))->request();
+        $product  = $instance->request->product;
+        $regionId = $instance->request->realRegionId();
+        if (!isset(self::$hosts[$product][$regionId])) {
+            $locationRequest = new LocationServiceRequest($instance->request, $domain);
+
+            try {
+                $result = $locationRequest->request();
+            } catch (ServerException $exception) {
+                if ($exception->getErrorCode() === 'Illegal Parameter') {
+                    return '';
+                }
+                throw  $exception;
+            }
 
             // @codeCoverageIgnoreStart
             if (!isset($result['Endpoints']['Endpoint'][0]['Endpoint'])) {
@@ -78,11 +89,11 @@ class LocationService
                 );
             }
 
-            self::$cache[$key] = $result['Endpoints']['Endpoint'][0]['Endpoint'];
+            self::$hosts[$product][$regionId] = $result['Endpoints']['Endpoint'][0]['Endpoint'];
             // @codeCoverageIgnoreEnd
         }
 
-        return self::$cache[$key];
+        return self::$hosts[$product][$regionId];
     }
 
     /**
@@ -94,18 +105,17 @@ class LocationService
      */
     public static function addEndPoint($regionId, $product, $domain)
     {
-        self::addHost($regionId, $product, $domain);
+        self::addHost($product, $domain, $regionId);
     }
 
     /**
-     * @param string $regionId
      * @param string $product
-     * @param string $domain
+     * @param string $host
+     * @param string $regionId
      */
-    public static function addHost($regionId, $product, $domain)
+    public static function addHost($product, $host, $regionId = \ALIBABA_CLOUD_GLOBAL_REGION)
     {
-        $key               = $regionId . '#' . $product;
-        self::$cache[$key] = $domain;
+        self::$hosts[$product][$regionId] = $host;
     }
 
     /**

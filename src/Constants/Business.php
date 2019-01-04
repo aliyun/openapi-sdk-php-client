@@ -11,9 +11,13 @@
 */
 
 /**
- * Default Client Name
+ * Global Client Name
  */
 defined('ALIBABA_CLOUD_GLOBAL_CLIENT') || define('ALIBABA_CLOUD_GLOBAL_CLIENT', 'global');
+/**
+ * Global Region Name
+ */
+defined('ALIBABA_CLOUD_GLOBAL_REGION') || define('ALIBABA_CLOUD_GLOBAL_REGION', 'global');
 /**
  * Request Timeout
  */
