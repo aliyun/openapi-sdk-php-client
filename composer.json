@@ -1,7 +1,7 @@
 {
     "name": "alibabacloud/client",
     "homepage": "https://www.alibabacloud.com/",
-    "description": "Alibaba Cloud Client for PHP",
+    "description": "Alibaba Cloud Client for PHP - Use Alibaba Cloud in your PHP project",
     "keywords": [
         "aliyun",
         "alibaba",
@@ -78,9 +78,6 @@
         ]
     },
     "extra": {
-        "branch-alias": {
-            "dev-master": "0.0.1-dev"
-        }
     },
     "config": {
         "preferred-install": "dist",

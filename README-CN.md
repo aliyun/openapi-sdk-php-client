@@ -250,8 +250,6 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
     
     // 获取指定客户端的 AccessKey 或 STS 访问凭据，若该客户端本属于该凭据则直接返回
     AlibabaCloud::get('client1')->getSessionCredential();
-    
-
 ```
 
 
@@ -370,8 +368,6 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
         // 获取请求对象
         print_r($exception->getResult()->getRequest());
     }
-    
-
 ```
 
 
@@ -414,9 +410,6 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
     
     // 获取结果的请求对象
     $result->getRequest();
-    
-    
-
 ```
 
 

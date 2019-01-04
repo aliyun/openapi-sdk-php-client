@@ -249,8 +249,6 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
     
     // Get the AccessKey or STS Access Credentials from a specified client. Return immediately if the client belongs to the credential
     AlibabaCloud::get('client1')->getSessionCredential();
-    
-
 ```
 
 
@@ -370,8 +368,6 @@ Each request supports Chain Settings, Construct Settings, and so on. In addition
         // Get request object
         print_r($exception->getResult()->getRequest());
     }
-    
-
 ```
 
 
@@ -414,9 +410,6 @@ Returned result is not just filed, but the objects with characters like `ArrayAc
     
     // Get the request object from the result
     $result->getRequest();
-    
-    
-
 ```
 
 
