@@ -241,7 +241,13 @@ class AcsTraitTest extends TestCase
         } catch (ServerException $exception) {
             self::assertEquals('InvalidAccessKeyId.NotFound', $exception->getErrorCode());
         } catch (ClientException $exception) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $exception->getErrorCode());
+            self::assertContains(
+                $exception->getErrorCode(),
+                [
+                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                    \ALIBABA_CLOUD_INVALID_REGION_ID,
+                ]
+            );
         }
     }
 }

@@ -86,7 +86,13 @@ class BearerTokenCredentialTest extends TestCase
         try {
             (new DescribeAccessPointsRequest())->client($this->clientName)->request();
         } catch (ClientException $e) {
-            $this->assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertContains(
+                $e->getErrorCode(),
+                [
+                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                    \ALIBABA_CLOUD_INVALID_REGION_ID,
+                ]
+            );
         } catch (ServerException $e) {
             $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
         }

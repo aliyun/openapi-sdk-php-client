@@ -63,7 +63,13 @@ class AccessKeyCredentialTest extends TestCase
                                                          ->request();
             $this->assertTrue(isset($result['AccessPointSet']));
         } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertContains(
+                $e->getErrorCode(),
+                [
+                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                    \ALIBABA_CLOUD_INVALID_REGION_ID,
+                ]
+            );
         } catch (ServerException $e) {
             self::assertContains(
                 $e->getErrorMessage(),

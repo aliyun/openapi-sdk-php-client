@@ -10,7 +10,7 @@ Alibaba Cloud Client for PHP
 [![License](https://poser.pugx.org/alibabacloud/client/license)](https://packagist.org/packages/alibabacloud/client)
 [![composer.lock](https://poser.pugx.org/alibabacloud/client/composerlock)](https://packagist.org/packages/alibabacloud/client)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client/badges/quality-score.png)](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client)
-[![Build Status](https://travis-ci.org/aliyun/openapi-sdk-php-client.svg)](https://travis-ci.org/aliyun/openapi-sdk-php-client)
+[![Build Status](https://travis-ci.org/aliyun/openapi-sdk-php-client.svg?branch=master)](https://travis-ci.org/aliyun/openapi-sdk-php-client)
 [![codecov](https://codecov.io/gh/aliyun/openapi-sdk-php-client/branch/master/graph/badge.svg)](https://codecov.io/gh/aliyun/openapi-sdk-php-client)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client/badges/code-intelligence.svg)](https://scrutinizer-ci.com/code-intelligence)
 

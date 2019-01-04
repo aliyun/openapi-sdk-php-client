@@ -204,6 +204,7 @@ class DefaultAcsClientTest extends TestCase
         } catch (ClientException $e) {
             $expected = [
                 'The specified parameter "Action or Version" is not valid.',
+                'Can not find host BadProduct in cn-hangzhou.',
             ];
 
             $this->assertContains($e->getErrorMessage(), $expected);
