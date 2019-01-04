@@ -75,6 +75,7 @@ class EcsRamRoleCredentialTest extends TestCase
                 $e->getErrorCode(),
                 [
                     \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                    \ALIBABA_CLOUD_INVALID_REGION_ID,
                 ]
             );
         } catch (ServerException $e) {

@@ -62,38 +62,48 @@ class LocationService
         $instance = new static($request);
         $product  = $instance->request->product;
         $regionId = $instance->request->realRegionId();
+
         if (!isset(self::$hosts[$product][$regionId])) {
-            $locationRequest = new LocationServiceRequest($instance->request, $domain);
-
-            try {
-                $result = $locationRequest->request();
-            } catch (ServerException $exception) {
-                if ($exception->getErrorCode() === 'Illegal Parameter') {
-                    return '';
-                }
-                throw  $exception;
-            }
-
-            // @codeCoverageIgnoreStart
-            if (!isset($result['Endpoints']['Endpoint'][0]['Endpoint'])) {
-                throw new ClientException(
-                    'Can Not Find RegionId From: ' . $domain,
-                    \ALIBABA_CLOUD_INVALID_REGION_ID
-                );
-            }
-
-            if (!$result['Endpoints']['Endpoint'][0]['Endpoint']) {
-                throw new ClientException(
-                    'Invalid RegionId: ' . $result['Endpoints']['Endpoint'][0]['Endpoint'],
-                    \ALIBABA_CLOUD_INVALID_REGION_ID
-                );
-            }
-
-            self::$hosts[$product][$regionId] = $result['Endpoints']['Endpoint'][0]['Endpoint'];
-            // @codeCoverageIgnoreEnd
+            self::$hosts[$product][$regionId] = self::getResult($instance, $domain);
         }
 
         return self::$hosts[$product][$regionId];
+    }
+
+    /**
+     * @param static $instance
+     * @param string $domain
+     *
+     * @return string
+     * @throws ClientException
+     */
+    private static function getResult($instance, $domain)
+    {
+        $locationRequest = new LocationServiceRequest($instance->request, $domain);
+
+        try {
+            $result = $locationRequest->request();
+        } catch (ServerException $exception) {
+            return '';
+        }
+
+        // @codeCoverageIgnoreStart
+        if (!isset($result['Endpoints']['Endpoint'][0]['Endpoint'])) {
+            throw new ClientException(
+                'Not found RegionId from: ' . $domain,
+                \ALIBABA_CLOUD_INVALID_REGION_ID
+            );
+        }
+
+        if (!$result['Endpoints']['Endpoint'][0]['Endpoint']) {
+            throw new ClientException(
+                'Invalid RegionId: ' . $result['Endpoints']['Endpoint'][0]['Endpoint'],
+                \ALIBABA_CLOUD_INVALID_REGION_ID
+            );
+        }
+
+        return $result['Endpoints']['Endpoint'][0]['Endpoint'];
+        // @codeCoverageIgnoreEnd
     }
 
     /**
