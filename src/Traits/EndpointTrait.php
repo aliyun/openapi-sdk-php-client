@@ -30,7 +30,7 @@ trait EndpointTrait
      */
     public static function findProductDomain($regionId, $product)
     {
-        return self::resolveHost($regionId, $product);
+        return self::resolveHost($product, $regionId);
     }
 
     /**
@@ -44,41 +44,44 @@ trait EndpointTrait
      */
     public static function addEndpoint($regionId, $product, $domain)
     {
-        self::addHost($regionId, $product, $domain);
+        self::addHost($product, $domain, $regionId);
     }
 
     /**
      * Resolve host based on product name and region.
      *
-     * @param string $regionId
      * @param string $product
+     * @param string $regionId
      *
      * @return string
      */
-    public static function resolveHost($regionId, $product)
+    public static function resolveHost($product, $regionId = \ALIBABA_CLOUD_GLOBAL_REGION)
     {
         if (isset(self::$hosts[$product][$regionId])) {
             return self::$hosts[$product][$regionId];
         }
+
         $domain = Config::get("endpoints.{$product}.{$regionId}");
-        if ($domain) {
-            return $domain;
+        if (!$domain) {
+            $regionId = \ALIBABA_CLOUD_GLOBAL_REGION;
+            $domain   = Config::get("endpoints.{$product}.{$regionId}", '');
         }
-        return '';
+
+        return $domain;
     }
 
     /**
      * Add host based on product name and region.
      *
-     * @param string $regionId
      * @param string $product
-     * @param string $domain
+     * @param string $host
+     * @param string $regionId
      *
      * @return void
      */
-    public static function addHost($regionId, $product, $domain)
+    public static function addHost($product, $host, $regionId = \ALIBABA_CLOUD_GLOBAL_REGION)
     {
-        self::$hosts[$product][$regionId] = $domain;
-        LocationService::addHost($regionId, $product, $domain);
+        self::$hosts[$product][$regionId] = $host;
+        LocationService::addHost($product, $host, $regionId);
     }
 }

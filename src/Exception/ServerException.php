@@ -42,14 +42,25 @@ class ServerException extends AlibabaCloudException
         if (!$this->errorMessage) {
             $this->errorMessage = (string)$this->result->getResponse()->getBody();
         }
-        $message = $this->errorCode
-                   . ': '
-                   . $this->errorMessage
-                   . ' HTTP Status: '
-                   . $this->result->getResponse()->getStatusCode()
-                   . ' RequestID: '
-                   . $this->requestId;
-        parent::__construct($message, $this->result->getResponse()->getStatusCode());
+
+        parent::__construct(
+            $this->getParentMessage(),
+            $this->result->getResponse()->getStatusCode()
+        );
+    }
+
+    /**
+     * @return string
+     */
+    private function getParentMessage()
+    {
+        $data = $this->result->toArray();
+        \ksort($data);
+        $message = '';
+        foreach ($data as $key => $value) {
+            $message .= "$key:$value ";
+        }
+        return $message;
     }
 
     /**

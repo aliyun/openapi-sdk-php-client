@@ -3,6 +3,10 @@
 return [
     'endpoints' =>
         [
+            'dysmsapi'        =>
+                [
+                    'global' => 'dysmsapi.aliyuncs.com',
+                ],
             'ecs'             =>
                 [
                     'jp-fudao-1'              => 'ecs-cn-hangzhou.aliyuncs.com',
@@ -736,6 +740,9 @@ return [
                     'cn-hangzhou-d'       => 'iot.aliyuncs.com',
                     'cn-shanghai-et2-b01' => 'iot.aliyuncs.com',
                     'ap-southeast-1'      => 'iot.ap-southeast-1.aliyuncs.com',
+                    'ap-northeast-1'      => 'iot.ap-northeast-1.aliyuncs.com',
+                    'us-east-1'           => 'iot.us-east-1.aliyuncs.com',
+                    'eu-central-1'        => 'iot.eu-central-1.aliyuncs.com',
                 ],
             'oms'             =>
                 [
