@@ -18,7 +18,7 @@ Alibaba Cloud Client for PHP
 ![](./src/Files/Aliyun.svg)
 
 
-**Alibaba Cloud Client for PHP** 支持 PHP 开发者轻松使用[阿里云][aliyun]，从而构建强大稳健的应用程序和软件。
+**Alibaba Cloud Client for PHP** 是支持 PHP 开发者向阿里云发送自定义请求的客户端工具。 [Alibaba Cloud SDK for PHP][SDK] 在依赖 [Alibaba Cloud Client for PHP][client] 的基础上提供了产品快捷访问方法。
 
 
 ## 要求
@@ -38,7 +38,7 @@ curl -sS https://getcomposer.org/installer | php
 
 2. 执行 Composer 命令安装 Alibaba Cloud Client for PHP 的最新稳定版本
 ```bash
-php -d memory_limit=-1 composer.phar require alibabacloud/client
+php -d memory_limit=-1 composer.phar require alibabacloud/client:dev-master
 ```
 
 3. 在代码中引入 Composer 自动加载工具
@@ -50,7 +50,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 
 ## 客户端
-您可以同时创建多个不同的客户端，每个客户端都可以有独立的配置，每一个请求都可以指定发送的客户端，如果不指定则使用全局客户端。客户端可以通过配置文件自动加载创建，也可以手动创建、管理。不同类型的客户端需要不同的凭证 `Credential`，内部也选取不同的签名算法 `Signature`，你也可以自定义客户端：即传入自定义的凭证和签名。
+您可以同时创建多个不同的客户端，每个客户端都可以有独立的配置，每一个请求都可以指定发送的客户端，如果不指定则使用全局客户端。客户端可以通过配置文件自动加载创建，也可以手动创建、管理。不同类型的客户端需要不同的凭证 `Credential`，内部也选取不同的签名算法 `Signature`，您也可以自定义客户端：即传入自定义的凭证和签名。
 
 #### 自动创建客户端
 > 如果存在 `~/.alibabacloud/credentials` 默认 `INI` 文件 （Windows 用户为 `C:\Users\USER_NAME\.alibabacloud\credentials`），程序会自动创建指定类型和名称的客户端。默认文件可以不存在，但解析错误会抛出异常。  客户端名称不分大小写，若客户端同名，后者会覆盖前者。也可以无限的加载指定文件： `AlibabaCloud::load('/data/credentials', 'vfs://AlibabaCloud/credentials', ...);` 不同的项目、工具之间可以共用这个配置文件，因为超出项目之外，也不会被意外提交到版本控制。Windows 上可以使用环境变量引用到主目录 %UserProfile%。类 Unix 的系统可以使用环境变量 $HOME 或 ~ (tilde)。  
@@ -256,7 +256,7 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
 
 ## 请求
 
-每个请求都支持链式设置、构造设置等，除请求参数外，还可单独设置 `客户端`、 `超时`、 `地域`、 `调试模式` 等。构造参数和 `options()` 参数请参考：[Guzzle Request Options][options]
+每个请求都支持链式设置、构造设置等，除请求参数外，还可单独设置 `客户端`、 `超时`、 `地域`、 `调试模式` 等。构造参数和 `options()` 参数请参考：[请求选项 Guzzle中文文档][guzzle-docs]
 
 > [Alibaba Cloud SDK for PHP][SDK] 在继承 Alibaba Cloud Client for PHP 的基础上提供了产品快捷访问方法，让您更加轻松的使用阿里云服务。
 
@@ -297,16 +297,6 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
                                  ->debug(true) // 开启调试CLI下会输出详细信息
                                  ->request();
             
-
-    
-        // 传统调用发送 RPC 风格请求
-        $request2 = AlibabaCloud::rpcRequest();
-        $request2->client('client1');
-        $request2->product('Cdn');
-        $request2->version('2014-11-11');
-        $request2->action('DescribeCdnService');
-        $request2->timeout(0.001);
-        $result2 = $request2->request();
     
         // 构造调用发送 RPC 风格请求
         $request3 = AlibabaCloud::rpcRequest([
@@ -323,7 +313,6 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
     
         // 设置的优先级
         $result4 = AlibabaCloud::rpcRequest([
-                                       // 所有参数都可以在构造函数中设置
                                        'debug'           => true,
                                        'timeout'         => 0.01,
                                        'connect_timeout' => 0.01,
@@ -378,11 +367,16 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
 ```php
 <?php
 
+    /**
+     * @var AlibabaCloud\Client\Result\Result $result
+     */
+    
     // 以对象方式访问结果
     echo $result->RequestId;
     
     // 以数组方式访问结果
     echo $result['RequestId'];
+    echo $result['AccessPointSet.AccessPointType'];
     
     // 将结果转换为数组
     $result->toArray();
@@ -391,16 +385,24 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
     $result->toJson();
    
     // 结果是否包含某字段
-    $result->hasKey('RequestId');
+    $result->has('RequestId');
+    $result->has('AccessPointSet.AccessPointType');
+    
+    // 结果是否为空
+    $result->isEmpty();
+    $result->isEmpty('RequestId');
+    $result->isEmpty('AccessPointSet.AccessPointType');
     
     // 在结果中匹配搜索
     $result->search('AccessPointSet.AccessPointType[0].Name');
 
     // 在结果中获取某个字段
-    $result->get('AccessPointSet');
+    $result->get();
+    $result->get('AccessPointSet.AccessPointType');
     
     // 统计结果元素
     $result->count();
+    $result->count('AccessPointSet.AccessPointType');
     
     // 请求结果是否成功
     $result->isSuccess();
@@ -432,7 +434,7 @@ $request = AlibabaCloud::rpcRequest()
 ```
 
 #### 为寻址服务增加可查找的域名
-> 在发送请求前，你可以为某产品在某区域设定域名，寻址服务不会发起请求，直接使用该域名。
+> 在发送请求前，您可以为某产品在某区域设定域名，寻址服务不会发起请求，直接使用该域名。
 
 ```php
 <?php
@@ -451,21 +453,20 @@ AlibabaCloud::addHost('product_name', 'product_name.aliyuncs.com');
 * [OpenAPI Explorer][open-api]
 * [Packagist][packagist]
 * [Composer][composer]
-* [Guzzle 使用文档][guzzle-docs]
+* [Guzzle中文文档][guzzle-docs]
 * [最新源码][latest-release]
 
 [SDK]:https://github.com/aliyun/openapi-sdk-php
 [open-api]: https://api.aliyun.com/
 [latest-release]: https://github.com/aliyun/openapi-sdk-php-client
-[guzzle-docs]: http://guzzlephp.org
+[guzzle-docs]: https://guzzle-cn.readthedocs.io/zh_CN/latest/request-options.html
 [composer]: http://getcomposer.org
 [packagist]: https://packagist.org/packages/alibabacloud/sdk
 [ak]: https://usercenter.console.aliyun.com/#/manage/ak
 [home]: https://home.console.aliyun.com
 [ram]: https://ram.console.aliyun.com/users
 [permissions]: https://ram.console.aliyun.com/permissions
-[options]: http://docs.guzzlephp.org/en/stable/request-options.html
-[aliyun]: https://www.aliyun.com/
+[aliyun]: https://www.aliyun.com
 [endpoints]: https://developer.aliyun.com/endpoints
 [cURL]: http://php.net/manual/zh/book.curl.php
 [OPCache]: http://php.net/manual/zh/book.opcache.php

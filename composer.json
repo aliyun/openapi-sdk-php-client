@@ -30,13 +30,14 @@
         "ext-mbstring": "*",
         "ext-openssl": "*",
         "ext-simplexml": "*",
-        "league/climate": "^3.2.",
+        "adbario/php-dot-notation": "^2.2",
+        "clagiordano/weblibs-configmanager": "^1.0",
         "danielstjules/stringy": "^3.1",
         "guzzlehttp/guzzle": "^6.3",
         "guzzlehttp/promises": "^1.3",
         "guzzlehttp/psr7": "^1.4",
-        "mtdowling/jmespath.php": "^2.4",
-        "clagiordano/weblibs-configmanager": "^1.0"
+        "league/climate": "^3.2.",
+        "mtdowling/jmespath.php": "^2.4"
     },
     "require-dev": {
         "ext-dom": "*",

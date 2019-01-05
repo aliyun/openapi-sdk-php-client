@@ -15,25 +15,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ResultTest extends TestCase
 {
-    /**
-     * @dataProvider requests
-     *
-     * @param Request $request
-     */
-    public function testConstruct(Request $request)
-    {
-        // Setup
-        $result = new Result(new Response(), $request);
-
-        // Assert
-        self::assertEquals(false, $result->hasKey('key'));
-        self::assertEquals(false, $result->get('key'));
-        self::assertEquals(null, $result->search('key.name'));
-        self::assertObjectNotHasAttribute('key', $result);
-        self::assertEquals([], $result->toArray());
-        self::assertEquals(0, $result->count());
-        self::assertEquals(false, isset($result['key']));
-    }
 
     /**
      * @return array
@@ -41,22 +22,52 @@ class ResultTest extends TestCase
     public function requests()
     {
         return [
-            [(new RpcRequest())->format('json')],
-            [(new RpcRequest())->format('xml')],
-            [(new RpcRequest())->format('RAW')],
-            [(new RpcRequest())->format('unknown')],
+            [
+                [
+                    'key' => [
+                        'name' => 'value',
+                    ],
+                ],
+                (new RpcRequest())->format('json'),
+            ],
+            [
+                [
+                    'key' => [
+                        'name' => 'value',
+                    ],
+                ],
+                (new RpcRequest())->format('xml'),
+            ],
+            [
+                [
+                    'key' => [
+                        'name' => 'value',
+                    ],
+                ],
+                (new RpcRequest())->format('RAW'),
+            ],
+            [
+                [
+                    'key' => [
+                        'name' => 'value',
+                    ],
+                ],
+                (new RpcRequest())->format('unknown'),
+            ],
         ];
     }
 
     /**
      * @dataProvider requests
      *
+     * @param array   $data
      * @param Request $request
      */
-    public function testGetRequest(Request $request)
+    public function testGetRequest(array $data, Request $request)
     {
         // Setup
-        $result = new Result(new Response(), $request);
+        $response = new Response(200, [], \json_encode($data));
+        $result   = new Result($response, $request);
 
         // Assert
         self::assertInstanceOf(Request::class, $result->getRequest());
@@ -114,72 +125,6 @@ class ResultTest extends TestCase
 
         // Assert
         self::assertEquals('', (string)$result);
-    }
-
-    /**
-     * @dataProvider getData
-     *
-     * @param array  $data
-     * @param string $name
-     * @param string $expected
-     */
-    public function testGet(array $data, $name, $expected)
-    {
-        // Setup
-        $response = new Response(200, [], \json_encode($data));
-        $result   = new Result($response);
-        self::assertEquals($expected, $result->$name);
-    }
-
-    /**
-     * @return array
-     */
-    public function getData()
-    {
-        return [
-            [
-                ['s' => 's'],
-                's',
-                's',
-            ],
-            [
-                [],
-                'null',
-                null,
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider setData
-     *
-     * @param array  $data
-     * @param string $name
-     */
-    public function testSet(array $data, $name)
-    {
-        // Setup
-        $response      = new Response(200, [], \json_encode($data));
-        $result        = new Result($response);
-        $result->$name = 'test';
-        self::assertEquals('test', $result->get($name));
-    }
-
-    /**
-     * @return array
-     */
-    public function setData()
-    {
-        return [
-            [
-                [],
-                'string',
-            ],
-            [
-                [],
-                'key',
-            ],
-        ];
     }
 
     /**
