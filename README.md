@@ -18,7 +18,7 @@ Alibaba Cloud Client for PHP
 ![](./src/Files/AlibabaCloud.svg)
 
 
-**Alibaba Cloud Client for PHP** Support PHP developers to easily use [Alibaba Cloud Services][alibabacloud] to build powerful and robust applications and software.
+**Alibaba Cloud Client for PHP** is a client tool that supports PHP developers to send custom requests to Alibaba Cloud. [Alibaba Cloud SDK for PHP][SDK] provides a quick access method for products based on [Alibaba Cloud Client for PHP][client].
 
 
 ## Requirements
@@ -38,7 +38,7 @@ curl -sS https://getcomposer.org/installer | php
 
 2. Execute the Composer command, install the newest and stable version of Alibaba Cloud Client for PHP
 ```bash
-php -d memory_limit=-1 composer.phar require alibabacloud/client
+php -d memory_limit=-1 composer.phar require alibabacloud/client:dev-master
 ```
 
 3. Require the Composer auto-loading tool
@@ -255,7 +255,7 @@ AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256Wit
 
 ## Request
 
-Each request supports Chain Settings, Construct Settings, and so on. In addition to the requesting parameters, the `Client`, `Timeout`, `Region`, `Debug Mode` et al. can be set separately.For the constructing and `options()` parameters, please refer to: [Guzzle Request Options][options]
+Each request supports Chain Settings, Construct Settings, and so on. In addition to the requesting parameters, the `Client`, `Timeout`, `Region`, `Debug Mode` et al. can be set separately.For the constructing and `options()` parameters, please refer to: [Guzzle Request Options][guzzle-docs]
 
 > The [Alibaba Cloud SDK for PHP][SDK] provides a quick access method for products based on the inheritance of Alibaba Cloud Client for PHP, making it easier for you to use Alibaba Cloud services.
 
@@ -296,16 +296,6 @@ Each request supports Chain Settings, Construct Settings, and so on. In addition
                                  ->debug(true) // Enable Debug, details will be output under CLI
                                  ->request();// Make a request and return to result object. The request is to be placed at the end of the setting
             
-
-    
-        // Traditional calls and send RPC request
-        $request2 = AlibabaCloud::rpcRequest();
-        $request2->client('client1'); 
-        $request2->product('Cdn');
-        $request2->version('2014-11-11');
-        $request2->action('DescribeCdnService');
-        $request2->timeout(0.001);
-        $result2 = $request2->request();
     
         // Construct calls and send RPC request
         $request3 = AlibabaCloud::rpcRequest([
@@ -322,7 +312,6 @@ Each request supports Chain Settings, Construct Settings, and so on. In addition
     
         // Priority of setting
         $result4 = AlibabaCloud::rpcRequest([
-                                       // All parameters can be set in the constructor function
                                        'debug'           => true,
                                        'timeout'         => 0.01,
                                        'connect_timeout' => 0.01,
@@ -334,21 +323,21 @@ Each request supports Chain Settings, Construct Settings, and so on. In addition
                                     ])->options([
                                                     // All parameters can be also set by Options method or reset
                                                     'query' => [
-                                                        'Product'      => 'I will overlay this value of the constructor',
-                                                        'Version'      => 'I am the new added value',
+                                                        'Product'      => 'I will overwrite this value in constructor',
+                                                        'Version'      => 'I am new value',
                                                     ],
                                                   ])
                                        ->options([
                                                     // The Options method can be called multiple times
                                                     'query' => [
-                                                        'Product' => 'I will overlay the previous value',
-                                                        'Version' => 'I will overlay the previous value',
-                                                        'Action'  => 'I will overlay the previous value',
-                                                        'New'     => 'I am the new added value',
+                                                        'Product' => 'I will overwrite the previous value',
+                                                        'Version' => 'I will overwrite the previous value',
+                                                        'Action'  => 'I will overwrite the previous value',
+                                                        'New'     => 'I am new value',
                                                     ],
                                                   ])
-                                       ->debug(false) // The last called will overlay the true of the former
-                                       ->timeout(0.02) // The last called will overlay the 0.01 of the former
+                                       ->debug(false) // Overwrite the true of the former
+                                       ->timeout(0.02) // Overwrite the 0.01 of the former
                                        ->request();
         
     } catch (ClientException $exception) {
@@ -378,11 +367,16 @@ Returned result is not just filed, but the objects with characters like `ArrayAc
 ```php
 <?php
 
+    /**
+     * @var AlibabaCloud\Client\Result\Result $result
+     */
+    
     // Accessing results by objects
     echo $result->RequestId;
     
     // Accessing results by array
     echo $result['RequestId'];
+    echo $result['AccessPointSet.AccessPointType'];
     
     // Convert result to array
     $result->toArray();
@@ -391,16 +385,24 @@ Returned result is not just filed, but the objects with characters like `ArrayAc
     $result->toJson();
    
     // Result contains some fields
-    $result->hasKey('RequestId');
+    $result->has('RequestId');
+    $result->has('AccessPointSet.AccessPointType');
     
+    // Is the result empty
+    $result->isEmpty();
+    $result->isEmpty('RequestId');
+    $result->isEmpty('AccessPointSet.AccessPointType');
+        
     // Search and match from the result
     $result->search('AccessPointSet.AccessPointType[0].Name');
 
     // Get a field from the results
-    $result->get('AccessPointSet');
+    $result->get();
+    $result->get('AccessPointSet.AccessPointType');
     
     // Count result elements
     $result->count();
+    $result->count('AccessPointSet.AccessPointType');
     
     // Is the result requested successful
     $result->isSuccess();
@@ -457,15 +459,14 @@ AlibabaCloud::addHost('product_name', 'product_name.aliyuncs.com');
 [SDK]:https://github.com/aliyun/openapi-sdk-php
 [open-api]: https://api.alibabacloud.com/
 [latest-release]: https://github.com/aliyun/openapi-sdk-php-client
-[guzzle-docs]: http://guzzlephp.org
+[guzzle-docs]: http://docs.guzzlephp.org/en/stable/request-options.html
 [composer]: http://getcomposer.org
 [packagist]: https://packagist.org/packages/alibabacloud/sdk
 [ak]: https://usercenter.console.aliyun.com/#/manage/ak
 [home]: https://home.console.aliyun.com
 [ram]: https://ram.console.aliyun.com/users
 [permissions]: https://ram.console.aliyun.com/permissions
-[options]: http://docs.guzzlephp.org/en/stable/request-options.html
-[alibabacloud]: https://www.alibabacloud.com/
+[alibabacloud]: https://www.alibabacloud.com
 [endpoints]: https://developer.aliyun.com/endpoints
 [cURL]: http://php.net/manual/en/book.curl.php
 [OPCache]: http://php.net/manual/en/book.opcache.php

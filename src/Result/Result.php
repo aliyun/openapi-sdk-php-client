@@ -3,10 +3,7 @@
 namespace AlibabaCloud\Client\Result;
 
 use AlibabaCloud\Client\Request\Request;
-use AlibabaCloud\Client\Traits\ArrayAccessTrait;
-use AlibabaCloud\Client\Traits\FormatTrait;
 use AlibabaCloud\Client\Traits\HasDataTrait;
-use AlibabaCloud\Client\Traits\ObjectAccessTrait;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -18,10 +15,7 @@ use GuzzleHttp\Psr7\Response;
  */
 class Result implements \ArrayAccess, \IteratorAggregate, \Countable
 {
-    use ArrayAccessTrait;
     use HasDataTrait;
-    use FormatTrait;
-    use ObjectAccessTrait;
 
     /**
      * Instance of the response.
@@ -38,13 +32,6 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
     protected $request;
 
     /**
-     * Array data of the response.
-     *
-     * @var array
-     */
-    protected $data = [];
-
-    /**
      * Result constructor.
      *
      * @param Response $response
@@ -56,21 +43,23 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
 
         switch ($format) {
             case 'JSON':
-                $this->data = $this->jsonToArray($response->getBody()->getContents());
+                $data = $this->jsonToArray($response->getBody()->getContents());
                 break;
             case 'XML':
-                $this->data = $this->xmlToArray($response->getBody()->getContents());
+                $data = $this->xmlToArray($response->getBody()->getContents());
                 break;
             case 'RAW':
-                $this->data = $this->jsonToArray($response->getBody()->getContents());
+                $data = $this->jsonToArray($response->getBody()->getContents());
                 break;
             default:
-                $this->data = $this->jsonToArray($response->getBody()->getContents());
+                $data = $this->jsonToArray($response->getBody()->getContents());
         }
 
-        if (empty($this->data)) {
-            $this->data = [];
+        if (empty($data)) {
+            $data = [];
         }
+
+        $this->dot($data);
         $this->response = $response;
         $this->request  = $request;
     }
@@ -106,5 +95,33 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
     public function __toString()
     {
         return (string)$this->response->getBody();
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return array
+     */
+    private function xmlToArray($string)
+    {
+        try {
+            return json_decode(json_encode(simplexml_load_string($string)), true);
+        } catch (\Exception $exception) {
+            return [];
+        }
+    }
+
+    /**
+     * @param string $response
+     *
+     * @return array
+     */
+    private function jsonToArray($response)
+    {
+        try {
+            return \GuzzleHttp\json_decode($response, true);
+        } catch (\InvalidArgumentException $e) {
+            return [];
+        }
     }
 }
