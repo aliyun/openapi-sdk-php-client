@@ -49,7 +49,7 @@ class ClientTest extends TestCase
     public function testName(Client $client)
     {
         // Setup
-        $name = \uniqid('', false);
+        $name = \uniqid('', true);
 
         // Test
         $client->name($name);

@@ -18,7 +18,7 @@ Alibaba Cloud Client for PHP
 ![](./src/Files/Aliyun.svg)
 
 
-**Alibaba Cloud Client for PHP** 是支持 PHP 开发者向阿里云发送自定义请求的客户端工具。 [Alibaba Cloud SDK for PHP][SDK] 在依赖 [Alibaba Cloud Client for PHP][client] 的基础上提供了产品快捷访问方法。
+**Alibaba Cloud Client for PHP** 是帮助 PHP 开发者管理身份凭据、发送自定义请求的客户端工具。[Alibaba Cloud SDK for PHP][SDK] 由本工具提供底层支持。
 
 
 ## 要求
@@ -38,7 +38,7 @@ curl -sS https://getcomposer.org/installer | php
 
 2. 执行 Composer 命令安装 Alibaba Cloud Client for PHP 的最新稳定版本
 ```bash
-php -d memory_limit=-1 composer.phar require alibabacloud/client:dev-master
+php -d memory_limit=-1 composer.phar require alibabacloud/client
 ```
 
 3. 在代码中引入 Composer 自动加载工具
@@ -456,8 +456,8 @@ AlibabaCloud::addHost('product_name', 'product_name.aliyuncs.com');
 * [Guzzle中文文档][guzzle-docs]
 * [最新源码][latest-release]
 
-[SDK]:https://github.com/aliyun/openapi-sdk-php
-[open-api]: https://api.aliyun.com/
+[SDK]: https://github.com/aliyun/openapi-sdk-php/blob/master/README-CN.md
+[open-api]: https://api.aliyun.com
 [latest-release]: https://github.com/aliyun/openapi-sdk-php-client
 [guzzle-docs]: https://guzzle-cn.readthedocs.io/zh_CN/latest/request-options.html
 [composer]: http://getcomposer.org

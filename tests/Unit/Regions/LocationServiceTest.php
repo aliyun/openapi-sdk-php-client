@@ -19,7 +19,6 @@ class LocationServiceTest extends TestCase
 {
     /**
      * @throws ClientException
-     * @throws ServerException
      */
     public function testAddEndPoint()
     {

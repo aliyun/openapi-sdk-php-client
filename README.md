@@ -18,7 +18,7 @@ Alibaba Cloud Client for PHP
 ![](./src/Files/AlibabaCloud.svg)
 
 
-**Alibaba Cloud Client for PHP** is a client tool that supports PHP developers to send custom requests to Alibaba Cloud. [Alibaba Cloud SDK for PHP][SDK] provides a quick access method for products based on [Alibaba Cloud Client for PHP][client].
+**Alibaba Cloud Client for PHP** is a client tool that helps PHP developers manage identity credentials and send custom requests. [Alibaba Cloud SDK for PHP][SDK] dependency on this tool.
 
 
 ## Requirements
@@ -38,7 +38,7 @@ curl -sS https://getcomposer.org/installer | php
 
 2. Execute the Composer command, install the newest and stable version of Alibaba Cloud Client for PHP
 ```bash
-php -d memory_limit=-1 composer.phar require alibabacloud/client:dev-master
+php -d memory_limit=-1 composer.phar require alibabacloud/client
 ```
 
 3. Require the Composer auto-loading tool
@@ -456,8 +456,8 @@ AlibabaCloud::addHost('product_name', 'product_name.aliyuncs.com');
 * [Guzzle Documentation][guzzle-docs]
 * [Latest Release][latest-release]
 
-[SDK]:https://github.com/aliyun/openapi-sdk-php
-[open-api]: https://api.alibabacloud.com/
+[SDK]: https://github.com/aliyun/openapi-sdk-php
+[open-api]: https://api.alibabacloud.com
 [latest-release]: https://github.com/aliyun/openapi-sdk-php-client
 [guzzle-docs]: http://docs.guzzlephp.org/en/stable/request-options.html
 [composer]: http://getcomposer.org

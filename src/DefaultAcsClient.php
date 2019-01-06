@@ -30,7 +30,7 @@ class DefaultAcsClient
      */
     public function __construct(Client $client)
     {
-        $this->randClientName = \uniqid('', false);
+        $this->randClientName = \uniqid('', true);
         $client->name($this->randClientName);
     }
 

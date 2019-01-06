@@ -42,7 +42,6 @@ class LocationService
      *
      * @return mixed
      * @throws ClientException
-     * @throws ServerException
      */
     public static function findProductDomain(Request $request, $domain = 'location.aliyuncs.com')
     {
@@ -55,7 +54,6 @@ class LocationService
      *
      * @return string
      * @throws ClientException
-     * @throws ServerException
      */
     public static function resolveHost(Request $request, $domain = 'location.aliyuncs.com')
     {

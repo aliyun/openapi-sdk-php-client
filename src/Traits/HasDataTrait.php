@@ -25,7 +25,7 @@ trait HasDataTrait
     /**
      * @param array $data
      */
-    public function dot($data = [])
+    protected function dot($data = [])
     {
         $this->dot = new Dot($data);
     }
@@ -119,19 +119,6 @@ trait HasDataTrait
     public function has($keys)
     {
         return $this->dot->has($keys);
-    }
-
-    /**
-     * @deprecated
-     * Check if a given key or keys exists
-     *
-     * @param  array|int|string $keys
-     *
-     * @return bool
-     */
-    public function hasKey($keys)
-    {
-        return $this->has($keys);
     }
 
     /**

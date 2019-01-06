@@ -725,7 +725,6 @@ return [
                 ],
             'iot'             =>
                 [
-                    'us-east-1'           => 'iot.aliyuncs.com',
                     'cn-hongkong'         => 'iot.aliyuncs.com',
                     'cn-qingdao-cm9'      => 'iot.aliyuncs.com',
                     'cn-shanghai'         => 'iot.cn-shanghai.aliyuncs.com',
