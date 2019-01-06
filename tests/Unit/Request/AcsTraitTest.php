@@ -178,7 +178,6 @@ class AcsTraitTest extends TestCase
 
     /**
      * @throws ClientException
-     * @throws ServerException
      */
     public function testFindDomainInConfig()
     {
@@ -205,7 +204,6 @@ class AcsTraitTest extends TestCase
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Can not find host Cdn in us-west-no.
      * @throws ClientException
-     * @throws ServerException
      */
     public function testNotFoundHost()
     {

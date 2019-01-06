@@ -1,8 +1,7 @@
 Upgrading Guide
 ===============
 
-
-No version update
+First version
 -----------------------
 
-* There is no new version. See <https://github.com/aliyun/openapi-sdk-php-client> for more information.
+* This is the first version. See <https://github.com/aliyun/openapi-sdk-php-client> for more information.

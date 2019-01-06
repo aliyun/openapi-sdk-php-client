@@ -271,12 +271,12 @@ class RoaRequest extends Request
      */
     public function __call($name, $arguments)
     {
-        if (\strpos($name, 'get', 0) !== false) {
+        if (\strpos($name, 'get') !== false) {
             $parameterName = $this->propertyNameByMethodName($name);
             return $this->__get($parameterName);
         }
 
-        if (\strpos($name, 'with', 0) !== false) {
+        if (\strpos($name, 'with') !== false) {
             $parameterName = $this->propertyNameByMethodName($name, 4);
             $this->__set($parameterName, $arguments[0]);
             $this->pathParameters[$parameterName] = $arguments[0];

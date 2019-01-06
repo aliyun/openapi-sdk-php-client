@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7\Response;
 /**
  * Class DeleteDatabaseRequestMock
  *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\Slb
+ * @package      AlibabaCloud\Client\Tests\Mock\Services\Slb
  */
 class DeleteDatabaseRequestMock extends DescribeRulesRequest
 {

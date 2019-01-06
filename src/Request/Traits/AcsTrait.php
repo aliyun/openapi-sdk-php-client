@@ -4,7 +4,6 @@ namespace AlibabaCloud\Client\Request\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Request\Request;
 use GuzzleHttp\Client;
@@ -172,7 +171,6 @@ trait AcsTrait
      * Resolve Uri.
      *
      * @throws ClientException
-     * @throws ServerException
      */
     public function resolveUri()
     {

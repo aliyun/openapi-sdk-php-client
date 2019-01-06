@@ -4,7 +4,6 @@ namespace AlibabaCloud\Client\Tests\Unit\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Regions\EndpointProvider;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Request\RpcRequest;
@@ -88,8 +87,6 @@ class EndpointTraitTest extends TestCase
      * @param string $productName
      * @param string $serviceCode
      * @param array  $expectedHost
-     *
-     * @throws ServerException
      */
     public function testLocationServiceResolveHost($productName, $serviceCode, array $expectedHost)
     {
