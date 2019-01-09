@@ -54,7 +54,7 @@ require __DIR__ . '/vendor/autoload.php';
 ## Client
 You may create multiple different clients simultaneously. Each client can have its own configuration, and each request can be sent by specified client. Use the Global Client if it is not specified. The client can be created by auto-loading of the configuration files, or created and managed manually. Different types of clients require different `Credential`，and different `Signature` algorithms that are selected. You may also customize the client: that is, pass in custom credentials and signatures.
 
-#### Create the client automatically
+### Create the client automatically
 > If there is `~/.alibabacloud/credentials` default `INI` file (Windows user shows `C:\Users\USER_NAME\.alibabacloud\credentials`), the program will automatically create clients with the specified type and name. The default file may not exist, but a parse error throws an exception. The client name is case-insensitive, and if the clients have the same name, the latter will override the former. The specified files can also be loaded indefinitely: `AlibabaCloud::load('/data/credentials', 'vfs://AlibabaCloud/credentials', ...);` This configuration file can be shared between different projects and between different tools.  Because it is outside the project and will not be accidentally committed to the version control. Environment variables can be used on Windows to refer to the home directory %UserProfile%. Unix-like systems can use the environment variable $HOME or ~ (tilde).
 
 ```ini
@@ -101,91 +101,98 @@ private_key_file = /your/pk.pem    # Private Key file
 
 ```
 
-####  AccessKey Client
+### AccessKey Client
 Setup AccessKey through [User Information Management][ak], they have full authority over the account, please keep them safe. Sometimes for security reasons, you cannot hand over a primary account AccessKey with full access to the developer of a project. You may create a sub-account [RAM Sub-account][ram] , grant its [authorization][permissions]，and use the AccessKey of RAM Sub-account to make API calls.
 > Sample Code: Create a client with a certification type AccessKey, and set it to the Global Client，that is, a client named as `global`.
 
 ```php
 <?php
+
 use AlibabaCloud\Client\AlibabaCloud;
 
 AlibabaCloud::accessKeyClient('accessKeyId', 'accessKeySecret')->asGlobalClient();
 AlibabaCloud::accessKeyClient('accessKeyId', 'accessKeySecret')->name('global');
 ```
 
-####  STS Client
+### STS Client
 > Sample Code: Create a client with a certification type-STS, please apply for Token maintenance by yourself.
 
 ```php
 <?php
+
 use AlibabaCloud\Client\AlibabaCloud;
 
 AlibabaCloud::stsClient('accessKeyId', 'accessKeySecret','securityToken')
               ->name('stsClient');
 ```
 
-####  RamRoleArn Client
+### RamRoleArn Client
 By specifying [RAM Role][RAM Role], the client will be able to automatically request maintenance of STS Token before making a request, and be automatically converted to a time-limited STS client. You may also apply for Token maintenance by yourself before creating `STS Client`.  
 > Sample Code: Create a client with a certification type RamRoleArn, name it as `ramRoleArnClient`.
 
 ```php
 <?php
+
 use AlibabaCloud\Client\AlibabaCloud;
 
 AlibabaCloud::ramRoleArnClient('accessKeyId', 'accessKeySecret', 'roleArn', 'roleSessionName')
               ->name('ramRoleArnClient');
 ```
 
-####  EcsRamRole Client
+### EcsRamRole Client
 
 By specifying the role name, the client will be able to automatically request maintenance of STS Token before making a request, and be automatically converted to a time-limited STS client. You may also apply for Token maintenance by yourself before creating `STS Client`.  
 > Sample Code: Create a client with a certification type EcsRamRole, name it as `ecsRamRoleClient`.
 
 ```php
 <?php
+
 use AlibabaCloud\Client\AlibabaCloud;
 
 AlibabaCloud::ecsRamRoleClient('roleName')->name('ecsRamRoleClient');
 ```
 
-####  Bearer Token Client
+### Bearer Token Client
 If clients with this certification type are required by the Cloud Call Centre (CCC), please apply for Bearer Token maintenance by yourself.
 > Sample Code: Create a client with a certification type Bearer Token, name it as `bearerTokenClient`.
 
 ```php
 <?php
+
 use AlibabaCloud\Client\AlibabaCloud;
 
 AlibabaCloud::bearerTokenClient('token')->name('bearerTokenClient');
 ```
 
-####  RsaKeyPair Client
+### RsaKeyPair Client
 
 By specifying the public key ID and the private key file, the client will be able to automatically request maintenance of the AccessKey before sending the request, and be automatically converted to a time-limited AccessKey client. Only Japan station is supported. 
 > Sample Code: Create a client with a certification type RsaKeyPair, name it as `rsaKeyPairClient`.
 
 ```php
 <?php
+
 use AlibabaCloud\Client\AlibabaCloud;
 
 AlibabaCloud::rsaKeyPairClient('publicKeyId', '/your/privateKey.pem')->name('rsaKeyPairClient');
 ```
 
-####  Custom Client
+### Custom Client
 
 > Sample Code: Create a Custom Client, that is, customize credentials and signatures. customization of credentials requires an implementation of `CredentialsInterface` interface, customization of signatures requires an implementation of `Signature` interface. 
 
 ```php
 <?php
+
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature;
 
-AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256WithRsaSignature('privateKey')) 
+AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256WithRsaSignature()) 
                   ->name('DIY');
 ```
 
-####  Other Client Operations
+### Other Client Operations
 
 ```php
 <?php
@@ -219,7 +226,7 @@ AlibabaCloud::get('client1')->getCredential()->getAccessKeyId();
 // Give a new name for the client
 AlibabaCloud::get('client1')->name('otherName');
 
-// Get global defult client region, and so on
+// Get global default client region, and so on
 AlibabaCloud::getGlobalClient()->regionId;
  
 // Determine whether the client with specified name exists
@@ -262,6 +269,7 @@ try {
     // Chain calls and send ROA request
     $roaResult = AlibabaCloud::roaRequest()
                              ->client('client1') // Specify client, if not, the global client is used by default
+                             ->regionId('cn-hangzhou') // Specify the requested regionId, if not specified, use the client regionId, then global regionId
                              ->product('CS') // Specify product
                              ->version('2015-12-15') // Specify product version
                              ->action('DescribeClusterServices') // Specify product interface
@@ -406,14 +414,62 @@ $result->getRequest();
 ```
 
 
-## Region and Host
+## Region
+Each request carries an region called `regionId`. Since most of the requested regions are the same, it is not necessary to set the region for each request.
+
+### Specify the Region for the Request
+> If you specify an Region separately for the request, the client Region or global Region will not be used.
+```php
+<?php
+
+use AlibabaCloud\Client\AlibabaCloud;
+
+$result = AlibabaCloud::rpcRequest()
+                         ->client('client1') // Specify client, if not, the global client is used by default
+                         ->regionId('cn-hangzhou') // Specify the requested Region as cn-hangzhou
+                         ->product('Cdn')
+                         ->version('2014-11-11')
+                         ->action('DescribeCdnService')
+                         ->method('POST')
+                         ->request();
+```
+
+### Specify the Region for the Client
+> You can also specify an Region when you create a client, and if the client's request is not specified Region, use the client's Region.
+```php
+<?php
+
+use AlibabaCloud\Client\AlibabaCloud;
+
+AlibabaCloud::accessKeyClient('accessKeyId', 'accessKeySecret')
+            ->regionId('cn-hangzhou') // Specify the client Region as cn-hangzhou
+            ->name('client1');
+```
+
+### Set the global Region
+> If both the Request and Request's client do not have an Region, the global Region will be used.
+```php
+<?php
+
+use AlibabaCloud\Client\AlibabaCloud;
+
+// Set the global Region to cn-hangzhou
+AlibabaCloud::setGlobalRegionId('cn-hangzhou');
+
+// Get the global Region
+AlibabaCloud::getGlobalRegionId();
+```
+
+
+## Host
 Before sending the detailed request for each product, Alibaba Cloud Client for PHP will find the Host of the product in the region.
 
-#### Specify the Host for the request
-> The Host specified must be in the same region as your server, it must also be accessible.
+### Specify the Host for the request
+> If a Host is specified for the request, the Location Service will not be enabled. It is recommended that the specified Host be the same as the server's region, or close.
 
 ```php
 <?php
+
 use AlibabaCloud\Client\AlibabaCloud;
 
 $request = AlibabaCloud::rpcRequest()
@@ -424,17 +480,18 @@ $request = AlibabaCloud::rpcRequest()
                        ->request();
 ```
 
-#### Add a searchable Host for the addressing service
-> Before sending the request, you can set a Host in a region for a product. The addressing service will not make a request, but use this Host directly.
+### Add a searchable Host for the addressing service
+> You can also set a Host in a region for a product. The addressing service will not make a request, but use this Host directly.
 
 ```php
 <?php
+
 use AlibabaCloud\Client\AlibabaCloud;
 
-// Add a Host in cn-hangzhou for the specified product
+// Add a Host in the cn-hangzhou region for a product
 AlibabaCloud::addHost('product_name', 'product_name.cn-hangzhou.aliyuncs.com', 'cn-hangzhou');
 
-// Add an unlimited Host for the specified product
+// Add a global Host for a product. If the specified Region is not specified Host, the global Host will be used.
 AlibabaCloud::addHost('product_name', 'product_name.aliyuncs.com');
 ```
 
