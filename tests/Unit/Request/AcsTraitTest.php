@@ -202,7 +202,7 @@ class AcsTraitTest extends TestCase
 
     /**
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage Can not find host Cdn in us-west-no.
+     * @expectedExceptionMessage Can't resolve host for Cdn in us-west-no, You can specify host via the host() method
      * @throws ClientException
      */
     public function testNotFoundHost()

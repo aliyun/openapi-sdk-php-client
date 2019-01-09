@@ -70,7 +70,6 @@ class BearerTokenCredentialTest extends TestCase
             self::assertContains(
                 $e->getErrorCode(),
                 [
-                    'InvalidBearerToken.NotFound',
                     'InvalidBearerToken.Inactive',
                     'NotExist.Instance',
                 ]
@@ -86,12 +85,9 @@ class BearerTokenCredentialTest extends TestCase
         try {
             (new DescribeAccessPointsRequest())->client($this->clientName)->request();
         } catch (ClientException $e) {
-            self::assertContains(
-                $e->getErrorCode(),
-                [
-                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
-                    \ALIBABA_CLOUD_INVALID_REGION_ID,
-                ]
+            self::assertEquals(
+                \ALIBABA_CLOUD_INVALID_REGION_ID,
+                $e->getErrorCode()
             );
         } catch (ServerException $e) {
             $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());

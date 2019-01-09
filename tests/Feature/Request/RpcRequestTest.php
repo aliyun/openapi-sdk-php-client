@@ -18,6 +18,9 @@ use PHPUnit\Framework\TestCase;
  */
 class RpcRequestTest extends TestCase
 {
+    /**
+     * @throws ServerException
+     */
     public function testWithCredential()
     {
         // Setup
@@ -41,13 +44,6 @@ class RpcRequestTest extends TestCase
             $this->assertNotNull($result->Regions->Region[0]->RegionId);
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorMessage(),
-                [
-                    'Specified access key is not found.',
-                ]
-            );
         }
     }
 
@@ -80,17 +76,12 @@ class RpcRequestTest extends TestCase
             );
             $this->assertEquals(1, $request->options['query']['test_true']);
             $this->assertEquals(1, $request->options['query']['test_false']);
-            $request->request();
+            $result = $request->request();
+            self::assertArrayHasKey('Regions', $result);
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            $this->assertContains(
-                $e->getErrorCode(),
-                [
-                    'UnsupportedSignatureType',
-                    'InvalidAccessKeyId.NotFound',
-                ]
-            );
+            $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
         }
     }
 
@@ -112,19 +103,14 @@ class RpcRequestTest extends TestCase
 
             \assertNotEmpty($result->toArray());
         } catch (ClientException $e) {
-            self::assertContains(
-                $e->getErrorCode(),
-                [
-                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
-                ]
+            self::assertEquals(
+                \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                $e->getErrorCode()
             );
         } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorMessage(),
-                [
-                    'You do not have access to this operation.',
-                    'Specified access key is not found.',
-                ]
+            self::assertEquals(
+                'You do not have access to this operation.',
+                $e->getErrorMessage()
             );
         }
     }

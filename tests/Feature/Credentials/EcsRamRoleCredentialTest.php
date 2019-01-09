@@ -71,19 +71,14 @@ class EcsRamRoleCredentialTest extends TestCase
             $result = (new DescribeAccessPointsRequest())->client($this->clientName)->request();
             $this->assertTrue(isset($result['AccessPointSet']));
         } catch (ClientException $e) {
-            self::assertContains(
-                $e->getErrorCode(),
-                [
-                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
-                    \ALIBABA_CLOUD_INVALID_REGION_ID,
-                ]
+            self::assertEquals(
+                \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                $e->getErrorCode()
             );
         } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorMessage(),
-                [
-                    'Error in retrieving assume role credentials.',
-                ]
+            self::assertEquals(
+                'Error in retrieving assume role credentials.',
+                $e->getErrorMessage()
             );
         }
     }
@@ -101,12 +96,9 @@ class EcsRamRoleCredentialTest extends TestCase
             // If the request is not from a bound ECS instance.
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorMessage(),
-                [
-                    'Specified access key is not found.',
-                    'Error in retrieving assume role credentials.',
-                ]
+            self::assertEquals(
+                'Error in retrieving assume role credentials.',
+                $e->getErrorMessage()
             );
         }
     }
@@ -123,13 +115,9 @@ class EcsRamRoleCredentialTest extends TestCase
             // If the request is not from a bound ECS instance.
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            $this->assertContains(
-                $e->getErrorCode(),
-                [
-                    'Forbidden.RAM',
-                    'InvalidAccessKeyId.NotFound',
-                    \ALIBABA_CLOUD_INVALID_CREDENTIAL,
-                ]
+            $this->assertEquals(
+                'Forbidden.RAM',
+                $e->getErrorCode()
             );
         }
     }
@@ -149,13 +137,9 @@ class EcsRamRoleCredentialTest extends TestCase
             // If the request is not from a bound ECS instance.
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            $this->assertContains(
-                $e->getErrorCode(),
-                [
-                    'InvalidLoadBalancerId.NotFound',
-                    'InvalidAccessKeyId.NotFound',
-                    \ALIBABA_CLOUD_INVALID_CREDENTIAL,
-                ]
+            $this->assertEquals(
+                'InvalidLoadBalancerId.NotFound',
+                $e->getErrorCode()
             );
         }
     }
@@ -174,13 +158,9 @@ class EcsRamRoleCredentialTest extends TestCase
             // If the request is not from a bound ECS instance.
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            $this->assertContains(
-                $e->getErrorCode(),
-                [
-                    'EntityNotExist.User',
-                    'InvalidAccessKeyId.NotFound',
-                    \ALIBABA_CLOUD_INVALID_CREDENTIAL,
-                ]
+            $this->assertEquals(
+                'EntityNotExist.User',
+                $e->getErrorCode()
             );
         }
     }
@@ -200,12 +180,9 @@ class EcsRamRoleCredentialTest extends TestCase
             // If the request is not from a bound ECS instance.
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorMessage(),
-                [
-                    'Specified access key is not found.',
-                    'Error in retrieving assume role credentials.',
-                ]
+            self::assertEquals(
+                'Error in retrieving assume role credentials.',
+                $e->getErrorMessage()
             );
         }
     }

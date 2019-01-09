@@ -175,7 +175,7 @@ class ClientTraitTest extends TestCase
 
     /**
      * @expectedException        \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage Client Not Found: global
+     * @expectedExceptionMessage Client not found: global
      * @throws                   ClientException
      */
     public function testGetGlobalClient()

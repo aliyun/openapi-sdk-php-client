@@ -97,34 +97,36 @@ class RoaRequest extends Request
      */
     private function sign($credential)
     {
-        $signString = $this->method . self::$headerSeparator;
+        $stringToBeSigned = $this->method . self::$headerSeparator;
         if (isset($this->options['headers']['Accept'])) {
-            $signString .= $this->options['headers']['Accept'];
+            $stringToBeSigned .= $this->options['headers']['Accept'];
         }
-        $signString .= self::$headerSeparator;
+        $stringToBeSigned .= self::$headerSeparator;
 
         if (isset($this->options['headers']['Content-MD5'])) {
-            $signString .= $this->options['headers']['Content-MD5'];
+            $stringToBeSigned .= $this->options['headers']['Content-MD5'];
         }
-        $signString .= self::$headerSeparator;
+        $stringToBeSigned .= self::$headerSeparator;
 
         if (isset($this->options['headers']['Content-Type'])) {
-            $signString .= $this->options['headers']['Content-Type'];
+            $stringToBeSigned .= $this->options['headers']['Content-Type'];
         }
-        $signString .= self::$headerSeparator;
+        $stringToBeSigned .= self::$headerSeparator;
 
         if (isset($this->options['headers']['Date'])) {
-            $signString .= $this->options['headers']['Date'];
+            $stringToBeSigned .= $this->options['headers']['Date'];
         }
-        $signString .= self::$headerSeparator;
+        $stringToBeSigned .= self::$headerSeparator;
 
-        $signString .= $this->constructAcsHeader();
+        $stringToBeSigned .= $this->constructAcsHeader();
 
         $this->uri = $this->uri
             ->withPath($this->assignPathParameters())
             ->withQuery($this->queryString());
 
-        $signString .= $this->uri->getPath() . '?' . $this->uri->getQuery();
+        $stringToBeSigned .= $this->uri->getPath() . '?' . $this->uri->getQuery();
+
+        $this->stringToBeSigned = $stringToBeSigned;
 
         $this->options['headers']['Authorization'] = 'acs '
                                                      . $credential->getAccessKeyId()
@@ -132,7 +134,7 @@ class RoaRequest extends Request
                                                      . $this->httpClient()
                                                             ->getSignature()
                                                             ->sign(
-                                                                $signString,
+                                                                $this->stringToBeSigned,
                                                                 $credential->getAccessKeySecret()
                                                             );
     }

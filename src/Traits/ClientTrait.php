@@ -43,7 +43,7 @@ trait ClientTrait
             return self::$clients[\strtolower($clientName)];
         }
         throw new ClientException(
-            'Client Not Found: ' . $clientName,
+            "Client not found: $clientName",
             \ALIBABA_CLOUD_CLIENT_NOT_FOUND
         );
     }

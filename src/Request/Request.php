@@ -69,6 +69,11 @@ abstract class Request implements \ArrayAccess
     public $data = [];
 
     /**
+     * @var string
+     */
+    protected $stringToBeSigned = '';
+
+    /**
      * Request constructor.
      *
      * @param array $options
@@ -255,5 +260,13 @@ abstract class Request implements \ArrayAccess
                 $e
             );
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function stringToBeSigned()
+    {
+        return $this->stringToBeSigned;
     }
 }

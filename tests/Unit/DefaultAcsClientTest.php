@@ -42,6 +42,9 @@ class DefaultAcsClientTest extends TestCase
         self::$client  = new DefaultAcsClient(self::$profile);
     }
 
+    /**
+     * @throws ServerException
+     */
     public function testAccessKeyClient()
     {
         $request = new DescribeRegionsRequest();
@@ -64,16 +67,12 @@ class DefaultAcsClientTest extends TestCase
                 ClientException::class,
                 $e
             );
-        } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorMessage(),
-                [
-                    'Specified access key is not found.',
-                ]
-            );
         }
     }
 
+    /**
+     * @throws ServerException
+     */
     public function testJson()
     {
         try {
@@ -83,13 +82,6 @@ class DefaultAcsClientTest extends TestCase
             $this->assertNotNull($response);
         } catch (ClientException $e) {
             self::assertStringStartsWith('cURL error ', $e->getMessage());
-        } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorMessage(),
-                [
-                    'Specified access key is not found.',
-                ]
-            );
         }
     }
 
@@ -130,11 +122,6 @@ class DefaultAcsClientTest extends TestCase
             self::assertEquals('', (string)$result);
         } catch (ClientException $e) {
             self::assertStringStartsWith('cURL error ', $e->getMessage());
-        } catch (ServerException $e) {
-            $expected = [
-                'Specified access key is not found.',
-            ];
-            $this->assertContains($e->getErrorMessage(), $expected);
         }
     }
 
@@ -147,11 +134,6 @@ class DefaultAcsClientTest extends TestCase
             self::assertTrue(isset($result['RequestId']));
         } catch (ClientException $e) {
             self::assertStringStartsWith('cURL error ', $e->getMessage());
-        } catch (ServerException $e) {
-            $expected = [
-                'Specified access key is not found.',
-            ];
-            $this->assertContains($e->getErrorMessage(), $expected);
         }
     }
 
@@ -164,11 +146,6 @@ class DefaultAcsClientTest extends TestCase
             $this->assertNotNull($response);
         } catch (ClientException $e) {
             self::assertStringStartsWith('cURL error ', $e->getMessage());
-        } catch (ServerException $e) {
-            $expected = [
-                'Specified access key is not found.',
-            ];
-            $this->assertContains($e->getErrorMessage(), $expected);
         }
     }
 
@@ -180,12 +157,9 @@ class DefaultAcsClientTest extends TestCase
             $response = self::$client->getAcsResponse($request);
             $this->assertNotNull($response);
         } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorMessage(),
-                [
-                    'The specified parameter "Action or Version" is not valid.',
-                    'Specified access key is not found.',
-                ]
+            self::assertEquals(
+                'The specified parameter "Action or Version" is not valid.',
+                $e->getErrorMessage()
             );
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
@@ -204,17 +178,10 @@ class DefaultAcsClientTest extends TestCase
         } catch (ClientException $e) {
             $expected = [
                 'The specified parameter "Action or Version" is not valid.',
-                'Can not find host BadProduct in cn-hangzhou.',
+                'Can\'t resolve host for BadProduct in cn-hangzhou, You can specify host via the host() method.',
             ];
 
             $this->assertContains($e->getErrorMessage(), $expected);
-        } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorMessage(),
-                [
-                    'Specified access key is not found.',
-                ]
-            );
         }
     }
 
@@ -226,12 +193,9 @@ class DefaultAcsClientTest extends TestCase
             $response = self::$client->getAcsResponse($request);
             $this->assertNotNull($response);
         } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorMessage(),
-                [
-                    'Specified parameter Version is not valid.',
-                    'Specified access key is not found.',
-                ]
+            self::assertEquals(
+                'Specified parameter Version is not valid.',
+                $e->getErrorMessage()
             );
         } catch (ClientException $e) {
             // Assert

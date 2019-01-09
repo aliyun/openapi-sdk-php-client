@@ -6,7 +6,6 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClusterServicesRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Nlp\NlpRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -39,21 +38,7 @@ class RequestTest extends TestCase
             // Assert
         } catch (ServerException $e) {
             // Assert
-            if (\getenv('ACCESS_KEY_ID') === 'foo') {
-                self::assertContains(
-                    $e->getErrorCode(),
-                    [
-                        'InvalidAccessKeyId.NotFound',
-                    ]
-                );
-            } else {
-                self::assertContains(
-                    $e->getErrorCode(),
-                    [
-                        'ErrorClusterNotFound',
-                    ]
-                );
-            }
+            self::assertEquals('ErrorClusterNotFound', $e->getErrorCode());
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         }
@@ -98,17 +83,7 @@ class RequestTest extends TestCase
                                                    ->request();
         } catch (ServerException $e) {
             // Assert
-            if (\getenv('ACCESS_KEY_ID') === 'foo') {
-                $this->assertEquals(
-                    $e->getErrorCode(),
-                    'InvalidAccessKeyId.NotFound'
-                );
-            } else {
-                $this->assertEquals(
-                    $e->getErrorCode(),
-                    'ErrorClusterNotFound'
-                );
-            }
+            $this->assertEquals('ErrorClusterNotFound', $e->getErrorCode());
         } catch (ClientException $e) {
             // Assert
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
@@ -129,54 +104,9 @@ class RequestTest extends TestCase
             // Assert
         } catch (ServerException $e) {
             // Assert
-            if (\getenv('ACCESS_KEY_ID') === 'foo') {
-                $this->assertEquals(
-                    $e->getErrorCode(),
-                    'InvalidAccessKeyId.NotFound'
-                );
-            } else {
-                $this->assertEquals(
-                    $e->getErrorCode(),
-                    'ErrorClusterNotFound'
-                );
-            }
+            $this->assertEquals($e->getErrorCode(), 'ErrorClusterNotFound');
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        }
-    }
-
-    public function testRoaContent()
-    {
-        AlibabaCloud::accessKeyClient(
-            \getenv('NLP_ACCESS_KEY_ID'),
-            \getenv('NLP_ACCESS_KEY_SECRET')
-        )->name('content')
-                    ->regionId('cn-shanghai');
-
-        $request = new NlpRequest();
-        $request->pathParameter('Domain', 'general');
-        $request->jsonBody([
-                               'lang' => 'ZH',
-                               'text' => 'Iphone专用数据线',
-                           ]);
-
-        try {
-            $result = $request->client('content')->request();
-            self::assertEquals('Iphone', $result['data'][0]['word']);
-        } catch (ServerException $e) {
-            if (\getenv('ACCESS_KEY_ID') === 'foo') {
-                $this->assertEquals(
-                    $e->getErrorCode(),
-                    'InvalidAccessKeyId.NotFound'
-                );
-            } else {
-                $this->assertEquals(
-                    $e->getErrorCode(),
-                    'InvalidApi.NotPurchase'
-                );
-            }
-        } catch (ClientException $e) {
-            self::assertStringStartsWith('cURL error', $e->getErrorMessage());
         }
     }
 }

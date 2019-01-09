@@ -24,7 +24,7 @@ class AlibabaCloud
     /**
      * Version of the Client
      */
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
 
     /**
      * This static method can directly call the specific service.
@@ -45,15 +45,17 @@ class AlibabaCloud
             return new $class;
         }
 
-        if (\trait_exists("AlibabaCloud\\ServiceResolverTrait")) {
+        if (!\trait_exists("AlibabaCloud\\ServiceResolverTrait")) {
             throw new ClientException(
-                "Please confirm that $serviceName exists.",
+                'Please install alibabacloud/sdk to support product quick access.',
                 \ALIBABA_CLOUD_SERVICE_NOT_FOUND
             );
         }
 
         throw new ClientException(
-            'Please install alibabacloud/sdk first.',
+            "May not yet support product $serviceName quick access, "
+            . 'you can use [Alibaba Cloud Client for PHP] to send any custom '
+            . 'requests: https://github.com/aliyun/openapi-sdk-php-client#request',
             \ALIBABA_CLOUD_SERVICE_NOT_FOUND
         );
     }

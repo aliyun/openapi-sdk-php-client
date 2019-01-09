@@ -63,20 +63,7 @@ class AccessKeyCredentialTest extends TestCase
                                                          ->request();
             $this->assertTrue(isset($result['AccessPointSet']));
         } catch (ClientException $e) {
-            self::assertContains(
-                $e->getErrorCode(),
-                [
-                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
-                    \ALIBABA_CLOUD_INVALID_REGION_ID,
-                ]
-            );
-        } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorMessage(),
-                [
-                    'Specified access key is not found.',
-                ]
-            );
+            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         }
     }
 
@@ -91,13 +78,6 @@ class AccessKeyCredentialTest extends TestCase
             $this->assertTrue(isset($result['Regions']));
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorMessage(),
-                [
-                    'Specified access key is not found.',
-                ]
-            );
         }
     }
 
@@ -113,12 +93,9 @@ class AccessKeyCredentialTest extends TestCase
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            $this->assertContains(
-                $e->getErrorCode(),
-                [
-                    'InvalidAccessKeyId.NotFound',
-                    'OperationDenied',
-                ]
+            $this->assertEquals(
+                'OperationDenied',
+                $e->getErrorCode()
             );
         }
     }
@@ -140,12 +117,9 @@ class AccessKeyCredentialTest extends TestCase
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            $this->assertContains(
-                $e->getErrorCode(),
-                [
-                    'InvalidLoadBalancerId.NotFound',
-                    'InvalidAccessKeyId.NotFound',
-                ]
+            $this->assertEquals(
+                'InvalidLoadBalancerId.NotFound',
+                $e->getErrorCode()
             );
         }
     }
@@ -165,18 +139,17 @@ class AccessKeyCredentialTest extends TestCase
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            $this->assertContains(
-                $e->getErrorCode(),
-                [
-                    'InvalidAccessKeyId.NotFound',
-                    'EntityNotExist.User',
-                ]
+            $this->assertEquals(
+                'EntityNotExist.User',
+                $e->getErrorCode()
             );
         }
     }
 
     /**
      * Assert for Vpc
+     *
+     * @throws ServerException
      */
     public function testVpc()
     {
@@ -187,13 +160,6 @@ class AccessKeyCredentialTest extends TestCase
             $this->assertArrayHasKey('Vpcs', $result);
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorMessage(),
-                [
-                    'Specified access key is not found.',
-                ]
-            );
         }
     }
 }

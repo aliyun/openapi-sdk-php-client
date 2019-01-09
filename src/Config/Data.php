@@ -1689,6 +1689,7 @@ return [
                     'eu-central-1'   => 'petadata.eu-central-1.aliyuncs.com',
                     'me-east-1'      => 'petadata.me-east-1.aliyuncs.com',
                     'cn-hongkong'    => 'petadata.aliyuncs.com',
+                    'cn-qingdao'     => 'petadata.aliyuncs.com',
                 ],
             'gpdb'            =>
                 [
@@ -1933,6 +1934,14 @@ return [
                 [
                     'cn-shanghai' => 'nlp.cn-shanghai.aliyuncs.com',
                 ],
+            'nls-cloud-meta'  =>
+                [
+                    'cn-shanghai' => 'nls-meta.cn-shanghai.aliyuncs.com',
+                ],
+            'nls-filetrans'   =>
+                [
+                    'cn-shanghai' => 'filetrans.cn-shanghai.aliyuncs.com',
+                ],
             'linkwan'         =>
                 [
                     'cn-shanghai' => 'linkwan.cn-shanghai.aliyuncs.com',
@@ -1958,6 +1967,11 @@ return [
                 [
                     'cn-beijing'  => 'dfs.cn-beijing.aliyuncs.com',
                     'cn-shanghai' => 'dfs.cn-shanghai.aliyuncs.com',
+                ],
+            'vs'              =>
+                [
+                    'cn-hangzhou' => 'vs.cn-hangzhou.aliyuncs.com',
+                    'cn-shanghai' => 'vs.cn-shanghai.aliyuncs.com',
                 ],
         ],
 ];

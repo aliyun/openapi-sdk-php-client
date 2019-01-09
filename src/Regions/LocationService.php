@@ -88,7 +88,7 @@ class LocationService
         // @codeCoverageIgnoreStart
         if (!isset($result['Endpoints']['Endpoint'][0]['Endpoint'])) {
             throw new ClientException(
-                'Not found RegionId from: ' . $domain,
+                'Not found RegionId in ' . $domain,
                 \ALIBABA_CLOUD_INVALID_REGION_ID
             );
         }
