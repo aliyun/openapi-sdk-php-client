@@ -36,13 +36,6 @@ class RequestCompatibilityTest extends TestCase
             self::assertNotEquals($result->getRequest()->client, 'test');
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            if (\getenv('ACCESS_KEY_ID') === 'foo') {
-                $this->assertEquals(
-                    $e->getErrorMessage(),
-                    'Specified access key is not found.'
-                );
-            }
         }
     }
 
@@ -66,17 +59,7 @@ class RequestCompatibilityTest extends TestCase
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            if (\getenv('ACCESS_KEY_ID') === 'foo') {
-                $this->assertEquals(
-                    $e->getErrorMessage(),
-                    'Specified access key is not found.'
-                );
-            } else {
-                $this->assertEquals(
-                    $e->getErrorMessage(),
-                    'InvalidApi.NotPurchase'
-                );
-            }
+            $this->assertEquals($e->getErrorMessage(), 'InvalidApi.NotPurchase');
         }
     }
 

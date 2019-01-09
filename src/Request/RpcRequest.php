@@ -114,8 +114,14 @@ class RpcRequest extends Request
         foreach ($parameters as $key => $value) {
             $canonicalizedQuery .= '&' . $this->percentEncode($key) . '=' . $this->percentEncode($value);
         }
-        $stringToSign = $this->method . '&%2F&' . $this->percentEncode(substr($canonicalizedQuery, 1));
-        return $this->httpClient()->getSignature()->sign($stringToSign, $accessKeySecret . '&');
+
+        $this->stringToBeSigned = $this->method
+                                  . '&%2F&'
+                                  . $this->percentEncode(substr($canonicalizedQuery, 1));
+
+        return $this->httpClient()
+                    ->getSignature()
+                    ->sign($this->stringToBeSigned, $accessKeySecret . '&');
     }
 
     /**

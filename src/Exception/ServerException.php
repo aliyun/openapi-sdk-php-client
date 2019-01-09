@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Exception;
 
 use AlibabaCloud\Client\Result\Result;
+use Stringy\Stringy;
 
 /**
  * Class ServerException
@@ -33,14 +34,24 @@ class ServerException extends AlibabaCloudException
     {
         $this->result = $result;
         $this->settingProperties();
-        if ($errorMessage !== '') {
-            $this->errorMessage = $errorMessage;
-        }
+
         if ($errorCode !== '') {
             $this->errorCode = $errorCode;
         }
+
+        if ($errorMessage !== '') {
+            $this->errorMessage = $errorMessage;
+        }
+
         if (!$this->errorMessage) {
             $this->errorMessage = (string)$this->result->getResponse()->getBody();
+        }
+
+        // If the string to be signed are the same with server's, it is considered a credential error.
+        if ($this->result->getRequest()
+            && Stringy::create($this->errorMessage)->contains($this->result->getRequest()->stringToBeSigned())) {
+            $this->errorCode    = 'InvalidAccessKeySecret';
+            $this->errorMessage = 'Specified Access Key Secret is not valid.';
         }
 
         parent::__construct(

@@ -4,7 +4,6 @@ namespace AlibabaCloud\Client\Tests\Unit\Regions;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
@@ -43,8 +42,6 @@ class LocationServiceTest extends TestCase
             LocationService::findProductDomain($request);
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            self::assertEquals('Specified access key is not found.', $e->getErrorMessage());
         }
     }
 
@@ -59,8 +56,6 @@ class LocationServiceTest extends TestCase
                 'cURL error 6: Could not resolve host: not.alibaba.com (see http://curl.haxx.se/libcurl/c/libcurl-errors.html)',
                 $e->getErrorMessage()
             );
-        } catch (ServerException $e) {
-            self::assertEquals('Specified access key is not found.', $e->getErrorMessage());
         }
     }
 }

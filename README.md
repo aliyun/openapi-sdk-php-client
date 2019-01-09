@@ -281,7 +281,7 @@ try {
                              ->connectTimeout(0.1) // 10 milliseconds of connection timeout. When the units < 1, units will be converted to milliseconds automatically
                              ->timeout(0.1) // 10 milliseconds of timeout. When the units < 1, units will be converted to milliseconds automatically
                              ->debug(true) // Enable Debug, details will be output under CLI
-                             ->withClusterId('123456') // Assign values to parameters in the path. Method：set + parameters
+                             ->withClusterId('123456') // Assign values to parameters in the path. Method: with + Parameter
                              ->request(); // Make a request and return to result object. The request is to be placed at the end of the setting
 
     // Chain calls and send RPC request

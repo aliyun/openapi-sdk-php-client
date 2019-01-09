@@ -187,7 +187,9 @@ trait AcsTrait
 
             if (!$host) {
                 throw new ClientException(
-                    "Can not find host {$this->product} in " . $this->realRegionId() . '.',
+                    "Can't resolve host for {$this->product} in "
+                    . $this->realRegionId()
+                    . ', You can specify host via the host() method.',
                     \ALIBABA_CLOUD_INVALID_REGION_ID
                 );
             }

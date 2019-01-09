@@ -68,29 +68,15 @@ class RamRoleArnCredentialTest extends TestCase
                                                          ->request();
             $this->assertTrue(isset($result['AccessPointSet']));
         } catch (ClientException $e) {
-            self::assertContains(
-                $e->getErrorCode(),
-                [
-                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
-                    \ALIBABA_CLOUD_INVALID_REGION_ID,
-                ]
+            self::assertEquals(
+                \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                $e->getErrorCode()
             );
         } catch (ServerException $e) {
-            if (\getenv('ACCESS_KEY_ID') === 'foo') {
-                self::assertContains(
-                    $e->getErrorMessage(),
-                    [
-                        'Specified access key is not found.',
-                    ]
-                );
-            } else {
-                self::assertContains(
-                    $e->getErrorMessage(),
-                    [
-                        'You are not authorized to do this action. You should be authorized by RAM.',
-                    ]
-                );
-            }
+            self::assertEquals(
+                $e->getErrorMessage(),
+                'You are not authorized to do this action. You should be authorized by RAM.'
+            );
         }
     }
 
@@ -106,21 +92,10 @@ class RamRoleArnCredentialTest extends TestCase
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            if (\getenv('ACCESS_KEY_ID') === 'foo') {
-                self::assertContains(
-                    $e->getErrorMessage(),
-                    [
-                        'Specified access key is not found.',
-                    ]
-                );
-            } else {
-                self::assertContains(
-                    $e->getErrorMessage(),
-                    [
-                        'You are not authorized to do this action. You should be authorized by RAM.',
-                    ]
-                );
-            }
+            self::assertEquals(
+                $e->getErrorMessage(),
+                'You are not authorized to do this action. You should be authorized by RAM.'
+            );
         }
     }
 
@@ -135,22 +110,13 @@ class RamRoleArnCredentialTest extends TestCase
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            if (\getenv('ACCESS_KEY_ID') === 'foo') {
-                self::assertContains(
-                    $e->getErrorCode(),
-                    [
-                        'InvalidAccessKeyId.NotFound',
-                    ]
-                );
-            } else {
-                self::assertContains(
-                    $e->getErrorCode(),
-                    [
-                        'NoPermission',
-                        'Forbidden.RAM',
-                    ]
-                );
-            }
+            self::assertContains(
+                $e->getErrorCode(),
+                [
+                    'NoPermission',
+                    'Forbidden.RAM',
+                ]
+            );
         }
     }
 
@@ -167,22 +133,13 @@ class RamRoleArnCredentialTest extends TestCase
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            if (\getenv('ACCESS_KEY_ID') === 'foo') {
-                self::assertContains(
-                    $e->getErrorCode(),
-                    [
-                        'InvalidAccessKeyId.NotFound',
-                    ]
-                );
-            } else {
-                self::assertContains(
-                    $e->getErrorCode(),
-                    [
-                        'NoPermission',
-                        'InvalidLoadBalancerId.NotFound',
-                    ]
-                );
-            }
+            self::assertContains(
+                $e->getErrorCode(),
+                [
+                    'NoPermission',
+                    'InvalidLoadBalancerId.NotFound',
+                ]
+            );
         }
     }
 
@@ -198,22 +155,13 @@ class RamRoleArnCredentialTest extends TestCase
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            if (\getenv('ACCESS_KEY_ID') === 'foo') {
-                self::assertContains(
-                    $e->getErrorCode(),
-                    [
-                        'InvalidAccessKeyId.NotFound',
-                    ]
-                );
-            } else {
-                self::assertContains(
-                    $e->getErrorCode(),
-                    [
-                        'NoPermission',
-                        'EntityNotExist.User',
-                    ]
-                );
-            }
+            self::assertContains(
+                $e->getErrorCode(),
+                [
+                    'NoPermission',
+                    'EntityNotExist.User',
+                ]
+            );
         }
     }
 
@@ -229,22 +177,13 @@ class RamRoleArnCredentialTest extends TestCase
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            if (\getenv('ACCESS_KEY_ID') === 'foo') {
-                self::assertContains(
-                    $e->getErrorCode(),
-                    [
-                        'InvalidAccessKeyId.NotFound',
-                    ]
-                );
-            } else {
-                self::assertContains(
-                    $e->getErrorCode(),
-                    [
-                        'NoPermission',
-                        'EntityNotExist.User',
-                    ]
-                );
-            }
+            self::assertContains(
+                $e->getErrorCode(),
+                [
+                    'NoPermission',
+                    'EntityNotExist.User',
+                ]
+            );
         }
     }
 }
