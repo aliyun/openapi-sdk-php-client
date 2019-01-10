@@ -4,4 +4,5 @@
 .idea/*
 *.pem
 /.php_cs.cache
-/coverage/
+/cache
+openapi-sdk-php-client.iml

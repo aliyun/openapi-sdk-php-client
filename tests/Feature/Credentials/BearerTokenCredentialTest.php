@@ -83,7 +83,11 @@ class BearerTokenCredentialTest extends TestCase
     public function testEcs()
     {
         try {
-            (new DescribeAccessPointsRequest())->client($this->clientName)->request();
+            (new DescribeAccessPointsRequest())
+                ->client($this->clientName)
+                ->connectTimeout(10)
+                ->timeout(15)
+                ->request();
         } catch (ClientException $e) {
             self::assertEquals(
                 \ALIBABA_CLOUD_INVALID_REGION_ID,
