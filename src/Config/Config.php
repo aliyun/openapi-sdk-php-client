@@ -38,6 +38,7 @@ class Config
      * @param mixed  $newValue
      *
      * @return ConfigManager
+     * @throws \Exception
      */
     public static function set($configPath, $newValue)
     {
