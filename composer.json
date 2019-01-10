@@ -41,15 +41,13 @@
     },
     "require-dev": {
         "ext-dom": "*",
-        "ext-pcntl": "*",
         "ext-pcre": "*",
         "ext-sockets": "*",
         "ext-spl": "*",
         "drupal/coder": "^8.3",
         "mikey179/vfsStream": "^1.6",
-        "phpunit/php-invoker": "^1.1",
-        "phpunit/phpunit": "^4.8",
         "psr/cache": "^1.0",
+        "phpunit/phpunit": "4.*",
         "symfony/dotenv": "^3.4",
         "symfony/var-dumper": "^3.4",
         "friendsofphp/php-cs-fixer": "^2.2",
@@ -89,5 +87,39 @@
         "optimize-autoloader": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts-descriptions": {
+        "cs": "Tokenizes PHP, JavaScript and CSS files to detect violations of a defined coding standard.",
+        "cbf": "Automatically correct coding standard violations.",
+        "fixer": "Fixes code to follow standards.",
+        "test": "Run all tests.",
+        "unit": "Run Unit tests.",
+        "feature": "Run Feature tests.",
+        "clear": "Clear cache like coverage.",
+        "coverage": "Show Coverage html.",
+        "endpoints": "Update endpoints from OSS."
+    },
+    "scripts": {
+        "cs": "phpcs --standard=PSR2 -n src",
+        "cbf": "phpcbf --standard=PSR2 -n src",
+        "fixer": "php-cs-fixer fix src",
+        "test": [
+            "@clear",
+            "phpunit --colors=always"
+        ],
+        "unit": [
+            "@clear",
+            "phpunit --testsuite=Unit --colors=always"
+        ],
+        "feature": [
+            "@clear",
+            "phpunit --testsuite=Feature --colors=always"
+        ],
+        "clear": "rm -rf cache/*",
+        "coverage": "open cache/coverage/index.html",
+        "endpoints": [
+            "AlibabaCloud\\Client\\Regions\\LocationService::updateEndpoints",
+            "@fixer"
+        ]
+    }
 }

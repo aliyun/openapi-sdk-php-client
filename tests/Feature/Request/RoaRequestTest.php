@@ -5,7 +5,6 @@ namespace AlibabaCloud\Client\Tests\Feature\Request;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Request\RoaRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\Nlp\NlpRequest;
 use PHPUnit\Framework\TestCase;
 
@@ -24,18 +23,23 @@ class RoaRequestTest extends TestCase
         // Test
         try {
             if (!AlibabaCloud::has(\ALIBABA_CLOUD_GLOBAL_CLIENT)) {
-                AlibabaCloud::accessKeyClient('key', 'secret')
+                AlibabaCloud::accessKeyClient(
+                    getenv('ACCESS_KEY_ID'),
+                    getenv('ACCESS_KEY_SECRET')
+                )
                             ->asGlobalClient()
                             ->regionId('cn-hangzhou');
             }
 
-            $result = (new RoaRequest())->pathPattern('/clusters/[ClusterId]/services')
-                                        ->method('GET')
-                                        ->product('CS')
-                                        ->version('2015-12-15')
-                                        ->action('DescribeClusterServices')
-                                        ->withClusterId($clusterId)
-                                        ->request();
+            $result = AlibabaCloud::roaRequest()
+                                  ->pathPattern('/clusters/[ClusterId]/services')
+                                  ->method('GET')
+                                  ->product('CS')
+                                  ->version('2015-12-15')
+                                  ->action('DescribeClusterServices')
+                                  ->pathParameter('ClusterId', $clusterId)
+                                  ->request();
+
             \assertNotEmpty($result->toArray());
         } catch (ClientException $e) {
             self::assertEquals(
