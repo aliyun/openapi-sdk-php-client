@@ -173,6 +173,8 @@ class DefaultAcsClientTest extends TestCase
             $request->timeout(\ALIBABA_CLOUD_TIMEOUT);
             $request->connectTimeout(10);
             $request->product('BadProduct');
+            $request->connectTimeout(15);
+            $request->timeout(20);
             $response = self::$client->getAcsResponse($request);
             $this->assertNotNull($response);
         } catch (ClientException $e) {

@@ -34,7 +34,8 @@ class DistinguishSignatureAndCredentialErrorsTest extends TestCase
                         ->action('CreateToken')
                         ->request();
         } catch (ServerException $e) {
-            self::assertEquals($e->getErrorCode(), 'InvalidAccessKeySecret');
+            self::assertEquals('Specified Access Key Secret is not valid.', $e->getErrorMessage());
+            self::assertEquals('InvalidAccessKeySecret', $e->getErrorCode());
         } catch (ClientException $e) {
             self::assertStringStartsWith('cURL error', $e->getErrorMessage());
         }
