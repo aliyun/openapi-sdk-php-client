@@ -2,8 +2,6 @@
 
 namespace AlibabaCloud\Client;
 
-use League\CLImate\CLImate;
-
 /*
 |--------------------------------------------------------------------------
 | Global Functions for Alibaba Cloud
@@ -15,11 +13,11 @@ use League\CLImate\CLImate;
 */
 
 /**
- * @return CLImate
+ * @return \League\CLImate\CLImate
  */
 function cliMate()
 {
-    return new CLImate();
+    return new \League\CLImate\CLImate();
 }
 
 /**

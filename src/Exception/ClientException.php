@@ -15,7 +15,7 @@ class ClientException extends AlibabaCloudException
      *
      * @param string          $errorMessage
      * @param string          $errorCode
-     * @param \Throwable|null $previous
+     * @param \Exception|null $previous
      */
     public function __construct($errorMessage, $errorCode, $previous = null)
     {

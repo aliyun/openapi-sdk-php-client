@@ -142,6 +142,7 @@ class LocationService
      * Update endpoints from OSS.
      *
      * @codeCoverageIgnore
+     * @throws \Exception
      */
     public static function updateEndpoints()
     {
