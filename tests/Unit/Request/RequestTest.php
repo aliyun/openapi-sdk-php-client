@@ -167,9 +167,6 @@ class RequestTest extends TestCase
         self::assertFalse($request->isDebug());
     }
 
-    /**
-     * @throws \AlibabaCloud\Client\Exception\ClientException
-     */
     public function testRequestWithServiceException()
     {
         // Setup
@@ -185,6 +182,8 @@ class RequestTest extends TestCase
                     ->request();
         } catch (ServerException $e) {
             self::assertEquals('Specified access key is not found.', $e->getErrorMessage());
+        } catch (ClientException $e) {
+            self::assertStringStartsWith('cURL error', $e->getErrorMessage());
         }
     }
 

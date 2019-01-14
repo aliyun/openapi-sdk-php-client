@@ -24,6 +24,7 @@ class DescribeAccessPointsRequest extends RpcRequest
         $this->version('2014-05-26');
         $this->action('DescribeAccessPoints');
         $this->serviceCode('ecs');
+        $this->product('Ecs');
         $this->endpointType('openAPI');
         $this->options($options);
     }

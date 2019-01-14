@@ -7,9 +7,7 @@ English | [简体中文](./README-CN.md)
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/downloads" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/v/unstable" alt="Latest Unstable Version"></a>
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/license" alt="License"></a>
-<a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/composerlock" alt="composer.lock"></a>
-</p>
-<p align="center">
+<br/>
 <a href="https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client"><img src="https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client/badges/quality-score.png" alt="Scrutinizer Code Quality"></a>
 <a href="https://travis-ci.org/aliyun/openapi-sdk-php-client"><img src="https://travis-ci.org/aliyun/openapi-sdk-php-client.svg?branch=master" alt="Travis Build Status"></a>
 <a href="https://ci.appveyor.com/project/songshenzong/openapi-sdk-php-client/branch/master"><img src="https://ci.appveyor.com/api/projects/status/0l0msff7dwvt7cqg/branch/master?svg=true" alt="Appveyor Build Status"></a>
@@ -19,11 +17,19 @@ English | [简体中文](./README-CN.md)
 
 
 ## About
-**Alibaba Cloud Client for PHP** is a client tool that helps PHP developers manage credentials and send requests. [Alibaba Cloud SDK for PHP][SDK] dependency on this tool.
+**Alibaba Cloud Client for PHP** is a client tool that helps PHP developers manage credentials and send requests, [Alibaba Cloud SDK for PHP][SDK] dependency on this tool.
 
 
 ## Requirements
 You must use PHP5.5.0 or later, if you use the `RsaKeyPair` (Only Japan station is supported) client, you will also need [OpenSSL PHP extension][OpenSSL]. 
+
+
+## Online Demo
+[API Explorer](https://api.aliyun.com) provides the ability to call the cloud product OpenAPI online, and dynamically generate SDK Example code and quick retrieval interface, which can significantly reduce the difficulty of using the cloud API. **It is highly recommended**.
+
+<a href="https://api.aliyun.com" target="api_explorer">
+  <img src="https://img.alicdn.com/tfs/TB12GX6zW6qK1RjSZFmXXX0PFXa-744-122.png" width="180" />
+</a>
 
 
 ## Recommendations
@@ -416,7 +422,7 @@ $result->getRequest();
 
 
 ## Region
-Each request carries an region called `regionId`. Since most of the requested regions are the same, it is not necessary to set the region for each request.
+Each request carries an region called `regionId`. Since most of the requested regions are the same, it is not necessary to set the region for each request, Please refer to [Region List][endpoints].
 
 ### Specify the Region for the Request
 > If you specify an Region separately for the request, the client Region or global Region will not be used.
@@ -463,11 +469,10 @@ AlibabaCloud::getGlobalRegionId();
 
 
 ## Host
-Before sending the detailed request for each product, Alibaba Cloud Client for PHP will find the Host of the product in the region.
+Before sending the detailed request for each product, Alibaba Cloud Client for PHP will find the Host of the product in the region, Please refer to [Host List][endpoints].
 
 ### Specify the Host for the request
 > If a Host is specified for the request, the Location Service will not be enabled. It is recommended that the specified Host be the same as the server's region, or close.
-
 ```php
 <?php
 

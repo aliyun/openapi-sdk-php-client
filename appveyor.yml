@@ -1,10 +1,7 @@
-version: 1.0.{build}
 build: off
 shallow_clone: false
-platform: 'x86'
-branches:
-    only:
-        - master
+platform:
+    - x64
 
 # Install PHP/Composer and set PATH
 install:
@@ -21,13 +18,11 @@ install:
     - echo date.timezone="UTC" >> php.ini
     - echo mbstring.http_input=pass >> php.ini
     - echo mbstring.http_output=pass >> php.ini
-    - echo sendmail_path=nul >> php.ini
     - echo extension_dir=ext >> php.ini
     - echo extension=php_openssl.dll >> php.ini
     - echo extension=php_mbstring.dll >> php.ini
     - echo extension=php_sockets.dll >> php.ini
     - echo extension=php_curl.dll >> php.ini
-    - echo extension=php_gd2.dll >> php.ini
     # Set PATH for PHP
     - SET PATH=C:\tools\php;%PATH%
     # Back to working directory
