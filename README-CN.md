@@ -17,7 +17,7 @@
 
 
 ## 关于
-**Alibaba Cloud Client for PHP** 是帮助 PHP 开发者管理凭据、发送请求的客户端工具。[Alibaba Cloud SDK for PHP][SDK] 由本工具提供底层支持。
+**Alibaba Cloud Client for PHP** 是帮助 PHP 开发者管理凭据、发送请求的客户端工具，[Alibaba Cloud SDK for PHP][SDK] 由本工具提供底层支持。
 
 
 ## 要求
@@ -29,6 +29,14 @@
 - 安装 [cURL][cURL] 7.16.2 或更高版本
 - 使用 [OPCache][OPCache]
 - 生产环境中不要使用 [Xdebug][xdebug]
+
+
+## 在线示例
+[API Explorer](https://api.aliyun.com) 提供在线调用阿里云产品，并动态生成 SDK 代码和快速检索接口等能力，能显著降低使用云 API 的难度，强烈推荐使用。
+
+<a href="https://api.aliyun.com" target="api_explorer">
+  <img src="https://img.alicdn.com/tfs/TB12GX6zW6qK1RjSZFmXXX0PFXa-744-122.png" width="180" />
+</a>
 
 
 ## 安装
@@ -414,7 +422,7 @@ $result->getRequest();
 
 
 ## 区域
-每个请求都会携带区域 `regionId`，由于大部分请求的区域相同，没有必要为每个请求设置区域。
+每个请求都会携带区域 `regionId`，由于大部分请求的区域相同，没有必要为每个请求设置区域，请参考 [Region 列表][endpoints]。
 
 ### 为请求指定区域
 > 如果为请求单独指定区域，将不使用客户端区域或全局区域。
@@ -461,7 +469,7 @@ AlibabaCloud::getGlobalRegionId();
 
 
 ## 域名
-在发送每个产品的具体请求前，Alibaba Cloud Client for PHP 会查找该产品在该区域的域名再发起请求。
+在发送每个产品的具体请求前，Alibaba Cloud Client for PHP 会查找该产品在该区域的域名再发起请求，请参考 [Host 列表][endpoints]。
 
 ### 为请求指定域名
 > 如果为请求指定了域名，则不启用寻址服务。建议指定的域名和服务器的区域相同，或者距离相近。
