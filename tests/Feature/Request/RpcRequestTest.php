@@ -20,6 +20,7 @@ class RpcRequestTest extends TestCase
 {
     /**
      * @throws ServerException
+     * @throws ClientException
      */
     public function testWithCredential()
     {
@@ -35,22 +36,20 @@ class RpcRequestTest extends TestCase
                     ->name($nameClient);
 
         // Assert
-        try {
-            $result = (new DescribeRegionsRequest())->client($nameClient)
-                                                    ->request();
 
-            $this->assertNotNull($result->RequestId);
-            $this->assertNotNull($result->Regions->Region[0]->LocalName);
-            $this->assertNotNull($result->Regions->Region[0]->RegionId);
-        } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        }
+        $result = (new DescribeRegionsRequest())->client($nameClient)
+                                                ->request();
+
+        $this->assertNotNull($result->RequestId);
+        $this->assertNotNull($result->Regions->Region[0]->LocalName);
+        $this->assertNotNull($result->Regions->Region[0]->RegionId);
     }
 
     /**
      * @covers ::booleanValueToString
      * @covers ::resolveParameters
      * @covers \AlibabaCloud\Client\Request\Request::setQueryParameters
+     * @throws ClientException
      */
     public function testWithBearerTokenCredential()
     {
@@ -78,40 +77,31 @@ class RpcRequestTest extends TestCase
             $this->assertEquals(1, $request->options['query']['test_false']);
             $result = $request->request();
             self::assertArrayHasKey('Regions', $result);
-        } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
         }
     }
 
+    /**
+     * @throws ServerException
+     * @throws ClientException
+     */
     public function testRpc()
     {
-        try {
-            if (!AlibabaCloud::has(\ALIBABA_CLOUD_GLOBAL_CLIENT)) {
-                AlibabaCloud::accessKeyClient('key', 'secret')
-                            ->asGlobalClient()
-                            ->regionId('cn-hangzhou');
-            }
 
-            $result = (new RpcRequest())->method('POST')
-                                        ->timeout(0.1)
-                                        ->product('Cdn')
-                                        ->version('2014-11-11')
-                                        ->action('DescribeCdnService')
-                                        ->request();
+        AlibabaCloud::accessKeyClient(
+            \getenv('ACCESS_KEY_ID'),
+            \getenv('ACCESS_KEY_SECRET')
+        )->asGlobalClient()->regionId('cn-hangzhou');
 
-            \assertNotEmpty($result->toArray());
-        } catch (ClientException $e) {
-            self::assertEquals(
-                \ALIBABA_CLOUD_SERVER_UNREACHABLE,
-                $e->getErrorCode()
-            );
-        } catch (ServerException $e) {
-            self::assertEquals(
-                'You do not have access to this operation.',
-                $e->getErrorMessage()
-            );
-        }
+        $result = (new RpcRequest())->method('POST')
+                                    ->product('Cdn')
+                                    ->version('2014-11-11')
+                                    ->action('DescribeCdnService')
+                                    ->connectTimeout(15)
+                                    ->timeout(20)
+                                    ->request();
+
+        self::assertNotEmpty('PayByTraffic', $result['ChangingChargeType']);
     }
 }

@@ -74,8 +74,8 @@ class RamRoleArnCredentialTest extends TestCase
             );
         } catch (ServerException $e) {
             self::assertEquals(
-                $e->getErrorMessage(),
-                'You are not authorized to do this action. You should be authorized by RAM.'
+                'The specified Role not exists .',
+                $e->getErrorMessage()
             );
         }
     }
@@ -93,8 +93,8 @@ class RamRoleArnCredentialTest extends TestCase
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             self::assertEquals(
-                $e->getErrorMessage(),
-                'You are not authorized to do this action. You should be authorized by RAM.'
+                'The specified Role not exists .',
+                $e->getErrorMessage()
             );
         }
     }
@@ -110,12 +110,9 @@ class RamRoleArnCredentialTest extends TestCase
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorCode(),
-                [
-                    'NoPermission',
-                    'Forbidden.RAM',
-                ]
+            self::assertEquals(
+                'EntityNotExist.Role',
+                $e->getErrorCode()
             );
         }
     }
@@ -133,12 +130,9 @@ class RamRoleArnCredentialTest extends TestCase
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorCode(),
-                [
-                    'NoPermission',
-                    'InvalidLoadBalancerId.NotFound',
-                ]
+            self::assertEquals(
+                'EntityNotExist.Role',
+                $e->getErrorCode()
             );
         }
     }
@@ -155,12 +149,9 @@ class RamRoleArnCredentialTest extends TestCase
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorCode(),
-                [
-                    'NoPermission',
-                    'EntityNotExist.User',
-                ]
+            self::assertEquals(
+                'EntityNotExist.Role',
+                $e->getErrorCode()
             );
         }
     }
@@ -177,12 +168,9 @@ class RamRoleArnCredentialTest extends TestCase
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorCode(),
-                [
-                    'NoPermission',
-                    'EntityNotExist.User',
-                ]
+            self::assertEquals(
+                'EntityNotExist.Role',
+                $e->getErrorCode()
             );
         }
     }
