@@ -89,7 +89,7 @@ class AccessKeyCredentialTest extends TestCase
         try {
             $result = (new DescribeCdnServiceRequest())->client($this->clientName)
                                                        ->request();
-            $this->assertTrue(isset($result['Endpoint']));
+            $this->assertTrue(isset($result['ChangingChargeType']));
         } catch (ClientException $e) {
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {

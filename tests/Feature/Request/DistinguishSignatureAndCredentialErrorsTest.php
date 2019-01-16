@@ -23,6 +23,9 @@ class DistinguishSignatureAndCredentialErrorsTest extends TestCase
                     ->asGlobalClient();
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testInvalidAccessKeySecret()
     {
         try {
@@ -32,12 +35,11 @@ class DistinguishSignatureAndCredentialErrorsTest extends TestCase
                         ->version('2018-05-18')
                         ->method('POST')
                         ->action('CreateToken')
+                        ->connectTimeout(15)
+                        ->timeout(20)
                         ->request();
         } catch (ServerException $e) {
             self::assertEquals('Specified Access Key Secret is not valid.', $e->getErrorMessage());
-            self::assertEquals('InvalidAccessKeySecret', $e->getErrorCode());
-        } catch (ClientException $e) {
-            self::assertStringStartsWith('cURL error', $e->getErrorMessage());
         }
     }
 }

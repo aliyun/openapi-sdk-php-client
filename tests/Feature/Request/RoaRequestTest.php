@@ -15,6 +15,9 @@ use PHPUnit\Framework\TestCase;
  */
 class RoaRequestTest extends TestCase
 {
+    /**
+     * @throws ClientException
+     */
     public function testRoa()
     {
         // Setup
@@ -22,14 +25,11 @@ class RoaRequestTest extends TestCase
 
         // Test
         try {
-            if (!AlibabaCloud::has(\ALIBABA_CLOUD_GLOBAL_CLIENT)) {
-                AlibabaCloud::accessKeyClient(
-                    getenv('ACCESS_KEY_ID'),
-                    getenv('ACCESS_KEY_SECRET')
-                )
-                            ->asGlobalClient()
-                            ->regionId('cn-hangzhou');
-            }
+
+            AlibabaCloud::accessKeyClient(
+                getenv('ACCESS_KEY_ID'),
+                getenv('ACCESS_KEY_SECRET')
+            )->asGlobalClient()->regionId('cn-hangzhou');
 
             $result = AlibabaCloud::roaRequest()
                                   ->pathPattern('/clusters/[ClusterId]/services')
@@ -40,12 +40,7 @@ class RoaRequestTest extends TestCase
                                   ->pathParameter('ClusterId', $clusterId)
                                   ->request();
 
-            \assertNotEmpty($result->toArray());
-        } catch (ClientException $e) {
-            self::assertEquals(
-                \ALIBABA_CLOUD_SERVER_UNREACHABLE,
-                $e->getErrorCode()
-            );
+            self::assertNotEmpty($result->toArray());
         } catch (ServerException $e) {
             self::assertEquals(
                 "cluster ($clusterId) not found in our records",
@@ -54,13 +49,16 @@ class RoaRequestTest extends TestCase
         }
     }
 
+    /**
+     * @throws ClientException
+     * @throws ServerException
+     */
     public function testRoaContent()
     {
         AlibabaCloud::accessKeyClient(
-            \getenv('NLP_ACCESS_KEY_ID'),
-            \getenv('NLP_ACCESS_KEY_SECRET')
-        )->name('content')
-                    ->regionId('cn-shanghai');
+            \getenv('ACCESS_KEY_ID'),
+            \getenv('ACCESS_KEY_SECRET')
+        )->name('content')->regionId('cn-shanghai');
 
         $request = new NlpRequest();
         $request->pathParameter('Domain', 'general');
@@ -69,13 +67,7 @@ class RoaRequestTest extends TestCase
                                'text' => 'Iphone专用数据线',
                            ]);
 
-        try {
-            $result = $request->client('content')->request();
-            self::assertEquals('Iphone', $result['data'][0]['word']);
-        } catch (ServerException $e) {
-            $this->assertEquals($e->getErrorCode(), 'InvalidApi.NotPurchase');
-        } catch (ClientException $e) {
-            self::assertStringStartsWith('cURL error', $e->getErrorMessage());
-        }
+        $result = $request->client('content')->request();
+        self::assertEquals('Iphone', $result['data'][0]['word']);
     }
 }

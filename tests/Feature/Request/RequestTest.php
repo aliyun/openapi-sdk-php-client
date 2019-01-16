@@ -21,10 +21,12 @@ class RequestTest extends TestCase
         AlibabaCloud::accessKeyClient(
             \getenv('ACCESS_KEY_ID'),
             \getenv('ACCESS_KEY_SECRET')
-        )->asGlobalClient()
-                    ->regionId('cn-hangzhou');
+        )->asGlobalClient()->regionId('cn-hangzhou');
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testConstruct()
     {
         // Setup
@@ -35,15 +37,15 @@ class RequestTest extends TestCase
         // Test
         try {
             $request->request();
-            // Assert
         } catch (ServerException $e) {
             // Assert
             self::assertEquals('ErrorClusterNotFound', $e->getErrorCode());
-        } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         }
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testWithBearerTokenCredential()
     {
         // Setup
@@ -55,17 +57,21 @@ class RequestTest extends TestCase
 
         // Test
         try {
-            (new  DescribeClusterServicesRequest())->client('BEARER_TOKEN')
-                                                   ->withClusterId(\time())
-                                                   ->request();
+            (new  DescribeClusterServicesRequest())
+                ->client('BEARER_TOKEN')
+                ->withClusterId(\time())
+                ->connectTimeout(15)
+                ->timeout(20)
+                ->request();
         } catch (ServerException $e) {
             // Assert
             $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
-        } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         }
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testInvalidUrl()
     {
         // Setup
@@ -78,19 +84,18 @@ class RequestTest extends TestCase
 
         // Test
         try {
-            (new  DescribeClusterServicesRequest())->client(__METHOD__)
-                                                   ->withClusterId(\time())
-                                                   ->request();
+            (new  DescribeClusterServicesRequest())
+                ->client(__METHOD__)
+                ->withClusterId(\time())
+                ->request();
         } catch (ServerException $e) {
             // Assert
-            $this->assertEquals('ErrorClusterNotFound', $e->getErrorCode());
-        } catch (ClientException $e) {
-            // Assert
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals('ErrorClusterNotFound', $e->getErrorCode());
         }
     }
 
     /**
+     * @throws ClientException
      */
     public function testROA()
     {
@@ -104,9 +109,7 @@ class RequestTest extends TestCase
             // Assert
         } catch (ServerException $e) {
             // Assert
-            $this->assertEquals($e->getErrorCode(), 'ErrorClusterNotFound');
-        } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
+            $this->assertEquals('ErrorClusterNotFound', $e->getErrorCode());
         }
     }
 }

@@ -17,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  */
 class RequestCompatibilityTest extends TestCase
 {
+    /**
+     * @throws ClientException
+     * @throws ServerException
+     */
     public function testGetAcsResponse()
     {
         // Setup
@@ -30,15 +34,17 @@ class RequestCompatibilityTest extends TestCase
 
         $client  = new DefaultAcsClient($profile);
         $request = new DescribeRegionsRequest();
-        try {
-            $result = $client->getAcsResponse($request->client('test'));
-            // Assert
-            self::assertNotEquals($result->getRequest()->client, 'test');
-        } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        }
+        $request->connectTimeout(15)
+                ->timeout(20);
+
+        $result = $client->getAcsResponse($request->client('test'));
+        // Assert
+        self::assertNotEquals($result->getRequest()->client, 'test');
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testGetAcsResponseWithResult()
     {
         // Setup
@@ -56,8 +62,6 @@ class RequestCompatibilityTest extends TestCase
             $result = $client->getAcsResponse($request->client('test')->request());
             // Assert
             self::assertEquals($result->getRequest()->client, 'test');
-        } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             $this->assertEquals($e->getErrorMessage(), 'InvalidApi.NotPurchase');
         }
