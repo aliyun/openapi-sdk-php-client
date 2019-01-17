@@ -1634,6 +1634,8 @@ return [
                     'ap-southeast-1' => 'sgw.ap-southeast-1.aliyuncs.com',
                     'ap-southeast-2' => 'sgw.ap-southeast-2.aliyuncs.com',
                     'eu-central-1'   => 'sgw.eu-central-1.aliyuncs.com',
+                    'cn-qingdao'     => 'sgw.cn-shanghai.aliyuncs.com',
+                    'cn-shenzhen'    => 'sgw.cn-shanghai.aliyuncs.com',
                 ],
             'openanalytics'   =>
                 [
@@ -1845,6 +1847,9 @@ return [
                     'cn-hangzhou'    => 'baas.cn-hangzhou.aliyuncs.com',
                     'ap-southeast-1' => 'baas.ap-southeast-1.aliyuncs.com',
                     'ap-northeast-1' => 'baas.ap-northeast-1.aliyuncs.com',
+                    'cn-beijing'     => 'baas.aliyuncs.com',
+                    'cn-shanghai'    => 'baas.aliyuncs.com',
+                    'cn-shenzhen'    => 'baas.aliyuncs.com',
                 ],
             'alimt'           =>
                 [

@@ -64,12 +64,12 @@ class RoaRequest extends Request
      */
     public function resolveParameters($credential)
     {
-        $this->options['query']['Version'] = $this->version;
-        $this->options['headers']['x-acs-version'] = $this->version;
-        $signature = $this->httpClient()->getSignature();
-        $this->options['headers']['Date'] = gmdate($this->dateTimeFormat);
-        $this->options['headers']['Accept'] = $this->formatToAccept($this->format);
-        $this->options['headers']['x-acs-signature-method'] = $signature->getMethod();
+        $this->options['query']['Version']                   = $this->version;
+        $this->options['headers']['x-acs-version']           = $this->version;
+        $signature                                           = $this->httpClient()->getSignature();
+        $this->options['headers']['Date']                    = gmdate($this->dateTimeFormat);
+        $this->options['headers']['Accept']                  = $this->formatToAccept($this->format);
+        $this->options['headers']['x-acs-signature-method']  = $signature->getMethod();
         $this->options['headers']['x-acs-signature-version'] = $signature->getVersion();
         if ($signature->getType()) {
             $this->options['headers']['x-acs-signature-type'] = $signature->getType();
@@ -129,14 +129,14 @@ class RoaRequest extends Request
         $this->stringToBeSigned = $stringToBeSigned;
 
         $this->options['headers']['Authorization'] = 'acs '
-            . $credential->getAccessKeyId()
-            . ':'
-            . $this->httpClient()
-                ->getSignature()
-                ->sign(
-                    $this->stringToBeSigned,
-                    $credential->getAccessKeySecret()
-                );
+                                                     . $credential->getAccessKeyId()
+                                                     . ':'
+                                                     . $this->httpClient()
+                                                            ->getSignature()
+                                                            ->sign(
+                                                                $this->stringToBeSigned,
+                                                                $credential->getAccessKeySecret()
+                                                            );
     }
 
     /**
@@ -200,7 +200,7 @@ class RoaRequest extends Request
      * Sort the entries by key.
      *
      * @param string $queryString
-     * @param array $map
+     * @param array  $map
      *
      * @return string
      */
@@ -267,7 +267,7 @@ class RoaRequest extends Request
      * Magic method for set or get request parameters.
      *
      * @param string $name
-     * @param mixed $arguments
+     * @param mixed  $arguments
      *
      * @return $this
      */
