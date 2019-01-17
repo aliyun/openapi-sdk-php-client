@@ -100,9 +100,9 @@
         "endpoints": "Update endpoints from OSS."
     },
     "scripts": {
-        "cs": "phpcs --standard=PSR2 -n src",
-        "cbf": "phpcbf --standard=PSR2 -n src",
-        "fixer": "php-cs-fixer fix src",
+        "cs": "phpcs --standard=PSR2 -n ./",
+        "cbf": "phpcbf --standard=PSR2 -n ./",
+        "fixer": "php-cs-fixer fix ./",
         "test": [
             "@clearCache",
             "phpunit --colors=always"

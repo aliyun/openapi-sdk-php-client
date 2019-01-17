@@ -25,7 +25,6 @@ class RoaRequestTest extends TestCase
 
         // Test
         try {
-
             AlibabaCloud::accessKeyClient(
                 getenv('ACCESS_KEY_ID'),
                 getenv('ACCESS_KEY_SECRET')

@@ -13,7 +13,6 @@ use PHPUnit\Framework\TestCase;
  * Class RpcRequestTest
  *
  * @package   AlibabaCloud\Client\Tests\Feature\Request
- *
  * @coversDefaultClass \AlibabaCloud\Client\Request\RpcRequest
  */
 class RpcRequestTest extends TestCase
@@ -88,7 +87,6 @@ class RpcRequestTest extends TestCase
      */
     public function testRpc()
     {
-
         AlibabaCloud::accessKeyClient(
             \getenv('ACCESS_KEY_ID'),
             \getenv('ACCESS_KEY_SECRET')
