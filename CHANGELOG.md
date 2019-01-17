@@ -1,8 +1,20 @@
 # CHANGELOG
 
-## 1.0.2 - 2019-01-11
+## 1.0.4 - 2019-01-17
 
-* Support test on the Windows.
+* Support fixer all.
+* Add Endpoints.
+
+## 1.0.3 - 2019-01-15
+
+* Update Endpoints.
+* Update README.md.
+* Update Return Result Message.
+
+## 1.0.2 - 2019-01-15
+
+* Optimize the documentation.
+* Adjust the CI configuration.
 
 ## 1.0.1 - 2019-01-09
 
