@@ -25,7 +25,7 @@ class RpcRequestTest extends TestCase
     {
         // Setup
         $nameClient      = 'name';
-        $regionId        = 'cn-hangzhou';
+        $regionId        = \getenv('REGION_ID');
         $accessKeyId     = \getenv('ACCESS_KEY_ID');
         $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
 
@@ -53,7 +53,7 @@ class RpcRequestTest extends TestCase
     public function testWithBearerTokenCredential()
     {
         // Setup
-        $regionId    = 'cn-hangzhou';
+        $regionId    = \getenv('REGION_ID');
         $bearerToken = 'BEARER_TOKEN';
 
         // Test

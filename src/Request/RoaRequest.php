@@ -120,9 +120,8 @@ class RoaRequest extends Request
 
         $stringToBeSigned .= $this->constructAcsHeader();
 
-        $this->uri = $this->uri
-            ->withPath($this->assignPathParameters())
-            ->withQuery($this->queryString());
+        $this->uri = $this->uri->withPath($this->assignPathParameters())
+                               ->withQuery($this->queryString());
 
         $stringToBeSigned .= $this->uri->getPath() . '?' . $this->uri->getQuery();
 

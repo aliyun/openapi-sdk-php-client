@@ -191,9 +191,9 @@ class RpcRequestTest extends TestCase
      * @param $expected
      *
      * @throws       \ReflectionException
-     * @dataProvider computeSignature
+     * @dataProvider signature
      */
-    public function testComputeSignature($parameters, $accessKeySecret, $expected)
+    public function testSignature($parameters, $accessKeySecret, $expected)
     {
         // Setup
         $request = new  RpcRequest();
@@ -201,7 +201,7 @@ class RpcRequestTest extends TestCase
         // Test
         $method = new \ReflectionMethod(
             RpcRequest::class,
-            'computeSignature'
+            'signature'
         );
         $method->setAccessible(true);
         $actual = $method->invokeArgs($request, [$parameters, $accessKeySecret]);
@@ -213,7 +213,7 @@ class RpcRequestTest extends TestCase
     /**
      * @return array
      */
-    public function computeSignature()
+    public function signature()
     {
         return [
             [
