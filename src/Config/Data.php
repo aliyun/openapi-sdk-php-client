@@ -1973,6 +1973,7 @@ return [
                 [
                     'ap-southeast-1' => 'imagesearch.ap-southeast-1.aliyuncs.com',
                     'ap-southeast-2' => 'imagesearch.ap-southeast-2.aliyuncs.com',
+                    'ap-northeast-1' => 'imagesearch.ap-northeast-1.aliyuncs.com',
                 ],
             'alidfs'          =>
                 [
@@ -1993,6 +1994,10 @@ return [
                     'cn-shanghai'    => 'foas.cn-shanghai.aliyuncs.com',
                     'cn-shenzhen'    => 'foas.cn-shenzhen.aliyuncs.com',
                     'ap-northeast-1' => 'foas.ap-northeast-1.aliyuncs.com',
+                ],
+            'iotid'           =>
+                [
+                    'cn-hangzhou' => 'iotid.cn-hangzhou.aliyuncs.com',
                 ],
         ],
 ];

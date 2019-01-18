@@ -21,7 +21,7 @@ class RequestTest extends TestCase
         AlibabaCloud::accessKeyClient(
             \getenv('ACCESS_KEY_ID'),
             \getenv('ACCESS_KEY_SECRET')
-        )->asGlobalClient()->regionId('cn-hangzhou');
+        )->asGlobalClient()->regionId(\getenv('REGION_ID'));
     }
 
     /**

@@ -66,7 +66,7 @@ class RpcRequest extends Request
     {
         $this->resolveQuery($credential);
 
-        $this->options['query']['Signature'] = $this->computeSignature(
+        $this->options['query']['Signature'] = $this->signature(
             $this->options['query'],
             $credential->getAccessKeySecret()
         );
@@ -107,7 +107,7 @@ class RpcRequest extends Request
      * @return mixed
      * @throws ClientException
      */
-    private function computeSignature($parameters, $accessKeySecret)
+    private function signature($parameters, $accessKeySecret)
     {
         ksort($parameters);
         $canonicalizedQuery = '';
