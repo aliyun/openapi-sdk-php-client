@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.5 - 2019-01-21
+
+* Add endpoints for ApiGateway in Silicon Valley, Virginia.
+* Add endpoints for Image Search in Shanghai.
+
 ## 1.0.4 - 2019-01-17
 
 * Support fixer all.
