@@ -1420,6 +1420,8 @@ return [
                     'ap-south-1'     => 'apigateway.ap-south-1.aliyuncs.com',
                     'eu-west-1'      => 'apigateway.eu-west-1.aliyuncs.com',
                     'me-east-1'      => 'apigateway.me-east-1.aliyuncs.com',
+                    'us-east-1'      => 'apigateway.us-east-1.aliyuncs.com',
+                    'us-west-1'      => 'apigateway.us-west-1.aliyuncs.com',
                 ],
             'vod'             =>
                 [
@@ -1974,6 +1976,7 @@ return [
                     'ap-southeast-1' => 'imagesearch.ap-southeast-1.aliyuncs.com',
                     'ap-southeast-2' => 'imagesearch.ap-southeast-2.aliyuncs.com',
                     'ap-northeast-1' => 'imagesearch.ap-northeast-1.aliyuncs.com',
+                    'cn-shanghai'    => 'imagesearch.cn-shanghai.aliyuncs.com',
                 ],
             'alidfs'          =>
                 [
