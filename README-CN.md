@@ -21,7 +21,8 @@
 
 
 ## 要求
-您必须使用 PHP 5.5.0 或更高版本，如果您使用了 `RsaKeyPair` 客户端（仅支持日本站），还需要 [OpenSSL PHP 扩展][OpenSSL]。
+- 您必须使用 PHP 5.5.0 或更高版本。
+- 如果您使用了 `RsaKeyPair` 客户端（仅支持日本站），还需要 [OpenSSL PHP 扩展][OpenSSL]。
 
 
 ## 建议
@@ -40,7 +41,7 @@
 
 
 ## 安装
-1. 下载并安装 Composer（Windows 用户请下载并运行 [Composer-Setup.exe](https://getcomposer.org/Composer-Setup.exe) ）
+1. 下载并安装 Composer（Windows 用户请下载并运行 [Composer-Setup.exe](https://getcomposer.org/Composer-Setup.exe)）
 ```bash
 curl -sS https://getcomposer.org/installer | php
 ```
@@ -504,7 +505,6 @@ AlibabaCloud::addHost('product_name', 'product_name.aliyuncs.com');
 
 
 ## 相关
-
 * [阿里云服务 Regions & Endpoints][endpoints]
 * [OpenAPI Explorer][open-api]
 * [Packagist][packagist]

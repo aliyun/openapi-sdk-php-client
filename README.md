@@ -21,7 +21,8 @@ English | [简体中文](./README-CN.md)
 
 
 ## Requirements
-You must use PHP5.5.0 or later, if you use the `RsaKeyPair` (Only Japan station is supported) client, you will also need [OpenSSL PHP extension][OpenSSL]. 
+- You must use PHP 5.5.0 or later.
+- if you use the `RsaKeyPair` (Only Japan station is supported) client, you will also need [OpenSSL PHP extension][OpenSSL]. 
 
 
 ## Online Demo
@@ -503,7 +504,6 @@ AlibabaCloud::addHost('product_name', 'product_name.aliyuncs.com');
 
 
 ## References
-
 * [Alibaba Cloud Regions & Endpoints][endpoints]
 * [OpenAPI Explorer][open-api]
 * [Packagist][packagist]
