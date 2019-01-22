@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 1.0.6 - 2019-01-23
+
+* Add endpoints for dysmsapi in Singapore.
+* Add endpoints for dybaseapi.
+* Add endpoints for dyiotapi.
+* Add endpoints for dycdpapi.
+* Add endpoints for dyplsapi.
+* Add endpoints for dypnsapi.
+* Add endpoints for dyvmsapi.
+* Add endpoints for snsuapi.
+
 ## 1.0.5 - 2019-01-21
 
 * Add endpoints for ApiGateway in Silicon Valley, Virginia.
