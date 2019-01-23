@@ -5,7 +5,44 @@ return [
         [
             'dysmsapi'        =>
                 [
-                    'global' => 'dysmsapi.aliyuncs.com',
+                    'global'         => 'dysmsapi.aliyuncs.com',
+                    'cn-hangzhou'    => 'dysmsapi.aliyuncs.com',
+                    'ap-southeast-1' => 'dysmsapi.ap-southeast-1.aliyuncs.com',
+                ],
+            'dybaseapi'       =>
+                [
+                    'global'      => 'dybaseapi.aliyuncs.com',
+                    'cn-hangzhou' => 'dybaseapi.aliyuncs.com',
+                ],
+            'dyiotapi'        =>
+                [
+                    'global'      => 'dyiotapi.aliyuncs.com',
+                    'cn-hangzhou' => 'dyiotapi.aliyuncs.com',
+                ],
+            'dycdpapi'        =>
+                [
+                    'global'      => 'dycdpapi.aliyuncs.com',
+                    'cn-hangzhou' => 'dycdpapi.aliyuncs.com',
+                ],
+            'dyplsapi'        =>
+                [
+                    'global'      => 'dyplsapi.aliyuncs.com',
+                    'cn-hangzhou' => 'dyplsapi.aliyuncs.com',
+                ],
+            'dypnsapi'        =>
+                [
+                    'global'      => 'dypnsapi.aliyuncs.com',
+                    'cn-hangzhou' => 'dypnsapi.aliyuncs.com',
+                ],
+            'dyvmsapi'        =>
+                [
+                    'global'      => 'dyvmsapi.aliyuncs.com',
+                    'cn-hangzhou' => 'dyvmsapi.aliyuncs.com',
+                ],
+            'snsuapi'         =>
+                [
+                    'global'      => 'snsuapi.aliyuncs.com',
+                    'cn-hangzhou' => 'snsuapi.aliyuncs.com',
                 ],
             'ecs'             =>
                 [
