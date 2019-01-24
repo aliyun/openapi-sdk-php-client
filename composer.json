@@ -48,7 +48,6 @@
         "psr/cache": "^1.0",
         "league/climate": "^3.2.4",
         "phpunit/phpunit": "4.*",
-        "symfony/dotenv": "^3.4",
         "symfony/var-dumper": "^3.4",
         "friendsofphp/php-cs-fixer": "^2.2",
         "squizlabs/php_codesniffer": "^3.4"
