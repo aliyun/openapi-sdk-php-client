@@ -1,6 +1,5 @@
 <?php
 
-use Symfony\Component\Dotenv\Dotenv;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,17 +27,3 @@ if (!ini_get('date.timezone')) {
 */
 
 require dirname(__DIR__) . '/vendor/autoload.php';
-
-/*
-|--------------------------------------------------------------------------
-| Loading environment variable files
-|--------------------------------------------------------------------------
-|
-| If the file exists, load it.
-|
-*/
-
-$env = __DIR__ . '/../.env';
-if (is_readable($env)) {
-    (new Dotenv())->load($env);
-}

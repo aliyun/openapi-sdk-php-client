@@ -6,4 +6,3 @@
 /.php_cs.cache
 /cache
 composer.lock
-openapi-sdk-php-client.iml
