@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.7 - 2019-01-28
+
+* Add endpoints for gpdb in Tokyo.
+* Add endpoints for elasticsearch in Beijing.
+
 ## 1.0.6 - 2019-01-23
 
 * Add endpoints for dysmsapi in Singapore.
