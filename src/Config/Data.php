@@ -1751,6 +1751,7 @@ return [
                     'us-east-1'      => 'gpdb.aliyuncs.com',
                     'eu-central-1'   => 'gpdb.eu-central-1.aliyuncs.com',
                     'ap-south-1'     => 'gpdb.ap-south-1.aliyuncs.com',
+                    'ap-northeast-1' => 'gpdb.ap-northeast-1.aliyuncs.com',
                 ],
             'eci'             =>
                 [
@@ -1936,6 +1937,7 @@ return [
                     'ap-south-1'     => 'elasticsearch.ap-south-1.aliyuncs.com',
                     'cn-qingdao'     => 'elasticsearch.cn-qingdao.aliyuncs.com',
                     'ap-southeast-5' => 'elasticsearch.ap-southeast-5.aliyuncs.com',
+                    'cn-beijing'     => 'elasticsearch.cn-beijing.aliyuncs.com',
                 ],
             'luban'           =>
                 [
