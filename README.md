@@ -122,17 +122,6 @@ AlibabaCloud::accessKeyClient('accessKeyId', 'accessKeySecret')->asGlobalClient(
 AlibabaCloud::accessKeyClient('accessKeyId', 'accessKeySecret')->name('global');
 ```
 
-### STS Client
-> Sample Code: Create a client with a certification type-STS, please apply for Token maintenance by yourself.
-
-```php
-<?php
-
-use AlibabaCloud\Client\AlibabaCloud;
-
-AlibabaCloud::stsClient('accessKeyId', 'accessKeySecret','securityToken')
-              ->name('stsClient');
-```
 
 ### RamRoleArn Client
 By specifying [RAM Role][RAM Role], the client will be able to automatically request maintenance of STS Token before making a request, and be automatically converted to a time-limited STS client. You may also apply for Token maintenance by yourself before creating `STS Client`.  
@@ -147,8 +136,8 @@ AlibabaCloud::ramRoleArnClient('accessKeyId', 'accessKeySecret', 'roleArn', 'rol
               ->name('ramRoleArnClient');
 ```
 
-### EcsRamRole Client
 
+### EcsRamRole Client
 By specifying the role name, the client will be able to automatically request maintenance of STS Token before making a request, and be automatically converted to a time-limited STS client. You may also apply for Token maintenance by yourself before creating `STS Client`.  
 > Sample Code: Create a client with a certification type EcsRamRole, name it as `ecsRamRoleClient`.
 
@@ -159,6 +148,7 @@ use AlibabaCloud\Client\AlibabaCloud;
 
 AlibabaCloud::ecsRamRoleClient('roleName')->name('ecsRamRoleClient');
 ```
+
 
 ### Bearer Token Client
 If clients with this certification type are required by the Cloud Call Centre (CCC), please apply for Bearer Token maintenance by yourself.
@@ -172,8 +162,8 @@ use AlibabaCloud\Client\AlibabaCloud;
 AlibabaCloud::bearerTokenClient('token')->name('bearerTokenClient');
 ```
 
-### RsaKeyPair Client
 
+### RsaKeyPair Client
 By specifying the public key ID and the private key file, the client will be able to automatically request maintenance of the AccessKey before sending the request, and be automatically converted to a time-limited AccessKey client. Only Japan station is supported. 
 > Sample Code: Create a client with a certification type RsaKeyPair, name it as `rsaKeyPairClient`.
 
@@ -185,22 +175,8 @@ use AlibabaCloud\Client\AlibabaCloud;
 AlibabaCloud::rsaKeyPairClient('publicKeyId', '/your/privateKey.pem')->name('rsaKeyPairClient');
 ```
 
-### Custom Client
 
-> Sample Code: Create a Custom Client, that is, customize credentials and signatures. customization of credentials requires an implementation of `CredentialsInterface` interface, customization of signatures requires an implementation of `Signature` interface. 
-
-```php
-<?php
-
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Credentials\AccessKeyCredential;
-use AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature;
-
-AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256WithRsaSignature()) 
-                  ->name('DIY');
-```
-
-### Other Client Operations
+### Client Operations
 
 ```php
 <?php

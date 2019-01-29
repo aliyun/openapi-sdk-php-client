@@ -17,6 +17,7 @@ class RsaKeyPairCredential implements CredentialsInterface
      * @var string
      */
     private $publicKeyId;
+
     /**
      * @var string
      */

@@ -109,7 +109,7 @@ private_key_file = /your/pk.pem    # Private Key 文件
 
 ```
 
-### AccessKey客户端
+### AccessKey 客户端
 通过[用户信息管理][ak]设置AccessKey，它们具有该账户完全的权限，请妥善保管。有时出于安全考虑，您不能把具有完全访问权限的主账户 AccessKey 交于一个项目的开发者使用，您可以[创建RAM子账户][ram]并为子账户[授权][permissions]，使用RAM子用户的 AccessKey 来进行API调用。  
 > 示例代码：创建一个 AccessKey 方式认证的客户端，并设置为全局客户端，即命名为 `global` 的客户端。
 
@@ -122,19 +122,8 @@ AlibabaCloud::accessKeyClient('accessKeyId', 'accessKeySecret')->asGlobalClient(
 AlibabaCloud::accessKeyClient('accessKeyId', 'accessKeySecret')->name('global');
 ```
 
-### STS客户端
-> 示例代码：创建一个 STS 方式认证的客户端，请自行申请维护 Token。
 
-```php
-<?php
-
-use AlibabaCloud\Client\AlibabaCloud;
-
-AlibabaCloud::stsClient('accessKeyId', 'accessKeySecret','securityToken')
-              ->name('stsClient');
-```
-
-### RamRoleArn客户端
+### RamRoleArn 客户端
 通过指定[RAM角色][RAM Role]，让客户端在发起请求前自动申请维护 STS Token，自动转变为一个有时限性的STS客户端。您也可以自行申请维护 STS Token，再创建 `STS客户端`。  
 > 示例代码：创建一个 RamRoleArn 方式认证的客户端，命名 `ramRoleArnClient`。
 
@@ -147,8 +136,8 @@ AlibabaCloud::ramRoleArnClient('accessKeyId', 'accessKeySecret', 'roleArn', 'rol
               ->name('ramRoleArnClient');
 ```
 
-### EcsRamRole客户端
 
+### EcsRamRole 客户端
 通过指定角色名称，让客户端在发起请求前自动申请维护 STS Token，自动转变为一个有时限性的STS客户端。您也可以自行申请维护 STS Token，再创建 `STS客户端`。  
 > 示例代码：创建一个 EcsRamRole 方式认证的客户端，命名 `ecsRamRoleClient`。
 
@@ -160,7 +149,8 @@ use AlibabaCloud\Client\AlibabaCloud;
 AlibabaCloud::ecsRamRoleClient('roleName')->name('ecsRamRoleClient');
 ```
 
-### Bearer Token客户端
+
+### Bearer Token 客户端
 如呼叫中心(CCC)需用此类认证方式的客户端，请自行申请维护 Bearer Token。  
 > 示例代码：创建一个 Bearer Token 方式认证的客户端，命名 `bearerTokenClient`。
 
@@ -172,8 +162,7 @@ use AlibabaCloud\Client\AlibabaCloud;
 AlibabaCloud::bearerTokenClient('token')->name('bearerTokenClient');
 ```
 
-### RsaKeyPair客户端
-
+### RsaKeyPair 客户端
 通过指定公钥ID和私钥文件，让客户端在发起请求前自动申请维护 AccessKey，自动转变成为一个有时限性的AccessKey客户端，仅支持日本站。  
 > 示例代码：创建一个 RsaKeyPair 方式认证的客户端，命名 `rsaKeyPairClient`。
 
@@ -185,22 +174,8 @@ use AlibabaCloud\Client\AlibabaCloud;
 AlibabaCloud::rsaKeyPairClient('publicKeyId', '/your/privateKey.pem')->name('rsaKeyPairClient');
 ```
 
-### 自定义客户端
 
-> 示例代码：创建一个自定义客户端：即自定义凭证和签名，自定义凭证需实现 `CredentialsInterface` 接口，自定义签名需实现 `Signature` 接口。
-
-```php
-<?php
-
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Credentials\AccessKeyCredential;
-use AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature;
-
-AlibabaCloud::client(new AccessKeyCredential('key', 'secret'), new ShaHmac256WithRsaSignature()) 
-                  ->name('DIY');
-```
-
-### 客户端的其他操作
+### 客户端的操作
 
 ```php
 <?php
