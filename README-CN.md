@@ -63,7 +63,7 @@ require __DIR__ . '/vendor/autoload.php';
 您可以同时创建多个不同的客户端，每个客户端都可以有独立的配置，每一个请求都可以指定发送的客户端，如果不指定则使用全局客户端。客户端可以通过配置文件自动加载创建，也可以手动创建、管理。不同类型的客户端需要不同的凭证 `Credential`，内部也选取不同的签名算法 `Signature`，您也可以自定义客户端：即传入自定义的凭证和签名。
 
 ### 自动创建客户端
-> 如果存在 `~/.alibabacloud/credentials` 默认 `INI` 文件 （Windows 用户为 `C:\Users\USER_NAME\.alibabacloud\credentials`），程序会自动创建指定类型和名称的客户端。默认文件可以不存在，但解析错误会抛出异常。  客户端名称不分大小写，若客户端同名，后者会覆盖前者。也可以无限的加载指定文件： `AlibabaCloud::load('/data/credentials', 'vfs://AlibabaCloud/credentials', ...);` 不同的项目、工具之间可以共用这个配置文件，因为超出项目之外，也不会被意外提交到版本控制。Windows 上可以使用环境变量引用到主目录 %UserProfile%。类 Unix 的系统可以使用环境变量 $HOME 或 ~ (tilde)。  
+> 使用 `AlibabaCloud::load();`，如果存在 `~/.alibabacloud/credentials` 默认 `INI` 文件 （Windows 用户为 `C:\Users\USER_NAME\.alibabacloud\credentials`），程序会自动创建指定类型和名称的客户端。默认文件可以不存在，但解析错误会抛出异常。  客户端名称不分大小写，若客户端同名，后者会覆盖前者。也可以无限的加载指定文件： `AlibabaCloud::load('/data/credentials', 'vfs://AlibabaCloud/credentials', ...);` 不同的项目、工具之间可以共用这个配置文件，因为超出项目之外，也不会被意外提交到版本控制。Windows 上可以使用环境变量引用到主目录 %UserProfile%。类 Unix 的系统可以使用环境变量 $HOME 或 ~ (tilde)。  
 
 ```ini
 [global]                           # 全局客户端
