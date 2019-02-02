@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 1.0.8 - 2019-02-11
+
+* `userAgent` - Support DIY User Agent.
+* Add endpoints for apigateway in Zhangjiakou.
+* Add endpoints for apigateway in Hu He Hao Te.
+* Add endpoints for vod in Hu He Hao Te.
+* Add endpoints for hsm in Zhangjiakou.
+* Add endpoints for luban in Germany.
+* Add endpoints for linkwan in Hangzhou.
+* Add endpoints for drdspost in Singapore.
+
 ## 1.0.7 - 2019-01-28
 
 * Add endpoints for gpdb in Tokyo.

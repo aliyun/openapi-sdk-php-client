@@ -66,7 +66,10 @@ class RoaRequestTest extends TestCase
                                'text' => 'Iphone专用数据线',
                            ]);
 
-        $result = $request->client('content')->request();
+        $result = $request->client('content')
+                          ->connectTimeout(15)
+                          ->timeout(20)
+                          ->request();
         self::assertEquals('Iphone', $result['data'][0]['word']);
     }
 }

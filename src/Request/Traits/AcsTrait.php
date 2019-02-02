@@ -6,7 +6,6 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Request\Request;
-use GuzzleHttp\Client;
 
 /**
  * Trait AcsTrait
@@ -41,11 +40,6 @@ trait AcsTrait
      * @var string
      */
     public $endpointType = 'openAPI';
-
-    /**
-     * @var array User Agent.
-     */
-    private $userAgent = [];
 
     /**
      * @param string $action
@@ -99,50 +93,6 @@ trait AcsTrait
     public function serviceCode($serviceCode)
     {
         $this->serviceCode = $serviceCode;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    private function userAgentString()
-    {
-        $this->userAgent('alibabacloud', null);
-        $this->userAgent('client-php', AlibabaCloud::VERSION);
-        $this->userAgent('PHP', \PHP_VERSION);
-        $this->userAgent(\PHP_OS, php_uname('r'));
-        $this->userAgent('zend_version', zend_version());
-        $this->userAgent('GuzzleHttp', Client::VERSION);
-        $this->userAgent(
-            'curl_version',
-            isset(\curl_version()['version'])
-                ? \curl_version()['version']
-                : ''
-        );
-
-        $newUserAgent = [];
-        foreach ($this->userAgent as $key => $value) {
-            if ($value === null) {
-                $newUserAgent[] = $key;
-                continue;
-            }
-            $newUserAgent[] = $key . '=' . $value;
-        }
-        return \implode(';', $newUserAgent);
-    }
-
-    /**
-     * set User Agent of Alibaba Cloud.
-     *
-     * @param string $name
-     * @param string $value
-     *
-     * @return $this
-     */
-    public function userAgent($name, $value)
-    {
-        $this->userAgent[$name] = $value;
-
         return $this;
     }
 

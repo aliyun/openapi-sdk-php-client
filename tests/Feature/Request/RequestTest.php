@@ -36,7 +36,9 @@ class RequestTest extends TestCase
 
         // Test
         try {
-            $request->request();
+            $request->connectTimeout(15)
+                    ->timeout(20)
+                    ->request();
         } catch (ServerException $e) {
             // Assert
             self::assertEquals('ErrorClusterNotFound', $e->getErrorCode());
@@ -85,6 +87,8 @@ class RequestTest extends TestCase
         // Test
         try {
             (new  DescribeClusterServicesRequest())
+                ->connectTimeout(15)
+                ->timeout(20)
                 ->client(__METHOD__)
                 ->withClusterId(\time())
                 ->request();
@@ -105,7 +109,9 @@ class RequestTest extends TestCase
 
         // Test
         try {
-            $request->request();
+            $request->connectTimeout(15)
+                    ->timeout(20)
+                    ->request();
             // Assert
         } catch (ServerException $e) {
             // Assert

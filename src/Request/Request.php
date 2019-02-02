@@ -74,6 +74,11 @@ abstract class Request implements \ArrayAccess
     protected $stringToBeSigned = '';
 
     /**
+     * @var UserAgent
+     */
+    public $userAgent;
+
+    /**
      * Request constructor.
      *
      * @param array $options
@@ -83,12 +88,25 @@ abstract class Request implements \ArrayAccess
         $this->uri                        = new Uri();
         $this->uri                        = $this->uri->withScheme($this->scheme);
         $this->guzzle                     = new Client();
+        $this->userAgent                  = new UserAgent();
         $this->options['http_errors']     = false;
         $this->options['timeout']         = ALIBABA_CLOUD_TIMEOUT;
         $this->options['connect_timeout'] = ALIBABA_CLOUD_CONNECT_TIMEOUT;
         if ($options !== []) {
             $this->options($options);
         }
+    }
+
+    /**
+     * @param $name
+     * @param $value
+     *
+     * @return $this
+     */
+    public function userAgent($name, $value)
+    {
+        $this->userAgent = $this->userAgent->append($name, $value);
+        return $this;
     }
 
     /**
@@ -205,7 +223,7 @@ abstract class Request implements \ArrayAccess
      */
     public function request()
     {
-        $this->options['headers']['User-Agent'] = $this->userAgentString();
+        $this->options['headers']['User-Agent'] = (string)$this->userAgent;
 
         $this->resolveUri();
 
