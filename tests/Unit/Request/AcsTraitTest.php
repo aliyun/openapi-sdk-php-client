@@ -6,6 +6,7 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Request\UserAgent;
 use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
 use PHPUnit\Framework\TestCase;
 
@@ -259,6 +260,6 @@ class AcsTraitTest extends TestCase
         $request->userAgent('Time', $time);
 
         // Assert
-        self::assertStringEndsWith("Time/$time", (string)$request->userAgent);
+        self::assertStringEndsWith("Time/$time", UserAgent::toString());
     }
 }

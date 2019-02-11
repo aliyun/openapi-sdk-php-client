@@ -19,23 +19,27 @@ class UserAgent
     private static $userAgent = [];
 
     /**
+     * @var array
+     */
+    private static $guard = [
+        'php',
+        'client',
+        'zend',
+        'guzzle',
+        'curl',
+    ];
+
+    /**
      * @return string
      */
-    public function __toString()
+    public static function toString()
     {
-        $os           = \PHP_OS;
-        $os_version   = php_uname('r');
-        $os_mode      = php_uname('m');
-        $userAgent    = "AlibabaCloud ($os $os_version; $os_mode)";
-        $userAgent    .= ' PHP/' . \PHP_VERSION;
-        $userAgent    .= ' Client/' . AlibabaCloud::VERSION;
-        $userAgent    .= ' Zend/' . zend_version();
-        $userAgent    .= ' Guzzle/' . Client::VERSION;
-        $curl_version = isset(\curl_version()['version'])
-            ? \curl_version()['version']
-            : '';
-        $userAgent    .= ' CURL/' . $curl_version;
-        $userAgent    .= ' ';
+        self::defaultFields();
+
+        $os         = \PHP_OS;
+        $os_version = php_uname('r');
+        $os_mode    = php_uname('m');
+        $userAgent  = "AlibabaCloud ($os $os_version; $os_mode) ";
 
         $newUserAgent = [];
         foreach (self::$userAgent as $key => $value) {
@@ -53,13 +57,41 @@ class UserAgent
      *
      * @param string $name
      * @param string $value
-     *
-     * @return $this
      */
-    public function append($name, $value)
+    public static function append($name, $value)
     {
-        self::$userAgent[$name] = $value;
+        self::defaultFields();
 
-        return $this;
+        if (!self::isGuarded($name)) {
+            self::$userAgent[$name] = $value;
+        }
+    }
+
+    /**
+     * UserAgent constructor.
+     */
+    private static function defaultFields()
+    {
+        if (self::$userAgent === []) {
+            self::$userAgent = [
+                'PHP'    => \PHP_VERSION,
+                'Client' => AlibabaCloud::VERSION,
+                'Zend'   => zend_version(),
+                'Guzzle' => Client::VERSION,
+                'CURL'   => isset(\curl_version()['version'])
+                    ? \curl_version()['version']
+                    : 'none',
+            ];
+        }
+    }
+
+    /**
+     * @param $name
+     *
+     * @return bool
+     */
+    private static function isGuarded($name)
+    {
+        return in_array(strtolower($name), self::$guard, true);
     }
 }
