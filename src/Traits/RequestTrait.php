@@ -5,6 +5,7 @@ namespace AlibabaCloud\Client\Traits;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Request\RoaRequest;
 use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Request\UserAgent;
 
 /**
  * Trait RequestTrait
@@ -15,6 +16,15 @@ use AlibabaCloud\Client\Request\RpcRequest;
  */
 trait RequestTrait
 {
+    /**
+     * @param string $name
+     * @param string $value
+     */
+    public static function userAgent($name, $value)
+    {
+        UserAgent::append($name, $value);
+    }
+
     /**
      * @param array $options
      *
