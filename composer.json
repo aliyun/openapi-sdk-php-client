@@ -43,6 +43,7 @@
         "ext-pcre": "*",
         "ext-sockets": "*",
         "ext-spl": "*",
+        "symfony/dotenv": "^3.4",
         "drupal/coder": "^8.3",
         "mikey179/vfsStream": "^1.6",
         "psr/cache": "^1.0",

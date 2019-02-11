@@ -248,4 +248,17 @@ class AcsTraitTest extends TestCase
             );
         }
     }
+
+    public function testUserAgent()
+    {
+        // Setup
+        $time = time();
+
+        // Test
+        $request = new RpcRequest();
+        $request->userAgent('Time', $time);
+
+        // Assert
+        self::assertStringEndsWith("Time/$time", (string)$request->userAgent);
+    }
 }

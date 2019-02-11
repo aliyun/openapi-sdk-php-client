@@ -59,7 +59,12 @@ class RequestCompatibilityTest extends TestCase
         $client  = new DefaultAcsClient($profile);
         $request = new DescribeRegionsRequest();
         try {
-            $result = $client->getAcsResponse($request->client('test')->request());
+            $result = $client->getAcsResponse(
+                $request->client('test')
+                        ->connectTimeout(15)
+                        ->timeout(20)
+                        ->request()
+            );
             // Assert
             self::assertEquals($result->getRequest()->client, 'test');
         } catch (ServerException $e) {

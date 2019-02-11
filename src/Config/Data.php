@@ -1459,6 +1459,8 @@ return [
                     'me-east-1'      => 'apigateway.me-east-1.aliyuncs.com',
                     'us-east-1'      => 'apigateway.us-east-1.aliyuncs.com',
                     'us-west-1'      => 'apigateway.us-west-1.aliyuncs.com',
+                    'cn-zhangjiakou' => 'apigateway.cn-zhangjiakou.aliyuncs.com',
+                    'cn-huhehaote'   => 'apigateway.cn-huhehaote.aliyuncs.com',
                 ],
             'vod'             =>
                 [
@@ -1706,6 +1708,7 @@ return [
                     'cn-shanghai'    => 'cn-shanghai.fc.aliyuncs.com',
                     'cn-shenzhen'    => 'cn-shenzhen.fc.aliyuncs.com',
                     'ap-southeast-2' => 'ap-southeast-2.fc.aliyuncs.com',
+                    'cn-huhehaote'   => 'cn-huhehaote.fc.aliyuncs.com',
                 ],
             'hsm'             =>
                 [
@@ -1938,6 +1941,7 @@ return [
                     'cn-qingdao'     => 'elasticsearch.cn-qingdao.aliyuncs.com',
                     'ap-southeast-5' => 'elasticsearch.ap-southeast-5.aliyuncs.com',
                     'cn-beijing'     => 'elasticsearch.cn-beijing.aliyuncs.com',
+                    'cn-zhangjiakou' => 'elasticsearch.cn-zhangjiakou.aliyuncs.com',
                 ],
             'luban'           =>
                 [
@@ -1981,6 +1985,7 @@ return [
                     'ap-southeast-2' => 'smartag.ap-southeast-2.aliyuncs.com',
                     'ap-southeast-3' => 'smartag.ap-southeast-3.aliyuncs.com',
                     'ap-southeast-5' => 'smartag.ap-southeast-5.aliyuncs.com',
+                    'eu-central-1'   => 'smartag.eu-central-1.aliyuncs.com',
                 ],
             'nlp'             =>
                 [
@@ -1997,6 +2002,7 @@ return [
             'linkwan'         =>
                 [
                     'cn-shanghai' => 'linkwan.cn-shanghai.aliyuncs.com',
+                    'cn-hangzhou' => 'linkwan.cn-hangzhou.aliyuncs.com',
                 ],
             'hdm'             =>
                 [
@@ -2040,6 +2046,10 @@ return [
             'iotid'           =>
                 [
                     'cn-hangzhou' => 'iotid.cn-hangzhou.aliyuncs.com',
+                ],
+            'drdspost'        =>
+                [
+                    'ap-southeast-1' => 'drds.ap-southeast-1.aliyuncs.com',
                 ],
         ],
 ];
