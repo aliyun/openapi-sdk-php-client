@@ -97,7 +97,7 @@ abstract class Request implements \ArrayAccess
      *
      * @return $this
      */
-    public function userAgentAppend($name, $value)
+    public function appendUserAgent($name, $value)
     {
         UserAgent::append($name, $value);
         return $this;
