@@ -29,7 +29,7 @@ class UserAgentTest extends TestCase
 
     public function testGlobalUserAgent()
     {
-        AlibabaCloud::userAgentAppend('Test', 'Test');
+        AlibabaCloud::appendUserAgent('Test', 'Test');
         $userAgent = UserAgent::toString();
         self::assertStringEndsWith('Test/Test', $userAgent);
     }

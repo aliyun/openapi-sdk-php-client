@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.10 - 2019-02-12
+
+* `userAgentAppend` is renamed to `appendUserAgent`.
+
 ## 1.0.9 - 2019-02-12
 
 * `userAgent` is renamed to `userAgentAppend`.
