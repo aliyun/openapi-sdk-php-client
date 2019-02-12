@@ -20,7 +20,7 @@ trait RequestTrait
      * @param string $name
      * @param string $value
      */
-    public static function userAgent($name, $value)
+    public static function userAgentAppend($name, $value)
     {
         UserAgent::append($name, $value);
     }

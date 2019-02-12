@@ -257,7 +257,7 @@ class AcsTraitTest extends TestCase
 
         // Test
         $request = new RpcRequest();
-        $request->userAgent('Time', $time);
+        $request->userAgentAppend('Time', $time);
 
         // Assert
         self::assertStringEndsWith("Time/$time", UserAgent::toString());
