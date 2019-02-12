@@ -3,13 +3,10 @@
 namespace AlibabaCloud\Client\Signature;
 
 /**
- * Interface used to provide interchangeable strategies for requests
- *
- * @package   AlibabaCloud\Signature
+ * Interface used to provide interchangeable strategies for requests.
  */
 interface SignatureInterface
 {
-
     /**
      * @return string
      */

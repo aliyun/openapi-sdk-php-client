@@ -7,12 +7,9 @@ use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 
 /**
  * Use the AssumeRole of the RAM account to complete  the authentication.
- *
- * @package   AlibabaCloud\Client\Clients
  */
 class RamRoleArnClient extends Client
 {
-
     /**
      * @param string $accessKeyId
      * @param string $accessKeySecret

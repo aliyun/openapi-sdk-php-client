@@ -14,13 +14,10 @@ use AlibabaCloud\Client\Tests\Mock\Services\Vpc\DescribeVpcsRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RamRoleArnCredentialTest
- *
- * @package   AlibabaCloud\Client\Tests\Feature\Credentials
+ * Class RamRoleArnCredentialTest.
  */
 class RamRoleArnCredentialTest extends TestCase
 {
-
     /**
      * @var string
      */
@@ -59,7 +56,7 @@ class RamRoleArnCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Ecs
+     * Assert for Ecs.
      */
     public function testEcs()
     {
@@ -81,7 +78,7 @@ class RamRoleArnCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Dds
+     * Assert for Dds.
      */
     public function testDds()
     {
@@ -100,7 +97,7 @@ class RamRoleArnCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Cdn
+     * Assert for Cdn.
      */
     public function testCdn()
     {
@@ -118,7 +115,7 @@ class RamRoleArnCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Slb
+     * Assert for Slb.
      */
     public function testSlb()
     {
@@ -138,7 +135,7 @@ class RamRoleArnCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Ram
+     * Assert for Ram.
      */
     public function testRam()
     {
@@ -157,7 +154,7 @@ class RamRoleArnCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Vpc
+     * Assert for Vpc.
      */
     public function testVpc()
     {

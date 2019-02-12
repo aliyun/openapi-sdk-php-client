@@ -6,9 +6,7 @@ use AlibabaCloud\Client\Clients\Client;
 use AlibabaCloud\Client\Exception\ClientException;
 
 /**
- * Class IniCredential
- *
- * @package   AlibabaCloud\Client\Credentials\Ini
+ * Class IniCredential.
  */
 class IniCredential
 {
@@ -98,8 +96,6 @@ class IniCredential
 
     /**
      * Clear credential cache.
-     *
-     * @return void
      */
     public static function forgetLoadedCredentialsFile()
     {
@@ -108,20 +104,23 @@ class IniCredential
 
     /**
      * @return array|mixed
+     *
      * @throws ClientException
      */
     public function load()
     {
         // If it has been loaded, assign the client directly.
         if (isset(self::$hasLoaded[$this->filename])) {
-            /**
-             * @var $client Client
+            /*
+             * @var Client
              */
             foreach (self::$hasLoaded[$this->filename] as $projectName => $client) {
                 $client->name($projectName);
             }
+
             return self::$hasLoaded[$this->filename];
         }
+
         return $this->loadFile();
     }
 
@@ -129,6 +128,7 @@ class IniCredential
      * Exceptions will be thrown if the file is unreadable and not the default file.
      *
      * @return array|mixed
+     *
      * @throws ClientException
      */
     private function loadFile()
@@ -152,6 +152,7 @@ class IniCredential
      * Decode the ini file into an array.
      *
      * @return array|mixed
+     *
      * @throws ClientException
      */
     private function parseFile()
@@ -180,6 +181,7 @@ class IniCredential
      * @param array $array
      *
      * @return array|mixed
+     *
      * @throws ClientException
      */
     private function initClients($array)

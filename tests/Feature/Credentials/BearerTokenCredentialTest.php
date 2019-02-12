@@ -15,13 +15,10 @@ use AlibabaCloud\Client\Tests\Mock\Services\Vpc\DescribeVpcsRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class BearerTokenCredentialTest
- *
- * @package   AlibabaCloud\Client\Tests\Feature\Credentials
+ * Class BearerTokenCredentialTest.
  */
 class BearerTokenCredentialTest extends TestCase
 {
-
     /**
      * @var string
      */
@@ -52,7 +49,7 @@ class BearerTokenCredentialTest extends TestCase
     }
 
     /**
-     * Assert for CCC
+     * Assert for CCC.
      */
     public function testCCC()
     {
@@ -78,7 +75,7 @@ class BearerTokenCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Ecs
+     * Assert for Ecs.
      */
     public function testEcs()
     {
@@ -99,7 +96,7 @@ class BearerTokenCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Dds
+     * Assert for Dds.
      */
     public function testDds()
     {
@@ -113,7 +110,7 @@ class BearerTokenCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Cdn
+     * Assert for Cdn.
      */
     public function testCdn()
     {
@@ -127,7 +124,7 @@ class BearerTokenCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Slb
+     * Assert for Slb.
      */
     public function testSlb()
     {
@@ -141,7 +138,7 @@ class BearerTokenCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Ram
+     * Assert for Ram.
      */
     public function testRam()
     {
@@ -155,7 +152,7 @@ class BearerTokenCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Vpc
+     * Assert for Vpc.
      */
     public function testVpc()
     {

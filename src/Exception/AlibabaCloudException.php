@@ -3,13 +3,10 @@
 namespace AlibabaCloud\Client\Exception;
 
 /**
- * Class AlibabaCloudException
- *
- * @package   AlibabaCloud\Client\Exception
+ * Class AlibabaCloudException.
  */
 abstract class AlibabaCloudException extends \Exception
 {
-
     /**
      * @var string
      */
@@ -64,8 +61,6 @@ abstract class AlibabaCloudException extends \Exception
      * @codeCoverageIgnore
      *
      * @deprecated deprecated since version 2.0.
-     *
-     * @return             void
      */
     public function setErrorType()
     {

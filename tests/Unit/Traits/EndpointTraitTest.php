@@ -10,9 +10,7 @@ use AlibabaCloud\Client\Request\RpcRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class EndpointTraitTest
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Traits
+ * Class EndpointTraitTest.
  */
 class EndpointTraitTest extends TestCase
 {
@@ -53,7 +51,7 @@ class EndpointTraitTest extends TestCase
     }
 
     /**
-     * Test for AddEndpoint
+     * Test for AddEndpoint.
      */
     public function testAddEndpoint()
     {
@@ -189,7 +187,7 @@ class EndpointTraitTest extends TestCase
     }
 
     /**
-     * Test for Null
+     * Test for Null.
      */
     public function testNull()
     {

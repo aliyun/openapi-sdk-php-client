@@ -7,9 +7,7 @@ use AlibabaCloud\Client\Request\UserAgent;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class UserAgentTest
- *
- * @package            AlibabaCloud\Client\Tests\Unit\Request
+ * Class UserAgentTest.
  */
 class UserAgentTest extends TestCase
 {

@@ -17,9 +17,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Uri;
 
 /**
- * Class Request
- *
- * @package   AlibabaCloud\Client\Request
+ * Class Request.
  *
  * @method string resolveParameters($credential)
  */
@@ -64,7 +62,7 @@ abstract class Request implements \ArrayAccess
     public $guzzle;
 
     /**
-     * @var array The original parameters of the request.
+     * @var array the original parameters of the request
      */
     public $data = [];
 
@@ -100,6 +98,7 @@ abstract class Request implements \ArrayAccess
     public function userAgentAppend($name, $value)
     {
         UserAgent::append($name, $value);
+
         return $this;
     }
 
@@ -113,6 +112,7 @@ abstract class Request implements \ArrayAccess
     public function format($format)
     {
         $this->format = \strtoupper($format);
+
         return $this;
     }
 
@@ -126,6 +126,7 @@ abstract class Request implements \ArrayAccess
     public function body($content)
     {
         $this->options['body'] = $content;
+
         return $this;
     }
 
@@ -141,6 +142,7 @@ abstract class Request implements \ArrayAccess
         if (\is_array($content) || \is_object($content)) {
             $content = \json_encode($content);
         }
+
         return $this->body($content);
     }
 
@@ -155,6 +157,7 @@ abstract class Request implements \ArrayAccess
     {
         $this->scheme = \strtolower($scheme);
         $this->uri    = $this->uri->withScheme($this->scheme);
+
         return $this;
     }
 
@@ -168,6 +171,7 @@ abstract class Request implements \ArrayAccess
     public function host($host)
     {
         $this->uri = $this->uri->withHost($host);
+
         return $this;
     }
 
@@ -179,6 +183,7 @@ abstract class Request implements \ArrayAccess
     public function method($method)
     {
         $this->method = \strtoupper($method);
+
         return $this;
     }
 
@@ -190,21 +195,23 @@ abstract class Request implements \ArrayAccess
     public function client($clientName)
     {
         $this->client = $clientName;
+
         return $this;
     }
 
     /**
      * @return bool
+     *
      * @throws ClientException
      */
     public function isDebug()
     {
         if (isset($this->options['debug'])) {
-            return $this->options['debug'] === true;
+            return true === $this->options['debug'];
         }
 
         if (isset($this->httpClient()->options['debug'])) {
-            return $this->httpClient()->options['debug'] === true;
+            return true === $this->httpClient()->options['debug'];
         }
 
         return false;
@@ -212,6 +219,7 @@ abstract class Request implements \ArrayAccess
 
     /**
      * @return Result
+     *
      * @throws ClientException
      * @throws ServerException
      */
@@ -251,6 +259,7 @@ abstract class Request implements \ArrayAccess
         foreach ($post as $apiKey => $apiValue) {
             $content .= "$apiKey=" . urlencode($apiValue) . '&';
         }
+
         return substr($content, 0, -1);
     }
 
@@ -262,7 +271,7 @@ abstract class Request implements \ArrayAccess
         try {
             return $this->guzzle->request(
                 $this->method,
-                (string)$this->uri,
+                (string) $this->uri,
                 $this->options
             );
         } catch (GuzzleException $e) {

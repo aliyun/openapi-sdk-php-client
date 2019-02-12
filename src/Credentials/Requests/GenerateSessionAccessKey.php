@@ -6,13 +6,10 @@ use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
- * Use the RSA key pair to complete the authentication (supported only on Japanese site)
- *
- * @package   AlibabaCloud\Client\Credentials\Requests
+ * Use the RSA key pair to complete the authentication (supported only on Japanese site).
  */
 class GenerateSessionAccessKey extends RpcRequest
 {
-
     /**
      * Class constructor.
      *

@@ -11,18 +11,16 @@ use AlibabaCloud\Client\Exception\ServerException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class EcsRamRoleProviderTest
+ * Class EcsRamRoleProviderTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials\Providers
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\Providers\EcsRamRoleProvider
  */
 class EcsRamRoleProviderTest extends TestCase
 {
-
     /**
-     * @throws                         ClientException
-     * @throws                         ServerException
+     * @throws ClientException
+     * @throws ServerException
      * @expectedException              \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessageRegExp /cURL error/
      */

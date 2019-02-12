@@ -7,19 +7,15 @@ use AlibabaCloud\Client\Credentials\Ini\IniCredential;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class OptionsTraitTest
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials\Ini
+ * Class OptionsTraitTest.
  */
 class OptionsTraitTest extends TestCase
 {
-
     /**
      * @param array $configures
-     *
      * @param mixed $expectedCert
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider setCert
      */
     public function testSetCert(array $configures, $expectedCert)

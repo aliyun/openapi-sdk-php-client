@@ -5,9 +5,7 @@ namespace AlibabaCloud\Client\Tests\Unit\Traits;
 use AlibabaCloud\Client\Traits\HasDataTrait;
 
 /**
- * Class HasDataTraitClass
- *
- * @package AlibabaCloud\Client\Tests\Unit\Traits
+ * Class HasDataTraitClass.
  */
 class HasDataTraitClass implements \ArrayAccess, \IteratorAggregate, \Countable
 {

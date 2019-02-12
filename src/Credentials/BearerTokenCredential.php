@@ -3,13 +3,10 @@
 namespace AlibabaCloud\Client\Credentials;
 
 /**
- * Class BearerTokenCredential
- *
- * @package   AlibabaCloud\Client\Credentials
+ * Class BearerTokenCredential.
  */
 class BearerTokenCredential implements CredentialsInterface
 {
-
     /**
      * @var string
      */

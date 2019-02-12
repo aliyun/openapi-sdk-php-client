@@ -12,15 +12,13 @@ use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ClientTraitTest
+ * Class ClientTraitTest.
  *
- * @package            AlibabaCloud\Client\Tests\Unit\Request
  *
  * @coversDefaultClass \AlibabaCloud\Client\Request\Request
  */
 class ClientTraitTest extends TestCase
 {
-
     /**
      * @throws \AlibabaCloud\Client\Exception\ClientException
      */

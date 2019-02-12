@@ -3,9 +3,7 @@
 namespace AlibabaCloud\Client\Traits;
 
 /**
- * Trait ArrayAccessTrait
- *
- * @package   AlibabaCloud\Client\Traits
+ * Trait ArrayAccessTrait.
  */
 trait ArrayAccessTrait
 {
@@ -17,13 +15,14 @@ trait ArrayAccessTrait
      *
      * @return mixed|null
      */
-    public function & offsetGet($offset)
+    public function &offsetGet($offset)
     {
         if (isset($this->data[$offset])) {
             return $this->data[$offset];
         }
 
         $value = null;
+
         return $value;
     }
 

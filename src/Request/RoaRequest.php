@@ -11,8 +11,6 @@ use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
 
 /**
  * RESTful ROA Request.
- *
- * @package   AlibabaCloud\Client\Request
  */
 class RoaRequest extends Request
 {
@@ -150,6 +148,7 @@ class RoaRequest extends Request
             $target = '[' . $pathParameterKey . ']';
             $result = str_replace($target, $apiParameterValue, $result);
         }
+
         return $result;
     }
 
@@ -163,7 +162,7 @@ class RoaRequest extends Request
         $sortMap = [];
         foreach ($this->options['headers'] as $headerKey => $headerValue) {
             $key = strtolower($headerKey);
-            if (strpos($key, 'x-acs-') === 0) {
+            if (0 === strpos($key, 'x-acs-')) {
                 $sortMap[$key] = $headerValue;
             }
         }
@@ -172,6 +171,7 @@ class RoaRequest extends Request
         foreach ($sortMap as $sortMapKey => $sortMapValue) {
             $headerString .= $sortMapKey . ':' . $sortMapValue . self::$headerSeparator;
         }
+
         return $headerString;
     }
 
@@ -208,11 +208,12 @@ class RoaRequest extends Request
         ksort($map);
         foreach ($map as $sortMapKey => $sortMapValue) {
             $queryString .= $sortMapKey;
-            if ($sortMapValue !== null) {
+            if (null !== $sortMapValue) {
                 $queryString .= '=' . $sortMapValue;
             }
             $queryString .= self::$querySeparator;
         }
+
         return $queryString;
     }
 
@@ -246,6 +247,7 @@ class RoaRequest extends Request
     public function pathParameter($name, $value)
     {
         $this->pathParameters[$name] = $value;
+
         return $this;
     }
 
@@ -259,6 +261,7 @@ class RoaRequest extends Request
     public function pathPattern($pattern)
     {
         $this->pathPattern = $pattern;
+
         return $this;
     }
 
@@ -272,12 +275,13 @@ class RoaRequest extends Request
      */
     public function __call($name, $arguments)
     {
-        if (\strpos($name, 'get') !== false) {
+        if (false !== \strpos($name, 'get')) {
             $parameterName = $this->propertyNameByMethodName($name);
+
             return $this->__get($parameterName);
         }
 
-        if (\strpos($name, 'with') !== false) {
+        if (false !== \strpos($name, 'with')) {
             $parameterName = $this->propertyNameByMethodName($name, 4);
             $this->__set($parameterName, $arguments[0]);
             $this->pathParameters[$parameterName] = $arguments[0];

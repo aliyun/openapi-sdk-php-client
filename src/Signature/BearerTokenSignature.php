@@ -3,13 +3,10 @@
 namespace AlibabaCloud\Client\Signature;
 
 /**
- * Class BearerTokenSignature
- *
- * @package   AlibabaCloud\Signature
+ * Class BearerTokenSignature.
  */
 class BearerTokenSignature implements SignatureInterface
 {
-
     /**
      * @param string $string
      * @param string $accessKeySecret

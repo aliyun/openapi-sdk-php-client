@@ -3,13 +3,10 @@
 namespace AlibabaCloud\Client\Exception;
 
 /**
- * Class ClientException
- *
- * @package   AlibabaCloud\Client\Exception
+ * Class ClientException.
  */
 class ClientException extends AlibabaCloudException
 {
-
     /**
      * ClientException constructor.
      *

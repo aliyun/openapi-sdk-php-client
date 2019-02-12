@@ -3,9 +3,7 @@
 namespace AlibabaCloud\Client\Traits;
 
 /**
- * Trait ObjectAccessTrait
- *
- * @package   AlibabaCloud\Client\Traits
+ * Trait ObjectAccessTrait.
  */
 trait ObjectAccessTrait
 {
@@ -44,8 +42,6 @@ trait ObjectAccessTrait
 
     /**
      * @param $name
-     *
-     * @return void
      */
     public function __unset($name)
     {

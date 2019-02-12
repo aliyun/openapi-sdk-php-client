@@ -3,13 +3,10 @@
 namespace AlibabaCloud\Client\Signature;
 
 /**
- * Class ShaHmac1Signature
- *
- * @package   AlibabaCloud\Signature
+ * Class ShaHmac1Signature.
  */
 class ShaHmac1Signature implements SignatureInterface
 {
-
     /**
      * @param string $string
      * @param string $accessKeySecret

@@ -3,9 +3,8 @@
 namespace AlibabaCloud\Client\Credentials;
 
 /**
- * interface CredentialsInterface
+ * interface CredentialsInterface.
  *
- * @package            AlibabaCloud\Client\Credentials
  *
  * @codeCoverageIgnore
  */

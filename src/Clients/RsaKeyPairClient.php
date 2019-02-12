@@ -6,13 +6,10 @@ use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 
 /**
- * Use the RSA key pair to complete the authentication (supported only on Japanese site)
- *
- * @package   AlibabaCloud\Client\Clients
+ * Use the RSA key pair to complete the authentication (supported only on Japanese site).
  */
 class RsaKeyPairClient extends Client
 {
-
     /**
      * @param string $publicKeyId
      * @param string $privateKeyFile

@@ -6,15 +6,13 @@ use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class EcsRamRoleCredentialTest
+ * Class EcsRamRoleCredentialTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\EcsRamRoleCredential
  */
 class EcsRamRoleCredentialTest extends TestCase
 {
-
     /**
      * @covers ::__construct
      * @covers ::getRoleName
@@ -31,6 +29,6 @@ class EcsRamRoleCredentialTest extends TestCase
 
         // Assert
         $this->assertEquals($roleArn, $credential->getRoleName());
-        $this->assertEquals($expected, (string)$credential);
+        $this->assertEquals($expected, (string) $credential);
     }
 }

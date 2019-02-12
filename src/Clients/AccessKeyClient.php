@@ -7,12 +7,9 @@ use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 
 /**
  * Use the AccessKey to complete the authentication.
- *
- * @package   AlibabaCloud\Client\Clients
  */
 class AccessKeyClient extends Client
 {
-
     /**
      * @param string $accessKeyId
      * @param string $accessKeySecret

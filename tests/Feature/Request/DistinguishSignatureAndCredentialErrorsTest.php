@@ -8,9 +8,7 @@ use AlibabaCloud\Client\Exception\ServerException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Distinguish signature and credential errors
- *
- * @package   AlibabaCloud\Tests\Feature
+ * Distinguish signature and credential errors.
  */
 class DistinguishSignatureAndCredentialErrorsTest extends TestCase
 {

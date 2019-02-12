@@ -6,13 +6,10 @@ use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Psr7\Response;
 
 /**
- * Class ListAccessKeysRequestMock
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\Ram
+ * Class ListAccessKeysRequestMock.
  */
 class ListAccessKeysRequestMock extends ListAccessKeysRequest
 {
-
     /**
      * @param array $data
      *
@@ -22,6 +19,7 @@ class ListAccessKeysRequestMock extends ListAccessKeysRequest
     {
         $headers = [];
         $body    = \json_encode($data);
+
         return new Result(new Response(200, $headers, $body), $this);
     }
 }

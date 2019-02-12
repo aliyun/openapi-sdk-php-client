@@ -4,12 +4,9 @@ namespace AlibabaCloud\Client\Credentials;
 
 /**
  * Use the RAM role of an ECS instance to complete the authentication.
- *
- * @package   AlibabaCloud\Client\Credentials
  */
 class EcsRamRoleCredential implements CredentialsInterface
 {
-
     /**
      * @var string
      */

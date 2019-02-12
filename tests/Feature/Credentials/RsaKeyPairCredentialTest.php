@@ -15,13 +15,10 @@ use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RsaKeyPairCredentialTest
- *
- * @package   AlibabaCloud\Client\Tests\Feature\Credentials
+ * Class RsaKeyPairCredentialTest.
  */
 class RsaKeyPairCredentialTest extends TestCase
 {
-
     /**
      * @var string
      */
@@ -65,7 +62,7 @@ class RsaKeyPairCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Ecs
+     * Assert for Ecs.
      */
     public function testEcs()
     {
@@ -85,7 +82,7 @@ class RsaKeyPairCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Dds
+     * Assert for Dds.
      */
     public function testDds()
     {
@@ -102,7 +99,7 @@ class RsaKeyPairCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Cdn
+     * Assert for Cdn.
      */
     public function testCdn()
     {
@@ -124,7 +121,7 @@ class RsaKeyPairCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Slb
+     * Assert for Slb.
      */
     public function testSlb()
     {
@@ -148,7 +145,7 @@ class RsaKeyPairCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Ram
+     * Assert for Ram.
      */
     public function testRam()
     {
@@ -170,7 +167,7 @@ class RsaKeyPairCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Vpc
+     * Assert for Vpc.
      *
      * @throws ServerException
      */

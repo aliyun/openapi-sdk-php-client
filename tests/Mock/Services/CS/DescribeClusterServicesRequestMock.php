@@ -6,17 +6,16 @@ use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Psr7\Response;
 
 /**
- * Class DescribeClusterServicesRequestMock
+ * Class DescribeClusterServicesRequestMock.
  *
- * @package       AlibabaCloud\Client\Tests\Mock\Services\CS
  *
- * @property-read string $ClusterId
- * @method        string getClusterId()
- * @method        self withClusterId(string $clusterId)
+ * @property string $ClusterId
+ *
+ * @method string getClusterId()
+ * @method self   withClusterId(string $clusterId)
  */
 class DescribeClusterServicesRequestMock extends DescribeClusterServicesRequest
 {
-
     /**
      * @param array $data
      *
@@ -26,6 +25,7 @@ class DescribeClusterServicesRequestMock extends DescribeClusterServicesRequest
     {
         $headers = [];
         $body    = \json_encode($data);
+
         return new Result(new Response(200, $headers, $body), $this);
     }
 }

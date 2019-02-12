@@ -8,13 +8,10 @@ use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class AccessKeyClientTest
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Clients
+ * Class AccessKeyClientTest.
  */
 class AccessKeyClientTest extends TestCase
 {
-
     /**
      * @return AccessKeyClient
      */
@@ -31,6 +28,7 @@ class AccessKeyClientTest extends TestCase
         self::assertEquals($accessKeyId, $client->getCredential()->getAccessKeyId());
         self::assertEquals($accessKeySecret, $client->getCredential()->getAccessKeySecret());
         self::assertInstanceOf(ShaHmac1Signature::class, $client->getSignature());
+
         return $client;
     }
 

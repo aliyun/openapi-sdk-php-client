@@ -6,13 +6,10 @@ use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Psr7\Response;
 
 /**
- * Class DescribeVpcsRequestMock
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\Vpc
+ * Class DescribeVpcsRequestMock.
  */
 class DescribeVpcsRequestMock extends DescribeVpcsRequest
 {
-
     /**
      * @param array $data
      *
@@ -22,6 +19,7 @@ class DescribeVpcsRequestMock extends DescribeVpcsRequest
     {
         $headers = [];
         $body    = \json_encode($data);
+
         return new Result(new Response(200, $headers, $body), $this);
     }
 }

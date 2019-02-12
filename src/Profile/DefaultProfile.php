@@ -6,15 +6,13 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Clients\Client;
 
 /**
- * Class DefaultProfile
+ * Class DefaultProfile.
  *
- * @package    AlibabaCloud\Client\Profile
  *
  * @deprecated deprecated since version 2.0, Use AlibabaCloud instead.
  */
 class DefaultProfile
 {
-
     /**
      * @param string $regionId
      * @param string $accessKeyId

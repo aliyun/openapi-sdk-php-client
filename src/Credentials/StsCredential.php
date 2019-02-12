@@ -4,12 +4,9 @@ namespace AlibabaCloud\Client\Credentials;
 
 /**
  * Use the STS Token to complete the authentication.
- *
- * @package   AlibabaCloud\Client\Credentials
  */
 class StsCredential implements CredentialsInterface
 {
-
     /**
      * @var string
      */

@@ -5,13 +5,10 @@ namespace AlibabaCloud\Client\Tests\Mock\Services\CCC;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
- * Class ListPhoneNumbersRequest
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\CCC
+ * Class ListPhoneNumbersRequest.
  */
 class ListPhoneNumbersRequest extends RpcRequest
 {
-
     /**
      * GetConfigRequest constructor.
      *
@@ -56,6 +53,7 @@ class ListPhoneNumbersRequest extends RpcRequest
     {
         $this->outboundOnly                     = $outboundOnly;
         $this->options['query']['OutboundOnly'] = $outboundOnly;
+
         return $this;
     }
 
@@ -76,6 +74,7 @@ class ListPhoneNumbersRequest extends RpcRequest
     {
         $this->instanceId                     = $instanceId;
         $this->options['query']['InstanceId'] = $instanceId;
+
         return $this;
     }
 }

@@ -10,20 +10,18 @@ use AlibabaCloud\Client\Request\RpcRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RpcRequestTest
+ * Class RpcRequestTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Request
  *
  * @coversDefaultClass \AlibabaCloud\Client\Request\RpcRequest
  */
 class RpcRequestTest extends TestCase
 {
-
     /**
      * @param $value
      * @param $expected
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider booleanValueToString
      */
     public function testConstructAcsHeader($value, $expected)
@@ -62,7 +60,7 @@ class RpcRequestTest extends TestCase
     /**
      * @param CredentialsInterface $credential
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider resolveQuery
      */
     public function testResolveQuery($credential)
@@ -111,7 +109,7 @@ class RpcRequestTest extends TestCase
     /**
      * @param CredentialsInterface $credential
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider resolveQuery
      */
     public function testResolveParameters($credential)
@@ -140,14 +138,14 @@ class RpcRequestTest extends TestCase
 
         // Assert
         self::assertFalse(isset($request->options['query']));
-        self::assertEquals('http://localhost', (string)$request->uri);
+        self::assertEquals('http://localhost', (string) $request->uri);
     }
 
     /**
      * @param $value
      * @param $expected
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider percentEncode
      */
     public function testPercentEncode($value, $expected)
@@ -190,7 +188,7 @@ class RpcRequestTest extends TestCase
      * @param $accessKeySecret
      * @param $expected
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider signature
      */
     public function testSignature($parameters, $accessKeySecret, $expected)
@@ -233,7 +231,6 @@ class RpcRequestTest extends TestCase
      * @param $setName
      * @param $getName
      * @param $setValue
-     *
      * @param $getValue
      *
      * @dataProvider call

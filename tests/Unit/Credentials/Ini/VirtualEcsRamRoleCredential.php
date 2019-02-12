@@ -3,15 +3,12 @@
 namespace AlibabaCloud\Client\Tests\Unit\Credentials\Ini;
 
 /**
- * Class VirtualEcsRamRoleCredential
+ * Class VirtualEcsRamRoleCredential.
  *
  * @codeCoverageIgnore
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials\Ini
  */
 class VirtualEcsRamRoleCredential extends VirtualAccessKeyCredential
 {
-
     /**
      * @return string
      */
@@ -22,6 +19,7 @@ class VirtualEcsRamRoleCredential extends VirtualAccessKeyCredential
 enable = true
 type = ecs_ram_role
 EOT;
+
         return (new static($content))->url();
     }
 
@@ -36,6 +34,7 @@ enable = true
 type = ecs_ram_role
 role_name = role_name
 EOT;
+
         return (new static($content))->url();
     }
 }

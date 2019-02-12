@@ -12,17 +12,15 @@ use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class EcsRamRoleProvider
- *
- * @package   AlibabaCloud\Client\Credentials\Providers
+ * Class EcsRamRoleProvider.
  */
 class EcsRamRoleProvider extends Provider
 {
-
     /**
      * Get credential.
      *
      * @return StsCredential
+     *
      * @throws ClientException
      * @throws ServerException
      */
@@ -30,7 +28,7 @@ class EcsRamRoleProvider extends Provider
     {
         $result = $this->getCredentialsInCache();
 
-        if ($result === null) {
+        if (null === $result) {
             $result = $this->request(1);
 
             if (!isset($result['AccessKeyId'],
@@ -59,6 +57,7 @@ class EcsRamRoleProvider extends Provider
      * @param int $timeout
      *
      * @return Result
+     *
      * @throws ClientException
      * @throws ServerException
      */
@@ -83,12 +82,13 @@ class EcsRamRoleProvider extends Provider
      * @param $timeout
      *
      * @return mixed|ResponseInterface
+     *
      * @throws ClientException
      */
     public function getResponse($timeout)
     {
         /**
-         * @var EcsRamRoleCredential $credential
+         * @var EcsRamRoleCredential
          */
         $credential = $this->client->getCredential();
         $url        = 'http://100.100.100.200/latest/meta-data/ram/security-credentials/'

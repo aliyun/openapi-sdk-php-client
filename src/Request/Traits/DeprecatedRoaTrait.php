@@ -2,12 +2,8 @@
 
 namespace AlibabaCloud\Client\Request\Traits;
 
-/**
- * @package    AlibabaCloud\Client\Request\Traits
- */
 trait DeprecatedRoaTrait
 {
-
     /**
      * @deprecated deprecated since version 2.0, Use pathPattern() instead.
      *

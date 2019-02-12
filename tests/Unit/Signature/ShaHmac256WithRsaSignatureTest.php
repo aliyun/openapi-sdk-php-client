@@ -8,20 +8,19 @@ use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ShaHmac256WithRsaSignatureTest
+ * Class ShaHmac256WithRsaSignatureTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Signature
  *
  * @coversDefaultClass \AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature
  */
 class ShaHmac256WithRsaSignatureTest extends TestCase
 {
-
     /**
      * @covers ::sign
      * @covers ::getMethod
      * @covers ::getVersion
      * @covers ::getType
+     *
      * @throws ClientException
      */
     public function testShaHmac256Signature()

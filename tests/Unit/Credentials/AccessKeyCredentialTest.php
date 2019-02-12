@@ -6,15 +6,13 @@ use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class AccessKeyCredentialTest
+ * Class AccessKeyCredentialTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\AccessKeyCredential
  */
 class AccessKeyCredentialTest extends TestCase
 {
-
     /**
      * @covers ::__construct
      * @covers ::getAccessKeyId
@@ -33,6 +31,6 @@ class AccessKeyCredentialTest extends TestCase
         // Assert
         $this->assertEquals($accessKeyId, $credential->getAccessKeyId());
         $this->assertEquals($accessKeySecret, $credential->getAccessKeySecret());
-        $this->assertEquals("$accessKeyId#$accessKeySecret", (string)$credential);
+        $this->assertEquals("$accessKeyId#$accessKeySecret", (string) $credential);
     }
 }

@@ -6,15 +6,13 @@ use AlibabaCloud\Client\Signature\BearerTokenSignature;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class BearerTokenSignatureTest
+ * Class BearerTokenSignatureTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Signature
  *
  * @coversDefaultClass \AlibabaCloud\Client\Signature\BearerTokenSignature
  */
 class BearerTokenSignatureTest extends TestCase
 {
-
     /**
      * @covers ::sign
      * @covers ::getMethod

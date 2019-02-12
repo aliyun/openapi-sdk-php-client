@@ -5,13 +5,10 @@ namespace AlibabaCloud\Client\Tests\Mock\Services\Slb;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
- * Class DescribeRulesRequest
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\Slb
+ * Class DescribeRulesRequest.
  */
 class DescribeRulesRequest extends RpcRequest
 {
-
     /**
      * DescribeRulesRequest constructor.
      *
@@ -120,6 +117,7 @@ class DescribeRulesRequest extends RpcRequest
     {
         $this->listenerPort                     = $listenerPort;
         $this->options['query']['ListenerPort'] = $listenerPort;
+
         return $this;
     }
 
@@ -140,6 +138,7 @@ class DescribeRulesRequest extends RpcRequest
     {
         $this->loadBalancerId                     = $loadBalancerId;
         $this->options['query']['LoadBalancerId'] = $loadBalancerId;
+
         return $this;
     }
 

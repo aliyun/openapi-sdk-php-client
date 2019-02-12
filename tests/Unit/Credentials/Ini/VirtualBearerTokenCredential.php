@@ -3,15 +3,12 @@
 namespace AlibabaCloud\Client\Tests\Unit\Credentials\Ini;
 
 /**
- * Class VirtualBearerTokenCredential
+ * Class VirtualBearerTokenCredential.
  *
  * @codeCoverageIgnore
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials\Ini
  */
 class VirtualBearerTokenCredential extends VirtualAccessKeyCredential
 {
-
     /**
      * @return string
      */
@@ -22,6 +19,7 @@ class VirtualBearerTokenCredential extends VirtualAccessKeyCredential
 enable = true
 type = bearer_token
 EOT;
+
         return (new static($content))->url();
     }
 
@@ -47,6 +45,7 @@ proxy_http = tcp://localhost:8125
 proxy_https = tcp://localhost:9124
 proxy_no = .mit.edu,foo.com
 EOT;
+
         return (new static($content))->url();
     }
 }

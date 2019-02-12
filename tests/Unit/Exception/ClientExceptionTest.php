@@ -6,21 +6,18 @@ use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ClientExceptionTest
+ * Class ClientExceptionTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Exception
  *
  * @coversDefaultClass \AlibabaCloud\Client\Exception\ClientException
  */
 class ClientExceptionTest extends TestCase
 {
-
     /**
      * @covers ::__construct
      */
     public function testConstruct()
     {
-
         // Setup
         $errorMessage = 'message';
         $errorCode    = 'code';

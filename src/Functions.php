@@ -25,13 +25,11 @@ function cliMate()
  * @param string|null $flank
  * @param string|null $char
  * @param int|null    $length
- *
- * @return void
  */
 function backgroundRed($string, $flank = null, $char = null, $length = null)
 {
     cliMate()->br();
-    if ($flank !== null) {
+    if (null !== $flank) {
         cliMate()->backgroundRed()->flank($flank, $char, $length);
         cliMate()->br();
     }
@@ -44,13 +42,11 @@ function backgroundRed($string, $flank = null, $char = null, $length = null)
  * @param string|null $flank
  * @param string|null $char
  * @param int|null    $length
- *
- * @return void
  */
 function backgroundGreen($string, $flank = null, $char = null, $length = null)
 {
     cliMate()->br();
-    if ($flank !== null) {
+    if (null !== $flank) {
         cliMate()->backgroundGreen()->flank($flank, $char, $length);
     }
     cliMate()->backgroundGreen($string);
@@ -62,13 +58,11 @@ function backgroundGreen($string, $flank = null, $char = null, $length = null)
  * @param string|null $flank
  * @param string|null $char
  * @param int|null    $length
- *
- * @return void
  */
 function backgroundBlue($string, $flank = null, $char = null, $length = null)
 {
     cliMate()->br();
-    if ($flank !== null) {
+    if (null !== $flank) {
         cliMate()->backgroundBlue()->flank($flank, $char, $length);
     }
     cliMate()->backgroundBlue($string);
@@ -80,13 +74,11 @@ function backgroundBlue($string, $flank = null, $char = null, $length = null)
  * @param string|null $flank
  * @param string|null $char
  * @param int|null    $length
- *
- * @return void
  */
 function backgroundMagenta($string, $flank = null, $char = null, $length = null)
 {
     cliMate()->br();
-    if ($flank !== null) {
+    if (null !== $flank) {
         cliMate()->backgroundMagenta()->flank($flank, $char, $length);
     }
     cliMate()->backgroundMagenta($string);
@@ -105,12 +97,10 @@ function json(array $array)
 
 /**
  * @param array $array
- *
- * @return void
  */
 function redTable($array)
 {
-    /**
+    /*
      * @noinspection PhpUndefinedMethodInspection
      */
     cliMate()->redTable($array);
@@ -119,8 +109,6 @@ function redTable($array)
 /**
  * @param mixed  $result
  * @param string $title
- *
- * @return void
  */
 function block($result, $title)
 {
@@ -153,5 +141,6 @@ function arrayMerge(array $arrays)
             $result[$key] = $value;
         }
     }
+
     return $result;
 }

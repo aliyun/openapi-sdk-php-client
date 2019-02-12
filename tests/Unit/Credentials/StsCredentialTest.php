@@ -6,15 +6,13 @@ use AlibabaCloud\Client\Credentials\StsCredential;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class StsCredentialTest
+ * Class StsCredentialTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\StsCredential
  */
 class StsCredentialTest extends TestCase
 {
-
     /**
      * @covers ::__construct
      * @covers ::getAccessKeyId
@@ -38,7 +36,7 @@ class StsCredentialTest extends TestCase
         $this->assertEquals($securityToken, $credential->getSecurityToken());
         $this->assertEquals(
             "$accessKeyId#$accessKeySecret#$securityToken",
-            (string)$credential
+            (string) $credential
         );
     }
 }

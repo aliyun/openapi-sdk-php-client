@@ -5,9 +5,8 @@ namespace AlibabaCloud\Client\Regions;
 use AlibabaCloud\Client\Traits\EndpointTrait;
 
 /**
- * Class EndpointProvider
+ * Class EndpointProvider.
  *
- * @package    AlibabaCloud\Client\Regions
  *
  * @deprecated deprecated since version 2.0, Use AlibabaCloud instead.
  */

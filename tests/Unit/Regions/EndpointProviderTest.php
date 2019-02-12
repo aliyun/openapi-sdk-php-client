@@ -6,9 +6,7 @@ use AlibabaCloud\Client\Regions\EndpointProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class EndpointProviderTest
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Regions
+ * Class EndpointProviderTest.
  */
 class EndpointProviderTest extends TestCase
 {
@@ -25,7 +23,7 @@ class EndpointProviderTest extends TestCase
     }
 
     /**
-     * Test for AddEndpoint
+     * Test for AddEndpoint.
      */
     public function testAddEndpoint()
     {
@@ -42,7 +40,7 @@ class EndpointProviderTest extends TestCase
     }
 
     /**
-     * Test for Null
+     * Test for Null.
      */
     public function testNull()
     {

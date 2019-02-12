@@ -5,13 +5,13 @@ namespace AlibabaCloud\Client\Tests\Mock\Services\CS;
 use AlibabaCloud\Client\Request\RoaRequest;
 
 /**
- * Class DescribeClusterServicesRequest
+ * Class DescribeClusterServicesRequest.
  *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\CS
  *
- * @property-read string $ClusterId
- * @method        string getClusterId()
- * @method        self withClusterId(string $clusterId)
+ * @property string $ClusterId
+ *
+ * @method string getClusterId()
+ * @method self   withClusterId(string $clusterId)
  */
 class DescribeClusterServicesRequest extends RoaRequest
 {

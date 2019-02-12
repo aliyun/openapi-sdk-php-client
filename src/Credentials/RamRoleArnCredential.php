@@ -4,12 +4,9 @@ namespace AlibabaCloud\Client\Credentials;
 
 /**
  * Use the AssumeRole of the RAM account to complete  the authentication.
- *
- * @package   AlibabaCloud\Client\Credentials
  */
 class RamRoleArnCredential implements CredentialsInterface
 {
-
     /**
      * @var string
      */

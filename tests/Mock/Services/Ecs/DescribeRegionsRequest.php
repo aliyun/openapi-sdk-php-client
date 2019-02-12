@@ -5,13 +5,10 @@ namespace AlibabaCloud\Client\Tests\Mock\Services\Ecs;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
- * Class DescribeRegionsRequest
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\Ecs
+ * Class DescribeRegionsRequest.
  */
 class DescribeRegionsRequest extends RpcRequest
 {
-
     /**
      * DescribeRegionsRequest constructor.
      *

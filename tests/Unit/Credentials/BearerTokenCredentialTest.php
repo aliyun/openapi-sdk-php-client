@@ -6,15 +6,13 @@ use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class BearerTokenCredentialTest
+ * Class BearerTokenCredentialTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\BearerTokenCredential
  */
 class BearerTokenCredentialTest extends TestCase
 {
-
     /**
      * @covers ::__construct
      * @covers ::getBearerToken
@@ -35,6 +33,6 @@ class BearerTokenCredentialTest extends TestCase
         $this->assertEquals($bearerToken, $credential->getBearerToken());
         $this->assertEquals('', $credential->getAccessKeyId());
         $this->assertEquals('', $credential->getAccessKeySecret());
-        $this->assertEquals($expected, (string)$credential);
+        $this->assertEquals($expected, (string) $credential);
     }
 }

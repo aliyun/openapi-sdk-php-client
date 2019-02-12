@@ -11,9 +11,8 @@ use AlibabaCloud\Client\Clients\RsaKeyPairClient;
 use AlibabaCloud\Client\Exception\ClientException;
 
 /**
- * Trait CreateTrait
+ * Trait CreateTrait.
  *
- * @package   AlibabaCloud\Client\Credentials\Ini
  *
  * @mixin     IniCredential
  */
@@ -24,6 +23,7 @@ trait CreateTrait
      * @param array  $credential
      *
      * @return Client|bool
+     *
      * @throws ClientException
      */
     protected function createClient($clientName, array $credential)
@@ -44,6 +44,7 @@ trait CreateTrait
      * @param array  $credential
      *
      * @return AccessKeyClient|BearerTokenClient|EcsRamRoleClient|RamRoleArnClient|RsaKeyPairClient
+     *
      * @throws ClientException
      */
     private function createClientByType($clientName, array $credential)
@@ -72,6 +73,7 @@ trait CreateTrait
      * @param string $clientName
      *
      * @return RsaKeyPairClient
+     *
      * @throws ClientException
      */
     private function rsaKeyPairClient($clientName, array $credential)
@@ -95,6 +97,7 @@ trait CreateTrait
      * @param string $clientName
      *
      * @return AccessKeyClient
+     *
      * @throws ClientException
      */
     private function accessKeyClient($clientName, array $credential)
@@ -118,6 +121,7 @@ trait CreateTrait
      * @param array  $credential
      *
      * @return EcsRamRoleClient
+     *
      * @throws ClientException
      */
     private function ecsRamRoleClient($clientName, array $credential)
@@ -134,6 +138,7 @@ trait CreateTrait
      * @param array  $credential
      *
      * @return RamRoleArnClient
+     *
      * @throws ClientException
      */
     private function ramRoleArnClient($clientName, array $credential)
@@ -167,6 +172,7 @@ trait CreateTrait
      * @param array  $credential
      *
      * @return BearerTokenClient
+     *
      * @throws ClientException
      */
     private function bearerTokenClient($clientName, array $credential)

@@ -7,12 +7,9 @@ use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
  * Retrieving assume role credentials.
- *
- * @package   AlibabaCloud\Client\Credentials\Requests
  */
 class AssumeRole extends RpcRequest
 {
-
     /**
      * Class constructor.
      *

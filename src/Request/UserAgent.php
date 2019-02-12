@@ -6,13 +6,10 @@ use AlibabaCloud\Client\AlibabaCloud;
 use GuzzleHttp\Client;
 
 /**
- * Class UserAgent
- *
- * @package AlibabaCloud\Client\Request
+ * Class UserAgent.
  */
 class UserAgent
 {
-
     /**
      * @var array
      */
@@ -43,12 +40,13 @@ class UserAgent
 
         $newUserAgent = [];
         foreach (self::$userAgent as $key => $value) {
-            if ($value === null) {
+            if (null === $value) {
                 $newUserAgent[] = $key;
                 continue;
             }
             $newUserAgent[] = $key . '/' . $value;
         }
+
         return $userAgent . \implode(' ', $newUserAgent);
     }
 

@@ -7,13 +7,10 @@ use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
- * Class LocationServiceRequest
- *
- * @package   AlibabaCloud\Client\Regions
+ * Class LocationServiceRequest.
  */
 class LocationServiceRequest extends RpcRequest
 {
-
     /**
      * LocationServiceRequest constructor.
      *

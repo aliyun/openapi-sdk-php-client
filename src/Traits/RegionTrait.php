@@ -5,9 +5,8 @@ namespace AlibabaCloud\Client\Traits;
 use AlibabaCloud\Client\AlibabaCloud;
 
 /**
- * Trait RegionTrait
+ * Trait RegionTrait.
  *
- * @package   AlibabaCloud\Client\Traits
  *
  * @mixin     AlibabaCloud
  */

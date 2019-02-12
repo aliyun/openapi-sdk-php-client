@@ -14,8 +14,6 @@ use AlibabaCloud\Client\Signature\SignatureInterface;
 
 /**
  * Custom Client.
- *
- * @package   AlibabaCloud\Client\Clients
  */
 class Client
 {

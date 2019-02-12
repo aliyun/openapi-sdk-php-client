@@ -15,9 +15,8 @@ use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\Request;
 
 /**
- * Trait ClientTrait
+ * Trait ClientTrait.
  *
- * @package   AlibabaCloud\Client\Request\Traits
  *
  * @mixin     Request
  */
@@ -27,6 +26,7 @@ trait ClientTrait
      * Get the client based on the request's settings.
      *
      * @return Client
+     *
      * @throws ClientException
      */
     public function httpClient()
@@ -38,6 +38,7 @@ trait ClientTrait
      * Return credentials directly if it is an AssumeRole or GenerateSessionAccessKey.
      *
      * @return AccessKeyCredential|BearerTokenCredential|CredentialsInterface|StsCredential
+     *
      * @throws ClientException
      * @throws ServerException
      */

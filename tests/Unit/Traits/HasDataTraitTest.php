@@ -5,9 +5,8 @@ namespace AlibabaCloud\Client\Tests\Unit\Traits;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class HasDataTraitTest
+ * Class HasDataTraitTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Traits
  *
  * @coversDefaultClass \AlibabaCloud\Client\Traits\HasDataTrait
  */
@@ -57,7 +56,7 @@ class HasDataTraitTest extends TestCase
                 // Expression
                 'key',
                 // Expected
-                ['name' => 'value',],
+                ['name' => 'value'],
             ],
             [
                 // Data
@@ -169,7 +168,7 @@ class HasDataTraitTest extends TestCase
         $result->clear('a');
 
         // Assert
-        self::assertEquals(['a' => [],], $result->all());
+        self::assertEquals(['a' => []], $result->all());
 
         // Test
         $result->clear();

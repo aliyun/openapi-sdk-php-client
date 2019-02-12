@@ -11,9 +11,8 @@ use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class AcsTraitTest
+ * Class AcsTraitTest.
  *
- * @package            AlibabaCloud\Client\Tests\Unit\Request
  *
  * @coversDefaultClass \AlibabaCloud\Client\Request\Request
  */
@@ -156,7 +155,8 @@ class AcsTraitTest extends TestCase
     /**
      * @expectedException        \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Missing required 'RegionId' for Request
-     * @throws                   \AlibabaCloud\Client\Exception\ClientException
+     *
+     * @throws \AlibabaCloud\Client\Exception\ClientException
      */
     public function testRealRegionIdException()
     {
@@ -204,6 +204,7 @@ class AcsTraitTest extends TestCase
     /**
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Can't resolve host for Cdn in us-west-no, You can specify host via the host() method
+     *
      * @throws ClientException
      */
     public function testNotFoundHost()

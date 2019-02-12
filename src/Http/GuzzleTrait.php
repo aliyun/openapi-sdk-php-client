@@ -3,13 +3,10 @@
 namespace AlibabaCloud\Client\Http;
 
 /**
- * Trait GuzzleTrait
- *
- * @package   AlibabaCloud\Client\Http
+ * Trait GuzzleTrait.
  */
 trait GuzzleTrait
 {
-
     /**
      * @var array
      */
@@ -28,6 +25,7 @@ trait GuzzleTrait
     public function regionId($region)
     {
         $this->regionId = $region;
+
         return $this;
     }
 
@@ -39,6 +37,7 @@ trait GuzzleTrait
     public function timeout($timeout)
     {
         $this->options['timeout'] = $timeout;
+
         return $this;
     }
 
@@ -50,6 +49,7 @@ trait GuzzleTrait
     public function connectTimeout($connectTimeout)
     {
         $this->options['connect_timeout'] = $connectTimeout;
+
         return $this;
     }
 
@@ -61,6 +61,7 @@ trait GuzzleTrait
     public function debug($debug)
     {
         $this->options['debug'] = $debug;
+
         return $this;
     }
 
@@ -74,6 +75,7 @@ trait GuzzleTrait
     public function cert($cert)
     {
         $this->options['cert'] = $cert;
+
         return $this;
     }
 
@@ -87,6 +89,7 @@ trait GuzzleTrait
     public function proxy($proxy)
     {
         $this->options['proxy'] = $proxy;
+
         return $this;
     }
 
@@ -100,6 +103,7 @@ trait GuzzleTrait
         if ($options !== []) {
             $this->options = \AlibabaCloud\Client\arrayMerge([$this->options, $options]);
         }
+
         return $this;
     }
 }

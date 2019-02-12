@@ -12,9 +12,8 @@ use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class IniCredentialFeatureTest
+ * Class IniCredentialFeatureTest.
  *
- * @package   AlibabaCloud\Client\Tests\Feature\Credentials
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\Ini\IniCredential
  */

@@ -6,9 +6,8 @@ use AlibabaCloud\Client\AlibabaCloud;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class AlibabaCloudTest
+ * Class AlibabaCloudTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Client
  *
  * @coversDefaultClass \AlibabaCloud\Client\AlibabaCloud
  */

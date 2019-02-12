@@ -12,8 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Test the compatibility of the new SDK with the old SDK.
- *
- * @package   AlibabaCloud\Client\Tests\Framework
  */
 class RequestCompatibilityTest extends TestCase
 {

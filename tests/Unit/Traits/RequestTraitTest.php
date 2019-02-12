@@ -8,9 +8,8 @@ use AlibabaCloud\Client\Request\RpcRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RequestTraitTest
+ * Class RequestTraitTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Client\Traits
  *
  * @coversDefaultClass \AlibabaCloud\Client\Traits\RequestTrait
  */

@@ -16,20 +16,18 @@ use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ProviderTest
+ * Class ProviderTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials\Providers
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\Providers\EcsRamRoleProvider
  */
 class ProviderTest extends TestCase
 {
-
     /**
      * @param Client $client
      * @param string $key
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider key
      */
     public function testKey(Client $client, $key)
@@ -51,6 +49,7 @@ class ProviderTest extends TestCase
 
     /**
      * @return array
+     *
      * @throws \AlibabaCloud\Client\Exception\ClientException
      */
     public function key()
@@ -94,7 +93,7 @@ class ProviderTest extends TestCase
      * @param Client $client
      * @param array  $result
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider cache
      */
     public function testCache(Client $client, array $result)
@@ -133,7 +132,7 @@ class ProviderTest extends TestCase
      * @param array      $credential
      * @param array|null $result
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider cache
      */
     public function testGetCredentialsInCache(Client $client, array $credential, $result)
@@ -157,6 +156,7 @@ class ProviderTest extends TestCase
 
     /**
      * @return array
+     *
      * @throws \AlibabaCloud\Client\Exception\ClientException
      */
     public function cache()

@@ -6,13 +6,10 @@ use AlibabaCloud\Client\Result\Result;
 use Stringy\Stringy;
 
 /**
- * Class ServerException
- *
- * @package   AlibabaCloud\Client\Exception
+ * Class ServerException.
  */
 class ServerException extends AlibabaCloudException
 {
-
     /**
      * @var string
      */
@@ -35,16 +32,16 @@ class ServerException extends AlibabaCloudException
         $this->result = $result;
         $this->settingProperties();
 
-        if ($errorCode !== '') {
+        if ('' !== $errorCode) {
             $this->errorCode = $errorCode;
         }
 
-        if ($errorMessage !== '') {
+        if ('' !== $errorMessage) {
             $this->errorMessage = $errorMessage;
         }
 
         if (!$this->errorMessage) {
-            $this->errorMessage = (string)$this->result->getResponse()->getBody();
+            $this->errorMessage = (string) $this->result->getResponse()->getBody();
         }
 
         // If the string to be signed are the same with server's, it is considered a credential error.
@@ -70,19 +67,17 @@ class ServerException extends AlibabaCloudException
         $message = "$this->errorCode: $this->errorMessage RequestId: $this->requestId";
 
         if ($this->getResult()->getRequest()) {
-            $method  = $this->getResult()->getRequest()->method;
-            $uri     = (string)$this->getResult()->getRequest()->uri;
+            $method = $this->getResult()->getRequest()->method;
+            $uri    = (string) $this->getResult()->getRequest()->uri;
             $message .= " $method \"$uri\"";
             if ($this->result->getResponse()) {
                 $message .= ' ' . $this->result->getResponse()->getStatusCode();
             }
         }
+
         return $message;
     }
 
-    /**
-     * @return void
-     */
     private function settingProperties()
     {
         if (isset($this->result['message'])) {
@@ -109,8 +104,8 @@ class ServerException extends AlibabaCloudException
      * @codeCoverageIgnore
      *
      * @return string
-     * @deprecated deprecated since version 2.0.
      *
+     * @deprecated deprecated since version 2.0.
      */
     public function getErrorType()
     {
@@ -135,9 +130,10 @@ class ServerException extends AlibabaCloudException
 
     /**
      * @codeCoverageIgnore
-     * @return int
-     * @deprecated deprecated since version 2.0.
      *
+     * @return int
+     *
+     * @deprecated deprecated since version 2.0.
      */
     public function getHttpStatus()
     {

@@ -10,13 +10,10 @@ use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RamRoleClientTest
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Clients
+ * Class RamRoleClientTest.
  */
 class RamRoleArnClientTest extends TestCase
 {
-
     /**
      * @return RamRoleArnClient
      */

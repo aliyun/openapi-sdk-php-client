@@ -12,15 +12,13 @@ use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClusterServicesRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RoaRequestTest
+ * Class RoaRequestTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Request
  *
  * @coversDefaultClass \AlibabaCloud\Client\Request\RoaRequest
  */
 class RoaRequestTest extends TestCase
 {
-
     /**
      * @throws \ReflectionException
      */
@@ -129,6 +127,7 @@ class RoaRequestTest extends TestCase
      * @param string $expected
      *
      * @dataProvider buildQueryString
+     *
      * @throws ClientException
      */
     public function testBuildQueryString(array $query, $expected)
@@ -174,7 +173,7 @@ class RoaRequestTest extends TestCase
      * @param $format
      * @param $expected
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider formatToAccept
      */
     public function testFormatToAccept($format, $expected)
@@ -202,10 +201,10 @@ class RoaRequestTest extends TestCase
     public function formatToAccept()
     {
         return [
-            ['JSON', 'application/json',],
-            ['XML', 'application/xml',],
-            ['RAW', 'application/octet-stream',],
-            ['NON', 'application/octet-stream',],
+            ['JSON', 'application/json'],
+            ['XML', 'application/xml'],
+            ['RAW', 'application/octet-stream'],
+            ['NON', 'application/octet-stream'],
         ];
     }
 
@@ -274,6 +273,7 @@ class RoaRequestTest extends TestCase
      * @param $version
      *
      * @dataProvider version
+     *
      * @throws ClientException
      */
     public function testVersion($version)
@@ -311,7 +311,6 @@ class RoaRequestTest extends TestCase
      * @param $setName
      * @param $getName
      * @param $setValue
-     *
      * @param $getValue
      *
      * @dataProvider call
@@ -357,7 +356,7 @@ class RoaRequestTest extends TestCase
     /**
      * @param CredentialsInterface $credential
      *
-     * @throws       ClientException
+     * @throws ClientException
      * @dataProvider resolveQuery
      */
     public function testResolveParameters($credential)
@@ -390,6 +389,6 @@ class RoaRequestTest extends TestCase
         $request->resolveParameters($credential);
 
         // Assert
-        self::assertEquals($expected, (string)$request->uri);
+        self::assertEquals($expected, (string) $request->uri);
     }
 }

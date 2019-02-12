@@ -9,13 +9,10 @@ use AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ClientTest
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Clients
+ * Class ClientTest.
  */
 class ClientTest extends TestCase
 {
-
     /**
      * @return Client
      */

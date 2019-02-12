@@ -5,13 +5,10 @@ namespace AlibabaCloud\Client\Tests\Mock\Services\Vpc;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
- * Class DescribeVpcsRequest
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\Vpc
+ * Class DescribeVpcsRequest.
  */
 class DescribeVpcsRequest extends RpcRequest
 {
-
     /**
      * DescribeVpcsRequest constructor.
      *

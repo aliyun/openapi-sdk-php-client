@@ -9,13 +9,10 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ResultTest
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Result
+ * Class ResultTest.
  */
 class ResultTest extends TestCase
 {
-
     /**
      * @return array
      */
@@ -124,7 +121,7 @@ class ResultTest extends TestCase
         $result = new Result(new Response());
 
         // Assert
-        self::assertEquals('', (string)$result);
+        self::assertEquals('', (string) $result);
     }
 
     /**

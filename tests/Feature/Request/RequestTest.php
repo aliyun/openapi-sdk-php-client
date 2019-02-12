@@ -9,9 +9,7 @@ use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClusterServicesRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RequestTest
- *
- * @package   AlibabaCloud\Client\Tests\Feature\Request
+ * Class RequestTest.
  */
 class RequestTest extends TestCase
 {

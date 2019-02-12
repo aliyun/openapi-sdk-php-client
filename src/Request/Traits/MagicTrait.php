@@ -5,9 +5,8 @@ namespace AlibabaCloud\Client\Request\Traits;
 use AlibabaCloud\Client\Request\Request;
 
 /**
- * Class MagicTrait
+ * Class MagicTrait.
  *
- * @package   AlibabaCloud\Client\Request\Traits
  *
  * @mixin Request
  */

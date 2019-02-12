@@ -11,18 +11,16 @@ use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RsaKeyPairProviderTest
+ * Class RsaKeyPairProviderTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials\Providers
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\Providers\RamRoleArnProvider
  */
 class RsaKeyPairProviderTest extends TestCase
 {
-
     /**
-     * @throws                         ClientException
-     * @throws                         ServerException
+     * @throws ClientException
+     * @throws ServerException
      * @expectedException              \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessageRegExp /openssl_sign/
      */

@@ -9,12 +9,9 @@ use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * RESTful RPC Request.
- *
- * @package   AlibabaCloud\Client\Request
  */
 class RpcRequest extends Request
 {
-
     /**
      * @var string
      */
@@ -71,7 +68,7 @@ class RpcRequest extends Request
             $credential->getAccessKeySecret()
         );
 
-        if ($this->method === 'POST') {
+        if ('POST' === $this->method) {
             foreach ($this->options['query'] as $apiParamKey => $apiParamValue) {
                 $this->options['form_params'][$apiParamKey] = $apiParamValue;
             }
@@ -95,6 +92,7 @@ class RpcRequest extends Request
 
             return 'false';
         }
+
         return $value;
     }
 
@@ -105,6 +103,7 @@ class RpcRequest extends Request
      * @param string $accessKeySecret
      *
      * @return mixed
+     *
      * @throws ClientException
      */
     private function signature($parameters, $accessKeySecret)
@@ -134,6 +133,7 @@ class RpcRequest extends Request
         $result = urlencode($string);
         $result = str_replace(['+', '*'], ['%20', '%2A'], $result);
         $result = preg_replace('/%7E/', '~', $result);
+
         return $result;
     }
 
@@ -147,12 +147,13 @@ class RpcRequest extends Request
      */
     public function __call($name, $arguments)
     {
-        if (\strpos($name, 'get') !== false) {
+        if (false !== \strpos($name, 'get')) {
             $parameterName = $this->propertyNameByMethodName($name);
+
             return $this->__get($parameterName);
         }
 
-        if (\strpos($name, 'with') !== false) {
+        if (false !== \strpos($name, 'with')) {
             $parameterName = $this->propertyNameByMethodName($name, 4);
             $this->__set($parameterName, $arguments[0]);
             $this->options['query'][$parameterName] = $arguments[0];

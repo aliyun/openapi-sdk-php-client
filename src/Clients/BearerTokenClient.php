@@ -7,12 +7,9 @@ use AlibabaCloud\Client\Signature\BearerTokenSignature;
 
 /**
  * Use the Bearer Token to complete the authentication.
- *
- * @package   AlibabaCloud\Client\Clients
  */
 class BearerTokenClient extends Client
 {
-
     /**
      * @param string $bearerToken
      */

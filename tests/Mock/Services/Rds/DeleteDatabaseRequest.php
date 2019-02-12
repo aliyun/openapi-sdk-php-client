@@ -5,15 +5,12 @@ namespace AlibabaCloud\Client\Tests\Mock\Services\Rds;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
- * Class DeleteDatabaseRequest
+ * Class DeleteDatabaseRequest.
  *
  * @property mixed|string|null object
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\Rds
  */
 class DeleteDatabaseRequest extends RpcRequest
 {
-
     /**
      * DeleteDatabaseRequest constructor.
      *

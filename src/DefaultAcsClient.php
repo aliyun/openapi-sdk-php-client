@@ -9,15 +9,13 @@ use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Result\Result;
 
 /**
- * Class DefaultAcsClient
+ * Class DefaultAcsClient.
  *
- * @package    AlibabaCloud
  *
  * @deprecated deprecated since version 2.0, Use AlibabaCloud instead.
  */
 class DefaultAcsClient
 {
-
     /**
      * @var string
      */
@@ -38,6 +36,7 @@ class DefaultAcsClient
      * @param Request|Result $request
      *
      * @return Result|string
+     *
      * @throws ClientException
      * @throws ServerException
      */

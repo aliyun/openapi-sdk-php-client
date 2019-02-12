@@ -6,13 +6,10 @@ use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Psr7\Response;
 
 /**
- * Class DescribeAccessPointsRequestMock
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\Ecs
+ * Class DescribeAccessPointsRequestMock.
  */
 class DescribeRegionsRequestMock extends DescribeRegionsRequest
 {
-
     /**
      * @param array $data
      *
@@ -22,6 +19,7 @@ class DescribeRegionsRequestMock extends DescribeRegionsRequest
     {
         $headers = [];
         $body    = \json_encode($data);
+
         return new Result(new Response(200, $headers, $body), $this);
     }
 }

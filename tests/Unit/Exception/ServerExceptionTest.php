@@ -8,9 +8,8 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ServerExceptionTest
+ * Class ServerExceptionTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Exception
  *
  * @coversDefaultClass \AlibabaCloud\Client\Exception\ServerException
  */
@@ -18,7 +17,6 @@ class ServerExceptionTest extends TestCase
 {
     public function testConstruct()
     {
-
         // Setup
         $errorMessage = 'message';
         $errorCode    = 'code';

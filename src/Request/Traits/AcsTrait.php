@@ -8,9 +8,8 @@ use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Request\Request;
 
 /**
- * Trait AcsTrait
+ * Trait AcsTrait.
  *
- * @package   AlibabaCloud\Client\Request\Traits
  *
  * @mixin     Request
  */
@@ -49,6 +48,7 @@ trait AcsTrait
     public function action($action)
     {
         $this->action = $action;
+
         return $this;
     }
 
@@ -60,6 +60,7 @@ trait AcsTrait
     public function version($version)
     {
         $this->version = $version;
+
         return $this;
     }
 
@@ -71,6 +72,7 @@ trait AcsTrait
     public function product($product)
     {
         $this->product = $product;
+
         return $this;
     }
 
@@ -82,6 +84,7 @@ trait AcsTrait
     public function endpointType($endpointType)
     {
         $this->endpointType = $endpointType;
+
         return $this;
     }
 
@@ -93,22 +96,24 @@ trait AcsTrait
     public function serviceCode($serviceCode)
     {
         $this->serviceCode = $serviceCode;
+
         return $this;
     }
 
     /**
      * @return string
+     *
      * @throws ClientException
      */
     public function realRegionId()
     {
-        if ($this->regionId !== null) {
+        if (null !== $this->regionId) {
             return $this->regionId;
         }
-        if ($this->httpClient()->regionId !== null) {
+        if (null !== $this->httpClient()->regionId) {
             return $this->httpClient()->regionId;
         }
-        if (AlibabaCloud::getGlobalRegionId() !== null) {
+        if (null !== AlibabaCloud::getGlobalRegionId()) {
             return AlibabaCloud::getGlobalRegionId();
         }
         throw new ClientException(
@@ -124,7 +129,7 @@ trait AcsTrait
      */
     public function resolveUri()
     {
-        if ($this->uri->getHost() === 'localhost') {
+        if ('localhost' === $this->uri->getHost()) {
             // Get the host by specified `ServiceCode` and `RegionId`.
             $host = AlibabaCloud::resolveHost(
                 $this->product,

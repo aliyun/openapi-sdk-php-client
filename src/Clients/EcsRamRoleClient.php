@@ -7,12 +7,9 @@ use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 
 /**
  * Use the RAM role of an ECS instance to complete the authentication.
- *
- * @package   AlibabaCloud\Client\Clients
  */
 class EcsRamRoleClient extends \AlibabaCloud\Client\Clients\Client
 {
-
     /**
      * @param string $roleName
      */

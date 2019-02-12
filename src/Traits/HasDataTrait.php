@@ -7,14 +7,12 @@ use AlibabaCloud\Client\Result\Result;
 use JmesPath\Env as JmesPath;
 
 /**
- * Trait HasDataTrait
+ * Trait HasDataTrait.
  *
- * @package   AlibabaCloud\Client\Traits
  * @mixin     Result
  */
 trait HasDataTrait
 {
-
     /**
      * Instance of the Dot.
      *
@@ -42,7 +40,7 @@ trait HasDataTrait
 
     /**
      * Set a given key / value pair or pairs
-     * if the key doesn't exist already
+     * if the key doesn't exist already.
      *
      * @param array|int|string $keys
      * @param mixed            $value
@@ -53,7 +51,7 @@ trait HasDataTrait
     }
 
     /**
-     * Return all the stored items
+     * Return all the stored items.
      *
      * @return array
      */
@@ -63,7 +61,7 @@ trait HasDataTrait
     }
 
     /**
-     * Delete the contents of a given key or keys
+     * Delete the contents of a given key or keys.
      *
      * @param array|int|string|null $keys
      */
@@ -73,7 +71,7 @@ trait HasDataTrait
     }
 
     /**
-     * Delete the given key or keys
+     * Delete the given key or keys.
      *
      * @param array|int|string $keys
      */
@@ -83,11 +81,11 @@ trait HasDataTrait
     }
 
     /**
-     * Flatten an array with the given character as a key delimiter
+     * Flatten an array with the given character as a key delimiter.
      *
-     * @param  string     $delimiter
-     * @param  array|null $items
-     * @param  string     $prepend
+     * @param string     $delimiter
+     * @param array|null $items
+     * @param string     $prepend
      *
      * @return array
      */
@@ -97,10 +95,10 @@ trait HasDataTrait
     }
 
     /**
-     * Return the value of a given key
+     * Return the value of a given key.
      *
-     * @param  int|string|null $key
-     * @param  mixed           $default
+     * @param int|string|null $key
+     * @param mixed           $default
      *
      * @return mixed
      */
@@ -110,9 +108,9 @@ trait HasDataTrait
     }
 
     /**
-     * Check if a given key or keys exists
+     * Check if a given key or keys exists.
      *
-     * @param  array|int|string $keys
+     * @param array|int|string $keys
      *
      * @return bool
      */
@@ -122,7 +120,7 @@ trait HasDataTrait
     }
 
     /**
-     * Set a given key / value pair or pairs
+     * Set a given key / value pair or pairs.
      *
      * @param array|int|string $keys
      * @param mixed            $value
@@ -133,9 +131,9 @@ trait HasDataTrait
     }
 
     /**
-     * Check if a given key or keys are empty
+     * Check if a given key or keys are empty.
      *
-     * @param  array|int|string|null $keys
+     * @param array|int|string|null $keys
      *
      * @return bool
      */
@@ -145,7 +143,7 @@ trait HasDataTrait
     }
 
     /**
-     * Replace all items with a given array as a reference
+     * Replace all items with a given array as a reference.
      *
      * @param array $items
      */
@@ -155,10 +153,10 @@ trait HasDataTrait
     }
 
     /**
-     * Return the value of a given key or all the values as JSON
+     * Return the value of a given key or all the values as JSON.
      *
-     * @param  mixed $key
-     * @param  int   $options
+     * @param mixed $key
+     * @param int   $options
      *
      * @return string
      */
@@ -182,9 +180,9 @@ trait HasDataTrait
      */
 
     /**
-     * Check if a given key exists
+     * Check if a given key exists.
      *
-     * @param  int|string $key
+     * @param int|string $key
      *
      * @return bool
      */
@@ -194,9 +192,9 @@ trait HasDataTrait
     }
 
     /**
-     * Return the value of a given key
+     * Return the value of a given key.
      *
-     * @param  int|string $key
+     * @param int|string $key
      *
      * @return mixed
      */
@@ -206,7 +204,7 @@ trait HasDataTrait
     }
 
     /**
-     * Set a given value to the given key
+     * Set a given value to the given key.
      *
      * @param int|string|null $key
      * @param mixed           $value
@@ -217,7 +215,7 @@ trait HasDataTrait
     }
 
     /**
-     * Delete the given key
+     * Delete the given key.
      *
      * @param int|string $key
      */
@@ -233,9 +231,9 @@ trait HasDataTrait
      */
 
     /**
-     * Return the number of items in a given key
+     * Return the number of items in a given key.
      *
-     * @param  int|string|null $key
+     * @param int|string|null $key
      *
      * @return int
      */
@@ -245,7 +243,7 @@ trait HasDataTrait
     }
 
     /**
-     * Get an iterator for the stored items
+     * Get an iterator for the stored items.
      *
      * @return \ArrayIterator
      */
@@ -255,7 +253,7 @@ trait HasDataTrait
     }
 
     /**
-     * Return items for JSON serialization
+     * Return items for JSON serialization.
      *
      * @return array
      */
@@ -263,7 +261,6 @@ trait HasDataTrait
     {
         return $this->dot->jsonSerialize();
     }
-
 
     /*
      * --------------------------------------------------------------
@@ -306,8 +303,6 @@ trait HasDataTrait
 
     /**
      * @param $name
-     *
-     * @return void
      */
     public function __unset($name)
     {

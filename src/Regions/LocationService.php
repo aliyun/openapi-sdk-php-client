@@ -8,13 +8,10 @@ use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\Request;
 
 /**
- * Class LocationService
- *
- * @package   AlibabaCloud\Client\Regions
+ * Class LocationService.
  */
 class LocationService
 {
-
     /**
      * @var Request
      */
@@ -42,6 +39,7 @@ class LocationService
      * @param string  $domain
      *
      * @return mixed
+     *
      * @throws ClientException
      */
     public static function findProductDomain(Request $request, $domain = 'location.aliyuncs.com')
@@ -54,6 +52,7 @@ class LocationService
      * @param string  $domain
      *
      * @return string
+     *
      * @throws ClientException
      */
     public static function resolveHost(Request $request, $domain = 'location.aliyuncs.com')
@@ -74,6 +73,7 @@ class LocationService
      * @param string $domain
      *
      * @return string
+     *
      * @throws ClientException
      */
     private static function getResult($instance, $domain)
@@ -131,8 +131,6 @@ class LocationService
      * @codeCoverageIgnore
      *
      * @deprecated deprecated since version 2.0.
-     *
-     * @return void
      */
     public static function modifyServiceDomain()
     {
@@ -142,6 +140,7 @@ class LocationService
      * Update endpoints from OSS.
      *
      * @codeCoverageIgnore
+     *
      * @throws \Exception
      */
     public static function updateEndpoints()

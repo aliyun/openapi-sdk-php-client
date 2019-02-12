@@ -7,11 +7,9 @@ use AlibabaCloud\Client\Traits\HasDataTrait;
 use GuzzleHttp\Psr7\Response;
 
 /**
- * Result from Alibaba Cloud
+ * Result from Alibaba Cloud.
  *
  * @property string|null RequestId
- *
- * @package   AlibabaCloud\Client\Result
  */
 class Result implements \ArrayAccess, \IteratorAggregate, \Countable
 {
@@ -94,7 +92,7 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
      */
     public function __toString()
     {
-        return (string)$this->response->getBody();
+        return (string) $this->response->getBody();
     }
 
     /**

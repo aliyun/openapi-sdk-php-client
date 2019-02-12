@@ -5,9 +5,8 @@ namespace AlibabaCloud\Client\Credentials\Ini;
 use AlibabaCloud\Client\Clients\Client;
 
 /**
- * Trait OptionsTrait
+ * Trait OptionsTrait.
  *
- * @package   AlibabaCloud\Client\Credentials\Ini
  *
  * @mixin     IniCredential
  */
@@ -26,7 +25,7 @@ trait OptionsTrait
         if (isset($configures['debug'])) {
             $client->options(
                 [
-                    'debug' => (bool)$configures['debug'],
+                    'debug' => (bool) $configures['debug'],
                 ]
             );
         }

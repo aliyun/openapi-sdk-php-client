@@ -6,13 +6,10 @@ use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Psr7\Response;
 
 /**
- * Class GetConfigRequestMock
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\CCC
+ * Class GetConfigRequestMock.
  */
 class ListPhoneNumbersRequestMock extends ListPhoneNumbersRequest
 {
-
     /**
      * @param array $data
      *
@@ -22,6 +19,7 @@ class ListPhoneNumbersRequestMock extends ListPhoneNumbersRequest
     {
         $headers = [];
         $body    = \json_encode($data);
+
         return new Result(new Response(200, $headers, $body), $this);
     }
 }

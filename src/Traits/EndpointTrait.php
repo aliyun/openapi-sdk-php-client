@@ -9,14 +9,13 @@ use AlibabaCloud\Client\Regions\LocationService;
 /**
  * Help developers set up and get host.
  *
- * @package   AlibabaCloud\Client\Traits
  *
  * @mixin     AlibabaCloud
  */
 trait EndpointTrait
 {
     /**
-     * @var array Host cache.
+     * @var array host cache
      */
     private static $hosts = [];
 
@@ -39,8 +38,6 @@ trait EndpointTrait
      * @param string $regionId
      * @param string $product
      * @param string $domain
-     *
-     * @return void
      */
     public static function addEndpoint($regionId, $product, $domain)
     {
@@ -76,8 +73,6 @@ trait EndpointTrait
      * @param string $product
      * @param string $host
      * @param string $regionId
-     *
-     * @return void
      */
     public static function addHost($product, $host, $regionId = \ALIBABA_CLOUD_GLOBAL_REGION)
     {

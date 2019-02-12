@@ -6,9 +6,8 @@ use AlibabaCloud\Client\Profile\DefaultProfile;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class DefaultProfileTest
+ * Class DefaultProfileTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Profile
  *
  * @coversDefaultClass \AlibabaCloud\Client\Profile\DefaultProfile
  */

@@ -6,18 +6,16 @@ use AlibabaCloud\Client\Exception\ClientException;
 use Exception;
 
 /**
- * Class ShaHmac256WithRsaSignature
- *
- * @package   AlibabaCloud\Signature
+ * Class ShaHmac256WithRsaSignature.
  */
 class ShaHmac256WithRsaSignature implements SignatureInterface
 {
-
     /**
      * @param string $string
      * @param string $privateKey
      *
      * @return string
+     *
      * @throws ClientException
      */
     public function sign($string, $privateKey)

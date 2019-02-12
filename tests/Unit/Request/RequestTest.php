@@ -11,9 +11,8 @@ use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RequestTest
+ * Class RequestTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Request
  *
  * @coversDefaultClass \AlibabaCloud\Client\Request\Request
  */

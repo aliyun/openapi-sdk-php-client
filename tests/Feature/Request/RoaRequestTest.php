@@ -9,9 +9,7 @@ use AlibabaCloud\Client\Tests\Mock\Services\Nlp\NlpRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RoaRequestTest
- *
- * @package   AlibabaCloud\Client\Tests\Feature\Request
+ * Class RoaRequestTest.
  */
 class RoaRequestTest extends TestCase
 {

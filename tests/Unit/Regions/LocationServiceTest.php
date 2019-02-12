@@ -10,9 +10,7 @@ use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class LocationServiceTest
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Endpoint
+ * Class LocationServiceTest.
  */
 class LocationServiceTest extends TestCase
 {

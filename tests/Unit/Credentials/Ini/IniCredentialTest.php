@@ -8,9 +8,8 @@ use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class IniCredentialTest
+ * Class IniCredentialTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials\Ini
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\Ini\IniCredential
  */
@@ -200,7 +199,7 @@ class IniCredentialTest extends TestCase
      * @param string $fileName
      * @param string $exceptionMessage
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider parseFile
      */
     public function testParseFile($fileName, $exceptionMessage)
@@ -241,7 +240,7 @@ class IniCredentialTest extends TestCase
     }
 
     /**
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider parseFile
      */
     public function testParseFileBadFormat()
@@ -263,7 +262,7 @@ class IniCredentialTest extends TestCase
     }
 
     /**
-     * @throws  \ReflectionException
+     * @throws \ReflectionException
      * @covers  ::getHomeDirectory
      * @depends testParseFile
      */
@@ -279,7 +278,7 @@ class IniCredentialTest extends TestCase
     }
 
     /**
-     * @throws  \ReflectionException
+     * @throws \ReflectionException
      * @covers  ::getHomeDirectory
      * @depends testGetsHomeDirectoryForWindowsUser
      */

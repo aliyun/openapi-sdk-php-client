@@ -5,13 +5,10 @@ namespace AlibabaCloud\Client\Tests\Mock\Services\Ram;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
- * Class ListAccessKeysRequest
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\Ram
+ * Class ListAccessKeysRequest.
  */
 class ListAccessKeysRequest extends RpcRequest
 {
-
     /**
      * ListAccessKeysRequest constructor.
      *
@@ -50,6 +47,7 @@ class ListAccessKeysRequest extends RpcRequest
     {
         $this->userName                     = $userName;
         $this->options['query']['UserName'] = $userName;
+
         return $this;
     }
 }

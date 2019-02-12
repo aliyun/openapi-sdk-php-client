@@ -49,9 +49,7 @@
         "psr/cache": "^1.0",
         "league/climate": "^3.2.4",
         "phpunit/phpunit": "4.*",
-        "symfony/var-dumper": "^3.4",
-        "friendsofphp/php-cs-fixer": "^2.2",
-        "squizlabs/php_codesniffer": "^3.4"
+        "symfony/var-dumper": "^3.4"
     },
     "suggest": {
         "ext-openssl": "Working with private distributions and verifying received messages",
@@ -73,8 +71,7 @@
         "psr-4": {
             "AlibabaCloud\\Client\\Tests\\": "tests/"
         },
-        "classmap": [
-        ]
+        "classmap": []
     },
     "extra": {
         "branch-alias": {
@@ -89,9 +86,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts-descriptions": {
-        "cs": "Tokenizes PHP, JavaScript and CSS files to detect violations of a defined coding standard.",
-        "cbf": "Automatically correct coding standard violations.",
-        "fixer": "Fixes code to follow standards.",
         "test": "Run all tests.",
         "unit": "Run Unit tests.",
         "feature": "Run Feature tests.",
@@ -100,9 +94,6 @@
         "endpoints": "Update endpoints from OSS."
     },
     "scripts": {
-        "cs": "phpcs --standard=PSR2 -n ./",
-        "cbf": "phpcbf --standard=PSR2 -n ./",
-        "fixer": "php-cs-fixer fix ./",
         "test": [
             "@clearCache",
             "phpunit --colors=always"

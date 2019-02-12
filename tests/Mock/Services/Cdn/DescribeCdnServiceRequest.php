@@ -5,13 +5,10 @@ namespace AlibabaCloud\Client\Tests\Mock\Services\Cdn;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
- * Class DescribeCdnServiceRequest
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\Cdn
+ * Class DescribeCdnServiceRequest.
  */
 class DescribeCdnServiceRequest extends RpcRequest
 {
-
     /**
      * DescribeCdnServiceRequest constructor.
      *

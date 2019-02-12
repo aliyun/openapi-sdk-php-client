@@ -6,13 +6,10 @@ use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Psr7\Response;
 
 /**
- * Class NlpRequestMock
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\Vpc
+ * Class NlpRequestMock.
  */
 class NlpRequestMock extends NlpRequest
 {
-
     /**
      * @param array $data
      *
@@ -22,6 +19,7 @@ class NlpRequestMock extends NlpRequest
     {
         $headers = [];
         $body    = \json_encode($data);
+
         return new Result(new Response(200, $headers, $body), $this);
     }
 }

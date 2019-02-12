@@ -5,9 +5,7 @@ namespace AlibabaCloud\Client\Credentials\Providers;
 use AlibabaCloud\Client\Clients\Client;
 
 /**
- * Class Provider
- *
- * @package   AlibabaCloud\Client\Credentials\Providers
+ * Class Provider.
  */
 class Provider
 {
@@ -38,7 +36,7 @@ class Provider
      */
     protected function key()
     {
-        return (string)$this->client->getCredential();
+        return (string) $this->client->getCredential();
     }
 
     /**
@@ -65,6 +63,7 @@ class Provider
             }
         }
         unset(self::$credentialsCache[$this->key()]);
+
         return null;
     }
 }

@@ -5,15 +5,12 @@ namespace AlibabaCloud\Client\Tests\Unit\Credentials\Ini;
 use org\bovigo\vfs\vfsStream;
 
 /**
- * Class VirtualAccessKeyCredential
+ * Class VirtualAccessKeyCredential.
  *
  * @codeCoverageIgnore
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials\Ini
  */
 class VirtualAccessKeyCredential
 {
-
     /**
      * @var string Virtual Credential Content
      */
@@ -77,6 +74,7 @@ proxy_http = tcp://localhost:8125
 proxy_https = tcp://localhost:9124
 proxy_no = .mit.edu,foo.com
 EOT;
+
         return (new static($content))->url();
     }
 
@@ -104,6 +102,7 @@ proxy_http = tcp://localhost:8125
 proxy_https = tcp://localhost:9124
 proxy_no = .mit.edu,foo.com
 EOT;
+
         return (new static($content))->url();
     }
 
@@ -116,6 +115,7 @@ EOT;
 [phpunit]
 enable = true
 EOT;
+
         return (new static($content))->url();
     }
 
@@ -132,6 +132,7 @@ access_key_id = access_key_id
 security_token = security_token
 debug = false
 EOT;
+
         return (new static($content))->url();
     }
 
@@ -143,6 +144,7 @@ EOT;
         $content = <<<EOT
 badFormat
 EOT;
+
         return (new static($content, 'badFormat'))->url();
     }
 
@@ -160,6 +162,7 @@ access_key_secret = access_key_secret
 security_token = security_token
 debug = false
 EOT;
+
         return (new static($content))->url();
     }
 
@@ -173,6 +176,7 @@ EOT;
 enable = true
 type = invalidType
 EOT;
+
         return (new static($content))->url();
     }
 
@@ -189,6 +193,7 @@ access_key_secret = access_key_secret
 security_token = security_token
 debug = false
 EOT;
+
         return (new static($content))->url();
     }
 
@@ -214,6 +219,7 @@ proxy_http = tcp://localhost:8125
 proxy_https = tcp://localhost:9124
 proxy_no = .mit.edu,foo.com
 EOT;
+
         return (new static($content, 'ok'))->url();
     }
 }

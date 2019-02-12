@@ -10,9 +10,8 @@ use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeRegionsRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RpcRequestTest
+ * Class RpcRequestTest.
  *
- * @package   AlibabaCloud\Client\Tests\Feature\Request
  * @coversDefaultClass \AlibabaCloud\Client\Request\RpcRequest
  */
 class RpcRequestTest extends TestCase
@@ -48,6 +47,7 @@ class RpcRequestTest extends TestCase
      * @covers ::booleanValueToString
      * @covers ::resolveParameters
      * @covers \AlibabaCloud\Client\Request\Request::setQueryParameters
+     *
      * @throws ClientException
      */
     public function testWithBearerTokenCredential()

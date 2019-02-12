@@ -5,8 +5,6 @@ namespace AlibabaCloud\Client\Request\Traits;
 use AlibabaCloud\Client\Request\Request;
 
 /**
- * @package    AlibabaCloud\Client\Request\Traits
- *
  * @mixin Request
  */
 trait DeprecatedTrait
@@ -14,7 +12,7 @@ trait DeprecatedTrait
     /**
      * @deprecated deprecated since version 2.0, Use $this->options['body'] instead.
      *
-     * @return     string
+     * @return string
      */
     public function getContent()
     {
@@ -38,7 +36,7 @@ trait DeprecatedTrait
     /**
      * @deprecated deprecated since version 2.0, Use method instead.
      *
-     * @return     string
+     * @return string
      */
     public function getMethod()
     {
@@ -60,7 +58,7 @@ trait DeprecatedTrait
     /**
      * @deprecated deprecated since version 2.0, Use uri->getScheme() instead.
      *
-     * @return             string
+     * @return string
      */
     public function getProtocol()
     {
@@ -82,7 +80,7 @@ trait DeprecatedTrait
     /**
      * @deprecated deprecated since version 2.0, Use uri->getScheme() instead.
      *
-     * @return     string
+     * @return string
      */
     public function getProtocolType()
     {
@@ -104,7 +102,7 @@ trait DeprecatedTrait
     /**
      * @deprecated deprecated since version 2.0, Use $this->options['headers'] instead.
      *
-     * @return     array
+     * @return array
      */
     public function getHeaders()
     {
@@ -124,12 +122,14 @@ trait DeprecatedTrait
     public function addHeader($headerKey, $headerValue)
     {
         $this->options['headers'][$headerKey] = $headerValue;
+
         return $this;
     }
 
     /**
      * @deprecated deprecated since version 2.0.
-     * @return     array
+     *
+     * @return array
      */
     public function getQueryParameters()
     {
@@ -149,12 +149,14 @@ trait DeprecatedTrait
     public function setQueryParameters($name, $value)
     {
         $this->options['query'][$name] = $value;
+
         return $this;
     }
 
     /**
      * @deprecated deprecated since version 2.0.
-     * @return     array
+     *
+     * @return array
      */
     public function getDomainParameter()
     {
@@ -174,6 +176,7 @@ trait DeprecatedTrait
     public function putDomainParameters($name, $value)
     {
         $this->options['form_params'][$name] = $value;
+
         return $this;
     }
 
@@ -191,7 +194,8 @@ trait DeprecatedTrait
 
     /**
      * @deprecated deprecated since version 2.0.
-     * @return     string
+     *
+     * @return string
      */
     public function getActionName()
     {
@@ -212,7 +216,8 @@ trait DeprecatedTrait
 
     /**
      * @deprecated deprecated since version 2.0.
-     * @return     string
+     *
+     * @return string
      */
     public function getAcceptFormat()
     {
@@ -221,7 +226,8 @@ trait DeprecatedTrait
 
     /**
      * @deprecated deprecated since version 2.0.
-     * @return     string
+     *
+     * @return string
      */
     public function getLocationEndpointType()
     {
@@ -231,7 +237,7 @@ trait DeprecatedTrait
     /**
      * @deprecated deprecated since version 2.0.
      *
-     * @return     string
+     * @return string
      */
     public function getLocationServiceCode()
     {

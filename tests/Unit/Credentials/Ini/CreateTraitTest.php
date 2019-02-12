@@ -12,20 +12,16 @@ use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class CreateTraitTest
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials\Ini
+ * Class CreateTraitTest.
  */
 class CreateTraitTest extends TestCase
 {
-
     /**
      * @param string $clientName
      * @param array  $credential
-     *
      * @param string $errorMessage
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider createClient
      */
     public function testCreateClient($clientName, array $credential, $errorMessage)
@@ -80,10 +76,9 @@ class CreateTraitTest extends TestCase
     /**
      * @param string $clientName
      * @param array  $credential
-     *
      * @param string $errorMessage
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider createClientByType
      */
     public function testCreateClientByType($clientName, array $credential, $errorMessage)
@@ -159,10 +154,9 @@ class CreateTraitTest extends TestCase
     /**
      * @param string $clientName
      * @param array  $credential
-     *
      * @param string $errorMessage
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider rsaKeyPairClient
      */
     public function testRsaKeyPairClient($clientName, array $credential, $errorMessage)
@@ -218,10 +212,9 @@ class CreateTraitTest extends TestCase
     /**
      * @param string $clientName
      * @param array  $credential
-     *
      * @param string $errorMessage
      *
-     * @throws       \ReflectionException
+     * @throws \ReflectionException
      * @dataProvider accessKeyClient
      */
     public function testAccessKeyClient($clientName, array $credential, $errorMessage)
@@ -276,7 +269,6 @@ class CreateTraitTest extends TestCase
     /**
      * @param string $clientName
      * @param array  $credential
-     *
      * @param string $errorMessage
      *
      * @dataProvider ecsRamRoleClient
@@ -327,7 +319,6 @@ class CreateTraitTest extends TestCase
     /**
      * @param string $clientName
      * @param array  $credential
-     *
      * @param string $errorMessage
      *
      * @dataProvider ramRoleArnClient
@@ -405,7 +396,6 @@ class CreateTraitTest extends TestCase
     /**
      * @param string $clientName
      * @param array  $credential
-     *
      * @param string $errorMessage
      *
      * @dataProvider bearerTokenClient

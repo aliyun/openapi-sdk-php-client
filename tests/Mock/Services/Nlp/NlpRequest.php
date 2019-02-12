@@ -5,13 +5,10 @@ namespace AlibabaCloud\Client\Tests\Mock\Services\Nlp;
 use AlibabaCloud\Client\Request\RoaRequest;
 
 /**
- * Class NlpRequest
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\Vpc
+ * Class NlpRequest.
  */
 class NlpRequest extends RoaRequest
 {
-
     /**
      * NlpRequest constructor.
      *

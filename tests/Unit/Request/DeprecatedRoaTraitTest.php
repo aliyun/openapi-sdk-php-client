@@ -6,9 +6,7 @@ use AlibabaCloud\Client\Request\RoaRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class DeprecatedRoaTraitTest
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Request
+ * Class DeprecatedRoaTraitTest.
  */
 class DeprecatedRoaTraitTest extends TestCase
 {

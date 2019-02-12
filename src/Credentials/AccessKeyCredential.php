@@ -4,12 +4,9 @@ namespace AlibabaCloud\Client\Credentials;
 
 /**
  * Use the AccessKey to complete the authentication.
- *
- * @package   AlibabaCloud\Client\Credentials
  */
 class AccessKeyCredential implements CredentialsInterface
 {
-
     /**
      * @var string
      */

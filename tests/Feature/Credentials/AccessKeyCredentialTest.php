@@ -14,13 +14,10 @@ use AlibabaCloud\Client\Tests\Mock\Services\Vpc\DescribeVpcsRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class AccessKeyCredentialTest
- *
- * @package   AlibabaCloud\Client\Tests\Feature\Credentials
+ * Class AccessKeyCredentialTest.
  */
 class AccessKeyCredentialTest extends TestCase
 {
-
     /**
      * @var string
      */
@@ -52,7 +49,7 @@ class AccessKeyCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Ecs
+     * Assert for Ecs.
      */
     public function testEcs()
     {
@@ -68,7 +65,7 @@ class AccessKeyCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Dds
+     * Assert for Dds.
      */
     public function testDds()
     {
@@ -82,7 +79,7 @@ class AccessKeyCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Cdn
+     * Assert for Cdn.
      */
     public function testCdn()
     {
@@ -101,7 +98,7 @@ class AccessKeyCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Slb
+     * Assert for Slb.
      */
     public function testSlb()
     {
@@ -125,7 +122,7 @@ class AccessKeyCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Ram
+     * Assert for Ram.
      */
     public function testRam()
     {
@@ -147,7 +144,7 @@ class AccessKeyCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Vpc
+     * Assert for Vpc.
      *
      * @throws ServerException
      */

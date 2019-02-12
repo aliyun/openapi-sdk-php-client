@@ -6,13 +6,10 @@ use AlibabaCloud\Client\Exception\ClientException;
 use Exception;
 
 /**
- * Use the RSA key pair to complete the authentication (supported only on Japanese site)
- *
- * @package   AlibabaCloud\Client\Credentials
+ * Use the RSA key pair to complete the authentication (supported only on Japanese site).
  */
 class RsaKeyPairCredential implements CredentialsInterface
 {
-
     /**
      * @var string
      */

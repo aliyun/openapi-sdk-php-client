@@ -6,9 +6,7 @@ use AlibabaCloud\Client\Request\RpcRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class DeprecatedTraitTest
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Request
+ * Class DeprecatedTraitTest.
  */
 class DeprecatedTraitTest extends TestCase
 {

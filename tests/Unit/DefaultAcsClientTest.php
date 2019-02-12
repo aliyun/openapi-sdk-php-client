@@ -12,15 +12,13 @@ use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeRegionsRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class DefaultAcsClientTest
+ * Class DefaultAcsClientTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Client
  *
  * @coversDefaultClass \AlibabaCloud\Client\DefaultAcsClient
  */
 class DefaultAcsClientTest extends TestCase
 {
-
     /**
      * @var DefaultProfile
      */
@@ -119,7 +117,7 @@ class DefaultAcsClientTest extends TestCase
             $request = new DescribeRegionsRequest();
             $request->method('BadMethod');
             $result = self::$client->getAcsResponse($request);
-            self::assertEquals('', (string)$result);
+            self::assertEquals('', (string) $result);
         } catch (ClientException $e) {
             self::assertStringStartsWith('cURL error ', $e->getMessage());
         }
@@ -214,7 +212,7 @@ class DefaultAcsClientTest extends TestCase
                     ->regionId('cn-hangzhou')
                     ->asGlobalClient();
 
-        $result = self::$client->getAcsResponse(new Result(new \GuzzleHttp\Psr7\Response));
+        $result = self::$client->getAcsResponse(new Result(new \GuzzleHttp\Psr7\Response()));
 
         self::assertInstanceOf(Result::class, $result);
     }

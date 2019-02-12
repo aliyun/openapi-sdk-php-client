@@ -8,9 +8,8 @@ use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Request\UserAgent;
 
 /**
- * Trait RequestTrait
+ * Trait RequestTrait.
  *
- * @package   AlibabaCloud\Client\Traits
  *
  * @mixin     AlibabaCloud
  */

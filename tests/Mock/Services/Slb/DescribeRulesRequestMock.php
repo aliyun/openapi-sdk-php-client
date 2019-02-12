@@ -6,13 +6,10 @@ use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Psr7\Response;
 
 /**
- * Class DescribeRulesRequestMock
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\Slb
+ * Class DescribeRulesRequestMock.
  */
 class DescribeRulesRequestMock extends DescribeRulesRequest
 {
-
     /**
      * @param array $data
      *
@@ -22,6 +19,7 @@ class DescribeRulesRequestMock extends DescribeRulesRequest
     {
         $headers = [];
         $body    = \json_encode($data);
+
         return new Result(new Response(200, $headers, $body), $this);
     }
 }

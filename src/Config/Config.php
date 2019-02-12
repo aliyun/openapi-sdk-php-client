@@ -5,13 +5,10 @@ namespace AlibabaCloud\Client\Config;
 use clagiordano\weblibs\configmanager\ConfigManager;
 
 /**
- * Class Config
- *
- * @package   AlibabaCloud\Client\Config
+ * Class Config.
  */
 class Config
 {
-
     /**
      * @var ConfigManager|null
      */
@@ -19,7 +16,6 @@ class Config
 
     /**
      * @param string      $configPath
-     *
      * @param string|null $defaultValue
      *
      * @return mixed
@@ -38,11 +34,13 @@ class Config
      * @param mixed  $newValue
      *
      * @return ConfigManager
+     *
      * @throws \Exception
      */
     public static function set($configPath, $newValue)
     {
         self::getConfigManager()->setValue(\strtolower($configPath), $newValue);
+
         return self::getConfigManager()->saveConfigFile();
     }
 
@@ -54,6 +52,7 @@ class Config
         if (!self::$configManager instanceof ConfigManager) {
             self::$configManager = new ConfigManager(__DIR__ . '/Data.php');
         }
+
         return self::$configManager;
     }
 }

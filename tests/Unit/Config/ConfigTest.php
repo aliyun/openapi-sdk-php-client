@@ -8,13 +8,10 @@ use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class AccessKeyCredentialTest
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials
+ * Class AccessKeyCredentialTest.
  */
 class ConfigTest extends TestCase
 {
-
     /**
      * @var string
      */
@@ -44,7 +41,8 @@ class ConfigTest extends TestCase
 
     /**
      * @depends testGetConfigManager
-     * @throws  \ReflectionException
+     *
+     * @throws \ReflectionException
      */
     public function testSetAndGet()
     {
@@ -58,7 +56,7 @@ class ConfigTest extends TestCase
      */
     private static function file()
     {
-        if (self::$vfs !== null) {
+        if (null !== self::$vfs) {
             return self::$vfs;
         }
 
@@ -72,6 +70,7 @@ EOT;
         self::$vfs = vfsStream::newFile('config')
                               ->withContent($content)
                               ->at($root);
+
         return self::$vfs;
     }
 

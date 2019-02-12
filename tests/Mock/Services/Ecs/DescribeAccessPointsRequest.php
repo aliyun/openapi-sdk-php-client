@@ -5,13 +5,10 @@ namespace AlibabaCloud\Client\Tests\Mock\Services\Ecs;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
- * Class DescribeAccessPointsRequest
- *
- * @package   AlibabaCloud\Client\Tests\Mock\Services\Ecs
+ * Class DescribeAccessPointsRequest.
  */
 class DescribeAccessPointsRequest extends RpcRequest
 {
-
     /**
      * DescribeAccessPointsRequest constructor.
      *
@@ -137,6 +134,7 @@ class DescribeAccessPointsRequest extends RpcRequest
     {
         $this->pageSize                     = $pageSize;
         $this->options['query']['PageSize'] = $pageSize;
+
         return $this;
     }
 

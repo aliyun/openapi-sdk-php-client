@@ -7,20 +7,19 @@ use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RsaKeyPaireCredentialTest
+ * Class RsaKeyPaireCredentialTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\RsaKeyPairCredential
  */
 class RsaKeyPaireCredentialTest extends TestCase
 {
-
     /**
      * @covers ::__construct
      * @covers ::getPublicKeyId
      * @covers ::getPrivateKey
      * @covers ::__toString
+     *
      * @throws \AlibabaCloud\Client\Exception\ClientException
      */
     public function testConstruct()
@@ -37,7 +36,7 @@ class RsaKeyPaireCredentialTest extends TestCase
         $this->assertStringEqualsFile($privateKeyFile, $credential->getPrivateKey());
         $this->assertEquals(
             "publicKeyId#$publicKeyId",
-            (string)$credential
+            (string) $credential
         );
     }
 

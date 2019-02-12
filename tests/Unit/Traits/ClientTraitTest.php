@@ -17,9 +17,8 @@ use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ClientTraitTest
+ * Class ClientTraitTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Client\Traits
  *
  * @coversDefaultClass \AlibabaCloud\Client\Traits\ClientTrait
  */
@@ -176,7 +175,8 @@ class ClientTraitTest extends TestCase
     /**
      * @expectedException        \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Client not found: global
-     * @throws                   ClientException
+     *
+     * @throws ClientException
      */
     public function testGetGlobalClient()
     {
@@ -228,7 +228,8 @@ class ClientTraitTest extends TestCase
     /**
      * @expectedException        \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Credential file is not readable: /no/no
-     * @throws                   \AlibabaCloud\Client\Exception\ClientException
+     *
+     * @throws \AlibabaCloud\Client\Exception\ClientException
      */
     public function testLoadWithException()
     {

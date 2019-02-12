@@ -18,7 +18,6 @@ use AlibabaCloud\Client\Signature\SignatureInterface;
 /**
  * Trait of the manage clients.
  *
- * @package   AlibabaCloud\Client\Traits
  *
  * @mixin     AlibabaCloud
  */
@@ -35,6 +34,7 @@ trait ClientTrait
      * @param string $clientName
      *
      * @return Client
+     *
      * @throws ClientException
      */
     public static function get($clientName)
@@ -81,8 +81,6 @@ trait ClientTrait
 
     /**
      * Delete all clients.
-     *
-     * @return void
      */
     public static function flush()
     {
@@ -94,6 +92,7 @@ trait ClientTrait
      * Get the global client.
      *
      * @return Client
+     *
      * @throws ClientException
      */
     public static function getGlobalClient()
@@ -117,6 +116,7 @@ trait ClientTrait
      * A list of additional files to load.
      *
      * @return array
+     *
      * @throws ClientException when a file has a syntax error or does not exist or is not readable
      */
     public static function load()
@@ -128,6 +128,7 @@ trait ClientTrait
         foreach (\func_get_args() as $filename) {
             $list[$filename] = (new IniCredential($filename))->load();
         }
+
         return $list;
     }
 
@@ -211,12 +212,13 @@ trait ClientTrait
     }
 
     /**
-     * Use the RSA key pair to complete the authentication (supported only on Japanese site)
+     * Use the RSA key pair to complete the authentication (supported only on Japanese site).
      *
      * @param string $publicKeyId
      * @param string $privateKeyFile
      *
      * @return RsaKeyPairClient
+     *
      * @throws ClientException
      */
     public static function rsaKeyPairClient($publicKeyId, $privateKeyFile)

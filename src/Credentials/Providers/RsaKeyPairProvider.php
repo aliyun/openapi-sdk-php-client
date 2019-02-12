@@ -11,19 +11,17 @@ use AlibabaCloud\Client\Result\Result;
 use AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature;
 
 /**
- * Class RsaKeyPairProvider
- *
- * @package   AlibabaCloud\Client\Credentials\Providers
+ * Class RsaKeyPairProvider.
  */
 class RsaKeyPairProvider extends Provider
 {
-
     /**
      * Get credential.
      *
      * @param int $timeout
      *
      * @return AccessKeyCredential
+     *
      * @throws ClientException
      * @throws ServerException
      */
@@ -31,7 +29,7 @@ class RsaKeyPairProvider extends Provider
     {
         $credential = $this->getCredentialsInCache();
 
-        if ($credential === null) {
+        if (null === $credential) {
             $result = $this->request($timeout);
 
             if (!isset($result['SessionAccessKey']['SessionAccessKeyId'],
@@ -59,6 +57,7 @@ class RsaKeyPairProvider extends Provider
      * @param int $timeout
      *
      * @return Result
+     *
      * @throws ClientException
      * @throws ServerException
      */

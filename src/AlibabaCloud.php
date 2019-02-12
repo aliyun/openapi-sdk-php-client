@@ -9,9 +9,8 @@ use AlibabaCloud\Client\Traits\RegionTrait;
 use AlibabaCloud\Client\Traits\RequestTrait;
 
 /**
- * Class AlibabaCloud
+ * Class AlibabaCloud.
  *
- * @package   AlibabaCloud\Client
  * @mixin     \AlibabaCloud\ServiceResolverTrait
  */
 class AlibabaCloud
@@ -22,7 +21,7 @@ class AlibabaCloud
     use RequestTrait;
 
     /**
-     * Version of the Client
+     * Version of the Client.
      */
     const VERSION = '1.0.9';
 
@@ -33,7 +32,9 @@ class AlibabaCloud
      * @param array  $arguments
      *
      * @codeCoverageIgnore
+     *
      * @return object
+     *
      * @throws ClientException
      */
     public static function __callStatic($serviceName, $arguments)
@@ -42,10 +43,10 @@ class AlibabaCloud
 
         $class = 'AlibabaCloud' . '\\' . $serviceName . '\\' . $serviceName;
         if (\class_exists($class)) {
-            return new $class;
+            return new $class();
         }
 
-        if (!\trait_exists("AlibabaCloud\\ServiceResolverTrait")) {
+        if (!\trait_exists('AlibabaCloud\\ServiceResolverTrait')) {
             throw new ClientException(
                 'Please install alibabacloud/sdk to support product quick access.',
                 \ALIBABA_CLOUD_SERVICE_NOT_FOUND

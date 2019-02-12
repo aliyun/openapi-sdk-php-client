@@ -6,9 +6,8 @@ use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ArrayAccessTraitTest
+ * Class ArrayAccessTraitTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Request
  *
  * @coversDefaultClass \AlibabaCloud\Client\Traits\ArrayAccessTrait
  */

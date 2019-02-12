@@ -6,15 +6,13 @@ use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ShaHmac1SignatureTest
+ * Class ShaHmac1SignatureTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Signature
  *
  * @coversDefaultClass \AlibabaCloud\Client\Signature\ShaHmac1Signature
  */
 class ShaHmac1SignatureTest extends TestCase
 {
-
     /**
      * @covers ::sign
      * @covers ::getMethod

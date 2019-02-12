@@ -10,19 +10,17 @@ use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Result\Result;
 
 /**
- * Class RamRoleArnProvider
- *
- * @package   AlibabaCloud\Client\Credentials\Providers
+ * Class RamRoleArnProvider.
  */
 class RamRoleArnProvider extends Provider
 {
-
     /**
      * Get credential.
      *
      * @param int $timeout
      *
      * @return StsCredential
+     *
      * @throws ClientException
      * @throws ServerException
      */
@@ -60,6 +58,7 @@ class RamRoleArnProvider extends Provider
      * @param int $timeout
      *
      * @return Result
+     *
      * @throws ClientException
      * @throws ServerException
      */

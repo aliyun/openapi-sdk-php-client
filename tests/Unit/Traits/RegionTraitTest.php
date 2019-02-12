@@ -6,9 +6,8 @@ use AlibabaCloud\Client\AlibabaCloud;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RegionTraitTest
+ * Class RegionTraitTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Client\Traits
  *
  * @coversDefaultClass \AlibabaCloud\Client\Traits\RegionTrait
  */

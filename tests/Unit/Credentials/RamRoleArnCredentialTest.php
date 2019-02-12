@@ -6,15 +6,13 @@ use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RamRoleArnCredentialTest
+ * Class RamRoleArnCredentialTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\RamRoleArnCredential
  */
 class RamRoleArnCredentialTest extends TestCase
 {
-
     /**
      * @covers ::__construct
      * @covers ::getAccessKeyId
@@ -41,7 +39,7 @@ class RamRoleArnCredentialTest extends TestCase
         $this->assertEquals($sessionName, $credential->getRoleSessionName());
         $this->assertEquals(
             "$accessKeyId#$accessKeySecret#$arn#$sessionName",
-            (string)$credential
+            (string) $credential
         );
     }
 }

@@ -10,9 +10,8 @@ use AlibabaCloud\Client\Exception\ServerException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class RamRoleArnProviderTest
+ * Class RamRoleArnProviderTest.
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Credentials\Providers
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\Providers\RamRoleArnProvider
  */

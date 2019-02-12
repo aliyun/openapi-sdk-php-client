@@ -8,13 +8,10 @@ use AlibabaCloud\Client\Signature\BearerTokenSignature;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class BearerTokenClientTest
- *
- * @package   AlibabaCloud\Client\Tests\Unit\Clients
+ * Class BearerTokenClientTest.
  */
 class BearerTokenClientTest extends TestCase
 {
-
     /**
      * @return BearerTokenClient
      */
@@ -29,6 +26,7 @@ class BearerTokenClientTest extends TestCase
         // Assert
         self::assertEquals($bearerToken, $client->getCredential()->getBearerToken());
         self::assertInstanceOf(BearerTokenSignature::class, $client->getSignature());
+
         return $client;
     }
 
