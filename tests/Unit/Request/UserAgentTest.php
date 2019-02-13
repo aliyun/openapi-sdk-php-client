@@ -142,4 +142,13 @@ class UserAgentTest extends TestCase
         );
         self::assertStringEndsWith('cli/1.0.0', UserAgent::toString());
     }
+
+    public static function testNull()
+    {
+        AlibabaCloud::withUserAgent([
+                                        'Append' => null,
+                                    ]);
+
+        self::assertStringEndsWith('Append', UserAgent::toString());
+    }
 }

@@ -33,14 +33,8 @@ class EcsRamRoleProvider extends Provider
         if ($result === null) {
             $result = $this->request(1);
 
-            if (!isset($result['AccessKeyId'],
-                $result['AccessKeySecret'],
-                $result['SecurityToken'])) {
-                throw new ServerException(
-                    $result,
-                    'Result contains no credentials',
-                    \ALIBABA_CLOUD_INVALID_CREDENTIAL
-                );
+            if (!isset($result['AccessKeyId'], $result['AccessKeySecret'], $result['SecurityToken'])) {
+                throw new ServerException($result, 'Result contains no credentials', \ALIBABA_CLOUD_INVALID_CREDENTIAL);
             }
 
             $this->cache($result->toArray());
