@@ -65,6 +65,7 @@ class Provider
             }
         }
         unset(self::$credentialsCache[$this->key()]);
+
         return null;
     }
 }

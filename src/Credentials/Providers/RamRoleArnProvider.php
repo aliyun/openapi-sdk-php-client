@@ -36,11 +36,7 @@ class RamRoleArnProvider extends Provider
             if (!isset($result['Credentials']['AccessKeyId'],
                 $result['Credentials']['AccessKeySecret'],
                 $result['Credentials']['SecurityToken'])) {
-                throw new ServerException(
-                    $result,
-                    'Result contains no credentials',
-                    \ALIBABA_CLOUD_INVALID_CREDENTIAL
-                );
+                throw new ServerException($result, 'Result contains no credentials', \ALIBABA_CLOUD_INVALID_CREDENTIAL);
             }
 
             $credential = $result['Credentials'];
