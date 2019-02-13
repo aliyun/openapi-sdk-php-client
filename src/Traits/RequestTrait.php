@@ -26,6 +26,14 @@ trait RequestTrait
     }
 
     /**
+     * @param array $userAgent
+     */
+    public static function withUserAgent(array $userAgent)
+    {
+        UserAgent::with($userAgent);
+    }
+
+    /**
      * @param array $options
      *
      * @return RpcRequest

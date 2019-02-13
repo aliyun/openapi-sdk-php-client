@@ -37,6 +37,8 @@ class RpcRequestTest extends TestCase
         // Assert
 
         $result = (new DescribeRegionsRequest())->client($nameClient)
+                                                ->connectTimeout(15)
+                                                ->timeout(20)
                                                 ->request();
 
         $this->assertNotNull($result->RequestId);

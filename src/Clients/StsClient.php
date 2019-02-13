@@ -7,12 +7,9 @@ use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 
 /**
  * Use the STS Token to complete the authentication.
- *
- * @package   AlibabaCloud\Client\Clients
  */
 class StsClient extends Client
 {
-
     /**
      * @param string $accessKeyId     Access key ID
      * @param string $accessKeySecret Access Key Secret

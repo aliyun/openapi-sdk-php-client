@@ -74,6 +74,11 @@ abstract class Request implements \ArrayAccess
     protected $stringToBeSigned = '';
 
     /**
+     * @var array
+     */
+    private $userAgent = [];
+
+    /**
      * Request constructor.
      *
      * @param array $options
@@ -86,6 +91,7 @@ abstract class Request implements \ArrayAccess
         $this->options['http_errors']     = false;
         $this->options['timeout']         = ALIBABA_CLOUD_TIMEOUT;
         $this->options['connect_timeout'] = ALIBABA_CLOUD_CONNECT_TIMEOUT;
+
         if ($options !== []) {
             $this->options($options);
         }
@@ -99,7 +105,22 @@ abstract class Request implements \ArrayAccess
      */
     public function appendUserAgent($name, $value)
     {
-        UserAgent::append($name, $value);
+        if (!UserAgent::isGuarded($name)) {
+            $this->userAgent[$name] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $userAgent
+     *
+     * @return $this
+     */
+    public function withUserAgent(array $userAgent)
+    {
+        $this->userAgent = UserAgent::clean($userAgent);
+
         return $this;
     }
 
@@ -113,6 +134,7 @@ abstract class Request implements \ArrayAccess
     public function format($format)
     {
         $this->format = \strtoupper($format);
+
         return $this;
     }
 
@@ -126,6 +148,7 @@ abstract class Request implements \ArrayAccess
     public function body($content)
     {
         $this->options['body'] = $content;
+
         return $this;
     }
 
@@ -141,6 +164,7 @@ abstract class Request implements \ArrayAccess
         if (\is_array($content) || \is_object($content)) {
             $content = \json_encode($content);
         }
+
         return $this->body($content);
     }
 
@@ -155,6 +179,7 @@ abstract class Request implements \ArrayAccess
     {
         $this->scheme = \strtolower($scheme);
         $this->uri    = $this->uri->withScheme($this->scheme);
+
         return $this;
     }
 
@@ -168,6 +193,7 @@ abstract class Request implements \ArrayAccess
     public function host($host)
     {
         $this->uri = $this->uri->withHost($host);
+
         return $this;
     }
 
@@ -179,6 +205,7 @@ abstract class Request implements \ArrayAccess
     public function method($method)
     {
         $this->method = \strtoupper($method);
+
         return $this;
     }
 
@@ -190,6 +217,7 @@ abstract class Request implements \ArrayAccess
     public function client($clientName)
     {
         $this->client = $clientName;
+
         return $this;
     }
 
@@ -217,7 +245,7 @@ abstract class Request implements \ArrayAccess
      */
     public function request()
     {
-        $this->options['headers']['User-Agent'] = UserAgent::toString();
+        $this->options['headers']['User-Agent'] = UserAgent::toString($this->userAgent);
 
         $this->resolveUri();
 
@@ -251,6 +279,7 @@ abstract class Request implements \ArrayAccess
         foreach ($post as $apiKey => $apiValue) {
             $content .= "$apiKey=" . urlencode($apiValue) . '&';
         }
+
         return substr($content, 0, -1);
     }
 

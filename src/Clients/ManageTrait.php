@@ -16,17 +16,15 @@ use AlibabaCloud\Client\Credentials\StsCredential;
 /**
  * Trait ManageTrait.
  *
- * @package   AlibabaCloud\Client\Clients
- *
  * @mixin     Client
  */
 trait ManageTrait
 {
-
     /**
      * @param int $timeout
      *
      * @return AccessKeyCredential|CredentialsInterface|StsCredential
+     *
      * @throws \AlibabaCloud\Client\Exception\ClientException
      * @throws \AlibabaCloud\Client\Exception\ServerException
      */
@@ -72,7 +70,7 @@ trait ManageTrait
     public function isDebug()
     {
         if (isset($this->options['debug'])) {
-            return $this->options['debug'] === true && PHP_SAPI === 'cli';
+            return true === $this->options['debug'] && PHP_SAPI === 'cli';
         }
 
         return false;
