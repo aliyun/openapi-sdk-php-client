@@ -3,7 +3,6 @@
 namespace AlibabaCloud\Client\Request;
 
 use AlibabaCloud\Client\AlibabaCloud;
-use GuzzleHttp\Client;
 
 /**
  * Class UserAgent
@@ -22,17 +21,29 @@ class UserAgent
      * @var array
      */
     private static $guard = [
-        'php',
         'client',
-        'zend',
-        'guzzle',
-        'curl',
+        'php',
     ];
 
     /**
+     * UserAgent constructor.
+     */
+    private static function defaultFields()
+    {
+        if (self::$userAgent === []) {
+            self::$userAgent = [
+                'Client' => AlibabaCloud::VERSION,
+                'PHP'    => \PHP_VERSION,
+            ];
+        }
+    }
+
+    /**
+     * @param array $append
+     *
      * @return string
      */
-    public static function toString()
+    public static function toString(array $append = [])
     {
         self::defaultFields();
 
@@ -42,14 +53,42 @@ class UserAgent
         $userAgent  = "AlibabaCloud ($os $os_version; $os_mode) ";
 
         $newUserAgent = [];
-        foreach (self::$userAgent as $key => $value) {
+
+        $append = self::clean($append);
+
+        $append = \AlibabaCloud\Client\arrayMerge(
+            [
+                self::$userAgent,
+                $append,
+            ]
+        );
+
+        foreach ($append as $key => $value) {
             if ($value === null) {
                 $newUserAgent[] = $key;
                 continue;
             }
-            $newUserAgent[] = $key . '/' . $value;
+            $newUserAgent[] = "$key/$value";
         }
+
         return $userAgent . \implode(' ', $newUserAgent);
+    }
+
+    /**
+     * @param array $append
+     *
+     * @return array
+     */
+    public static function clean(array $append)
+    {
+        foreach ($append as $key => $value) {
+            if (self::isGuarded($key)) {
+                unset($append[$key]);
+                continue;
+            }
+        }
+
+        return $append;
     }
 
     /**
@@ -68,21 +107,19 @@ class UserAgent
     }
 
     /**
-     * UserAgent constructor.
+     * @param array $userAgent
      */
-    private static function defaultFields()
+    public static function with(array $userAgent)
     {
-        if (self::$userAgent === []) {
-            self::$userAgent = [
-                'PHP'    => \PHP_VERSION,
-                'Client' => AlibabaCloud::VERSION,
-                'Zend'   => zend_version(),
-                'Guzzle' => Client::VERSION,
-                'CURL'   => isset(\curl_version()['version'])
-                    ? \curl_version()['version']
-                    : 'none',
-            ];
-        }
+        self::$userAgent = self::clean($userAgent);
+    }
+
+    /**
+     * Clear all of the User Agent.
+     */
+    public static function clear()
+    {
+        self::$userAgent = [];
     }
 
     /**
@@ -90,7 +127,7 @@ class UserAgent
      *
      * @return bool
      */
-    private static function isGuarded($name)
+    public static function isGuarded($name)
     {
         return in_array(strtolower($name), self::$guard, true);
     }
