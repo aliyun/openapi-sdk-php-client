@@ -133,7 +133,7 @@ class IniCredential
      */
     private function loadFile()
     {
-        if (!\is_file($this->filename) || !\is_readable($this->filename)) {
+        if (!\is_readable($this->filename) || !\is_file($this->filename)) {
             if ($this->filename === $this->getDefaultFile()) {
                 // @codeCoverageIgnoreStart
                 return [];
