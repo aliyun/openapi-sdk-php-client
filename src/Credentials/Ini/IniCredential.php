@@ -120,8 +120,10 @@ class IniCredential
             foreach (self::$hasLoaded[$this->filename] as $projectName => $client) {
                 $client->name($projectName);
             }
+
             return self::$hasLoaded[$this->filename];
         }
+
         return $this->loadFile();
     }
 
@@ -133,6 +135,10 @@ class IniCredential
      */
     private function loadFile()
     {
+        if (!self::inOpenBasedir($this->filename)) {
+            return [];
+        }
+
         if (!\is_readable($this->filename) || !\is_file($this->filename)) {
             if ($this->filename === $this->getDefaultFile()) {
                 // @codeCoverageIgnoreStart
@@ -146,6 +152,32 @@ class IniCredential
         }
 
         return $this->parseFile();
+    }
+
+    /**
+     * @param $filename
+     *
+     * @return bool
+     */
+    public static function inOpenBasedir($filename)
+    {
+        $dir = ini_get('open_basedir');
+        if (!$dir) {
+            return true;
+        }
+
+        $dirs = explode(':', $dir);
+        if (!$dirs) {
+            return true;
+        }
+
+        foreach ($dirs as $dir) {
+            if (false !== strpos($filename, $dir)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
