@@ -37,6 +37,23 @@ class IniCredentialTest extends TestCase
     }
 
     /**
+     * @depends testForgetLoadedCredentialsFile
+     */
+    public function testInOpenBaseDir()
+    {
+        $dir = 'vfs://AlibabaCloud:/home:/Users:/private:/a/b';
+        ini_set('open_basedir', $dir);
+        self::assertEquals($dir, ini_get('open_basedir'));
+        self::assertTrue(IniCredential::inOpenBasedir('/Users/alibabacloud'));
+        self::assertTrue(IniCredential::inOpenBasedir('/private/alibabacloud'));
+        self::assertFalse(IniCredential::inOpenBasedir('/no/permission'));
+        self::assertFalse(IniCredential::inOpenBasedir('/a'));
+        self::assertTrue(IniCredential::inOpenBasedir('/a/b/'));
+        self::assertTrue(IniCredential::inOpenBasedir('/a/b/c'));
+        self::assertFalse(IniCredential::inOpenBasedir('/a/b.php'));
+    }
+
+    /**
      * @return array
      */
     public function getFilename()

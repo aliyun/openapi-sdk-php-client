@@ -236,6 +236,7 @@ class ClientTraitTest extends TestCase
     }
 
     /**
+     * @depends testLoadWithException
      * @throws \AlibabaCloud\Client\Exception\ClientException
      */
     public function testLoad()
