@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 1.0.12 - 2019-02-16
+
+* Support `open_basedir`.
+
+## 1.0.11 - 2019-02-13
+
+* Improve User Agent.
+
 ## 1.0.10 - 2019-02-12
 
 * `userAgentAppend` is renamed to `appendUserAgent`.
