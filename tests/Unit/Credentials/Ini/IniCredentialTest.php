@@ -48,8 +48,9 @@ class IniCredentialTest extends TestCase
         self::assertTrue(IniCredential::inOpenBasedir('/private/alibabacloud'));
         self::assertFalse(IniCredential::inOpenBasedir('/no/permission'));
         self::assertFalse(IniCredential::inOpenBasedir('/a'));
-        self::assertTrue(IniCredential::inOpenBasedir('/a/b'));
+        self::assertTrue(IniCredential::inOpenBasedir('/a/b/'));
         self::assertTrue(IniCredential::inOpenBasedir('/a/b/c'));
+        self::assertFalse(IniCredential::inOpenBasedir('/a/b.php'));
     }
 
     /**

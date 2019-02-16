@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Credentials\Ini;
 
 use AlibabaCloud\Client\Clients\Client;
 use AlibabaCloud\Client\Exception\ClientException;
+use Stringy\Stringy;
 
 /**
  * Class IniCredential
@@ -172,6 +173,9 @@ class IniCredential
         }
 
         foreach ($dirs as $dir) {
+            if (!Stringy::create($dir)->endsWith(DIRECTORY_SEPARATOR)) {
+                $dir .= DIRECTORY_SEPARATOR;
+            }
             if (false !== strpos($filename, $dir)) {
                 return true;
             }
