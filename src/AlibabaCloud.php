@@ -24,7 +24,7 @@ class AlibabaCloud
     /**
      * Version of the Client
      */
-    const VERSION = '1.0.9';
+    const VERSION = '1.0.12';
 
     /**
      * This static method can directly call the specific service.
