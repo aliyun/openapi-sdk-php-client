@@ -76,7 +76,9 @@ class RpcRequestTest extends TestCase
             );
             $this->assertEquals(1, $request->options['query']['test_true']);
             $this->assertEquals(1, $request->options['query']['test_false']);
-            $result = $request->request();
+            $result = $request->connectTimeout(15)
+                              ->timeout(20)
+                              ->request();
             self::assertArrayHasKey('Regions', $result);
         } catch (ServerException $e) {
             $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
