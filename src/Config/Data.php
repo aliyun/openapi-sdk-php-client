@@ -1464,10 +1464,12 @@ return [
                 ],
             'vod'             =>
                 [
-                    'cn-shanghai' => 'vod.cn-shanghai.aliyuncs.com',
-                    'cn-beijing'  => 'vod.cn-shanghai.aliyuncs.com',
-                    'cn-hangzhou' => 'vod.cn-shanghai.aliyuncs.com',
-                    'cn-shenzhen' => 'vod.cn-shanghai.aliyuncs.com',
+                    'cn-shanghai'    => 'vod.cn-shanghai.aliyuncs.com',
+                    'cn-beijing'     => 'vod.cn-shanghai.aliyuncs.com',
+                    'cn-hangzhou'    => 'vod.cn-shanghai.aliyuncs.com',
+                    'cn-shenzhen'    => 'vod.cn-shanghai.aliyuncs.com',
+                    'ap-southeast-1' => 'vod.ap-southeast-1.aliyuncs.com',
+                    'eu-central-1'   => 'vod.eu-central-1.aliyuncs.com',
                 ],
             'afs'             =>
                 [
@@ -2050,6 +2052,17 @@ return [
             'drdspost'        =>
                 [
                     'ap-southeast-1' => 'drds.ap-southeast-1.aliyuncs.com',
+                    'cn-shanghai'    => 'drds.cn-shanghai.aliyuncs.com',
+                    'cn-hongkong'    => 'drds.cn-hongkong.aliyuncs.com',
+                ],
+            'drdspre'         =>
+                [
+                    'cn-qingdao'  => 'drds.cn-qingdao.aliyuncs.com',
+                    'cn-beijing'  => 'drds.cn-beijing.aliyuncs.com',
+                    'cn-hangzhou' => 'drds.cn-hangzhou.aliyuncs.com',
+                    'cn-shanghai' => 'drds.cn-shanghai.aliyuncs.com',
+                    'cn-shenzhen' => 'drds.cn-shenzhen.aliyuncs.com',
+                    'cn-hongkong' => 'drds.cn-hongkong.aliyuncs.com',
                 ],
         ],
 ];

@@ -7,6 +7,7 @@ use Composer\Script\Event;
 /**
  * Class Release
  *
+ * @codeCoverageIgnore
  * @package AlibabaCloud\Client
  */
 class Release

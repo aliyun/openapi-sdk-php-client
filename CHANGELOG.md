@@ -1,7 +1,18 @@
 # CHANGELOG
 
-## 1.0.13 - 2019-02-17
+## 1.0.13 - 2019-02-18
 - Support Release Script `composer release`.
+- Add endpoints for apigateway in `drdspre` in `cn-qingdao`.
+- Add endpoints for apigateway in `drdspre` in `cn-beijing`.
+- Add endpoints for apigateway in `drdspre` in `cn-hangzhou`.
+- Add endpoints for apigateway in `drdspre` in `cn-shanghai`.
+- Add endpoints for apigateway in `drdspre` in `cn-shenzhen`.
+- Add endpoints for apigateway in `drdspre` in `cn-hongkong`.
+- Add endpoints for apigateway in `drdspost` in `ap-southeast-1`.
+- Add endpoints for apigateway in `drdspost` in `cn-shanghai`.
+- Add endpoints for apigateway in `drdspost` in `cn-hongkong`.
+- Add endpoints for apigateway in `vod` in `ap-southeast-1`.
+- Add endpoints for apigateway in `vod` in `eu-central-1`.
 
 
 ## 1.0.12 - 2019-02-16
