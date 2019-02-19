@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class AlibabaCloudTest
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Client
+ * @package   AlibabaCloud\Client\Tests\Unit
  *
  * @coversDefaultClass \AlibabaCloud\Client\AlibabaCloud
  */

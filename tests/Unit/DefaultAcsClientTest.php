@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class DefaultAcsClientTest
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Client
+ * @package   AlibabaCloud\Client\Tests\Unit
  *
  * @coversDefaultClass \AlibabaCloud\Client\DefaultAcsClient
  */

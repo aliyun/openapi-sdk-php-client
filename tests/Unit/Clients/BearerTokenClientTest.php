@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class BearerTokenClientTest
  *
- * @package   AlibabaCloud\Client\Tests\Unit\Clients
+ * @package AlibabaCloud\Client\Tests\Unit\Clients
  */
 class BearerTokenClientTest extends TestCase
 {
@@ -29,6 +29,7 @@ class BearerTokenClientTest extends TestCase
         // Assert
         self::assertEquals($bearerToken, $client->getCredential()->getBearerToken());
         self::assertInstanceOf(BearerTokenSignature::class, $client->getSignature());
+
         return $client;
     }
 
