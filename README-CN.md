@@ -479,6 +479,10 @@ AlibabaCloud::addHost('product_name', 'product_name.aliyuncs.com');
 ```
 
 
+## 调试
+如果存在环境变量 `DEBUG=sdk` ，所有请求将启用调试输出。
+
+
 ## 相关
 * [阿里云服务 Regions & Endpoints][endpoints]
 * [OpenAPI Explorer][open-api]

@@ -479,6 +479,10 @@ AlibabaCloud::addHost('product_name', 'product_name.aliyuncs.com');
 ```
 
 
+## Debugging
+If there is an environment variable `DEBUG=sdk` , all requests will enable debug mode.
+
+
 ## References
 * [Alibaba Cloud Regions & Endpoints][endpoints]
 * [OpenAPI Explorer][open-api]

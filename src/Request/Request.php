@@ -95,6 +95,10 @@ abstract class Request implements \ArrayAccess
         if ($options !== []) {
             $this->options($options);
         }
+
+        if (strtolower(env('DEBUG')) === 'sdk') {
+            $this->options['debug'] = true;
+        }
     }
 
     /**
