@@ -5,6 +5,7 @@ namespace AlibabaCloud\Client\Tests\Unit\Clients;
 use AlibabaCloud\Client\Clients\EcsRamRoleClient;
 use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use PHPUnit\Framework\TestCase;
 
@@ -22,7 +23,7 @@ class EcsRamRoleClientTest extends TestCase
     public function testConstruct()
     {
         // Setup
-        $roleName = 'foo';
+        $roleName = \AlibabaCloud\Client\env('ECS_ROLE_NAME');
 
         // Test
         $client = new EcsRamRoleClient($roleName);
@@ -40,7 +41,7 @@ class EcsRamRoleClientTest extends TestCase
      *
      * @param EcsRamRoleClient $client
      *
-     * @throws \AlibabaCloud\Client\Exception\ServerException
+     * @throws ServerException
      */
     public function testGetSessionCredential(EcsRamRoleClient $client)
     {

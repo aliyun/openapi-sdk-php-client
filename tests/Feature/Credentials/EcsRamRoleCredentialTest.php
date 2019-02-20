@@ -91,7 +91,8 @@ class EcsRamRoleCredentialTest extends TestCase
         try {
             $result = (new DescribeRegionsRequest())->client($this->clientName)
                                                     ->request();
-            $this->assertTrue(isset($result['Endpoint']));
+            // Only ECS instance can get result
+            $this->assertTrue(isset($result['Regions']));
         } catch (ClientException $e) {
             // If the request is not from a bound ECS instance.
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());

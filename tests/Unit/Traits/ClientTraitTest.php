@@ -178,7 +178,7 @@ class ClientTraitTest extends TestCase
      * @expectedExceptionMessage Client not found: global
      * @throws                   ClientException
      */
-    public function testGetGlobalClient()
+    public static function testGetGlobalClient()
     {
         AlibabaCloud::flush();
         AlibabaCloud::getGlobalClient();
@@ -214,7 +214,7 @@ class ClientTraitTest extends TestCase
     }
 
     /**
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function testLoadWithFiles()
     {
@@ -226,18 +226,7 @@ class ClientTraitTest extends TestCase
     }
 
     /**
-     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage Credential file is not readable: /no/no
-     * @throws                   \AlibabaCloud\Client\Exception\ClientException
-     */
-    public function testLoadWithException()
-    {
-        AlibabaCloud::load('/no/no');
-    }
-
-    /**
-     * @depends testLoadWithException
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function testLoad()
     {

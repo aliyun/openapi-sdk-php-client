@@ -19,7 +19,9 @@ class Release
     {
         $arguments = $event->getArguments();
         if (count($arguments) <= 1) {
-            die('Missing ChangeLog');
+            echo 'Missing ChangeLog';
+
+            return;
         }
         self::updateChangelogFile($arguments[0], $arguments[1]);
         self::changeVersionInCode($arguments[0]);
