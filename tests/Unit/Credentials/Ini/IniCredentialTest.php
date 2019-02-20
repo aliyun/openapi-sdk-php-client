@@ -37,23 +37,6 @@ class IniCredentialTest extends TestCase
     }
 
     /**
-     * @depends testForgetLoadedCredentialsFile
-     */
-    public function testInOpenBaseDir()
-    {
-        $dir = 'vfs://AlibabaCloud:/home:/Users:/private:/a/b';
-        ini_set('open_basedir', $dir);
-        self::assertEquals($dir, ini_get('open_basedir'));
-        self::assertTrue(IniCredential::inOpenBasedir('/Users/alibabacloud'));
-        self::assertTrue(IniCredential::inOpenBasedir('/private/alibabacloud'));
-        self::assertFalse(IniCredential::inOpenBasedir('/no/permission'));
-        self::assertFalse(IniCredential::inOpenBasedir('/a'));
-        self::assertTrue(IniCredential::inOpenBasedir('/a/b/'));
-        self::assertTrue(IniCredential::inOpenBasedir('/a/b/c'));
-        self::assertFalse(IniCredential::inOpenBasedir('/a/b.php'));
-    }
-
-    /**
      * @return array
      */
     public function getFilename()
@@ -94,7 +77,7 @@ class IniCredentialTest extends TestCase
     /**
      * @return array
      */
-    public function isNotEmpty()
+    public static function isNotEmpty()
     {
         return [
             [
@@ -165,6 +148,27 @@ class IniCredentialTest extends TestCase
         $ref        = new \ReflectionClass(IniCredential::class);
         $properties = $ref->getStaticProperties();
         self::assertEquals([], $properties['hasLoaded']);
+    }
+
+    public static function testInOpenBaseDir()
+    {
+        if (!\AlibabaCloud\Client\isWindows()) {
+            $dirs = 'vfs://AlibabaCloud:/home:/Users:/private:/a/b';
+            ini_set('open_basedir', $dirs);
+            self::assertEquals($dirs, ini_get('open_basedir'));
+            self::assertTrue(\AlibabaCloud\Client\inOpenBasedir('/Users/alibabacloud'));
+            self::assertTrue(\AlibabaCloud\Client\inOpenBasedir('/private/alibabacloud'));
+            self::assertFalse(\AlibabaCloud\Client\inOpenBasedir('/no/permission'));
+            self::assertFalse(\AlibabaCloud\Client\inOpenBasedir('/a'));
+            self::assertTrue(\AlibabaCloud\Client\inOpenBasedir('/a/b/'));
+            self::assertTrue(\AlibabaCloud\Client\inOpenBasedir('/a/b/c'));
+            self::assertFalse(\AlibabaCloud\Client\inOpenBasedir('/a/b.php'));
+        }
+        if (\AlibabaCloud\Client\isWindows()) {
+            $dirs = 'C:\\projects;C:\\Users';
+            ini_set('open_basedir', $dirs);
+            self::assertEquals($dirs, ini_get('open_basedir'));
+        }
     }
 
     /**
@@ -243,16 +247,12 @@ class IniCredentialTest extends TestCase
      *
      * @return array
      */
-    public function parseFile()
+    public static function parseFile()
     {
         return [
             [
                 VirtualAccessKeyCredential::ok(),
                 'Format error: vfs://AlibabaCloud/credentials',
-            ],
-            [
-                '/no/no.no',
-                'parse_ini_file(/no/no.no): failed to open stream: No such file or directory',
             ],
         ];
     }

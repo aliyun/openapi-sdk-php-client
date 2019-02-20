@@ -12,6 +12,8 @@ use AlibabaCloud\Client\Credentials\Providers\RsaKeyPairProvider;
 use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
 use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
 use AlibabaCloud\Client\Credentials\StsCredential;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 
 /**
  * Trait ManageTrait.
@@ -25,8 +27,8 @@ trait ManageTrait
      *
      * @return AccessKeyCredential|CredentialsInterface|StsCredential
      *
-     * @throws \AlibabaCloud\Client\Exception\ClientException
-     * @throws \AlibabaCloud\Client\Exception\ServerException
+     * @throws ClientException
+     * @throws ServerException
      */
     public function getSessionCredential($timeout = \ALIBABA_CLOUD_TIMEOUT)
     {

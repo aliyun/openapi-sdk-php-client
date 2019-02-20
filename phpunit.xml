@@ -8,6 +8,7 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
+         logIncompleteSkipped="true"
          testSuiteLoaderFile="phpunit/src/Runner/StandardTestSuiteLoader.php">
 
     <testsuites>

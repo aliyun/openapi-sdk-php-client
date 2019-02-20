@@ -4,7 +4,6 @@ namespace AlibabaCloud\Client\Credentials\Ini;
 
 use AlibabaCloud\Client\Clients\Client;
 use AlibabaCloud\Client\Exception\ClientException;
-use Stringy\Stringy;
 
 /**
  * Class IniCredential
@@ -136,7 +135,7 @@ class IniCredential
      */
     private function loadFile()
     {
-        if (!self::inOpenBasedir($this->filename)) {
+        if (!\AlibabaCloud\Client\inOpenBasedir($this->filename)) {
             return [];
         }
 
@@ -153,35 +152,6 @@ class IniCredential
         }
 
         return $this->parseFile();
-    }
-
-    /**
-     * @param $filename
-     *
-     * @return bool
-     */
-    public static function inOpenBasedir($filename)
-    {
-        $dir = ini_get('open_basedir');
-        if (!$dir) {
-            return true;
-        }
-
-        $dirs = explode(':', $dir);
-        if (!$dirs) {
-            return true;
-        }
-
-        foreach ($dirs as $dir) {
-            if (!Stringy::create($dir)->endsWith(DIRECTORY_SEPARATOR)) {
-                $dir .= DIRECTORY_SEPARATOR;
-            }
-            if (false !== strpos($filename, $dir)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**

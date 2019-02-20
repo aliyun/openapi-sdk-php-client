@@ -96,7 +96,7 @@ abstract class Request implements \ArrayAccess
             $this->options($options);
         }
 
-        if (strtolower(env('DEBUG')) === 'sdk') {
+        if (strtolower(\AlibabaCloud\Client\env('DEBUG')) === 'sdk') {
             $this->options['debug'] = true;
         }
     }

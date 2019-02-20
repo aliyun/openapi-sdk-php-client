@@ -31,7 +31,7 @@ class EcsRamRoleProvider extends Provider
         $result = $this->getCredentialsInCache();
 
         if ($result === null) {
-            $result = $this->request(1);
+            $result = $this->request();
 
             if (!isset($result['AccessKeyId'], $result['AccessKeySecret'], $result['SecurityToken'])) {
                 throw new ServerException($result, 'Result contains no credentials', \ALIBABA_CLOUD_INVALID_CREDENTIAL);
@@ -50,15 +50,13 @@ class EcsRamRoleProvider extends Provider
     /**
      * Get credentials by request.
      *
-     * @param int $timeout
-     *
      * @return Result
      * @throws ClientException
      * @throws ServerException
      */
-    public function request($timeout)
+    public function request()
     {
-        $result = new Result($this->getResponse($timeout));
+        $result = new Result($this->getResponse());
 
         if (!$result->isSuccess()) {
             throw new ServerException(
@@ -74,12 +72,10 @@ class EcsRamRoleProvider extends Provider
     /**
      * Get data from meta.
      *
-     * @param $timeout
-     *
      * @return mixed|ResponseInterface
      * @throws ClientException
      */
-    public function getResponse($timeout)
+    public function getResponse()
     {
         /**
          * @var EcsRamRoleCredential $credential
@@ -90,8 +86,8 @@ class EcsRamRoleProvider extends Provider
 
         $options = [
             'http_errors'     => false,
-            'timeout'         => $timeout,
-            'connect_timeout' => $timeout,
+            'timeout'         => 1,
+            'connect_timeout' => 1,
             'debug'           => $this->client->isDebug(),
         ];
 

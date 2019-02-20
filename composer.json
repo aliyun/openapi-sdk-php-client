@@ -67,7 +67,6 @@
             "src/Constants/Business.php",
             "src/Constants/ErrorCode.php",
             "src/Functions.php",
-            "src/Helpers.php",
             "src/Load.php"
         ]
     },
@@ -106,7 +105,6 @@
         "cbf": "phpcbf --standard=PSR2 -n ./",
         "fixer": "php-cs-fixer fix ./",
         "test": [
-            "@clearCache",
             "phpunit --colors=always"
         ],
         "unit": [
