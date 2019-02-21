@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.14 - 2019-02-21
+- Enable debug mode by set environment variable `DEBUG=sdk`.
+
+
 ## 1.0.13 - 2019-02-18
 - Support Release Script `composer release`.
 - Add endpoints for apigateway in `drdspre` in `cn-qingdao`.
