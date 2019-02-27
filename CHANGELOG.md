@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.15 - 2019-02-27
+- Add endpoints for `Chatbot`.
+- Change endpoints for `drdspost` and `drdspre`.
+
+
 ## 1.0.14 - 2019-02-21
 - Enable debug mode by set environment variable `DEBUG=sdk`.
 
