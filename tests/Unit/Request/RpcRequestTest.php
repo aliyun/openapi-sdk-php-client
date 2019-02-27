@@ -24,7 +24,7 @@ class RpcRequestTest extends TestCase
      * @param $expected
      *
      * @throws       \ReflectionException
-     * @dataProvider booleanValueToString
+     * @dataProvider booleanValueToStringData
      */
     public function testConstructAcsHeader($value, $expected)
     {
@@ -46,7 +46,7 @@ class RpcRequestTest extends TestCase
     /**
      * @return array
      */
-    public function booleanValueToString()
+    public static function booleanValueToStringData()
     {
         return [
             ['true', 'true'],

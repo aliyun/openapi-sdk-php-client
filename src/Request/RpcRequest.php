@@ -31,7 +31,7 @@ class RpcRequest extends Request
     {
         if (isset($this->options['query'])) {
             foreach ($this->options['query'] as $key => $value) {
-                $this->options['query'][$key] = $this->booleanValueToString($value);
+                $this->options['query'][$key] = self::booleanValueToString($value);
             }
         }
         $signature                                  = $this->httpClient()->getSignature();
@@ -86,7 +86,7 @@ class RpcRequest extends Request
      *
      * @return string
      */
-    private function booleanValueToString($value)
+    private static function booleanValueToString($value)
     {
         if (is_bool($value)) {
             if ($value) {
