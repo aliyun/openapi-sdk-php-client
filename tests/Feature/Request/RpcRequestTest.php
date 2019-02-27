@@ -47,8 +47,6 @@ class RpcRequestTest extends TestCase
     }
 
     /**
-     * @covers ::booleanValueToString
-     * @covers ::resolveParameters
      * @covers \AlibabaCloud\Client\Request\Request::setQueryParameters
      * @throws ClientException
      */

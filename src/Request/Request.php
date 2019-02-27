@@ -249,6 +249,8 @@ abstract class Request implements \ArrayAccess
      */
     public function request()
     {
+        $this->removeRedundantParameters();
+
         $this->options['headers']['User-Agent'] = UserAgent::toString($this->userAgent);
 
         $this->resolveUri();
@@ -270,6 +272,24 @@ abstract class Request implements \ArrayAccess
         }
 
         return $result;
+    }
+
+    /**
+     * Remove redundant parameters
+     */
+    private function removeRedundantParameters()
+    {
+        if (isset($this->options['query']) && $this->options['query'] === []) {
+            unset($this->options['query']);
+        }
+
+        if (isset($this->options['headers']) && $this->options['headers'] === []) {
+            unset($this->options['headers']);
+        }
+
+        if (isset($this->options['form_params']) && $this->options['form_params'] === []) {
+            unset($this->options['form_params']);
+        }
     }
 
     /**

@@ -68,7 +68,7 @@ class RoaRequest extends Request
         $this->options['headers']['x-acs-version']           = $this->version;
         $signature                                           = $this->httpClient()->getSignature();
         $this->options['headers']['Date']                    = gmdate($this->dateTimeFormat);
-        $this->options['headers']['Accept']                  = $this->formatToAccept($this->format);
+        $this->options['headers']['Accept']                  = self::formatToAccept($this->format);
         $this->options['headers']['x-acs-signature-method']  = $signature->getMethod();
         $this->options['headers']['x-acs-signature-version'] = $signature->getVersion();
         if ($signature->getType()) {
@@ -223,7 +223,7 @@ class RoaRequest extends Request
      *
      * @return string
      */
-    private function formatToAccept($format)
+    private static function formatToAccept($format)
     {
         switch (\strtoupper($format)) {
             case 'JSON':
