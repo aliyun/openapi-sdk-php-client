@@ -1963,6 +1963,11 @@ return [
                     'cn-hangzhou' => 'chatbot.cn-hangzhou.aliyuncs.com',
                     'cn-shanghai' => 'chatbot.cn-shanghai.aliyuncs.com',
                 ],
+            'chatbot'         =>
+                [
+                    'global'      => 'chatbot.cn-shanghai.aliyuncs.com',
+                    'cn-shanghai' => 'chatbot.cn-shanghai.aliyuncs.com',
+                ],
             'alidnsgtm'       =>
                 [
                     'cn-hangzhou' => 'alidns.aliyuncs.com',
@@ -2053,7 +2058,7 @@ return [
                 [
                     'ap-southeast-1' => 'drds.ap-southeast-1.aliyuncs.com',
                     'cn-shanghai'    => 'drds.cn-shanghai.aliyuncs.com',
-                    'cn-hongkong'    => 'drds.cn-hongkong.aliyuncs.com',
+                    'cn-hongkong'    => 'drds.cn-hangzhou.aliyuncs.com',
                 ],
             'drdspre'         =>
                 [
@@ -2062,7 +2067,7 @@ return [
                     'cn-hangzhou' => 'drds.cn-hangzhou.aliyuncs.com',
                     'cn-shanghai' => 'drds.cn-shanghai.aliyuncs.com',
                     'cn-shenzhen' => 'drds.cn-shenzhen.aliyuncs.com',
-                    'cn-hongkong' => 'drds.cn-hongkong.aliyuncs.com',
+                    'cn-hongkong' => 'drds.cn-hangzhou.aliyuncs.com',
                 ],
         ],
 ];
