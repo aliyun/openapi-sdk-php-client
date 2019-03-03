@@ -4,6 +4,8 @@ namespace AlibabaCloud\Client\Tests\Unit\Clients;
 
 use AlibabaCloud\Client\Clients\BearerTokenClient;
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Signature\BearerTokenSignature;
 use PHPUnit\Framework\TestCase;
 
@@ -17,6 +19,7 @@ class BearerTokenClientTest extends TestCase
 
     /**
      * @return BearerTokenClient
+     * @throws ClientException
      */
     public function testConstruct()
     {
@@ -38,8 +41,8 @@ class BearerTokenClientTest extends TestCase
      *
      * @param BearerTokenClient $client
      *
-     * @throws \AlibabaCloud\Client\Exception\ClientException
-     * @throws \AlibabaCloud\Client\Exception\ServerException
+     * @throws ClientException
+     * @throws ServerException
      */
     public function testGetSessionCredential(BearerTokenClient $client)
     {

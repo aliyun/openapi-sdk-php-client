@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Clients;
 
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 
 /**
@@ -16,6 +17,8 @@ class AccessKeyClient extends Client
     /**
      * @param string $accessKeyId
      * @param string $accessKeySecret
+     *
+     * @throws ClientException
      */
     public function __construct($accessKeyId, $accessKeySecret)
     {

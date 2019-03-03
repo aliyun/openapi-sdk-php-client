@@ -2,6 +2,9 @@
 
 namespace AlibabaCloud\Client\Credentials;
 
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Filter;
+
 /**
  * Use the STS Token to complete the authentication.
  *
@@ -31,9 +34,13 @@ class StsCredential implements CredentialsInterface
      * @param string $accessKeyId     Access key ID
      * @param string $accessKeySecret Access Key Secret
      * @param string $securityToken   Security Token
+     *
+     * @throws ClientException
      */
-    public function __construct($accessKeyId, $accessKeySecret, $securityToken)
+    public function __construct($accessKeyId, $accessKeySecret, $securityToken = '')
     {
+        Filter::AccessKey($accessKeyId, $accessKeySecret);
+
         $this->accessKeyId     = $accessKeyId;
         $this->accessKeySecret = $accessKeySecret;
         $this->securityToken   = $securityToken;

@@ -28,9 +28,9 @@ class RoaRequestTest extends TestCase
             AlibabaCloud::accessKeyClient(
                 getenv('ACCESS_KEY_ID'),
                 getenv('ACCESS_KEY_SECRET')
-            )->asGlobalClient()->regionId('cn-hangzhou');
+            )->asDefaultClient()->regionId('cn-hangzhou');
 
-            $result = AlibabaCloud::roaRequest()
+            $result = AlibabaCloud::roa()
                                   ->pathPattern('/clusters/[ClusterId]/services')
                                   ->method('GET')
                                   ->product('CS')

@@ -18,11 +18,7 @@ class RsaKeyPaireCredentialTest extends TestCase
 {
 
     /**
-     * @covers ::__construct
-     * @covers ::getPublicKeyId
-     * @covers ::getPrivateKey
-     * @covers ::__toString
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function testConstruct()
     {
@@ -40,6 +36,66 @@ class RsaKeyPaireCredentialTest extends TestCase
             "publicKeyId#$publicKeyId",
             (string)$credential
         );
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Public Key ID cannot be empty
+     * @throws ClientException
+     */
+    public function testPublicKeyIdEmpty()
+    {
+        // Setup
+        $publicKeyId    = '';
+        $privateKeyFile = VirtualRsaKeyPairCredential::privateKeyFileUrl();
+
+        // Test
+        new RsaKeyPairCredential($publicKeyId, $privateKeyFile);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Public Key ID must be a string
+     * @throws ClientException
+     */
+    public function testPublicKeyIdFormat()
+    {
+        // Setup
+        $publicKeyId    = null;
+        $privateKeyFile = VirtualRsaKeyPairCredential::privateKeyFileUrl();
+
+        // Test
+        new RsaKeyPairCredential($publicKeyId, $privateKeyFile);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Private Key File cannot be empty
+     * @throws ClientException
+     */
+    public function testPrivateKeyFileEmpty()
+    {
+        // Setup
+        $publicKeyId    = 'publicKeyId';
+        $privateKeyFile = '';
+
+        // Test
+        new RsaKeyPairCredential($publicKeyId, $privateKeyFile);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Private Key File must be a string
+     * @throws ClientException
+     */
+    public function testPrivateKeyFileFormat()
+    {
+        // Setup
+        $publicKeyId    = 'publicKeyId';
+        $privateKeyFile = null;
+
+        // Test
+        new RsaKeyPairCredential($publicKeyId, $privateKeyFile);
     }
 
     public static function testNotFoundFile()

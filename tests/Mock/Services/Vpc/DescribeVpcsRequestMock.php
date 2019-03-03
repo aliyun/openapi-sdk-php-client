@@ -22,6 +22,7 @@ class DescribeVpcsRequestMock extends DescribeVpcsRequest
     {
         $headers = [];
         $body    = \json_encode($data);
+
         return new Result(new Response(200, $headers, $body), $this);
     }
 }

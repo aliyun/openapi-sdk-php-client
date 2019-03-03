@@ -26,6 +26,7 @@ class DescribeClusterServicesRequestMock extends DescribeClusterServicesRequest
     {
         $headers = [];
         $body    = \json_encode($data);
+
         return new Result(new Response(200, $headers, $body), $this);
     }
 }

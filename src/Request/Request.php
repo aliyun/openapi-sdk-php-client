@@ -2,8 +2,10 @@
 
 namespace AlibabaCloud\Client\Request;
 
+use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Filter;
 use AlibabaCloud\Client\Http\GuzzleTrait;
 use AlibabaCloud\Client\Request\Traits\AcsTrait;
 use AlibabaCloud\Client\Request\Traits\ClientTrait;
@@ -51,7 +53,7 @@ abstract class Request implements \ArrayAccess
     /**
      * @var string
      */
-    public $client = \ALIBABA_CLOUD_GLOBAL_CLIENT;
+    public $client;
 
     /**
      * @var Uri
@@ -82,16 +84,18 @@ abstract class Request implements \ArrayAccess
      * Request constructor.
      *
      * @param array $options
+     *
+     * @throws ClientException
      */
     public function __construct(array $options = [])
     {
+        $this->client                     = CredentialsProvider::getDefaultName();
         $this->uri                        = new Uri();
         $this->uri                        = $this->uri->withScheme($this->scheme);
         $this->guzzle                     = new Client();
         $this->options['http_errors']     = false;
         $this->options['timeout']         = ALIBABA_CLOUD_TIMEOUT;
         $this->options['connect_timeout'] = ALIBABA_CLOUD_CONNECT_TIMEOUT;
-
         if ($options !== []) {
             $this->options($options);
         }
@@ -106,9 +110,14 @@ abstract class Request implements \ArrayAccess
      * @param string $value
      *
      * @return $this
+     * @throws ClientException
      */
     public function appendUserAgent($name, $value)
     {
+        Filter::name($name);
+
+        Filter::value($value);
+
         if (!UserAgent::isGuarded($name)) {
             $this->userAgent[$name] = $value;
         }
@@ -134,9 +143,12 @@ abstract class Request implements \ArrayAccess
      * @param string $format
      *
      * @return $this
+     * @throws ClientException
      */
     public function format($format)
     {
+        Filter::format($format);
+
         $this->format = \strtoupper($format);
 
         return $this;
@@ -145,13 +157,16 @@ abstract class Request implements \ArrayAccess
     /**
      * Set the request body.
      *
-     * @param string $content
+     * @param string $body
      *
      * @return $this
+     * @throws ClientException
      */
-    public function body($content)
+    public function body($body)
     {
-        $this->options['body'] = $content;
+        Filter::body($body);
+
+        $this->options['body'] = $body;
 
         return $this;
     }
@@ -162,14 +177,18 @@ abstract class Request implements \ArrayAccess
      * @param array|object $content
      *
      * @return $this
+     * @throws ClientException
      */
     public function jsonBody($content)
     {
-        if (\is_array($content) || \is_object($content)) {
-            $content = \json_encode($content);
+        if (!\is_array($content) && !\is_object($content)) {
+            throw new ClientException(
+                'jsonBody only accepts an array or object',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
         }
 
-        return $this->body($content);
+        return $this->body(\json_encode($content));
     }
 
     /**
@@ -178,9 +197,12 @@ abstract class Request implements \ArrayAccess
      * @param string $scheme
      *
      * @return $this
+     * @throws ClientException
      */
     public function scheme($scheme)
     {
+        Filter::scheme($scheme);
+
         $this->scheme = \strtolower($scheme);
         $this->uri    = $this->uri->withScheme($this->scheme);
 
@@ -193,9 +215,12 @@ abstract class Request implements \ArrayAccess
      * @param string $host
      *
      * @return $this
+     * @throws ClientException
      */
     public function host($host)
     {
+        Filter::host($host);
+
         $this->uri = $this->uri->withHost($host);
 
         return $this;
@@ -205,10 +230,11 @@ abstract class Request implements \ArrayAccess
      * @param string $method
      *
      * @return $this
+     * @throws ClientException
      */
     public function method($method)
     {
-        $this->method = \strtoupper($method);
+        $this->method = Filter::method($method);
 
         return $this;
     }
@@ -217,9 +243,12 @@ abstract class Request implements \ArrayAccess
      * @param string $clientName
      *
      * @return $this
+     * @throws ClientException
      */
     public function client($clientName)
     {
+        Filter::clientName($clientName);
+
         $this->client = $clientName;
 
         return $this;
@@ -276,6 +305,8 @@ abstract class Request implements \ArrayAccess
 
     /**
      * Remove redundant parameters
+     *
+     * @codeCoverageIgnore
      */
     private function removeRedundantParameters()
     {

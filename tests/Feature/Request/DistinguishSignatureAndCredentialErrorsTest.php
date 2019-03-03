@@ -20,7 +20,7 @@ class DistinguishSignatureAndCredentialErrorsTest extends TestCase
 
         AlibabaCloud::accessKeyClient(\getenv('ACCESS_KEY_ID'), 'bad')
                     ->regionId('cn-shanghai')
-                    ->asGlobalClient();
+                    ->asDefaultClient();
     }
 
     /**
@@ -29,7 +29,7 @@ class DistinguishSignatureAndCredentialErrorsTest extends TestCase
     public function testInvalidAccessKeySecret()
     {
         try {
-            AlibabaCloud::roaRequest()
+            AlibabaCloud::roa()
                         ->pathPattern('/pop/2018-05-18/tokens')
                         ->product('nls-cloud-meta')
                         ->version('2018-05-18')

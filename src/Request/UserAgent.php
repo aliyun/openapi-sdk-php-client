@@ -3,6 +3,8 @@
 namespace AlibabaCloud\Client\Request;
 
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Filter;
 
 /**
  * Class UserAgent
@@ -96,9 +98,14 @@ class UserAgent
      *
      * @param string $name
      * @param string $value
+     *
+     * @throws ClientException
      */
     public static function append($name, $value)
     {
+        Filter::name($name);
+        Filter::value($value);
+
         self::defaultFields();
 
         if (!self::isGuarded($name)) {

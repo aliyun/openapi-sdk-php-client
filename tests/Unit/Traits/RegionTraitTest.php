@@ -14,20 +14,16 @@ use PHPUnit\Framework\TestCase;
  */
 class RegionTraitTest extends TestCase
 {
-    /**
-     * @covers ::getGlobalRegionId
-     * @covers ::setGlobalRegionId
-     */
-    public function testGlobalRegionId()
+    public function testDefaultRegionId()
     {
         // Setup
         $regionId = 'test';
-        $this->assertNull(AlibabaCloud::getGlobalRegionId());
+        $this->assertNull(AlibabaCloud::getDefaultRegionId());
 
         // Test
-        AlibabaCloud::setGlobalRegionId($regionId);
+        AlibabaCloud::setDefaultRegionId($regionId);
 
         // Assert
-        $this->assertEquals($regionId, AlibabaCloud::getGlobalRegionId());
+        $this->assertEquals($regionId, AlibabaCloud::getDefaultRegionId());
     }
 }

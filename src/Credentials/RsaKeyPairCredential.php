@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Credentials;
 
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Filter;
 use Exception;
 
 /**
@@ -33,6 +34,9 @@ class RsaKeyPairCredential implements CredentialsInterface
      */
     public function __construct($publicKeyId, $privateKeyFile)
     {
+        Filter::publicKeyId($publicKeyId);
+        Filter::privateKeyFile($privateKeyFile);
+
         $this->publicKeyId = $publicKeyId;
         try {
             $this->privateKey = file_get_contents($privateKeyFile);

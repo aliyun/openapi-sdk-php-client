@@ -5,7 +5,9 @@ namespace AlibabaCloud\Client\Regions;
 use AlibabaCloud\Client\Config\Config;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Filter;
 use AlibabaCloud\Client\Request\Request;
+use Exception;
 
 /**
  * Class LocationService
@@ -111,6 +113,8 @@ class LocationService
      * @param string $regionId
      * @param string $product
      * @param string $domain
+     *
+     * @throws ClientException
      */
     public static function addEndPoint($regionId, $product, $domain)
     {
@@ -121,9 +125,17 @@ class LocationService
      * @param string $product
      * @param string $host
      * @param string $regionId
+     *
+     * @throws ClientException
      */
     public static function addHost($product, $host, $regionId = \ALIBABA_CLOUD_GLOBAL_REGION)
     {
+        Filter::product($product);
+
+        Filter::host($host);
+
+        Filter::regionId($regionId);
+
         self::$hosts[$product][$regionId] = $host;
     }
 
@@ -142,7 +154,7 @@ class LocationService
      * Update endpoints from OSS.
      *
      * @codeCoverageIgnore
-     * @throws \Exception
+     * @throws Exception
      */
     public static function updateEndpoints()
     {

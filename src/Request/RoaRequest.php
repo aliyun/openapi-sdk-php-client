@@ -7,6 +7,7 @@ use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Filter;
 use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
 
 /**
@@ -150,6 +151,7 @@ class RoaRequest extends Request
             $target = '[' . $pathParameterKey . ']';
             $result = str_replace($target, $apiParameterValue, $result);
         }
+
         return $result;
     }
 
@@ -172,6 +174,7 @@ class RoaRequest extends Request
         foreach ($sortMap as $sortMapKey => $sortMapValue) {
             $headerString .= $sortMapKey . ':' . $sortMapValue . self::$headerSeparator;
         }
+
         return $headerString;
     }
 
@@ -213,6 +216,7 @@ class RoaRequest extends Request
             }
             $queryString .= self::$querySeparator;
         }
+
         return $queryString;
     }
 
@@ -242,10 +246,21 @@ class RoaRequest extends Request
      * @param string $value
      *
      * @return RoaRequest
+     * @throws ClientException
      */
     public function pathParameter($name, $value)
     {
+        Filter::name($name);
+
+        if ($value === '') {
+            throw new ClientException(
+                'Value cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->pathParameters[$name] = $value;
+
         return $this;
     }
 
@@ -255,10 +270,14 @@ class RoaRequest extends Request
      * @param string $pattern
      *
      * @return self
+     * @throws ClientException
      */
     public function pathPattern($pattern)
     {
+        Filter::pattern($pattern);
+
         $this->pathPattern = $pattern;
+
         return $this;
     }
 
@@ -274,6 +293,7 @@ class RoaRequest extends Request
     {
         if (\strpos($name, 'get') !== false) {
             $parameterName = $this->propertyNameByMethodName($name);
+
             return $this->__get($parameterName);
         }
 

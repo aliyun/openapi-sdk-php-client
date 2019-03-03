@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Tests\Unit\Clients;
 
 use AlibabaCloud\Client\Clients\RsaKeyPairClient;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +24,7 @@ class RsaKeyPairClientTest extends TestCase
     public function testConstruct()
     {
         // Setup
-        $publicKeyId    = \time();
+        $publicKeyId    = uniqid('', true);
         $privateKeyFile = VirtualRsaKeyPairCredential::privateKeyFileUrl();
 
         // Test
@@ -45,7 +46,7 @@ class RsaKeyPairClientTest extends TestCase
      *
      * @param RsaKeyPairClient $client
      *
-     * @throws \AlibabaCloud\Client\Exception\ServerException
+     * @throws ServerException
      */
     public function testGetSessionCredential(RsaKeyPairClient $client)
     {

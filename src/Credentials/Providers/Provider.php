@@ -22,6 +22,11 @@ class Provider
     protected $client;
 
     /**
+     * @var string
+     */
+    protected $error = 'Result contains no credentials';
+
+    /**
      * CredentialTrait constructor.
      *
      * @param Client $client

@@ -44,11 +44,12 @@ class DefaultAcsClientTest extends TestCase
 
     /**
      * @throws ServerException
+     * @throws ClientException
      */
     public function testAccessKeyClient()
     {
         $request = new DescribeRegionsRequest();
-        $request->setContent(\time());
+        $request->body(\time());
         $this->assertEquals(
             \time(),
             $request->getContent()
@@ -99,20 +100,37 @@ class DefaultAcsClientTest extends TestCase
         }
     }
 
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Format must be a string
+     * @throws ClientException
+     * @throws ServerException
+     */
     public function testFormatNull()
     {
-        try {
-            $request = new DescribeRegionsRequest();
-            $request->format(null);
-            $response = self::$client->getAcsResponse($request);
-            $this->assertNotNull($response);
-        } catch (ClientException $e) {
-            self::assertStringStartsWith('cURL error ', $e->getMessage());
-        } catch (ServerException $e) {
-            self::assertEquals('', $e->getResult()->getResponse()->getBody()->getContents());
-        }
+        $request = new DescribeRegionsRequest();
+        $request->format(null);
+        $response = self::$client->getAcsResponse($request);
+        $this->assertNotNull($response);
     }
 
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Format cannot be empty
+     * @throws ClientException
+     * @throws ServerException
+     */
+    public function testFormatEmpty()
+    {
+        $request = new DescribeRegionsRequest();
+        $request->format('');
+        $response = self::$client->getAcsResponse($request);
+        $this->assertNotNull($response);
+    }
+
+    /**
+     * @throws ServerException
+     */
     public function testBadMethod()
     {
         try {
@@ -212,7 +230,7 @@ class DefaultAcsClientTest extends TestCase
             \getenv('ACCESS_KEY_SECRET')
         )
                     ->regionId('cn-hangzhou')
-                    ->asGlobalClient();
+                    ->asDefaultClient();
 
         $result = self::$client->getAcsResponse(new Result(new \GuzzleHttp\Psr7\Response));
 

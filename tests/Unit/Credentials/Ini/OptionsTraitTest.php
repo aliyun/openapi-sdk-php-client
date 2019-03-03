@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Tests\Unit\Credentials\Ini;
 
 use AlibabaCloud\Client\Clients\EcsRamRoleClient;
 use AlibabaCloud\Client\Credentials\Ini\IniCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,6 +21,7 @@ class OptionsTraitTest extends TestCase
      * @param mixed $expectedCert
      *
      * @throws       \ReflectionException
+     * @throws ClientException
      * @dataProvider setCert
      */
     public function testSetCert(array $configures, $expectedCert)

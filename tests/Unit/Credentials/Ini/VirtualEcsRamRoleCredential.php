@@ -22,6 +22,7 @@ class VirtualEcsRamRoleCredential extends VirtualAccessKeyCredential
 enable = true
 type = ecs_ram_role
 EOT;
+
         return (new static($content))->url();
     }
 
@@ -36,6 +37,7 @@ enable = true
 type = ecs_ram_role
 role_name = role_name
 EOT;
+
         return (new static($content))->url();
     }
 }

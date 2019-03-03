@@ -2,6 +2,8 @@
 
 namespace AlibabaCloud\Client\Exception;
 
+use Exception;
+
 /**
  * Class ClientException
  *
@@ -13,9 +15,9 @@ class ClientException extends AlibabaCloudException
     /**
      * ClientException constructor.
      *
-     * @param string          $errorMessage
-     * @param string          $errorCode
-     * @param \Exception|null $previous
+     * @param string         $errorMessage
+     * @param string         $errorCode
+     * @param Exception|null $previous
      */
     public function __construct($errorMessage, $errorCode, $previous = null)
     {

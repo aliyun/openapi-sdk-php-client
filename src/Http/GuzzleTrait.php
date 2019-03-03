@@ -2,6 +2,9 @@
 
 namespace AlibabaCloud\Client\Http;
 
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Filter;
+
 /**
  * Trait GuzzleTrait
  *
@@ -21,13 +24,17 @@ trait GuzzleTrait
     public $regionId;
 
     /**
-     * @param string $region
+     * @param string $regionId
      *
      * @return $this
+     * @throws ClientException
      */
-    public function regionId($region)
+    public function regionId($regionId)
     {
-        $this->regionId = $region;
+        Filter::regionId($regionId);
+
+        $this->regionId = $regionId;
+
         return $this;
     }
 
@@ -35,10 +42,12 @@ trait GuzzleTrait
      * @param int|float $timeout
      *
      * @return $this
+     * @throws ClientException
      */
     public function timeout($timeout)
     {
-        $this->options['timeout'] = $timeout;
+        $this->options['timeout'] = Filter::timeout($timeout);
+
         return $this;
     }
 
@@ -46,10 +55,12 @@ trait GuzzleTrait
      * @param int|float $connectTimeout
      *
      * @return $this
+     * @throws ClientException
      */
     public function connectTimeout($connectTimeout)
     {
-        $this->options['connect_timeout'] = $connectTimeout;
+        $this->options['connect_timeout'] = Filter::connectTimeout($connectTimeout);
+
         return $this;
     }
 
@@ -61,6 +72,7 @@ trait GuzzleTrait
     public function debug($debug)
     {
         $this->options['debug'] = $debug;
+
         return $this;
     }
 
@@ -74,6 +86,7 @@ trait GuzzleTrait
     public function cert($cert)
     {
         $this->options['cert'] = $cert;
+
         return $this;
     }
 
@@ -87,6 +100,7 @@ trait GuzzleTrait
     public function proxy($proxy)
     {
         $this->options['proxy'] = $proxy;
+
         return $this;
     }
 
@@ -100,6 +114,7 @@ trait GuzzleTrait
         if ($options !== []) {
             $this->options = \AlibabaCloud\Client\arrayMerge([$this->options, $options]);
         }
+
         return $this;
     }
 }

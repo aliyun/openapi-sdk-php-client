@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Clients;
 
 use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 
 /**
@@ -18,6 +19,8 @@ class RamRoleArnClient extends Client
      * @param string $accessKeySecret
      * @param string $roleArn
      * @param string $roleSessionName
+     *
+     * @throws ClientException
      */
     public function __construct($accessKeyId, $accessKeySecret, $roleArn, $roleSessionName)
     {

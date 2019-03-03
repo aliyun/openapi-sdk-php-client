@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Tests\Mock\Services\CS;
 
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RoaRequest;
 
 /**
@@ -36,6 +37,8 @@ class DescribeClusterServicesRequest extends RoaRequest
      * DescribeClusterServicesRequest constructor.
      *
      * @param array $options
+     *
+     * @throws ClientException
      */
     public function __construct(array $options = [])
     {
