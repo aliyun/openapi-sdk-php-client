@@ -4,6 +4,10 @@ namespace AlibabaCloud\Client\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Config\Config;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Filter\ApiFilter;
+use AlibabaCloud\Client\Filter\ClientFilter;
+use AlibabaCloud\Client\Filter\HttpFilter;
 use AlibabaCloud\Client\Regions\LocationService;
 
 /**
@@ -27,6 +31,7 @@ trait EndpointTrait
      * @param string $product
      *
      * @return string
+     * @throws ClientException
      */
     public static function findProductDomain($regionId, $product)
     {
@@ -41,6 +46,7 @@ trait EndpointTrait
      * @param string $domain
      *
      * @return void
+     * @throws ClientException
      */
     public static function addEndpoint($regionId, $product, $domain)
     {
@@ -54,9 +60,13 @@ trait EndpointTrait
      * @param string $regionId
      *
      * @return string
+     * @throws ClientException
      */
     public static function resolveHost($product, $regionId = \ALIBABA_CLOUD_GLOBAL_REGION)
     {
+        ApiFilter::product($product);
+        ClientFilter::regionId($regionId);
+
         if (isset(self::$hosts[$product][$regionId])) {
             return self::$hosts[$product][$regionId];
         }
@@ -78,9 +88,16 @@ trait EndpointTrait
      * @param string $regionId
      *
      * @return void
+     * @throws ClientException
      */
     public static function addHost($product, $host, $regionId = \ALIBABA_CLOUD_GLOBAL_REGION)
     {
+        ApiFilter::product($product);
+
+        HttpFilter::host($host);
+
+        ClientFilter::regionId($regionId);
+
         self::$hosts[$product][$regionId] = $host;
         LocationService::addHost($product, $host, $regionId);
     }

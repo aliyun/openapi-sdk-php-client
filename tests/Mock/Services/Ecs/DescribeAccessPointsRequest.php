@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Tests\Mock\Services\Ecs;
 
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
@@ -16,6 +17,8 @@ class DescribeAccessPointsRequest extends RpcRequest
      * DescribeAccessPointsRequest constructor.
      *
      * @param array $options
+     *
+     * @throws ClientException
      */
     public function __construct(array $options = [])
     {
@@ -137,6 +140,7 @@ class DescribeAccessPointsRequest extends RpcRequest
     {
         $this->pageSize                     = $pageSize;
         $this->options['query']['PageSize'] = $pageSize;
+
         return $this;
     }
 

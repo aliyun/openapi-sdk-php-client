@@ -36,11 +36,7 @@ class RsaKeyPairProvider extends Provider
 
             if (!isset($result['SessionAccessKey']['SessionAccessKeyId'],
                 $result['SessionAccessKey']['SessionAccessKeySecret'])) {
-                throw new ServerException(
-                    $result,
-                    'Result contains no SessionAccessKey',
-                    \ALIBABA_CLOUD_INVALID_CREDENTIAL
-                );
+                throw new ServerException($result, $this->error, \ALIBABA_CLOUD_INVALID_CREDENTIAL);
             }
 
             $credential = $result['SessionAccessKey'];

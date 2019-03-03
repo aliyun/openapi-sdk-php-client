@@ -5,6 +5,9 @@ namespace AlibabaCloud\Client\Tests\Unit\Clients;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Clients\Client;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
+use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature;
 use PHPUnit\Framework\TestCase;
 
@@ -18,6 +21,7 @@ class ClientTest extends TestCase
 
     /**
      * @return Client
+     * @throws ClientException
      */
     public function testConstruct()
     {
@@ -44,7 +48,7 @@ class ClientTest extends TestCase
      *
      * @param Client $client
      *
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function testName(Client $client)
     {
@@ -59,19 +63,47 @@ class ClientTest extends TestCase
     }
 
     /**
+     * @depends                  testConstruct
+     * @expectedException  \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Name cannot be empty
+     *
+     * @param Client $client
+     *
+     * @throws ClientException
+     */
+    public function testNameEmpty(Client $client)
+    {
+        $client->name('');
+    }
+
+    /**
+     * @depends                  testConstruct
+     * @expectedException  \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Name must be a string
+     *
+     * @param Client $client
+     *
+     * @throws ClientException
+     */
+    public function testNameFormat(Client $client)
+    {
+        $client->name(null);
+    }
+
+    /**
      * @depends testConstruct
      *
      * @param Client $client
      *
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
-    public function testAsGlobalClient(Client $client)
+    public function testAsDefaultClient(Client $client)
     {
         // Setup
-        $name = \ALIBABA_CLOUD_GLOBAL_CLIENT;
+        $name = CredentialsProvider::getDefaultName();
 
         // Test
-        $client->asGlobalClient();
+        $client->asDefaultClient();
 
         // Assert
         self::assertEquals($client, AlibabaCloud::get($name));
@@ -99,8 +131,8 @@ class ClientTest extends TestCase
      *
      * @param Client $client
      *
-     * @throws \AlibabaCloud\Client\Exception\ClientException
-     * @throws \AlibabaCloud\Client\Exception\ServerException
+     * @throws ClientException
+     * @throws ServerException
      */
     public function testGetSessionCredential(Client $client)
     {

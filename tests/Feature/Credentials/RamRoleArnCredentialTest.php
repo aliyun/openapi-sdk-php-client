@@ -27,8 +27,7 @@ class RamRoleArnCredentialTest extends TestCase
     private $clientName = 'RamRoleArnCredentialTest';
 
     /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
+     * @throws ClientException
      */
     public function setUp()
     {
@@ -49,8 +48,7 @@ class RamRoleArnCredentialTest extends TestCase
     }
 
     /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
+     * @throws ClientException
      */
     public function tearDown()
     {

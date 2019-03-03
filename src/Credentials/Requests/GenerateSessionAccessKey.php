@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Credentials\Requests;
 
 use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
@@ -14,9 +15,11 @@ class GenerateSessionAccessKey extends RpcRequest
 {
 
     /**
-     * Class constructor.
+     * GenerateSessionAccessKey constructor.
      *
      * @param RsaKeyPairCredential $credential
+     *
+     * @throws ClientException
      */
     public function __construct(RsaKeyPairCredential $credential)
     {

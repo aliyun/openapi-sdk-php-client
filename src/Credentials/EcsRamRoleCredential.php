@@ -2,6 +2,9 @@
 
 namespace AlibabaCloud\Client\Credentials;
 
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Filter\CredentialFilter;
+
 /**
  * Use the RAM role of an ECS instance to complete the authentication.
  *
@@ -19,9 +22,13 @@ class EcsRamRoleCredential implements CredentialsInterface
      * Class constructor.
      *
      * @param string $roleName
+     *
+     * @throws ClientException
      */
     public function __construct($roleName)
     {
+        CredentialFilter::roleName($roleName);
+
         $this->roleName = $roleName;
     }
 

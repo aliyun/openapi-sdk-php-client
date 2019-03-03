@@ -22,6 +22,18 @@ class Provider
     protected $client;
 
     /**
+     * @var string
+     */
+    protected $error = 'Result contains no credentials';
+
+    /**
+     * For TSC cache
+     *
+     * @var int
+     */
+    protected $expiration = 180;
+
+    /**
      * CredentialTrait constructor.
      *
      * @param Client $client
@@ -60,7 +72,7 @@ class Provider
     {
         if (isset(self::$credentialsCache[$this->key()])) {
             $result = self::$credentialsCache[$this->key()];
-            if (\strtotime($result['Expiration']) - \time() >= \ALIBABA_CLOUD_EXPIRATION_INTERVAL) {
+            if (\strtotime($result['Expiration']) - \time() >= $this->expiration) {
                 return $result;
             }
         }

@@ -11,6 +11,7 @@ use AlibabaCloud\Client\Clients\RsaKeyPairClient;
 use AlibabaCloud\Client\Clients\StsClient;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\Providers\Provider;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 use PHPUnit\Framework\TestCase;
@@ -51,7 +52,7 @@ class ProviderTest extends TestCase
 
     /**
      * @return array
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function key()
     {
@@ -157,7 +158,7 @@ class ProviderTest extends TestCase
 
     /**
      * @return array
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function cache()
     {

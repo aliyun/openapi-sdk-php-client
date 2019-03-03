@@ -6,6 +6,7 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\StsCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RpcRequest;
 use PHPUnit\Framework\TestCase;
 
@@ -24,6 +25,7 @@ class RpcRequestTest extends TestCase
      * @param $expected
      *
      * @throws       \ReflectionException
+     * @throws ClientException
      * @dataProvider booleanValueToStringData
      */
     public function testConstructAcsHeader($value, $expected)
@@ -63,6 +65,7 @@ class RpcRequestTest extends TestCase
      * @param CredentialsInterface $credential
      *
      * @throws       \ReflectionException
+     * @throws ClientException
      * @dataProvider resolveQuery
      */
     public function testResolveQuery($credential)
@@ -95,6 +98,7 @@ class RpcRequestTest extends TestCase
 
     /**
      * @return array
+     * @throws ClientException
      */
     public function resolveQuery()
     {
@@ -112,6 +116,7 @@ class RpcRequestTest extends TestCase
      * @param CredentialsInterface $credential
      *
      * @throws       \ReflectionException
+     * @throws ClientException
      * @dataProvider resolveQuery
      */
     public function testResolveParameters($credential)
@@ -148,6 +153,7 @@ class RpcRequestTest extends TestCase
      * @param $expected
      *
      * @throws       \ReflectionException
+     * @throws ClientException
      * @dataProvider percentEncode
      */
     public function testPercentEncode($value, $expected)
@@ -191,6 +197,7 @@ class RpcRequestTest extends TestCase
      * @param $expected
      *
      * @throws       \ReflectionException
+     * @throws ClientException
      * @dataProvider signature
      */
     public function testSignature($parameters, $accessKeySecret, $expected)
@@ -237,6 +244,7 @@ class RpcRequestTest extends TestCase
      * @param $getValue
      *
      * @dataProvider call
+     * @throws ClientException
      */
     public function testCall($setName, $getName, $setValue, $getValue)
     {

@@ -28,14 +28,13 @@ class RsaKeyPairCredentialTest extends TestCase
     private $clientName = 'RsaKeyPairCredentialTest';
 
     /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
+     * @throws ClientException
      */
     public function setUp()
     {
         parent::setUp();
         $regionId       = 'cn-hangzhou';
-        $publicKeyId    = \getenv('PUBLIC_KEY_ID');
+        $publicKeyId    = \AlibabaCloud\Client\env('PUBLIC_KEY_ID');
         $privateKeyFile = VirtualRsaKeyPairCredential::privateKeyFileUrl();
         AlibabaCloud::rsaKeyPairClient($publicKeyId, $privateKeyFile)
                     ->regionId($regionId)
@@ -55,8 +54,7 @@ class RsaKeyPairCredentialTest extends TestCase
     }
 
     /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
+     * @throws ClientException
      */
     public function tearDown()
     {
@@ -65,7 +63,7 @@ class RsaKeyPairCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Ecs
+     * @throws ServerException
      */
     public function testEcs()
     {
@@ -85,7 +83,7 @@ class RsaKeyPairCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Dds
+     * @throws ServerException
      */
     public function testDds()
     {
@@ -123,9 +121,6 @@ class RsaKeyPairCredentialTest extends TestCase
         }
     }
 
-    /**
-     * Assert for Slb
-     */
     public function testSlb()
     {
         try {

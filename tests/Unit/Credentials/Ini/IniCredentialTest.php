@@ -6,6 +6,9 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\Ini\IniCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionMethod;
 
 /**
  * Class IniCredentialTest
@@ -60,12 +63,12 @@ class IniCredentialTest extends TestCase
      * @param string $key
      * @param bool   $bool
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function testIsNotEmpty($array, $key, $bool)
     {
         $object = new IniCredential();
-        $ref    = new \ReflectionClass(
+        $ref    = new ReflectionClass(
             IniCredential::class
         );
         $method = $ref->getMethod('isNotEmpty');
@@ -128,24 +131,24 @@ class IniCredentialTest extends TestCase
 
     /**
      * @throws ClientException
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function testForgetLoadedCredentialsFile()
     {
         IniCredential::forgetLoadedCredentialsFile();
 
-        $ref        = new \ReflectionClass(IniCredential::class);
+        $ref        = new ReflectionClass(IniCredential::class);
         $properties = $ref->getStaticProperties();
         self::assertEquals([], $properties['hasLoaded']);
 
         AlibabaCloud::load(VirtualAccessKeyCredential::ok());
 
-        $ref        = new \ReflectionClass(IniCredential::class);
+        $ref        = new ReflectionClass(IniCredential::class);
         $properties = $ref->getStaticProperties();
         self::assertArrayHasKey(VirtualAccessKeyCredential::ok(), $properties['hasLoaded']);
 
         IniCredential::forgetLoadedCredentialsFile();
-        $ref        = new \ReflectionClass(IniCredential::class);
+        $ref        = new ReflectionClass(IniCredential::class);
         $properties = $ref->getStaticProperties();
         self::assertEquals([], $properties['hasLoaded']);
     }
@@ -185,12 +188,12 @@ class IniCredentialTest extends TestCase
      *
      * @param string $fileName
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function testLoadFile($fileName)
     {
         $object = new IniCredential($fileName);
-        $method = new \ReflectionMethod(
+        $method = new ReflectionMethod(
             IniCredential::class,
             'loadFile'
         );
@@ -221,13 +224,13 @@ class IniCredentialTest extends TestCase
      * @param string $fileName
      * @param string $exceptionMessage
      *
-     * @throws       \ReflectionException
+     * @throws       ReflectionException
      * @dataProvider parseFile
      */
     public function testParseFile($fileName, $exceptionMessage)
     {
         $object = new IniCredential($fileName);
-        $method = new \ReflectionMethod(
+        $method = new ReflectionMethod(
             IniCredential::class,
             'parseFile'
         );
@@ -258,13 +261,13 @@ class IniCredentialTest extends TestCase
     }
 
     /**
-     * @throws       \ReflectionException
+     * @throws       ReflectionException
      * @dataProvider parseFile
      */
     public function testParseFileBadFormat()
     {
         $object = new IniCredential(VirtualAccessKeyCredential::badFormat());
-        $method = new \ReflectionMethod(
+        $method = new ReflectionMethod(
             IniCredential::class,
             'parseFile'
         );
@@ -280,7 +283,7 @@ class IniCredentialTest extends TestCase
     }
 
     /**
-     * @throws  \ReflectionException
+     * @throws  ReflectionException
      * @covers  ::getHomeDirectory
      * @depends testParseFile
      */
@@ -289,14 +292,14 @@ class IniCredentialTest extends TestCase
         putenv('HOME=');
         putenv('HOMEDRIVE=C:');
         putenv('HOMEPATH=\\Users\\Alibaba');
-        $ref    = new \ReflectionClass(IniCredential::class);
+        $ref    = new ReflectionClass(IniCredential::class);
         $method = $ref->getMethod('getHomeDirectory');
         $method->setAccessible(true);
         $this->assertEquals('C:\\Users\\Alibaba', $method->invoke(null));
     }
 
     /**
-     * @throws  \ReflectionException
+     * @throws  ReflectionException
      * @covers  ::getHomeDirectory
      * @depends testGetsHomeDirectoryForWindowsUser
      */
@@ -305,7 +308,7 @@ class IniCredentialTest extends TestCase
         putenv('HOME=/root');
         putenv('HOMEDRIVE=');
         putenv('HOMEPATH=');
-        $ref    = new \ReflectionClass(IniCredential::class);
+        $ref    = new ReflectionClass(IniCredential::class);
         $method = $ref->getMethod('getHomeDirectory');
         $method->setAccessible(true);
         $this->assertEquals('/root', $method->invoke(null));

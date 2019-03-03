@@ -27,8 +27,7 @@ class AccessKeyCredentialTest extends TestCase
     private $clientName = 'AccessKeyCredentialTest';
 
     /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
+     * @throws ClientException
      */
     public function setUp()
     {
@@ -42,8 +41,7 @@ class AccessKeyCredentialTest extends TestCase
     }
 
     /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
+     * @throws ClientException
      */
     public function tearDown()
     {
@@ -52,7 +50,7 @@ class AccessKeyCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Ecs
+     * @throws ServerException
      */
     public function testEcs()
     {
@@ -68,7 +66,7 @@ class AccessKeyCredentialTest extends TestCase
     }
 
     /**
-     * Assert for Dds
+     * @throws ServerException
      */
     public function testDds()
     {

@@ -27,6 +27,8 @@ class DefaultAcsClient
      * DefaultAcsClient constructor.
      *
      * @param Client $client
+     *
+     * @throws ClientException
      */
     public function __construct(Client $client)
     {

@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RoaRequest;
 use PHPUnit\Framework\TestCase;
 
@@ -12,6 +13,9 @@ use PHPUnit\Framework\TestCase;
  */
 class DeprecatedRoaTraitTest extends TestCase
 {
+    /**
+     * @throws ClientException
+     */
     public function testGetUriPattern()
     {
         // Setup
@@ -33,6 +37,9 @@ class DeprecatedRoaTraitTest extends TestCase
         self::assertEquals('/setUriPattern', $request->getUriPattern());
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testGetPathParameters()
     {
         // Setup

@@ -4,7 +4,10 @@ namespace AlibabaCloud\Client\Tests\Unit\Credentials\Ini;
 
 use AlibabaCloud\Client\Clients\EcsRamRoleClient;
 use AlibabaCloud\Client\Credentials\Ini\IniCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionException;
 
 /**
  * Class OptionsTraitTest
@@ -19,7 +22,8 @@ class OptionsTraitTest extends TestCase
      *
      * @param mixed $expectedCert
      *
-     * @throws       \ReflectionException
+     * @throws       ReflectionException
+     * @throws ClientException
      * @dataProvider setCert
      */
     public function testSetCert(array $configures, $expectedCert)
@@ -27,7 +31,7 @@ class OptionsTraitTest extends TestCase
         // Setup
         $client = new EcsRamRoleClient('test');
         $object = new IniCredential();
-        $ref    = new \ReflectionClass(IniCredential::class);
+        $ref    = new ReflectionClass(IniCredential::class);
         $method = $ref->getMethod('setCert');
         $method->setAccessible(true);
 

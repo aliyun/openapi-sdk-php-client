@@ -2,6 +2,9 @@
 
 namespace AlibabaCloud\Client\Credentials;
 
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Filter\CredentialFilter;
+
 /**
  * Use the AssumeRole of the RAM account to complete  the authentication.
  *
@@ -37,9 +40,13 @@ class RamRoleArnCredential implements CredentialsInterface
      * @param string $accessKeySecret
      * @param string $roleArn
      * @param string $roleSessionName
+     *
+     * @throws ClientException
      */
     public function __construct($accessKeyId, $accessKeySecret, $roleArn, $roleSessionName)
     {
+        CredentialFilter::AccessKey($accessKeyId, $accessKeySecret);
+
         $this->accessKeyId     = $accessKeyId;
         $this->accessKeySecret = $accessKeySecret;
         $this->roleArn         = $roleArn;

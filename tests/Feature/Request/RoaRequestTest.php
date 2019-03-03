@@ -28,15 +28,17 @@ class RoaRequestTest extends TestCase
             AlibabaCloud::accessKeyClient(
                 getenv('ACCESS_KEY_ID'),
                 getenv('ACCESS_KEY_SECRET')
-            )->asGlobalClient()->regionId('cn-hangzhou');
+            )->asDefaultClient()->regionId('cn-hangzhou');
 
-            $result = AlibabaCloud::roaRequest()
+            $result = AlibabaCloud::roa()
                                   ->pathPattern('/clusters/[ClusterId]/services')
                                   ->method('GET')
                                   ->product('CS')
                                   ->version('2015-12-15')
                                   ->action('DescribeClusterServices')
                                   ->pathParameter('ClusterId', $clusterId)
+                                  ->connectTimeout(15)
+                                  ->timeout(20)
                                   ->request();
 
             self::assertNotEmpty($result->toArray());
@@ -67,8 +69,8 @@ class RoaRequestTest extends TestCase
                            ]);
 
         $result = $request->client('content')
-                          ->connectTimeout(15)
-                          ->timeout(20)
+                          ->connectTimeout(20)
+                          ->timeout(25)
                           ->request();
         self::assertEquals('Iphone', $result['data'][0]['word']);
     }

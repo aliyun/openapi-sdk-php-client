@@ -7,6 +7,8 @@ use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
 use AlibabaCloud\Client\Credentials\Requests\AssumeRole;
 use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKey;
 use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +24,7 @@ class ClientTraitTest extends TestCase
 {
 
     /**
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function testMergeOptionsIntoClient()
     {
@@ -32,7 +34,7 @@ class ClientTraitTest extends TestCase
 
         // Test
         AlibabaCloud::accessKeyClient('key', 'secret')
-                    ->asGlobalClient()
+                    ->asDefaultClient()
                     ->regionId('cn-hangzhou')
                     ->options(
                         [
@@ -59,6 +61,10 @@ class ClientTraitTest extends TestCase
         $this->assertEquals($expected, $request->options['headers']['client']);
     }
 
+    /**
+     * @throws ClientException
+     * @throws ServerException
+     */
     public function testCredential()
     {
         // Setup
@@ -66,7 +72,7 @@ class ClientTraitTest extends TestCase
 
         // Test
         AlibabaCloud::accessKeyClient('key', 'secret')
-                    ->asGlobalClient()
+                    ->asDefaultClient()
                     ->regionId('cn-hangzhou')
                     ->name($clientName);
 
@@ -77,6 +83,10 @@ class ClientTraitTest extends TestCase
         self::assertEquals('secret', $request->credential()->getAccessKeySecret());
     }
 
+    /**
+     * @throws ClientException
+     * @throws ServerException
+     */
     public function testCredentialOnAssumeRole()
     {
         // Setup
@@ -84,7 +94,7 @@ class ClientTraitTest extends TestCase
 
         // Test
         AlibabaCloud::accessKeyClient('key', 'secret')
-                    ->asGlobalClient()
+                    ->asDefaultClient()
                     ->regionId('cn-hangzhou')
                     ->name($clientName);
 
@@ -102,6 +112,10 @@ class ClientTraitTest extends TestCase
         self::assertEquals('secret', $request->credential()->getAccessKeySecret());
     }
 
+    /**
+     * @throws ClientException
+     * @throws ServerException
+     */
     public function testCredentialOnGenerateSessionAccessKey()
     {
         // Setup
@@ -109,7 +123,7 @@ class ClientTraitTest extends TestCase
 
         // Test
         AlibabaCloud::accessKeyClient('key', 'secret')
-                    ->asGlobalClient()
+                    ->asDefaultClient()
                     ->regionId('cn-hangzhou')
                     ->name($clientName);
 

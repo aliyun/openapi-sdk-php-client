@@ -29,12 +29,14 @@ class EcsRamRoleCredentialTest extends TestCase
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
+     *
+     * @throws ClientException
      */
     public function setUp()
     {
         parent::setUp();
         $regionId = 'cn-hangzhou';
-        $roleName = \getenv('ECS_ROLE_NAME');
+        $roleName = 'EcsRamRoleTest';
         AlibabaCloud::ecsRamRoleClient($roleName)
                     ->regionId($regionId)
                     ->name($this->clientName);
@@ -43,6 +45,8 @@ class EcsRamRoleCredentialTest extends TestCase
     /**
      * Tears down the fixture, for example, close a network connection.
      * This method is called after a test is executed.
+     *
+     * @throws ClientException
      */
     public function tearDown()
     {
@@ -58,7 +62,13 @@ class EcsRamRoleCredentialTest extends TestCase
             // If the request is not from a bound ECS instance.
             self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
-            self::assertEquals('Error in retrieving assume role credentials.', $e->getErrorMessage());
+            self::assertContains(
+                $e->getErrorMessage(),
+                [
+                    'Error in retrieving assume role credentials.',
+                    'The role was not found in the instance',
+                ]
+            );
         }
     }
 

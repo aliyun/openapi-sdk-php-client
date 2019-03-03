@@ -38,6 +38,7 @@ class RequestCompatibilityTest extends TestCase
                 ->timeout(20);
 
         $result = $client->getAcsResponse($request->client('test'));
+
         // Assert
         self::assertNotEquals($result->getRequest()->client, 'test');
     }

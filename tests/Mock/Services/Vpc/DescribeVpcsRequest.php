@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Tests\Mock\Services\Vpc;
 
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
@@ -16,6 +17,8 @@ class DescribeVpcsRequest extends RpcRequest
      * DescribeVpcsRequest constructor.
      *
      * @param array $options
+     *
+     * @throws ClientException
      */
     public function __construct(array $options = [])
     {

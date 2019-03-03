@@ -4,6 +4,8 @@ namespace AlibabaCloud\Client\Tests\Unit\Clients;
 
 use AlibabaCloud\Client\Clients\AccessKeyClient;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use PHPUnit\Framework\TestCase;
 
@@ -17,6 +19,7 @@ class AccessKeyClientTest extends TestCase
 
     /**
      * @return AccessKeyClient
+     * @throws ClientException
      */
     public function testConstruct()
     {
@@ -31,6 +34,7 @@ class AccessKeyClientTest extends TestCase
         self::assertEquals($accessKeyId, $client->getCredential()->getAccessKeyId());
         self::assertEquals($accessKeySecret, $client->getCredential()->getAccessKeySecret());
         self::assertInstanceOf(ShaHmac1Signature::class, $client->getSignature());
+
         return $client;
     }
 
@@ -39,8 +43,8 @@ class AccessKeyClientTest extends TestCase
      *
      * @param AccessKeyClient $client
      *
-     * @throws \AlibabaCloud\Client\Exception\ClientException
-     * @throws \AlibabaCloud\Client\Exception\ServerException
+     * @throws ClientException
+     * @throws ServerException
      */
     public function testGetSessionCredential(AccessKeyClient $client)
     {
