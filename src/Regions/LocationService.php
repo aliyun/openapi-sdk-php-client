@@ -6,6 +6,7 @@ use AlibabaCloud\Client\Config\Config;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\Request;
+use Exception;
 
 /**
  * Class LocationService
@@ -111,6 +112,8 @@ class LocationService
      * @param string $regionId
      * @param string $product
      * @param string $domain
+     *
+     * @throws ClientException
      */
     public static function addEndPoint($regionId, $product, $domain)
     {
@@ -121,9 +124,32 @@ class LocationService
      * @param string $product
      * @param string $host
      * @param string $regionId
+     *
+     * @throws ClientException
      */
     public static function addHost($product, $host, $regionId = \ALIBABA_CLOUD_GLOBAL_REGION)
     {
+        if (!$product) {
+            throw new ClientException(
+                'The argument $product cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        if (!$host) {
+            throw new ClientException(
+                'The argument $host cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        if (!$regionId) {
+            throw new ClientException(
+                'The argument $regionId cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         self::$hosts[$product][$regionId] = $host;
     }
 
@@ -142,7 +168,7 @@ class LocationService
      * Update endpoints from OSS.
      *
      * @codeCoverageIgnore
-     * @throws \Exception
+     * @throws Exception
      */
     public static function updateEndpoints()
     {

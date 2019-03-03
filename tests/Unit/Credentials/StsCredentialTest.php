@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Tests\Unit\Credentials;
 
 use AlibabaCloud\Client\Credentials\StsCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,11 +17,7 @@ class StsCredentialTest extends TestCase
 {
 
     /**
-     * @covers ::__construct
-     * @covers ::getAccessKeyId
-     * @covers ::getAccessKeySecret
-     * @covers ::getSecurityToken
-     * @covers ::__toString
+     * @throws ClientException
      */
     public function testConstruct()
     {
@@ -40,5 +37,35 @@ class StsCredentialTest extends TestCase
             "$accessKeyId#$accessKeySecret#$securityToken",
             (string)$credential
         );
+    }
+
+    /**
+     * @expectedExceptionMessage The argument $accessKeyId cannot be empty
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
+     */
+    public function testAccessKeyIdEmpty()
+    {
+        // Setup
+        $accessKeyId     = '';
+        $accessKeySecret = 'accessKeySecret';
+        $securityToken   = 'securityToken';
+
+        new StsCredential($accessKeyId, $accessKeySecret, $securityToken);
+    }
+
+    /**
+     * @expectedExceptionMessage The argument $accessKeySecret cannot be empty
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
+     */
+    public function testAccessKeySecretEmpty()
+    {
+        // Setup
+        $accessKeyId     = 'accessKeyId';
+        $accessKeySecret = '';
+        $securityToken   = 'securityToken';
+
+        new StsCredential($accessKeyId, $accessKeySecret, $securityToken);
     }
 }

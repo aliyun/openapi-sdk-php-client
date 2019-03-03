@@ -54,6 +54,8 @@ class EndpointTraitTest extends TestCase
 
     /**
      * Test for AddEndpoint
+     *
+     * @throws ClientException
      */
     public function testAddEndpoint()
     {
@@ -82,11 +84,37 @@ class EndpointTraitTest extends TestCase
     }
 
     /**
+     * Test for AddEndpoint
+     *
+     * @throws ClientException
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $product cannot be empty
+     */
+    public function testAddHostWithProductEmpty()
+    {
+        AlibabaCloud::addHost('', 'host', 'regionId');
+    }
+
+    /**
+     * Test for AddEndpoint
+     *
+     * @throws ClientException
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $host cannot be empty
+     */
+    public function testAddHostWithHostEmpty()
+    {
+        AlibabaCloud::addHost('product', '', 'regionId');
+    }
+
+    /**
      * @dataProvider products
      *
      * @param string $productName
      * @param string $serviceCode
      * @param array  $expectedHost
+     *
+     * @throws ClientException
      */
     public function testLocationServiceResolveHost($productName, $serviceCode, array $expectedHost)
     {
@@ -95,7 +123,7 @@ class EndpointTraitTest extends TestCase
         $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
                     ->regionId('cn-hangzhou')
-                    ->asGlobalClient();
+                    ->asDefaultClient();
 
         // Test
         $request              = new RpcRequest();
@@ -168,6 +196,9 @@ class EndpointTraitTest extends TestCase
         ];
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testAddGlobalHost()
     {
         // Setup
@@ -181,6 +212,9 @@ class EndpointTraitTest extends TestCase
         self::assertEquals($host, AlibabaCloud::resolveHost($product));
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testGlobal()
     {
         // Assert
@@ -190,6 +224,8 @@ class EndpointTraitTest extends TestCase
 
     /**
      * Test for Null
+     *
+     * @throws ClientException
      */
     public function testNull()
     {

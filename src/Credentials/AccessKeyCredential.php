@@ -2,6 +2,8 @@
 
 namespace AlibabaCloud\Client\Credentials;
 
+use AlibabaCloud\Client\Exception\ClientException;
+
 /**
  * Use the AccessKey to complete the authentication.
  *
@@ -25,9 +27,25 @@ class AccessKeyCredential implements CredentialsInterface
      *
      * @param string $accessKeyId     Access key ID
      * @param string $accessKeySecret Access Key Secret
+     *
+     * @throws ClientException
      */
     public function __construct($accessKeyId, $accessKeySecret)
     {
+        if (!$accessKeyId) {
+            throw new ClientException(
+                'The argument $accessKeyId cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        if (!$accessKeySecret) {
+            throw new ClientException(
+                'The argument $accessKeySecret cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->accessKeyId     = $accessKeyId;
         $this->accessKeySecret = $accessKeySecret;
     }

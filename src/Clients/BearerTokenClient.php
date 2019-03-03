@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Clients;
 
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Signature\BearerTokenSignature;
 
 /**
@@ -15,6 +16,8 @@ class BearerTokenClient extends Client
 
     /**
      * @param string $bearerToken
+     *
+     * @throws ClientException
      */
     public function __construct($bearerToken)
     {

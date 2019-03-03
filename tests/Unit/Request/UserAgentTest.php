@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Request\UserAgent;
 use PHPUnit\Framework\TestCase;
@@ -53,6 +54,9 @@ class UserAgentTest extends TestCase
         self::assertStringEndsWith('Append/1.0.0 Append2/2.0.0', $userAgent);
     }
 
+    /**
+     * @throws ClientException
+     */
     public static function testGuard()
     {
         UserAgent::append('PHP', '7.3');
@@ -61,11 +65,54 @@ class UserAgentTest extends TestCase
         self::assertStringEndsNotWith('Client/1.0.0', UserAgent::toString());
     }
 
+    /**
+     * @throws ClientException
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $name cannot be empty
+     */
+    public static function testGuardWithNameEmpty()
+    {
+        UserAgent::append('', '7.3');
+    }
+
+    /**
+     * @throws ClientException
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $value cannot be empty
+     */
+    public static function testGuardWithValueEmpty()
+    {
+        UserAgent::append('PHP', '');
+    }
+
+    /**
+     * @throws ClientException
+     */
     public static function testAppendGlobalUserAgent()
     {
         AlibabaCloud::appendUserAgent('cli', '1.0.0');
         AlibabaCloud::appendUserAgent('cmp', 'fit2cloud');
         self::assertStringEndsWith('cli/1.0.0 cmp/fit2cloud', UserAgent::toString());
+    }
+
+    /**
+     * @throws ClientException
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $name cannot be empty
+     */
+    public static function testAppendUserAgentWithNameEmpty()
+    {
+        AlibabaCloud::appendUserAgent('', '1.0.0');
+    }
+
+    /**
+     * @throws ClientException
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $value cannot be empty
+     */
+    public static function testAppendUserAgentWithValueEmpty()
+    {
+        AlibabaCloud::appendUserAgent('cli', '');
     }
 
     public static function testWithGlobalUserAgent()
@@ -82,6 +129,9 @@ class UserAgentTest extends TestCase
         self::assertStringEndsWith('PHP/' . PHP_VERSION, UserAgent::toString());
     }
 
+    /**
+     * @throws ClientException
+     */
     public static function testAppendForRequest()
     {
         AlibabaCloud::appendUserAgent('cli', '1.0.0');
@@ -99,6 +149,9 @@ class UserAgentTest extends TestCase
         self::assertStringEndsWith('cli/1.0.0', UserAgent::toString());
     }
 
+    /**
+     * @throws ClientException
+     */
     public static function testWithForRequest()
     {
         AlibabaCloud::appendUserAgent('cli', '1.0.0');
@@ -121,6 +174,9 @@ class UserAgentTest extends TestCase
         self::assertStringEndsWith('cli/1.0.0', UserAgent::toString());
     }
 
+    /**
+     * @throws ClientException
+     */
     public static function testRequestFirst()
     {
         AlibabaCloud::appendUserAgent('cli', '1.0.0');

@@ -66,8 +66,7 @@
         "files": [
             "src/Constants/Business.php",
             "src/Constants/ErrorCode.php",
-            "src/Functions.php",
-            "src/Load.php"
+            "src/Functions.php"
         ]
     },
     "autoload-dev": {

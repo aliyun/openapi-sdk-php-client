@@ -34,9 +34,60 @@ class LocationServiceTest extends TestCase
         self::assertEquals(LocationService::findProductDomain($request), $domain);
     }
 
+    /**
+     * @throws ClientException
+     */
+    public function testAddHost()
+    {
+        // Setup
+        $product  = 'b';
+        $host     = 'c';
+        $regionId = 'a';
+
+        // Test
+        $request = AlibabaCloud::rpc()->regionId($regionId)->product($product);
+        LocationService::addHost($product, $host, $regionId);
+
+        // Assert
+        self::assertEquals(LocationService::resolveHost($request), $host);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $product cannot be empty
+     * @throws ClientException
+     */
+    public function testAddHostWithProductEmpty()
+    {
+        LocationService::addHost('', 'host', 'regionId');
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $host cannot be empty
+     * @throws ClientException
+     */
+    public function testAddHostWithHostEmpty()
+    {
+        LocationService::addHost('product', '', 'regionId');
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $regionId cannot be empty
+     * @throws ClientException
+     */
+    public function testAddHostWithRegionIdEmpty()
+    {
+        LocationService::addHost('product', 'host', '');
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testLocationServiceWithBadAK()
     {
-        AlibabaCloud::accessKeyClient('key', 'secret')->asGlobalClient();
+        AlibabaCloud::accessKeyClient('key', 'secret')->asDefaultClient();
         $request = (new DeleteDatabaseRequest())->regionId('cn-hangzhou');
         try {
             LocationService::findProductDomain($request);
@@ -47,7 +98,7 @@ class LocationServiceTest extends TestCase
 
     public function testLocationServiceWithBadServiceDomain()
     {
-        AlibabaCloud::accessKeyClient('key', 'secret')->asGlobalClient();
+        AlibabaCloud::accessKeyClient('key', 'secret')->asDefaultClient();
         $request = (new DeleteDatabaseRequest())->regionId('cn-hangzhou');
         try {
             LocationService::findProductDomain($request, 'not.alibaba.com');

@@ -23,6 +23,7 @@ class RoaRequestTest extends TestCase
 
     /**
      * @throws \ReflectionException
+     * @throws ClientException
      */
     public function testContentMD5()
     {
@@ -49,6 +50,7 @@ class RoaRequestTest extends TestCase
 
     /**
      * @throws \ReflectionException
+     * @throws ClientException
      */
     public function testAssignPathParametersWithMagicMethod()
     {
@@ -72,6 +74,7 @@ class RoaRequestTest extends TestCase
 
     /**
      * @throws \ReflectionException
+     * @throws ClientException
      */
     public function testAssignPathParametersWithOption()
     {
@@ -137,11 +140,11 @@ class RoaRequestTest extends TestCase
         $request = new  DescribeClusterServicesRequest();
         AlibabaCloud::accessKeyClient('foo', 'bar')
                     ->regionId('cn-hangzhou')
-                    ->asGlobalClient();
+                    ->asDefaultClient();
 
         // Test
         $request->options(['query' => $query]);
-        $request->resolveParameters(AlibabaCloud::getGlobalClient()->getCredential());
+        $request->resolveParameters(AlibabaCloud::getDefaultClient()->getCredential());
 
         // Assert
         self::assertEquals($expected, $request->queryString());
@@ -175,6 +178,7 @@ class RoaRequestTest extends TestCase
      * @param $expected
      *
      * @throws       \ReflectionException
+     * @throws ClientException
      * @dataProvider formatToAccept
      */
     public function testFormatToAccept($format, $expected)
@@ -210,10 +214,11 @@ class RoaRequestTest extends TestCase
     }
 
     /**
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param string $value
      *
      * @dataProvider pathParameter
+     * @throws ClientException
      */
     public function testPathParameter($key, $value)
     {
@@ -225,6 +230,34 @@ class RoaRequestTest extends TestCase
 
         // Assert
         self::assertEquals($value, $request->pathParameters[$key]);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $name cannot be empty
+     * @throws ClientException
+     */
+    public function testPathParameterWithNameEmpty()
+    {
+        // Setup
+        $request = new  DescribeClusterServicesRequest();
+
+        // Test
+        $request->pathParameter('', 'value');
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $value cannot be empty
+     * @throws ClientException
+     */
+    public function testPathParameterWithValueEmpty()
+    {
+        // Setup
+        $request = new  DescribeClusterServicesRequest();
+
+        // Test
+        $request->pathParameter('name', '');
     }
 
     /**
@@ -244,6 +277,7 @@ class RoaRequestTest extends TestCase
      * @param $pattern
      *
      * @dataProvider pathPattern
+     * @throws ClientException
      */
     public function testPathPattern($pattern)
     {
@@ -255,6 +289,20 @@ class RoaRequestTest extends TestCase
 
         // Assert
         self::assertEquals($pattern, $request->pathPattern);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $pattern cannot be empty
+     * @throws ClientException
+     */
+    public function testPathPatternWithEmpty()
+    {
+        // Setup
+        $request = new  DescribeClusterServicesRequest();
+
+        // Test
+        $request->pathPattern('');
     }
 
     /**
@@ -282,11 +330,11 @@ class RoaRequestTest extends TestCase
         $request = new  DescribeClusterServicesRequest();
         AlibabaCloud::accessKeyClient('foo', 'bar')
                     ->regionId('cn-hangzhou')
-                    ->asGlobalClient();
+                    ->asDefaultClient();
 
         // Test
         $request->version($version);
-        $request->resolveParameters(AlibabaCloud::getGlobalClient()->getCredential());
+        $request->resolveParameters(AlibabaCloud::getDefaultClient()->getCredential());
 
         // Assert
         self::assertEquals($version, $request->version);
@@ -315,6 +363,7 @@ class RoaRequestTest extends TestCase
      * @param $getValue
      *
      * @dataProvider call
+     * @throws ClientException
      */
     public function testCall($setName, $getName, $setValue, $getValue)
     {
@@ -341,6 +390,7 @@ class RoaRequestTest extends TestCase
 
     /**
      * @return array
+     * @throws ClientException
      */
     public function resolveQuery()
     {

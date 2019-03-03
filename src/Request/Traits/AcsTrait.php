@@ -45,10 +45,19 @@ trait AcsTrait
      * @param string $action
      *
      * @return $this
+     * @throws ClientException
      */
     public function action($action)
     {
+        if (!$action) {
+            throw new ClientException(
+                'The argument $action cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->action = $action;
+
         return $this;
     }
 
@@ -56,10 +65,19 @@ trait AcsTrait
      * @param string $version
      *
      * @return $this
+     * @throws ClientException
      */
     public function version($version)
     {
+        if (!$version) {
+            throw new ClientException(
+                'The argument $version cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->version = $version;
+
         return $this;
     }
 
@@ -67,10 +85,19 @@ trait AcsTrait
      * @param string $product
      *
      * @return $this
+     * @throws ClientException
      */
     public function product($product)
     {
+        if (!$product) {
+            throw new ClientException(
+                'The argument $product cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->product = $product;
+
         return $this;
     }
 
@@ -78,10 +105,19 @@ trait AcsTrait
      * @param string $endpointType
      *
      * @return $this
+     * @throws ClientException
      */
     public function endpointType($endpointType)
     {
+        if (!$endpointType) {
+            throw new ClientException(
+                'The argument $endpointType cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->endpointType = $endpointType;
+
         return $this;
     }
 
@@ -89,10 +125,19 @@ trait AcsTrait
      * @param string $serviceCode
      *
      * @return $this
+     * @throws ClientException
      */
     public function serviceCode($serviceCode)
     {
+        if (!$serviceCode) {
+            throw new ClientException(
+                'The argument $serviceCode cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->serviceCode = $serviceCode;
+
         return $this;
     }
 
@@ -105,16 +150,16 @@ trait AcsTrait
         if ($this->regionId !== null) {
             return $this->regionId;
         }
+
         if ($this->httpClient()->regionId !== null) {
             return $this->httpClient()->regionId;
         }
-        if (AlibabaCloud::getGlobalRegionId() !== null) {
-            return AlibabaCloud::getGlobalRegionId();
+
+        if (AlibabaCloud::getDefaultRegionId() !== null) {
+            return AlibabaCloud::getDefaultRegionId();
         }
-        throw new ClientException(
-            "Missing required 'RegionId' for Request",
-            \ALIBABA_CLOUD_INVALID_REGION_ID
-        );
+
+        throw new ClientException("Missing required 'RegionId' for Request", \ALIBABA_CLOUD_INVALID_REGION_ID);
     }
 
     /**

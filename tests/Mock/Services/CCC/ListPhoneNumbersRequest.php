@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Tests\Mock\Services\CCC;
 
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
@@ -16,6 +17,8 @@ class ListPhoneNumbersRequest extends RpcRequest
      * GetConfigRequest constructor.
      *
      * @param array $options
+     *
+     * @throws ClientException
      */
     public function __construct(array $options = [])
     {
@@ -56,6 +59,7 @@ class ListPhoneNumbersRequest extends RpcRequest
     {
         $this->outboundOnly                     = $outboundOnly;
         $this->options['query']['OutboundOnly'] = $outboundOnly;
+
         return $this;
     }
 
@@ -76,6 +80,7 @@ class ListPhoneNumbersRequest extends RpcRequest
     {
         $this->instanceId                     = $instanceId;
         $this->options['query']['InstanceId'] = $instanceId;
+
         return $this;
     }
 }

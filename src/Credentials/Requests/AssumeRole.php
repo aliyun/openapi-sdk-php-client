@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Credentials\Requests;
 
 use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
@@ -14,9 +15,11 @@ class AssumeRole extends RpcRequest
 {
 
     /**
-     * Class constructor.
+     * AssumeRole constructor.
      *
      * @param RamRoleArnCredential $arnCredential
+     *
+     * @throws ClientException
      */
     public function __construct(RamRoleArnCredential $arnCredential)
     {

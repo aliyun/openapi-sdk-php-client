@@ -49,8 +49,11 @@ function inOpenBasedir($filename, $throwException = false)
         return false;
     }
 
-    throw new ClientException('open_basedir restriction in effect. '
-                              . "File($filename) is not within the allowed path(s): ($open_basedir)", 'SDK.InvalidPath');
+    throw new ClientException(
+        'open_basedir restriction in effect. '
+        . "File($filename) is not within the allowed path(s): ($open_basedir)",
+        'SDK.InvalidPath'
+    );
 }
 
 /**
@@ -242,6 +245,28 @@ function env($key, $default = null)
     }
 
     return $value;
+}
+
+/**
+ * @param $key
+ *
+ * @return bool|mixed
+ * @throws ClientException
+ */
+function envNotEmpty($key)
+{
+    $value = env($key, false);
+    if ($value !== false && !$value) {
+        throw new ClientException(
+            "Environment variable '$key' cannot be empty",
+            \ALIBABA_CLOUD_INVALID_ARGUMENT
+        );
+    }
+    if ($value) {
+        return $value;
+    }
+
+    return false;
 }
 
 /**

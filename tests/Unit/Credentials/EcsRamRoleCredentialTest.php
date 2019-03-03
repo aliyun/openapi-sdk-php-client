@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Tests\Unit\Credentials;
 
 use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,21 +17,32 @@ class EcsRamRoleCredentialTest extends TestCase
 {
 
     /**
-     * @covers ::__construct
-     * @covers ::getRoleName
-     * @covers ::__toString
+     * @throws ClientException
      */
     public function testConstruct()
     {
         // Setup
-        $roleArn  = \getenv('ROLE_ARN');
-        $expected = "roleName#$roleArn";
+        $roleName = 'role_arn';
+        $expected = "roleName#$roleName";
 
         // Test
-        $credential = new EcsRamRoleCredential($roleArn);
+        $credential = new EcsRamRoleCredential($roleName);
 
         // Assert
-        $this->assertEquals($roleArn, $credential->getRoleName());
+        $this->assertEquals($roleName, $credential->getRoleName());
         $this->assertEquals($expected, (string)$credential);
+    }
+
+    /**
+     * @expectedExceptionMessage The argument $roleName cannot be empty
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
+     */
+    public function testEmpty()
+    {
+        // Setup
+        $roleName = '';
+
+        new EcsRamRoleCredential($roleName);
     }
 }

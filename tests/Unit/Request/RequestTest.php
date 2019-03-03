@@ -19,6 +19,9 @@ use PHPUnit\Framework\TestCase;
  */
 class RequestTest extends TestCase
 {
+    /**
+     * @throws ClientException
+     */
     public function testConstruct()
     {
         // Setup
@@ -33,6 +36,31 @@ class RequestTest extends TestCase
         self::assertEquals(__METHOD__, $roaRequest->options['testConstruct']);
     }
 
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $name cannot be empty
+     * @throws ClientException
+     */
+    public function testAppendUserAgentWithNameEmpty()
+    {
+        $request = new RpcRequest();
+        $request->appendUserAgent('', 'value');
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $value cannot be empty
+     * @throws ClientException
+     */
+    public function testAppendUserAgentWithValueEmpty()
+    {
+        $request = new RpcRequest();
+        $request->appendUserAgent('name', '');
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testFormat()
     {
         // Setup
@@ -49,6 +77,20 @@ class RequestTest extends TestCase
         self::assertEquals(\strtoupper($format), $roaRequest->format);
     }
 
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $format cannot be empty
+     * @throws ClientException
+     */
+    public function testFormatWithEmpty()
+    {
+        $request = new RpcRequest();
+        $request->format('');
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testBody()
     {
         // Setup
@@ -65,6 +107,20 @@ class RequestTest extends TestCase
         self::assertEquals($body, $roaRequest->options['body']);
     }
 
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $body cannot be empty
+     * @throws ClientException
+     */
+    public function testBodyEmpty()
+    {
+        $request = new RpcRequest();
+        $request->body('');
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testJsonBody()
     {
         // Setup
@@ -81,6 +137,9 @@ class RequestTest extends TestCase
         self::assertEquals('{"test":"test"}', $roaRequest->options['body']);
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testScheme()
     {
         // Setup
@@ -100,6 +159,20 @@ class RequestTest extends TestCase
         self::assertEquals($scheme, $roaRequest->uri->getScheme());
     }
 
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $scheme cannot be empty
+     * @throws ClientException
+     */
+    public function testSchemeEmpty()
+    {
+        $request = new RpcRequest();
+        $request->scheme('');
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testHost()
     {
         // Setup
@@ -116,6 +189,20 @@ class RequestTest extends TestCase
         self::assertEquals($host, $roaRequest->uri->getHost());
     }
 
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $host cannot be empty
+     * @throws ClientException
+     */
+    public function testHostEmpty()
+    {
+        $request = new RpcRequest();
+        $request->host('');
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testMethod()
     {
         // Setup
@@ -132,6 +219,20 @@ class RequestTest extends TestCase
         self::assertEquals(\strtoupper($method), $roaRequest->method);
     }
 
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $method cannot be empty
+     * @throws ClientException
+     */
+    public function testMethodEmpty()
+    {
+        $request = new RpcRequest();
+        $request->method('');
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testClient()
     {
         // Setup
@@ -149,7 +250,18 @@ class RequestTest extends TestCase
     }
 
     /**
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $clientName cannot be empty
+     * @throws ClientException
+     */
+    public function testClientEmpty()
+    {
+        $request = new RpcRequest();
+        $request->client('');
+    }
+
+    /**
+     * @throws ClientException
      */
     public function testIsDebug()
     {
@@ -167,6 +279,9 @@ class RequestTest extends TestCase
         self::assertFalse($request->isDebug());
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testRequestWithServiceException()
     {
         // Setup
@@ -188,7 +303,8 @@ class RequestTest extends TestCase
     }
 
     /**
-     * @throws \AlibabaCloud\Client\Exception\ServerException
+     * @throws ServerException
+     * @throws ClientException
      */
     public function testRequestWithClientException()
     {

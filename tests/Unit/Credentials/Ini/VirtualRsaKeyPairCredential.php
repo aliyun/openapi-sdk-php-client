@@ -22,6 +22,7 @@ class VirtualRsaKeyPairCredential extends VirtualAccessKeyCredential
 enable = true
 type = rsa_key_pair
 EOT;
+
         return (new static($content))->url();
     }
 
@@ -36,6 +37,7 @@ enable = true
 type = rsa_key_pair
 public_key_id = public_key_id
 EOT;
+
         return (new static($content))->url();
     }
 
@@ -51,6 +53,7 @@ type = rsa_key_pair
 public_key_id = public_key_id
 private_key_file = /bad/path.pem
 EOT;
+
         return (new static($content))->url();
     }
 
@@ -77,6 +80,7 @@ K44HPAaADobsh8tS9KxW/bxNF6yLvssj8is4Z2sRTRFfrulQcf79JiJND5DAV866
 KnLZdZy5DK6T/MmX
 -----END PRIVATE KEY-----
 EOT;
+
         return (new static($content))->url();
     }
 
@@ -98,6 +102,7 @@ K44HPAaADobsh8tS9KxW/bxNF6yLvssj8is4Z2sRTRFfrulQcf79JiJND5DAV866
 KnLZdZy5DK6T/MmX
 -----END PRIVATE KEY-----
 EOT;
+
         return (new static($content))->url();
     }
 }

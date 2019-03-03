@@ -7,6 +7,7 @@ use AlibabaCloud\Client\Clients\Client;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use AlibabaCloud\Client\Credentials\CredentialsInterface;
+use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
 use AlibabaCloud\Client\Credentials\Requests\AssumeRole;
 use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKey;
 use AlibabaCloud\Client\Credentials\StsCredential;
@@ -31,6 +32,14 @@ trait ClientTrait
      */
     public function httpClient()
     {
+        if (!AlibabaCloud::all()) {
+            if (CredentialsProvider::hasCustomChain()) {
+                CredentialsProvider::customProvider($this->client);
+            } else {
+                CredentialsProvider::defaultProvider($this->client);
+            }
+        }
+
         return AlibabaCloud::get($this->client);
     }
 

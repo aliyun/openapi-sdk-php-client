@@ -10,6 +10,7 @@ use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
+use Stringy\Stringy;
 
 /**
  * Class EcsRamRoleProvider
@@ -18,6 +19,10 @@ use Psr\Http\Message\ResponseInterface;
  */
 class EcsRamRoleProvider extends Provider
 {
+    /**
+     * @var string
+     */
+    private $uri = 'http://100.100.100.200/latest/meta-data/ram/security-credentials/';
 
     /**
      * Get credential.
@@ -34,7 +39,7 @@ class EcsRamRoleProvider extends Provider
             $result = $this->request();
 
             if (!isset($result['AccessKeyId'], $result['AccessKeySecret'], $result['SecurityToken'])) {
-                throw new ServerException($result, 'Result contains no credentials', \ALIBABA_CLOUD_INVALID_CREDENTIAL);
+                throw new ServerException($result, $this->error, \ALIBABA_CLOUD_INVALID_CREDENTIAL);
             }
 
             $this->cache($result->toArray());
@@ -58,12 +63,14 @@ class EcsRamRoleProvider extends Provider
     {
         $result = new Result($this->getResponse());
 
+        if ($result->getResponse()->getStatusCode() === 404) {
+            $message = 'The role was not found in the instance';
+            throw new ServerException($result, $message, \ALIBABA_CLOUD_INVALID_CREDENTIAL);
+        }
+
         if (!$result->isSuccess()) {
-            throw new ServerException(
-                $result,
-                'Error in retrieving assume role credentials.',
-                \ALIBABA_CLOUD_INVALID_CREDENTIAL
-            );
+            $message = 'Error retrieving credentials from result';
+            throw new ServerException($result, $message, \ALIBABA_CLOUD_INVALID_CREDENTIAL);
         }
 
         return $result;
@@ -81,8 +88,7 @@ class EcsRamRoleProvider extends Provider
          * @var EcsRamRoleCredential $credential
          */
         $credential = $this->client->getCredential();
-        $url        = 'http://100.100.100.200/latest/meta-data/ram/security-credentials/'
-                      . $credential->getRoleName();
+        $url        = $this->uri . $credential->getRoleName();
 
         $options = [
             'http_errors'     => false,
@@ -94,6 +100,14 @@ class EcsRamRoleProvider extends Provider
         try {
             return (new Client())->request('GET', $url, $options);
         } catch (GuzzleException $e) {
+            if (Stringy::create($e->getMessage())->contains('timed')) {
+                throw new ClientException(
+                    'Timeout or instance does not belong to Alibaba Cloud',
+                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                    $e
+                );
+            }
+
             throw new ClientException(
                 $e->getMessage(),
                 \ALIBABA_CLOUD_SERVER_UNREACHABLE,

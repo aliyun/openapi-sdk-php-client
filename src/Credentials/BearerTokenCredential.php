@@ -2,6 +2,8 @@
 
 namespace AlibabaCloud\Client\Credentials;
 
+use AlibabaCloud\Client\Exception\ClientException;
+
 /**
  * Class BearerTokenCredential
  *
@@ -19,9 +21,18 @@ class BearerTokenCredential implements CredentialsInterface
      * Class constructor.
      *
      * @param string $bearerToken
+     *
+     * @throws ClientException
      */
     public function __construct($bearerToken)
     {
+        if (!$bearerToken) {
+            throw new ClientException(
+                'The argument $bearerToken cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->bearerToken = $bearerToken;
     }
 

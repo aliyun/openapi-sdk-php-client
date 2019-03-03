@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Profile;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Clients\Client;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class DefaultProfile
@@ -21,6 +22,7 @@ class DefaultProfile
      * @param string $accessKeySecret
      *
      * @return Client
+     * @throws ClientException
      */
     public static function getProfile($regionId, $accessKeyId, $accessKeySecret)
     {
@@ -36,6 +38,7 @@ class DefaultProfile
      * @param string $roleSessionName
      *
      * @return Client
+     * @throws ClientException
      */
     public static function getRamRoleArnProfile($regionId, $accessKeyId, $accessKeySecret, $roleArn, $roleSessionName)
     {
@@ -48,6 +51,7 @@ class DefaultProfile
      * @param string $roleName
      *
      * @return Client
+     * @throws ClientException
      */
     public static function getEcsRamRoleProfile($regionId, $roleName)
     {
@@ -60,6 +64,7 @@ class DefaultProfile
      * @param string $bearerToken
      *
      * @return Client
+     * @throws ClientException
      */
     public static function getBearerTokenProfile($regionId, $bearerToken)
     {

@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Clients;
 
 use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 
 /**
@@ -12,6 +13,8 @@ class EcsRamRoleClient extends \AlibabaCloud\Client\Clients\Client
 {
     /**
      * @param string $roleName
+     *
+     * @throws ClientException
      */
     public function __construct($roleName)
     {

@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Request;
 
+use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Http\GuzzleTrait;
@@ -51,7 +52,7 @@ abstract class Request implements \ArrayAccess
     /**
      * @var string
      */
-    public $client = \ALIBABA_CLOUD_GLOBAL_CLIENT;
+    public $client;
 
     /**
      * @var Uri
@@ -82,16 +83,18 @@ abstract class Request implements \ArrayAccess
      * Request constructor.
      *
      * @param array $options
+     *
+     * @throws ClientException
      */
     public function __construct(array $options = [])
     {
+        $this->client                     = CredentialsProvider::getDefaultName();
         $this->uri                        = new Uri();
         $this->uri                        = $this->uri->withScheme($this->scheme);
         $this->guzzle                     = new Client();
         $this->options['http_errors']     = false;
         $this->options['timeout']         = ALIBABA_CLOUD_TIMEOUT;
         $this->options['connect_timeout'] = ALIBABA_CLOUD_CONNECT_TIMEOUT;
-
         if ($options !== []) {
             $this->options($options);
         }
@@ -106,9 +109,24 @@ abstract class Request implements \ArrayAccess
      * @param string $value
      *
      * @return $this
+     * @throws ClientException
      */
     public function appendUserAgent($name, $value)
     {
+        if (!$name) {
+            throw new ClientException(
+                'The argument $name cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        if (!$value) {
+            throw new ClientException(
+                'The argument $value cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         if (!UserAgent::isGuarded($name)) {
             $this->userAgent[$name] = $value;
         }
@@ -134,9 +152,17 @@ abstract class Request implements \ArrayAccess
      * @param string $format
      *
      * @return $this
+     * @throws ClientException
      */
     public function format($format)
     {
+        if (!$format) {
+            throw new ClientException(
+                'The argument $format cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->format = \strtoupper($format);
 
         return $this;
@@ -145,13 +171,21 @@ abstract class Request implements \ArrayAccess
     /**
      * Set the request body.
      *
-     * @param string $content
+     * @param string $body
      *
      * @return $this
+     * @throws ClientException
      */
-    public function body($content)
+    public function body($body)
     {
-        $this->options['body'] = $content;
+        if (!$body) {
+            throw new ClientException(
+                'The argument $body cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        $this->options['body'] = $body;
 
         return $this;
     }
@@ -162,6 +196,7 @@ abstract class Request implements \ArrayAccess
      * @param array|object $content
      *
      * @return $this
+     * @throws ClientException
      */
     public function jsonBody($content)
     {
@@ -178,9 +213,17 @@ abstract class Request implements \ArrayAccess
      * @param string $scheme
      *
      * @return $this
+     * @throws ClientException
      */
     public function scheme($scheme)
     {
+        if (!$scheme) {
+            throw new ClientException(
+                'The argument $scheme cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->scheme = \strtolower($scheme);
         $this->uri    = $this->uri->withScheme($this->scheme);
 
@@ -193,9 +236,17 @@ abstract class Request implements \ArrayAccess
      * @param string $host
      *
      * @return $this
+     * @throws ClientException
      */
     public function host($host)
     {
+        if (!$host) {
+            throw new ClientException(
+                'The argument $host cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->uri = $this->uri->withHost($host);
 
         return $this;
@@ -205,9 +256,17 @@ abstract class Request implements \ArrayAccess
      * @param string $method
      *
      * @return $this
+     * @throws ClientException
      */
     public function method($method)
     {
+        if (!$method) {
+            throw new ClientException(
+                'The argument $method cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->method = \strtoupper($method);
 
         return $this;
@@ -217,9 +276,17 @@ abstract class Request implements \ArrayAccess
      * @param string $clientName
      *
      * @return $this
+     * @throws ClientException
      */
     public function client($clientName)
     {
+        if (!$clientName) {
+            throw new ClientException(
+                'The argument $clientName cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->client = $clientName;
 
         return $this;
@@ -276,6 +343,8 @@ abstract class Request implements \ArrayAccess
 
     /**
      * Remove redundant parameters
+     *
+     * @codeCoverageIgnore
      */
     private function removeRedundantParameters()
     {

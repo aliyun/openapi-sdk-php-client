@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Request;
 
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class UserAgent
@@ -96,9 +97,25 @@ class UserAgent
      *
      * @param string $name
      * @param string $value
+     *
+     * @throws ClientException
      */
     public static function append($name, $value)
     {
+        if (!$name) {
+            throw new ClientException(
+                'The argument $name cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        if (!$value) {
+            throw new ClientException(
+                'The argument $value cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         self::defaultFields();
 
         if (!self::isGuarded($name)) {

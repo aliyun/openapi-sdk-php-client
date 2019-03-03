@@ -33,6 +33,20 @@ class RsaKeyPairCredential implements CredentialsInterface
      */
     public function __construct($publicKeyId, $privateKeyFile)
     {
+        if (!$publicKeyId) {
+            throw new ClientException(
+                'The argument $publicKeyId cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        if (!$privateKeyFile) {
+            throw new ClientException(
+                'The argument $privateKeyFile cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->publicKeyId = $publicKeyId;
         try {
             $this->privateKey = file_get_contents($privateKeyFile);

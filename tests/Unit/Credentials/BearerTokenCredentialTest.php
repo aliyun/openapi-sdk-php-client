@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Tests\Unit\Credentials;
 
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,11 +17,7 @@ class BearerTokenCredentialTest extends TestCase
 {
 
     /**
-     * @covers ::__construct
-     * @covers ::getBearerToken
-     * @covers ::getAccessKeyId
-     * @covers ::getAccessKeySecret
-     * @covers ::__toString
+     * @throws ClientException
      */
     public function testConstruct()
     {
@@ -36,5 +33,18 @@ class BearerTokenCredentialTest extends TestCase
         $this->assertEquals('', $credential->getAccessKeyId());
         $this->assertEquals('', $credential->getAccessKeySecret());
         $this->assertEquals($expected, (string)$credential);
+    }
+
+    /**
+     * @expectedExceptionMessage The argument $bearerToken cannot be empty
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
+     */
+    public function testTokenEmpty()
+    {
+        // Setup
+        $bearerToken = '';
+
+        new BearerTokenCredential($bearerToken);
     }
 }
