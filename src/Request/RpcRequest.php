@@ -95,6 +95,7 @@ class RpcRequest extends Request
 
             return 'false';
         }
+
         return $value;
     }
 
@@ -134,6 +135,7 @@ class RpcRequest extends Request
         $result = urlencode($string);
         $result = str_replace(['+', '*'], ['%20', '%2A'], $result);
         $result = preg_replace('/%7E/', '~', $result);
+
         return $result;
     }
 
@@ -149,6 +151,7 @@ class RpcRequest extends Request
     {
         if (\strpos($name, 'get') !== false) {
             $parameterName = $this->propertyNameByMethodName($name);
+
             return $this->__get($parameterName);
         }
 

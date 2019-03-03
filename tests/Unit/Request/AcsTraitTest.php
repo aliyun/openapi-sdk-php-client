@@ -6,7 +6,6 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\RpcRequest;
-use AlibabaCloud\Client\Request\UserAgent;
 use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
 use PHPUnit\Framework\TestCase;
 
@@ -19,6 +18,9 @@ use PHPUnit\Framework\TestCase;
  */
 class AcsTraitTest extends TestCase
 {
+    /**
+     * @throws ClientException
+     */
     public function testAction()
     {
         // Setup
@@ -32,6 +34,23 @@ class AcsTraitTest extends TestCase
         self::assertEquals($action, $request->action);
     }
 
+    /**
+     * @throws ClientException
+     * @expectedExceptionMessage The argument $action cannot be empty
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     */
+    public function testActionWithEmpty()
+    {
+        // Setup
+        $request = new RpcRequest();
+
+        // Test
+        $request->action('');
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testVersion()
     {
         // Setup
@@ -45,10 +64,27 @@ class AcsTraitTest extends TestCase
         self::assertEquals($version, $request->version);
     }
 
+    /**
+     * @throws ClientException
+     * @expectedExceptionMessage The argument $version cannot be empty
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     */
+    public function testVersionWithEmpty()
+    {
+        // Setup
+        $request = new RpcRequest();
+
+        // Test
+        $request->version('');
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testProduct()
     {
         // Setup
-        $product = 'version';
+        $product = 'product';
         $request = new RpcRequest();
 
         // Test
@@ -58,6 +94,23 @@ class AcsTraitTest extends TestCase
         self::assertEquals($product, $request->product);
     }
 
+    /**
+     * @throws ClientException
+     * @expectedExceptionMessage The argument $product cannot be empty
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     */
+    public function testProductWithEmpty()
+    {
+        // Setup
+        $request = new RpcRequest();
+
+        // Test
+        $request->product('');
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testLocationEndpointType()
     {
         // Setup
@@ -74,6 +127,23 @@ class AcsTraitTest extends TestCase
         );
     }
 
+    /**
+     * @throws ClientException
+     * @expectedExceptionMessage The argument $endpointType cannot be empty
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     */
+    public function testLocationEndpointTypeEmpty()
+    {
+        // Setup
+        $request = new RpcRequest();
+
+        // Test
+        $request->endpointType('');
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testLocationServiceCode()
     {
         // Setup
@@ -91,7 +161,21 @@ class AcsTraitTest extends TestCase
     }
 
     /**
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
+     * @expectedExceptionMessage The argument $serviceCode cannot be empty
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     */
+    public function testServiceCodeEmpty()
+    {
+        // Setup
+        $request = new RpcRequest();
+
+        // Test
+        $request->serviceCode('');
+    }
+
+    /**
+     * @throws ClientException
      */
     public function testRealRegionIdOnRequest()
     {
@@ -110,7 +194,50 @@ class AcsTraitTest extends TestCase
     }
 
     /**
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $regionId cannot be empty
+     * @throws ClientException
+     */
+    public function testRegionIdEmpty()
+    {
+        // Setup
+        $regionId = '';
+        $request  = new RpcRequest();
+
+        // Test
+        $request->regionId($regionId);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $timeout cannot be empty
+     * @throws ClientException
+     */
+    public function testTimeoutEmpty()
+    {
+        // Setup
+        $request = new RpcRequest();
+
+        // Test
+        $request->timeout('');
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $connectTimeout cannot be empty
+     * @throws ClientException
+     */
+    public function testConnectTimeout()
+    {
+        // Setup
+        $request = new RpcRequest();
+
+        // Test
+        $request->connectTimeout('');
+    }
+
+    /**
+     * @throws ClientException
      */
     public function testRealRegionIdOnClient()
     {
@@ -132,15 +259,15 @@ class AcsTraitTest extends TestCase
     }
 
     /**
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
-    public function testRealRegionIdOnGlobal()
+    public function testRealRegionIdOnDefault()
     {
         // Setup
         $regionId = 'regionId';
         AlibabaCloud::accessKeyClient('foo', 'bar')
                     ->name('regionId');
-        AlibabaCloud::setGlobalRegionId($regionId);
+        AlibabaCloud::setDefaultRegionId($regionId);
 
         // Test
         $request = new RpcRequest();
@@ -154,27 +281,34 @@ class AcsTraitTest extends TestCase
     }
 
     /**
-     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Missing required 'RegionId' for Request
-     * @throws                   \AlibabaCloud\Client\Exception\ClientException
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function testRealRegionIdException()
     {
         // Setup
-        $regionId = 'regionId';
+        AlibabaCloud::flush();
         AlibabaCloud::accessKeyClient('foo', 'bar')
                     ->name('regionId');
-        AlibabaCloud::setGlobalRegionId(null);
 
         // Test
         $request = new RpcRequest();
         $request->client('regionId');
+        $request->realRegionId();
+    }
 
-        // Assert
-        self::assertEquals(
-            $regionId,
-            $request->realRegionId()
-        );
+    /**
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage The argument $regionId cannot be empty
+     * @throws                  ClientException
+     */
+    public function testSetDefaultRegionIdException()
+    {
+        // Test
+        AlibabaCloud::accessKeyClient('foo', 'bar')
+                    ->name('regionId');
+        AlibabaCloud::setDefaultRegionId(null);
     }
 
     /**
@@ -186,7 +320,7 @@ class AcsTraitTest extends TestCase
         $regionId = 'cn-shanghai';
         AlibabaCloud::accessKeyClient('foo', 'bar')
                     ->name($regionId);
-        AlibabaCloud::setGlobalRegionId($regionId);
+        AlibabaCloud::setDefaultRegionId($regionId);
 
         // Test
         $request = new RpcRequest();
@@ -212,7 +346,7 @@ class AcsTraitTest extends TestCase
         $regionId = 'us-west-no';
         AlibabaCloud::accessKeyClient('foo', 'bar')
                     ->name($regionId);
-        AlibabaCloud::setGlobalRegionId($regionId);
+        AlibabaCloud::setDefaultRegionId($regionId);
 
         // Test
         $request = new DescribeCdnServiceRequest();
@@ -220,13 +354,16 @@ class AcsTraitTest extends TestCase
         $request->resolveUri();
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testFindDomainOnLocationService()
     {
         // Setup
         $regionId = 'cn-shanghai';
         AlibabaCloud::accessKeyClient('foo', 'bar')
                     ->name($regionId);
-        AlibabaCloud::setGlobalRegionId($regionId);
+        AlibabaCloud::setDefaultRegionId($regionId);
 
         // Test
         $request = new RpcRequest();

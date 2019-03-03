@@ -2,6 +2,8 @@
 
 namespace AlibabaCloud\Client\Credentials;
 
+use AlibabaCloud\Client\Exception\ClientException;
+
 /**
  * Use the AssumeRole of the RAM account to complete  the authentication.
  *
@@ -37,9 +39,25 @@ class RamRoleArnCredential implements CredentialsInterface
      * @param string $accessKeySecret
      * @param string $roleArn
      * @param string $roleSessionName
+     *
+     * @throws ClientException
      */
     public function __construct($accessKeyId, $accessKeySecret, $roleArn, $roleSessionName)
     {
+        if (!$accessKeyId) {
+            throw new ClientException(
+                'The argument $accessKeyId cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        if (!$accessKeySecret) {
+            throw new ClientException(
+                'The argument $accessKeySecret cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->accessKeyId     = $accessKeyId;
         $this->accessKeySecret = $accessKeySecret;
         $this->roleArn         = $roleArn;

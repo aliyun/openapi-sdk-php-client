@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Request\Traits;
 
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\Request;
 
 /**
@@ -29,6 +30,7 @@ trait DeprecatedTrait
      * @param $content
      *
      * @return $this
+     * @throws ClientException
      */
     public function setContent($content)
     {
@@ -51,6 +53,7 @@ trait DeprecatedTrait
      * @param string $method
      *
      * @return $this
+     * @throws ClientException
      */
     public function setMethod($method)
     {
@@ -73,6 +76,7 @@ trait DeprecatedTrait
      * @param string $scheme
      *
      * @return $this
+     * @throws ClientException
      */
     public function setProtocol($scheme)
     {
@@ -95,6 +99,7 @@ trait DeprecatedTrait
      * @param string $scheme
      *
      * @return $this
+     * @throws ClientException
      */
     public function setProtocolType($scheme)
     {
@@ -124,6 +129,7 @@ trait DeprecatedTrait
     public function addHeader($headerKey, $headerValue)
     {
         $this->options['headers'][$headerKey] = $headerValue;
+
         return $this;
     }
 
@@ -149,6 +155,7 @@ trait DeprecatedTrait
     public function setQueryParameters($name, $value)
     {
         $this->options['query'][$name] = $value;
+
         return $this;
     }
 
@@ -174,6 +181,7 @@ trait DeprecatedTrait
     public function putDomainParameters($name, $value)
     {
         $this->options['form_params'][$name] = $value;
+
         return $this;
     }
 
@@ -183,6 +191,7 @@ trait DeprecatedTrait
      * @param $actionName
      *
      * @return self
+     * @throws ClientException
      */
     public function setActionName($actionName)
     {
@@ -204,6 +213,7 @@ trait DeprecatedTrait
      * @param string $format
      *
      * @return self
+     * @throws ClientException
      */
     public function setAcceptFormat($format)
     {

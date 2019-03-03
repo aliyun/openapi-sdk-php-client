@@ -18,11 +18,7 @@ class RsaKeyPaireCredentialTest extends TestCase
 {
 
     /**
-     * @covers ::__construct
-     * @covers ::getPublicKeyId
-     * @covers ::getPrivateKey
-     * @covers ::__toString
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function testConstruct()
     {
@@ -40,6 +36,36 @@ class RsaKeyPaireCredentialTest extends TestCase
             "publicKeyId#$publicKeyId",
             (string)$credential
         );
+    }
+
+    /**
+     * @expectedExceptionMessage The argument $publicKeyId cannot be empty
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
+     */
+    public function testPublicKeyIdEmpty()
+    {
+        // Setup
+        $publicKeyId    = '';
+        $privateKeyFile = VirtualRsaKeyPairCredential::privateKeyFileUrl();
+
+        // Test
+        new RsaKeyPairCredential($publicKeyId, $privateKeyFile);
+    }
+
+    /**
+     * @expectedExceptionMessage The argument $privateKeyFile cannot be empty
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
+     */
+    public function testPrivateKeyFileEmpty()
+    {
+        // Setup
+        $publicKeyId    = 'publicKeyId';
+        $privateKeyFile = '';
+
+        // Test
+        new RsaKeyPairCredential($publicKeyId, $privateKeyFile);
     }
 
     public static function testNotFoundFile()

@@ -19,6 +19,7 @@ class EcsRamRoleClientTest extends TestCase
 
     /**
      * @return EcsRamRoleClient
+     * @throws ClientException
      */
     public function testConstruct()
     {

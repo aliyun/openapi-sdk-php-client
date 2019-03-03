@@ -24,6 +24,7 @@ trait ArrayAccessTrait
         }
 
         $value = null;
+
         return $value;
     }
 

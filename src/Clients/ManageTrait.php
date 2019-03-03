@@ -6,6 +6,7 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
+use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
 use AlibabaCloud\Client\Credentials\Providers\EcsRamRoleProvider;
 use AlibabaCloud\Client\Credentials\Providers\RamRoleArnProvider;
 use AlibabaCloud\Client\Credentials\Providers\RsaKeyPairProvider;
@@ -47,23 +48,45 @@ trait ManageTrait
     /**
      * Naming clients.
      *
-     * @param string $clientName
+     * @param string $name
      *
      * @return static
+     * @throws ClientException
      */
-    public function name($clientName)
+    public function name($name)
     {
-        return AlibabaCloud::set($clientName, $this);
+        if (!$name) {
+            throw new ClientException(
+                'The argument $name cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        return AlibabaCloud::set($name, $this);
     }
 
     /**
+     * @deprecated
+     * @codeCoverageIgnore
      * Set the current client as the global client.
      *
      * @return static
+     * @throws ClientException
      */
     public function asGlobalClient()
     {
-        return $this->name(\ALIBABA_CLOUD_GLOBAL_CLIENT);
+        return $this->asDefaultClient();
+    }
+
+    /**
+     * Set the current client as the default client.
+     *
+     * @return static
+     * @throws ClientException
+     */
+    public function asDefaultClient()
+    {
+        return $this->name(CredentialsProvider::getDefaultName());
     }
 
     /**

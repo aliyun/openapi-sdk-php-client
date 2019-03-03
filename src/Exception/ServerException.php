@@ -77,6 +77,7 @@ class ServerException extends AlibabaCloudException
                 $message .= ' ' . $this->result->getResponse()->getStatusCode();
             }
         }
+
         return $message;
     }
 

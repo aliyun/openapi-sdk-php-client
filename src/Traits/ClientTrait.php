@@ -12,6 +12,7 @@ use AlibabaCloud\Client\Clients\RsaKeyPairClient;
 use AlibabaCloud\Client\Clients\StsClient;
 use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\Ini\IniCredential;
+use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Signature\SignatureInterface;
 
@@ -39,11 +40,19 @@ trait ClientTrait
      */
     public static function get($clientName)
     {
+        if (!$clientName) {
+            throw new ClientException(
+                'The argument $clientName cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         if (self::has($clientName)) {
             return self::$clients[\strtolower($clientName)];
         }
+
         throw new ClientException(
-            "Client not found: $clientName",
+            "Client '$clientName' not found",
             \ALIBABA_CLOUD_CLIENT_NOT_FOUND
         );
     }
@@ -53,9 +62,17 @@ trait ClientTrait
      * @param Client $client
      *
      * @return Client
+     * @throws ClientException
      */
     public static function set($clientName, Client $client)
     {
+        if (!$clientName) {
+            throw new ClientException(
+                'The argument $clientName cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         return self::$clients[\strtolower($clientName)] = $client;
     }
 
@@ -72,11 +89,20 @@ trait ClientTrait
     /**
      * Delete the client by specifying name.
      *
-     * @param string $name
+     * @param string $clientName
+     *
+     * @throws ClientException
      */
-    public static function del($name)
+    public static function del($clientName)
     {
-        unset(self::$clients[\strtolower($name)]);
+        if (!$clientName) {
+            throw new ClientException(
+                'The argument $clientName cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        unset(self::$clients[\strtolower($clientName)]);
     }
 
     /**
@@ -86,11 +112,13 @@ trait ClientTrait
      */
     public static function flush()
     {
-        self::$clients        = [];
-        self::$globalRegionId = null;
+        self::$clients         = [];
+        self::$defaultRegionId = null;
     }
 
     /**
+     * @codeCoverageIgnore
+     * @deprecated
      * Get the global client.
      *
      * @return Client
@@ -98,7 +126,18 @@ trait ClientTrait
      */
     public static function getGlobalClient()
     {
-        return self::get(\ALIBABA_CLOUD_GLOBAL_CLIENT);
+        return self::getDefaultClient();
+    }
+
+    /**
+     * Get the default client.
+     *
+     * @return Client
+     * @throws ClientException
+     */
+    public static function getDefaultClient()
+    {
+        return self::get(CredentialsProvider::getDefaultName());
     }
 
     /**
@@ -107,9 +146,17 @@ trait ClientTrait
      * @param string $clientName
      *
      * @return bool
+     * @throws ClientException
      */
     public static function has($clientName)
     {
+        if (!$clientName) {
+            throw new ClientException(
+                'The argument $clientName cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         return isset(self::$clients[\strtolower($clientName)]);
     }
 
@@ -128,6 +175,7 @@ trait ClientTrait
         foreach (\func_get_args() as $filename) {
             $list[$filename] = (new IniCredential($filename))->load();
         }
+
         return $list;
     }
 
@@ -151,9 +199,24 @@ trait ClientTrait
      * @param string $accessKeySecret
      *
      * @return AccessKeyClient
+     * @throws ClientException
      */
     public static function accessKeyClient($accessKeyId, $accessKeySecret)
     {
+        if (!$accessKeyId) {
+            throw new ClientException(
+                'The argument $accessKeyId cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        if (!$accessKeySecret) {
+            throw new ClientException(
+                'The argument $accessKeySecret cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         return new AccessKeyClient($accessKeyId, $accessKeySecret);
     }
 
@@ -166,9 +229,24 @@ trait ClientTrait
      * @param string $roleSessionName
      *
      * @return RamRoleArnClient
+     * @throws ClientException
      */
     public static function ramRoleArnClient($accessKeyId, $accessKeySecret, $roleArn, $roleSessionName)
     {
+        if (!$accessKeyId) {
+            throw new ClientException(
+                'The argument $accessKeyId cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        if (!$accessKeySecret) {
+            throw new ClientException(
+                'The argument $accessKeySecret cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         return new RamRoleArnClient($accessKeyId, $accessKeySecret, $roleArn, $roleSessionName);
     }
 
@@ -178,9 +256,17 @@ trait ClientTrait
      * @param string $roleName
      *
      * @return EcsRamRoleClient
+     * @throws ClientException
      */
     public static function ecsRamRoleClient($roleName)
     {
+        if (!$roleName) {
+            throw new ClientException(
+                'The argument $roleName cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         return new EcsRamRoleClient($roleName);
     }
 
@@ -190,9 +276,17 @@ trait ClientTrait
      * @param string $bearerToken
      *
      * @return BearerTokenClient
+     * @throws ClientException
      */
     public static function bearerTokenClient($bearerToken)
     {
+        if (!$bearerToken) {
+            throw new ClientException(
+                'The argument $bearerToken cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         return new BearerTokenClient($bearerToken);
     }
 
@@ -204,9 +298,24 @@ trait ClientTrait
      * @param string $securityToken   Security Token
      *
      * @return StsClient
+     * @throws ClientException
      */
-    public static function stsClient($accessKeyId, $accessKeySecret, $securityToken)
+    public static function stsClient($accessKeyId, $accessKeySecret, $securityToken = '')
     {
+        if (!$accessKeyId) {
+            throw new ClientException(
+                'The argument $accessKeyId cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        if (!$accessKeySecret) {
+            throw new ClientException(
+                'The argument $accessKeySecret cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         return new StsClient($accessKeyId, $accessKeySecret, $securityToken);
     }
 
@@ -221,6 +330,20 @@ trait ClientTrait
      */
     public static function rsaKeyPairClient($publicKeyId, $privateKeyFile)
     {
+        if (!$publicKeyId) {
+            throw new ClientException(
+                'The argument $publicKeyId cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        if (!$privateKeyFile) {
+            throw new ClientException(
+                'The argument $privateKeyFile cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         return new RsaKeyPairClient($publicKeyId, $privateKeyFile);
     }
 }

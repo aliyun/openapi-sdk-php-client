@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RoaRequest;
 use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Request\UserAgent;
@@ -19,9 +20,25 @@ trait RequestTrait
     /**
      * @param string $name
      * @param string $value
+     *
+     * @throws ClientException
      */
     public static function appendUserAgent($name, $value)
     {
+        if (!$name) {
+            throw new ClientException(
+                'The argument $name cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        if (!$value) {
+            throw new ClientException(
+                'The argument $value cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         UserAgent::append($name, $value);
     }
 
@@ -34,11 +51,40 @@ trait RequestTrait
     }
 
     /**
+     * @deprecated
+     * @codeCoverageIgnore
+     *
      * @param array $options
      *
      * @return RpcRequest
+     * @throws ClientException
      */
     public static function rpcRequest(array $options = [])
+    {
+        return self::rpc($options);
+    }
+
+    /**
+     * @deprecated
+     * @codeCoverageIgnore
+     *
+     * @param array $options
+     *
+     * @return RoaRequest
+     * @throws ClientException
+     */
+    public static function roaRequest(array $options = [])
+    {
+        return self::roa($options);
+    }
+
+    /**
+     * @param array $options
+     *
+     * @return RpcRequest
+     * @throws ClientException
+     */
+    public static function rpc(array $options = [])
     {
         return new RpcRequest($options);
     }
@@ -47,8 +93,9 @@ trait RequestTrait
      * @param array $options
      *
      * @return RoaRequest
+     * @throws ClientException
      */
-    public static function roaRequest(array $options = [])
+    public static function roa(array $options = [])
     {
         return new RoaRequest($options);
     }

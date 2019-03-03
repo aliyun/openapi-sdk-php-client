@@ -24,7 +24,7 @@ class EcsRamRoleProviderTest extends TestCase
      * @throws                         ClientException
      * @throws                         ServerException
      * @expectedException              \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessageRegExp /cURL error/
+     * @expectedExceptionMessage Timeout or instance does not belong to Alibaba Cloud
      */
     public function testGet()
     {
@@ -73,6 +73,7 @@ class EcsRamRoleProviderTest extends TestCase
 
     /**
      * @throws ServerException
+     * @throws ClientException
      */
     public function testServerUnreachable()
     {

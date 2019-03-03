@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Tests\Unit\Credentials;
 
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,16 +17,13 @@ class AccessKeyCredentialTest extends TestCase
 {
 
     /**
-     * @covers ::__construct
-     * @covers ::getAccessKeyId
-     * @covers ::getAccessKeySecret
-     * @covers ::__toString
+     * @throws ClientException
      */
     public function testConstruct()
     {
         // Setup
-        $accessKeyId     = \getenv('ACCESS_KEY_ID');
-        $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
+        $accessKeyId     = 'foo';
+        $accessKeySecret = 'bar';
 
         // Test
         $credential = new AccessKeyCredential($accessKeyId, $accessKeySecret);
@@ -34,5 +32,33 @@ class AccessKeyCredentialTest extends TestCase
         $this->assertEquals($accessKeyId, $credential->getAccessKeyId());
         $this->assertEquals($accessKeySecret, $credential->getAccessKeySecret());
         $this->assertEquals("$accessKeyId#$accessKeySecret", (string)$credential);
+    }
+
+    /**
+     * @expectedExceptionMessage The argument $accessKeyId cannot be empty
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
+     */
+    public function testAccessKeyIdEmpty()
+    {
+        // Setup
+        $accessKeyId     = '';
+        $accessKeySecret = 'bar';
+
+        new AccessKeyCredential($accessKeyId, $accessKeySecret);
+    }
+
+    /**
+     * @expectedExceptionMessage The argument $accessKeySecret cannot be empty
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
+     */
+    public function testAccessKeySecretEmpty()
+    {
+        // Setup
+        $accessKeyId     = 'foo';
+        $accessKeySecret = '';
+
+        new AccessKeyCredential($accessKeyId, $accessKeySecret);
     }
 }

@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Config\Config;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Regions\LocationService;
 
 /**
@@ -27,6 +28,7 @@ trait EndpointTrait
      * @param string $product
      *
      * @return string
+     * @throws ClientException
      */
     public static function findProductDomain($regionId, $product)
     {
@@ -41,6 +43,7 @@ trait EndpointTrait
      * @param string $domain
      *
      * @return void
+     * @throws ClientException
      */
     public static function addEndpoint($regionId, $product, $domain)
     {
@@ -54,9 +57,17 @@ trait EndpointTrait
      * @param string $regionId
      *
      * @return string
+     * @throws ClientException
      */
     public static function resolveHost($product, $regionId = \ALIBABA_CLOUD_GLOBAL_REGION)
     {
+        if (!$product) {
+            throw new ClientException(
+                'The argument $product cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         if (isset(self::$hosts[$product][$regionId])) {
             return self::$hosts[$product][$regionId];
         }
@@ -78,9 +89,24 @@ trait EndpointTrait
      * @param string $regionId
      *
      * @return void
+     * @throws ClientException
      */
     public static function addHost($product, $host, $regionId = \ALIBABA_CLOUD_GLOBAL_REGION)
     {
+        if (!$product) {
+            throw new ClientException(
+                'The argument $product cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        if (!$host) {
+            throw new ClientException(
+                'The argument $host cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         self::$hosts[$product][$regionId] = $host;
         LocationService::addHost($product, $host, $regionId);
     }

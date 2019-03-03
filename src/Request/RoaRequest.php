@@ -150,6 +150,7 @@ class RoaRequest extends Request
             $target = '[' . $pathParameterKey . ']';
             $result = str_replace($target, $apiParameterValue, $result);
         }
+
         return $result;
     }
 
@@ -172,6 +173,7 @@ class RoaRequest extends Request
         foreach ($sortMap as $sortMapKey => $sortMapValue) {
             $headerString .= $sortMapKey . ':' . $sortMapValue . self::$headerSeparator;
         }
+
         return $headerString;
     }
 
@@ -213,6 +215,7 @@ class RoaRequest extends Request
             }
             $queryString .= self::$querySeparator;
         }
+
         return $queryString;
     }
 
@@ -242,10 +245,26 @@ class RoaRequest extends Request
      * @param string $value
      *
      * @return RoaRequest
+     * @throws ClientException
      */
     public function pathParameter($name, $value)
     {
+        if (!$name) {
+            throw new ClientException(
+                'The argument $name cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        if (!$value) {
+            throw new ClientException(
+                'The argument $value cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->pathParameters[$name] = $value;
+
         return $this;
     }
 
@@ -255,10 +274,19 @@ class RoaRequest extends Request
      * @param string $pattern
      *
      * @return self
+     * @throws ClientException
      */
     public function pathPattern($pattern)
     {
+        if (!$pattern) {
+            throw new ClientException(
+                'The argument $pattern cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->pathPattern = $pattern;
+
         return $this;
     }
 
@@ -274,6 +302,7 @@ class RoaRequest extends Request
     {
         if (\strpos($name, 'get') !== false) {
             $parameterName = $this->propertyNameByMethodName($name);
+
             return $this->__get($parameterName);
         }
 

@@ -2,6 +2,8 @@
 
 namespace AlibabaCloud\Client\Http;
 
+use AlibabaCloud\Client\Exception\ClientException;
+
 /**
  * Trait GuzzleTrait
  *
@@ -21,13 +23,22 @@ trait GuzzleTrait
     public $regionId;
 
     /**
-     * @param string $region
+     * @param string $regionId
      *
      * @return $this
+     * @throws ClientException
      */
-    public function regionId($region)
+    public function regionId($regionId)
     {
-        $this->regionId = $region;
+        if (!$regionId) {
+            throw new ClientException(
+                'The argument $regionId cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
+        $this->regionId = $regionId;
+
         return $this;
     }
 
@@ -35,10 +46,19 @@ trait GuzzleTrait
      * @param int|float $timeout
      *
      * @return $this
+     * @throws ClientException
      */
     public function timeout($timeout)
     {
+        if (!$timeout) {
+            throw new ClientException(
+                'The argument $timeout cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->options['timeout'] = $timeout;
+
         return $this;
     }
 
@@ -46,10 +66,19 @@ trait GuzzleTrait
      * @param int|float $connectTimeout
      *
      * @return $this
+     * @throws ClientException
      */
     public function connectTimeout($connectTimeout)
     {
+        if (!$connectTimeout) {
+            throw new ClientException(
+                'The argument $connectTimeout cannot be empty',
+                \ALIBABA_CLOUD_INVALID_ARGUMENT
+            );
+        }
+
         $this->options['connect_timeout'] = $connectTimeout;
+
         return $this;
     }
 
@@ -61,6 +90,7 @@ trait GuzzleTrait
     public function debug($debug)
     {
         $this->options['debug'] = $debug;
+
         return $this;
     }
 
@@ -74,6 +104,7 @@ trait GuzzleTrait
     public function cert($cert)
     {
         $this->options['cert'] = $cert;
+
         return $this;
     }
 
@@ -87,6 +118,7 @@ trait GuzzleTrait
     public function proxy($proxy)
     {
         $this->options['proxy'] = $proxy;
+
         return $this;
     }
 
@@ -100,6 +132,7 @@ trait GuzzleTrait
         if ($options !== []) {
             $this->options = \AlibabaCloud\Client\arrayMerge([$this->options, $options]);
         }
+
         return $this;
     }
 }

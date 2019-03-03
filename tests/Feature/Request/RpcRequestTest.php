@@ -92,7 +92,7 @@ class RpcRequestTest extends TestCase
         AlibabaCloud::accessKeyClient(
             \getenv('ACCESS_KEY_ID'),
             \getenv('ACCESS_KEY_SECRET')
-        )->asGlobalClient()->regionId('cn-hangzhou');
+        )->asDefaultClient()->regionId('cn-hangzhou');
 
         $result = (new RpcRequest())->method('POST')
                                     ->product('Cdn')

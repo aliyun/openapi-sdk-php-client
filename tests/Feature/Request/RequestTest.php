@@ -15,13 +15,16 @@ use PHPUnit\Framework\TestCase;
  */
 class RequestTest extends TestCase
 {
+    /**
+     * @throws ClientException
+     */
     protected function setUp()
     {
         parent::setUp();
         AlibabaCloud::accessKeyClient(
             \getenv('ACCESS_KEY_ID'),
             \getenv('ACCESS_KEY_SECRET')
-        )->asGlobalClient()->regionId(\getenv('REGION_ID'));
+        )->asDefaultClient()->regionId(\getenv('REGION_ID'));
     }
 
     /**
