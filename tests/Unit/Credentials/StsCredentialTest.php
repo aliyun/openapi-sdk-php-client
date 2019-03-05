@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Tests\Unit\Credentials;
 
 use AlibabaCloud\Client\Credentials\StsCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,11 +17,7 @@ class StsCredentialTest extends TestCase
 {
 
     /**
-     * @covers ::__construct
-     * @covers ::getAccessKeyId
-     * @covers ::getAccessKeySecret
-     * @covers ::getSecurityToken
-     * @covers ::__toString
+     * @throws ClientException
      */
     public function testConstruct()
     {
@@ -40,5 +37,65 @@ class StsCredentialTest extends TestCase
             "$accessKeyId#$accessKeySecret#$securityToken",
             (string)$credential
         );
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey ID cannot be empty
+     * @throws ClientException
+     */
+    public function testAccessKeyIdEmpty()
+    {
+        // Setup
+        $accessKeyId     = '';
+        $accessKeySecret = 'accessKeySecret';
+        $securityToken   = 'securityToken';
+
+        new StsCredential($accessKeyId, $accessKeySecret, $securityToken);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey ID must be a string
+     * @throws ClientException
+     */
+    public function testAccessKeyIdFormat()
+    {
+        // Setup
+        $accessKeyId     = null;
+        $accessKeySecret = 'accessKeySecret';
+        $securityToken   = 'securityToken';
+
+        new StsCredential($accessKeyId, $accessKeySecret, $securityToken);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey Secret cannot be empty
+     * @throws ClientException
+     */
+    public function testAccessKeySecretEmpty()
+    {
+        // Setup
+        $accessKeyId     = 'accessKeyId';
+        $accessKeySecret = '';
+        $securityToken   = 'securityToken';
+
+        new StsCredential($accessKeyId, $accessKeySecret, $securityToken);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey Secret must be a string
+     * @throws ClientException
+     */
+    public function testAccessKeySecretFormat()
+    {
+        // Setup
+        $accessKeyId     = 'accessKeyId';
+        $accessKeySecret = null;
+        $securityToken   = 'securityToken';
+
+        new StsCredential($accessKeyId, $accessKeySecret, $securityToken);
     }
 }

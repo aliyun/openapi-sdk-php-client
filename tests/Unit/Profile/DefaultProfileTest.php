@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Profile;
 
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Profile\DefaultProfile;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 class DefaultProfileTest extends TestCase
 {
     /**
-     * @covers ::getProfile
+     * @throws ClientException
      */
     public function testGetProfile()
     {
@@ -34,7 +35,7 @@ class DefaultProfileTest extends TestCase
     }
 
     /**
-     * @covers ::getRamRoleArnProfile
+     * @throws ClientException
      */
     public function testGetRamRoleArnProfile()
     {
@@ -63,13 +64,13 @@ class DefaultProfileTest extends TestCase
     }
 
     /**
-     * @covers ::getEcsRamRoleProfile
+     * @throws ClientException
      */
     public function testGetEcsRamRoleProfile()
     {
         // Setup
         $regionId = 'cn-hangzhou';
-        $roleName = \getenv('ECS_ROLE_NAME');
+        $roleName = 'EcsRamRoleTest';
 
         // Test
         $profile = DefaultProfile::getEcsRamRoleProfile($regionId, $roleName);
@@ -80,7 +81,7 @@ class DefaultProfileTest extends TestCase
     }
 
     /**
-     * @covers ::getBearerTokenProfile
+     * @throws ClientException
      */
     public function testGetBearerTokenProfile()
     {

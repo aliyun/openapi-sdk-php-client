@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Result;
 
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Result\Result;
@@ -18,6 +19,7 @@ class ResultTest extends TestCase
 
     /**
      * @return array
+     * @throws ClientException
      */
     public function requests()
     {

@@ -72,6 +72,7 @@ EOT;
         self::$vfs = vfsStream::newFile('config')
                               ->withContent($content)
                               ->at($root);
+
         return self::$vfs;
     }
 

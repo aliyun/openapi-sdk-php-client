@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Credentials\Ini;
 
 use AlibabaCloud\Client\Clients\Client;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Trait OptionsTrait
@@ -16,6 +17,8 @@ trait OptionsTrait
     /**
      * @param array  $configures
      * @param Client $client
+     *
+     * @throws ClientException
      */
     private static function setClientAttributes($configures, Client $client)
     {

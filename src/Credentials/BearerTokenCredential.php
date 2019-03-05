@@ -2,6 +2,9 @@
 
 namespace AlibabaCloud\Client\Credentials;
 
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Filter\CredentialFilter;
+
 /**
  * Class BearerTokenCredential
  *
@@ -19,9 +22,13 @@ class BearerTokenCredential implements CredentialsInterface
      * Class constructor.
      *
      * @param string $bearerToken
+     *
+     * @throws ClientException
      */
     public function __construct($bearerToken)
     {
+        CredentialFilter::bearerToken($bearerToken);
+
         $this->bearerToken = $bearerToken;
     }
 

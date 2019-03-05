@@ -15,13 +15,16 @@ use PHPUnit\Framework\TestCase;
  */
 class RequestTest extends TestCase
 {
+    /**
+     * @throws ClientException
+     */
     protected function setUp()
     {
         parent::setUp();
         AlibabaCloud::accessKeyClient(
             \getenv('ACCESS_KEY_ID'),
             \getenv('ACCESS_KEY_SECRET')
-        )->asGlobalClient()->regionId(\getenv('REGION_ID'));
+        )->asDefaultClient()->regionId(\getenv('REGION_ID'));
     }
 
     /**
@@ -36,8 +39,8 @@ class RequestTest extends TestCase
 
         // Test
         try {
-            $request->connectTimeout(15)
-                    ->timeout(20)
+            $request->connectTimeout(20)
+                    ->timeout(25)
                     ->request();
         } catch (ServerException $e) {
             // Assert
@@ -109,8 +112,8 @@ class RequestTest extends TestCase
 
         // Test
         try {
-            $request->connectTimeout(15)
-                    ->timeout(20)
+            $request->connectTimeout(20)
+                    ->timeout(25)
                     ->request();
             // Assert
         } catch (ServerException $e) {

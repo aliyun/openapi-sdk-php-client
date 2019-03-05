@@ -14,13 +14,16 @@ use PHPUnit\Framework\TestCase;
  */
 class DistinguishSignatureAndCredentialErrorsTest extends TestCase
 {
+    /**
+     * @throws ClientException
+     */
     public function setUp()
     {
         parent::setUp();
 
         AlibabaCloud::accessKeyClient(\getenv('ACCESS_KEY_ID'), 'bad')
                     ->regionId('cn-shanghai')
-                    ->asGlobalClient();
+                    ->asDefaultClient();
     }
 
     /**
@@ -29,14 +32,14 @@ class DistinguishSignatureAndCredentialErrorsTest extends TestCase
     public function testInvalidAccessKeySecret()
     {
         try {
-            AlibabaCloud::roaRequest()
+            AlibabaCloud::roa()
                         ->pathPattern('/pop/2018-05-18/tokens')
                         ->product('nls-cloud-meta')
                         ->version('2018-05-18')
                         ->method('POST')
                         ->action('CreateToken')
-                        ->connectTimeout(15)
-                        ->timeout(20)
+                        ->connectTimeout(20)
+                        ->timeout(25)
                         ->request();
         } catch (ServerException $e) {
             self::assertEquals('Specified Access Key Secret is not valid.', $e->getErrorMessage());

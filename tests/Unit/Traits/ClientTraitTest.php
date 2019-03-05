@@ -60,12 +60,15 @@ class ClientTraitTest extends TestCase
         self::$regionId        = 'cn-hangzhou';
         self::$accessKeyId     = \getenv('ACCESS_KEY_ID');
         self::$accessKeySecret = \getenv('ACCESS_KEY_SECRET');
-        self::$roleName        = \getenv('ECS_ROLE_NAME');
+        self::$roleName        = 'EcsRamRoleTest';
         self::$roleArn         = \getenv('ROLE_ARN');
         self::$roleSessionName = \getenv('ROLE_SESSION_NAME');
         self::$bearerToken     = 'BEARER_TOKEN';
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testClient()
     {
         AlibabaCloud::client(
@@ -81,10 +84,62 @@ class ClientTraitTest extends TestCase
      */
     public function testAccessKeyClient()
     {
-        AlibabaCloud::accessKeyClient(self::$accessKeyId, self::$accessKeyId)->asGlobalClient();
-        $credential = AlibabaCloud::getGlobalClient()->getCredential();
+        AlibabaCloud::accessKeyClient(self::$accessKeyId, self::$accessKeyId)->asDefaultClient();
+        $credential = AlibabaCloud::getDefaultClient()->getCredential();
         self::assertInstanceOf(AccessKeyCredential::class, $credential);
         self::assertEquals(self::$accessKeyId, $credential->getAccessKeyId());
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey ID cannot be empty
+     * @throws ClientException
+     */
+    public function testAccessKeyClientWithAccessKeyIdEmpty()
+    {
+        AlibabaCloud::accessKeyClient(
+            '',
+            self::$accessKeySecret
+        )->asDefaultClient();
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey ID must be a string
+     * @throws ClientException
+     */
+    public function testAccessKeyClientWithAccessKeyIdFormat()
+    {
+        AlibabaCloud::accessKeyClient(
+            null,
+            self::$accessKeySecret
+        )->asDefaultClient();
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey Secret cannot be empty
+     * @throws ClientException
+     */
+    public function testAccessKeyClientWithAccessKeySecretEmpty()
+    {
+        AlibabaCloud::accessKeyClient(
+            self::$accessKeyId,
+            ''
+        )->asDefaultClient();
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey Secret must be a string
+     * @throws ClientException
+     */
+    public function testAccessKeyClientWithAccessKeySecretFormat()
+    {
+        AlibabaCloud::accessKeyClient(
+            self::$accessKeyId,
+            null
+        )->asDefaultClient();
     }
 
     /**
@@ -97,9 +152,9 @@ class ClientTraitTest extends TestCase
             self::$accessKeySecret,
             self::$roleArn,
             self::$roleSessionName
-        )->asGlobalClient();
+        )->asDefaultClient();
 
-        $credential = AlibabaCloud::getGlobalClient()->getCredential();
+        $credential = AlibabaCloud::getDefaultClient()->getCredential();
         self::assertInstanceOf(RamRoleArnCredential::class, $credential);
         self::assertEquals(self::$accessKeyId, $credential->getAccessKeyId());
         self::assertEquals(self::$accessKeySecret, $credential->getAccessKeySecret());
@@ -108,14 +163,94 @@ class ClientTraitTest extends TestCase
     }
 
     /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey ID cannot be empty
+     * @throws ClientException
+     */
+    public function testRamRoleArnClientWithAccessKeyIdEmpty()
+    {
+        AlibabaCloud::ramRoleArnClient(
+            '',
+            self::$accessKeySecret,
+            self::$roleArn,
+            self::$roleSessionName
+        )->asDefaultClient();
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey ID must be a string
+     * @throws ClientException
+     */
+    public function testRamRoleArnClientWithAccessKeyIdFormat()
+    {
+        AlibabaCloud::ramRoleArnClient(
+            null,
+            self::$accessKeySecret,
+            self::$roleArn,
+            self::$roleSessionName
+        )->asDefaultClient();
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey Secret cannot be empty
+     * @throws ClientException
+     */
+    public function testRamRoleArnClientWithAccessKeySecretEmpty()
+    {
+        AlibabaCloud::ramRoleArnClient(
+            self::$accessKeyId,
+            '',
+            self::$roleArn,
+            self::$roleSessionName
+        )->asDefaultClient();
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey Secret must be a string
+     * @throws ClientException
+     */
+    public function testRamRoleArnClientWithAccessKeySecretFormat()
+    {
+        AlibabaCloud::ramRoleArnClient(
+            self::$accessKeyId,
+            null,
+            self::$roleArn,
+            self::$roleSessionName
+        )->asDefaultClient();
+    }
+
+    /**
      * @throws ClientException
      */
     public function testEcsRamRoleClient()
     {
-        AlibabaCloud::ecsRamRoleClient(self::$roleName)->asGlobalClient();
-        $credential = AlibabaCloud::getGlobalClient()->getCredential();
+        AlibabaCloud::ecsRamRoleClient(self::$roleName)->asDefaultClient();
+        $credential = AlibabaCloud::getDefaultClient()->getCredential();
         self::assertInstanceOf(EcsRamRoleCredential::class, $credential);
         self::assertEquals(self::$roleName, $credential->getRoleName());
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Role Name cannot be empty
+     * @throws ClientException
+     */
+    public function testEcsRamRoleClientEmpty()
+    {
+        AlibabaCloud::ecsRamRoleClient('')->asDefaultClient();
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Role Name must be a string
+     * @throws ClientException
+     */
+    public function testEcsRamRoleClientFormat()
+    {
+        AlibabaCloud::ecsRamRoleClient(null)->asDefaultClient();
     }
 
     /**
@@ -123,21 +258,91 @@ class ClientTraitTest extends TestCase
      */
     public function testBearerTokenClient()
     {
-        AlibabaCloud::bearerTokenClient(self::$bearerToken)->asGlobalClient();
+        AlibabaCloud::bearerTokenClient(self::$bearerToken)->asDefaultClient();
 
-        $credential = AlibabaCloud::getGlobalClient()->getCredential();
+        $credential = AlibabaCloud::getDefaultClient()->getCredential();
         self::assertInstanceOf(BearerTokenCredential::class, $credential);
         self::assertEquals('', $credential->getAccessKeyId());
         self::assertEquals('', $credential->getAccessKeySecret());
         self::assertEquals(self::$bearerToken, $credential->getBearerToken());
     }
 
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Bearer Token cannot be empty
+     * @throws ClientException
+     */
+    public function testBearerTokenClientEmpty()
+    {
+        AlibabaCloud::bearerTokenClient('')->asDefaultClient();
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Bearer Token must be a string
+     * @throws ClientException
+     */
+    public function testBearerTokenClientFormat()
+    {
+        AlibabaCloud::bearerTokenClient(null)->asDefaultClient();
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testStsClient()
     {
         AlibabaCloud::stsClient('key', 'secret', 'token')->name('sts');
         self::assertInstanceOf(StsCredential::class, AlibabaCloud::get('sts')->getCredential());
     }
 
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey ID cannot be empty
+     * @throws ClientException
+     */
+    public function testStsClientWithPublicKeyIdEmpty()
+    {
+        AlibabaCloud::stsClient('', 'secret')
+                    ->name('sts');
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey ID must be a string
+     * @throws ClientException
+     */
+    public function testStsClientWithPublicKeyIdFormat()
+    {
+        AlibabaCloud::stsClient(null, 'secret')
+                    ->name('sts');
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey Secret cannot be empty
+     * @throws ClientException
+     */
+    public function testStsClientWithPrivateKeyFileEmpty()
+    {
+        AlibabaCloud::stsClient('key', '')
+                    ->name('sts');
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey Secret must be a string
+     * @throws ClientException
+     */
+    public function testStsClientWithPrivateKeyFileFormat()
+    {
+        AlibabaCloud::stsClient('key', null)
+                    ->name('sts');
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testRsaKeyPairClient()
     {
         AlibabaCloud::rsaKeyPairClient('key', VirtualAccessKeyCredential::ok())
@@ -149,13 +354,61 @@ class ClientTraitTest extends TestCase
         );
     }
 
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Public Key ID cannot be empty
+     * @throws ClientException
+     */
+    public function testRsaKeyPairClientWithPublicKeyIdEmpty()
+    {
+        AlibabaCloud::rsaKeyPairClient('', 'privateKeyFile')
+                    ->name('rsa');
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Public Key ID must be a string
+     * @throws ClientException
+     */
+    public function testRsaKeyPairClientWithPublicKeyIdFormat()
+    {
+        AlibabaCloud::rsaKeyPairClient(null, 'privateKeyFile')
+                    ->name('rsa');
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Private Key File cannot be empty
+     * @throws ClientException
+     */
+    public function testRsaKeyPairClientWithPrivateKeyFileEmpty()
+    {
+        AlibabaCloud::rsaKeyPairClient('publicKeyId', '')
+                    ->name('rsa');
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Private Key File must be a string
+     * @throws ClientException
+     */
+    public function testRsaKeyPairClientWithPrivateKeyFileFormat()
+    {
+        AlibabaCloud::rsaKeyPairClient('publicKeyId', null)
+                    ->name('rsa');
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testGet()
     {
         // setup
-        $rand = \mt_rand(1, 10000);
-        AlibabaCloud::accessKeyClient($rand, \time())->name('client1');
+        $accessKeyId     = uniqid('', true);
+        $accessKeySecret = uniqid('', true);
+        AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name('client1');
         $this->assertEquals(
-            $rand,
+            $accessKeyId,
             AlibabaCloud::get('client1')->getCredential()->getAccessKeyId()
         );
 
@@ -166,50 +419,67 @@ class ClientTraitTest extends TestCase
         }
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testIsDebug()
     {
-        AlibabaCloud::accessKeyClient(\time(), \time())->name('client1');
+        $accessKeyId     = uniqid('', true);
+        $accessKeySecret = uniqid('', true);
+        AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name('client1');
         AlibabaCloud::get('client1')->debug(true);
         self::assertTrue(AlibabaCloud::get('client1')->isDebug());
     }
 
     /**
      * @expectedException        \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage Client not found: global
+     * @expectedExceptionMessage Client 'default' not found
      * @throws                   ClientException
      */
-    public static function testGetGlobalClient()
+    public static function testGetDefaultClient()
     {
         AlibabaCloud::flush();
-        AlibabaCloud::getGlobalClient();
+        AlibabaCloud::getDefaultClient();
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testGetSignature()
     {
-        AlibabaCloud::accessKeyClient(\time(), \time())->name('client1');
+        $accessKeyId     = uniqid('', true);
+        $accessKeySecret = uniqid('', true);
+        AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name('client1');
         $this->assertInstanceOf(ShaHmac1Signature::class, AlibabaCloud::get('client1')->getSignature());
     }
 
     /**
-     * @covers ::del
-     * @covers ::has
+     * @throws ClientException
      */
     public function testDel()
     {
         // Setup
-        $clientName = 'test';
+        $clientName      = 'test';
+        $accessKeyId     = uniqid('', true);
+        $accessKeySecret = uniqid('', true);
 
-        AlibabaCloud::accessKeyClient(\time(), \time())->name($clientName);
+        // Test
+        AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name($clientName);
         $this->assertEquals(true, AlibabaCloud::has($clientName));
         AlibabaCloud::del($clientName);
         $this->assertEquals(false, AlibabaCloud::has($clientName));
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testAll()
     {
-        AlibabaCloud::accessKeyClient(\time(), \time())->name('client1');
-        AlibabaCloud::accessKeyClient(\time(), \time())->name('client2');
-        AlibabaCloud::accessKeyClient(\time(), \time())->name('client3');
+        $accessKeyId     = uniqid('', true);
+        $accessKeySecret = uniqid('', true);
+        AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name('client1');
+        AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name('client2');
+        AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name('client3');
         $this->assertArrayHasKey('client3', AlibabaCloud::all());
     }
 
@@ -232,5 +502,115 @@ class ClientTraitTest extends TestCase
     {
         AlibabaCloud::load();
         $this->assertNotNull(AlibabaCloud::all());
+    }
+
+    /**
+     * @expectedException  \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Client Name cannot be empty
+     *
+     * @throws ClientException
+     */
+    public function testDelEmpty()
+    {
+        AlibabaCloud::del('');
+    }
+
+    /**
+     * @expectedException  \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Client Name must be a string
+     *
+     * @throws ClientException
+     */
+    public function testDelFormat()
+    {
+        AlibabaCloud::del(null);
+    }
+
+    /**
+     * @expectedException  \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Client Name cannot be empty
+     *
+     * @throws ClientException
+     */
+    public function testHasEmpty()
+    {
+        AlibabaCloud::has('');
+    }
+
+    /**
+     * @expectedException  \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Client Name must be a string
+     *
+     * @throws ClientException
+     */
+    public function testHasFormat()
+    {
+        AlibabaCloud::has(null);
+    }
+
+    /**
+     * @expectedExceptionMessage Client Name cannot be empty
+     * @expectedException  \AlibabaCloud\Client\Exception\ClientException
+     *
+     * @throws ClientException
+     */
+    public function testSetEmpty()
+    {
+        AlibabaCloud::set('', AlibabaCloud::bearerTokenClient('token'));
+    }
+
+    /**
+     * @expectedExceptionMessage Client Name must be a string
+     * @expectedException  \AlibabaCloud\Client\Exception\ClientException
+     *
+     * @throws ClientException
+     */
+    public function testSetFormat()
+    {
+        AlibabaCloud::set(null, AlibabaCloud::bearerTokenClient('token'));
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function testSet()
+    {
+        $name = uniqid('', true);
+        AlibabaCloud::set($name, AlibabaCloud::bearerTokenClient('token'));
+        self::assertTrue(AlibabaCloud::has($name));
+        AlibabaCloud::del($name);
+    }
+
+    /**
+     * @expectedExceptionMessage Client Name cannot be empty
+     * @expectedException  \AlibabaCloud\Client\Exception\ClientException
+     *
+     * @throws ClientException
+     */
+    public function testGetEmpty()
+    {
+        AlibabaCloud::get('');
+    }
+
+    /**
+     * @expectedExceptionMessage Client Name must be a string
+     * @expectedException  \AlibabaCloud\Client\Exception\ClientException
+     *
+     * @throws ClientException
+     */
+    public function testGetFormat()
+    {
+        AlibabaCloud::get(null);
+    }
+
+    /**
+     * @expectedExceptionMessage Client 'notFound' not found
+     * @expectedException  \AlibabaCloud\Client\Exception\ClientException
+     *
+     * @throws ClientException
+     */
+    public function testGetNotFound()
+    {
+        AlibabaCloud::get('notFound');
     }
 }

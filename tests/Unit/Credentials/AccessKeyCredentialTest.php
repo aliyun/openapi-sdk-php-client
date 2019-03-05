@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Tests\Unit\Credentials;
 
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,16 +17,13 @@ class AccessKeyCredentialTest extends TestCase
 {
 
     /**
-     * @covers ::__construct
-     * @covers ::getAccessKeyId
-     * @covers ::getAccessKeySecret
-     * @covers ::__toString
+     * @throws ClientException
      */
     public function testConstruct()
     {
         // Setup
-        $accessKeyId     = \getenv('ACCESS_KEY_ID');
-        $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
+        $accessKeyId     = 'foo';
+        $accessKeySecret = 'bar';
 
         // Test
         $credential = new AccessKeyCredential($accessKeyId, $accessKeySecret);
@@ -34,5 +32,63 @@ class AccessKeyCredentialTest extends TestCase
         $this->assertEquals($accessKeyId, $credential->getAccessKeyId());
         $this->assertEquals($accessKeySecret, $credential->getAccessKeySecret());
         $this->assertEquals("$accessKeyId#$accessKeySecret", (string)$credential);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey ID cannot be empty
+     * @throws ClientException
+     */
+    public function testAccessKeyIdEmpty()
+    {
+        // Setup
+        $accessKeyId     = '';
+        $accessKeySecret = 'bar';
+
+        new AccessKeyCredential($accessKeyId, $accessKeySecret);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey ID must be a string
+     * @throws ClientException
+     */
+    public function testAccessKeyIdFormat()
+    {
+        // Setup
+        $accessKeyId     = null;
+        $accessKeySecret = 'bar';
+
+        new AccessKeyCredential($accessKeyId, $accessKeySecret);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey Secret cannot be empty
+     * @throws ClientException
+     */
+    public function testAccessKeySecretEmpty()
+    {
+        // Setup
+        $accessKeyId     = 'foo';
+        $accessKeySecret = '';
+
+        // Test
+        new AccessKeyCredential($accessKeyId, $accessKeySecret);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey Secret must be a string
+     * @throws ClientException
+     */
+    public function testAccessKeySecretFormat()
+    {
+        // Setup
+        $accessKeyId     = 'foo';
+        $accessKeySecret = null;
+
+        // Test
+        new AccessKeyCredential($accessKeyId, $accessKeySecret);
     }
 }

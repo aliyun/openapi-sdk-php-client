@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Tests\Feature\Credentials;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\Ini\IniCredential;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualAccessKeyCredential;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualBearerTokenCredential;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualEcsRamRoleCredential;
@@ -20,6 +21,9 @@ use PHPUnit\Framework\TestCase;
  */
 class IniCredentialFeatureTest extends TestCase
 {
+    /**
+     * @throws ClientException
+     */
     public function tearDown()
     {
         parent::tearDown();
@@ -27,6 +31,9 @@ class IniCredentialFeatureTest extends TestCase
         IniCredential::forgetLoadedCredentialsFile();
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testAccessKeyOk()
     {
         AlibabaCloud::load(VirtualAccessKeyCredential::ok());
@@ -72,7 +79,7 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function testDisableClient()
     {
@@ -121,7 +128,7 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function testEcsRamRoleClient()
     {
@@ -140,7 +147,7 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function testRamRoleArnClient()
     {
@@ -189,7 +196,7 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function testBearerTokenClient()
     {
@@ -208,7 +215,7 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function testAkClientWithAttributes()
     {
@@ -219,7 +226,7 @@ class IniCredentialFeatureTest extends TestCase
     }
 
     /**
-     * @throws \AlibabaCloud\Client\Exception\ClientException
+     * @throws ClientException
      */
     public function testAkClientWithAttributesNoCertPassword()
     {

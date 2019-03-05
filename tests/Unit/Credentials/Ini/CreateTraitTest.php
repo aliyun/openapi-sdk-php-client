@@ -10,6 +10,7 @@ use AlibabaCloud\Client\Clients\RsaKeyPairClient;
 use AlibabaCloud\Client\Credentials\Ini\IniCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 /**
  * Class CreateTraitTest
@@ -25,7 +26,7 @@ class CreateTraitTest extends TestCase
      *
      * @param string $errorMessage
      *
-     * @throws       \ReflectionException
+     * @throws       ReflectionException
      * @dataProvider createClient
      */
     public function testCreateClient($clientName, array $credential, $errorMessage)
@@ -83,7 +84,7 @@ class CreateTraitTest extends TestCase
      *
      * @param string $errorMessage
      *
-     * @throws       \ReflectionException
+     * @throws       ReflectionException
      * @dataProvider createClientByType
      */
     public function testCreateClientByType($clientName, array $credential, $errorMessage)
@@ -162,7 +163,7 @@ class CreateTraitTest extends TestCase
      *
      * @param string $errorMessage
      *
-     * @throws       \ReflectionException
+     * @throws       ReflectionException
      * @dataProvider rsaKeyPairClient
      */
     public function testRsaKeyPairClient($clientName, array $credential, $errorMessage)
@@ -221,7 +222,7 @@ class CreateTraitTest extends TestCase
      *
      * @param string $errorMessage
      *
-     * @throws       \ReflectionException
+     * @throws       ReflectionException
      * @dataProvider accessKeyClient
      */
     public function testAccessKeyClient($clientName, array $credential, $errorMessage)
@@ -281,7 +282,7 @@ class CreateTraitTest extends TestCase
      *
      * @dataProvider ecsRamRoleClient
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function testEcsRamRoleClient($clientName, array $credential, $errorMessage)
     {
@@ -332,7 +333,7 @@ class CreateTraitTest extends TestCase
      *
      * @dataProvider ramRoleArnClient
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function testRamRoleArnClient($clientName, array $credential, $errorMessage)
     {
@@ -410,7 +411,7 @@ class CreateTraitTest extends TestCase
      *
      * @dataProvider bearerTokenClient
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function testBearerTokenClient($clientName, array $credential, $errorMessage)
     {

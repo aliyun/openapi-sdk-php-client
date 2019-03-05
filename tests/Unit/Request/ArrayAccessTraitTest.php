@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
 use PHPUnit\Framework\TestCase;
 
@@ -14,6 +15,9 @@ use PHPUnit\Framework\TestCase;
  */
 class ArrayAccessTraitTest extends TestCase
 {
+    /**
+     * @throws ClientException
+     */
     public function testArrayAccess()
     {
         // Setup

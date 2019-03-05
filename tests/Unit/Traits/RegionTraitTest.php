@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Tests\Unit\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,19 +16,18 @@ use PHPUnit\Framework\TestCase;
 class RegionTraitTest extends TestCase
 {
     /**
-     * @covers ::getGlobalRegionId
-     * @covers ::setGlobalRegionId
+     * @throws ClientException
      */
-    public function testGlobalRegionId()
+    public function testDefaultRegionId()
     {
         // Setup
         $regionId = 'test';
-        $this->assertNull(AlibabaCloud::getGlobalRegionId());
+        $this->assertNull(AlibabaCloud::getDefaultRegionId());
 
         // Test
-        AlibabaCloud::setGlobalRegionId($regionId);
+        AlibabaCloud::setDefaultRegionId($regionId);
 
         // Assert
-        $this->assertEquals($regionId, AlibabaCloud::getGlobalRegionId());
+        $this->assertEquals($regionId, AlibabaCloud::getDefaultRegionId());
     }
 }

@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Tests\Mock\Services\Slb;
 
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
@@ -16,6 +17,8 @@ class DescribeRulesRequest extends RpcRequest
      * DescribeRulesRequest constructor.
      *
      * @param array $options
+     *
+     * @throws ClientException
      */
     public function __construct(array $options = [])
     {
@@ -120,6 +123,7 @@ class DescribeRulesRequest extends RpcRequest
     {
         $this->listenerPort                     = $listenerPort;
         $this->options['query']['ListenerPort'] = $listenerPort;
+
         return $this;
     }
 
@@ -140,6 +144,7 @@ class DescribeRulesRequest extends RpcRequest
     {
         $this->loadBalancerId                     = $loadBalancerId;
         $this->options['query']['LoadBalancerId'] = $loadBalancerId;
+
         return $this;
     }
 

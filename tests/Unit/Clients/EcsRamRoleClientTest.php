@@ -19,11 +19,12 @@ class EcsRamRoleClientTest extends TestCase
 
     /**
      * @return EcsRamRoleClient
+     * @throws ClientException
      */
     public function testConstruct()
     {
         // Setup
-        $roleName = \AlibabaCloud\Client\env('ECS_ROLE_NAME');
+        $roleName = 'EcsRamRoleTest';
 
         // Test
         $client = new EcsRamRoleClient($roleName);
@@ -46,7 +47,7 @@ class EcsRamRoleClientTest extends TestCase
     public function testGetSessionCredential(EcsRamRoleClient $client)
     {
         try {
-            $client->getSessionCredential(1000);
+            $client->getSessionCredential(1);
         } catch (ClientException $exception) {
             self::assertEquals($exception->getErrorCode(), \ALIBABA_CLOUD_SERVER_UNREACHABLE);
         }

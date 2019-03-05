@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RpcRequest;
 use PHPUnit\Framework\TestCase;
 
@@ -12,6 +13,9 @@ use PHPUnit\Framework\TestCase;
  */
 class DeprecatedTraitTest extends TestCase
 {
+    /**
+     * @throws ClientException
+     */
     public function testGetContent()
     {
         // Setup
@@ -28,6 +32,9 @@ class DeprecatedTraitTest extends TestCase
         self::assertEquals($content, $request->getContent());
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testGetMethod()
     {
         // Setup
@@ -44,6 +51,9 @@ class DeprecatedTraitTest extends TestCase
         self::assertEquals(\strtoupper($content), $request->getMethod());
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testGetProtocolType()
     {
         // Setup
@@ -63,6 +73,9 @@ class DeprecatedTraitTest extends TestCase
         self::assertEquals($value, $request->getProtocolType());
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testGetHeaders()
     {
         // Setup
@@ -77,6 +90,9 @@ class DeprecatedTraitTest extends TestCase
         self::assertArrayHasKey('key', $request->getHeaders());
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testGetQueryParameters()
     {
         // Setup
@@ -93,6 +109,9 @@ class DeprecatedTraitTest extends TestCase
         self::assertArrayHasKey('key', $request->getQueryParameters());
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testGetDomainParameter()
     {
         // Setup
@@ -109,6 +128,9 @@ class DeprecatedTraitTest extends TestCase
         self::assertArrayHasKey('key', $request->getDomainParameter());
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testGetActionName()
     {
         // Setup
@@ -125,6 +147,9 @@ class DeprecatedTraitTest extends TestCase
         self::assertEquals($content, $request->getActionName());
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testGetAcceptFormat()
     {
         // Setup
@@ -141,6 +166,9 @@ class DeprecatedTraitTest extends TestCase
         self::assertEquals(\strtoupper($content), $request->getAcceptFormat());
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testGetLocationEndpointType()
     {
         // Setup
@@ -157,6 +185,9 @@ class DeprecatedTraitTest extends TestCase
         self::assertEquals($endpointType, $request->getLocationEndpointType());
     }
 
+    /**
+     * @throws ClientException
+     */
     public function testGetLocationServiceCode()
     {
         // Setup

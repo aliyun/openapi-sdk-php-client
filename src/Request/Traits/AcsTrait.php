@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Request\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Request\Request;
 
@@ -45,10 +46,14 @@ trait AcsTrait
      * @param string $action
      *
      * @return $this
+     * @throws ClientException
      */
     public function action($action)
     {
+        ApiFilter::action($action);
+
         $this->action = $action;
+
         return $this;
     }
 
@@ -56,10 +61,14 @@ trait AcsTrait
      * @param string $version
      *
      * @return $this
+     * @throws ClientException
      */
     public function version($version)
     {
+        ApiFilter::version($version);
+
         $this->version = $version;
+
         return $this;
     }
 
@@ -67,10 +76,14 @@ trait AcsTrait
      * @param string $product
      *
      * @return $this
+     * @throws ClientException
      */
     public function product($product)
     {
+        ApiFilter::product($product);
+
         $this->product = $product;
+
         return $this;
     }
 
@@ -78,10 +91,14 @@ trait AcsTrait
      * @param string $endpointType
      *
      * @return $this
+     * @throws ClientException
      */
     public function endpointType($endpointType)
     {
+        ApiFilter::endpointType($endpointType);
+
         $this->endpointType = $endpointType;
+
         return $this;
     }
 
@@ -89,10 +106,14 @@ trait AcsTrait
      * @param string $serviceCode
      *
      * @return $this
+     * @throws ClientException
      */
     public function serviceCode($serviceCode)
     {
+        ApiFilter::serviceCode($serviceCode);
+
         $this->serviceCode = $serviceCode;
+
         return $this;
     }
 
@@ -105,16 +126,16 @@ trait AcsTrait
         if ($this->regionId !== null) {
             return $this->regionId;
         }
+
         if ($this->httpClient()->regionId !== null) {
             return $this->httpClient()->regionId;
         }
-        if (AlibabaCloud::getGlobalRegionId() !== null) {
-            return AlibabaCloud::getGlobalRegionId();
+
+        if (AlibabaCloud::getDefaultRegionId() !== null) {
+            return AlibabaCloud::getDefaultRegionId();
         }
-        throw new ClientException(
-            "Missing required 'RegionId' for Request",
-            \ALIBABA_CLOUD_INVALID_REGION_ID
-        );
+
+        throw new ClientException("Missing required 'RegionId' for Request", \ALIBABA_CLOUD_INVALID_REGION_ID);
     }
 
     /**
