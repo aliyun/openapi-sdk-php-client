@@ -54,8 +54,8 @@ EOT;
                         ->product('Cdn')
                         ->version('2014-11-11')
                         ->action('DescribeCdnService')
-                        ->connectTimeout(15)
-                        ->timeout(20)
+                        ->connectTimeout(25)
+                        ->timeout(30)
                         ->debug(true)
                         ->request();
         } catch (ClientException $e) {
@@ -83,8 +83,8 @@ EOT;
                               ->product('Cdn')
                               ->version('2014-11-11')
                               ->action('DescribeCdnService')
-                              ->connectTimeout(15)
-                              ->timeout(20)
+                              ->connectTimeout(25)
+                              ->timeout(30)
                               ->request();
 
         self::assertNotEmpty('PayByTraffic', $result['ChangingChargeType']);
@@ -120,8 +120,8 @@ EOT;
                               ->product('Cdn')
                               ->version('2014-11-11')
                               ->action('DescribeCdnService')
-                              ->connectTimeout(20)
-                              ->timeout(25)
+                              ->connectTimeout(25)
+                              ->timeout(30)
                               ->request();
 
         self::assertNotEmpty('PayByTraffic', $result['ChangingChargeType']);

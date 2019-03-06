@@ -37,8 +37,8 @@ class RoaRequestTest extends TestCase
                                   ->version('2015-12-15')
                                   ->action('DescribeClusterServices')
                                   ->pathParameter('ClusterId', $clusterId)
-                                  ->connectTimeout(15)
-                                  ->timeout(20)
+                                  ->connectTimeout(25)
+                                  ->timeout(30)
                                   ->request();
 
             self::assertNotEmpty($result->toArray());
@@ -69,8 +69,8 @@ class RoaRequestTest extends TestCase
                            ]);
 
         $result = $request->client('content')
-                          ->connectTimeout(20)
-                          ->timeout(25)
+                          ->connectTimeout(25)
+                          ->timeout(30)
                           ->request();
         self::assertEquals('Iphone', $result['data'][0]['word']);
     }

@@ -15,12 +15,16 @@ class Provider
      * For TSC Duration Seconds
      */
     const DURATION_SECONDS = 3600;
-
     /**
      * @var array
      */
     protected static $credentialsCache = [];
-
+    /**
+     * Expiration time slot for temporary security credentials.
+     *
+     * @var int
+     */
+    protected $expirationSlot = 180;
     /**
      * @var Client
      */
@@ -30,13 +34,6 @@ class Provider
      * @var string
      */
     protected $error = 'Result contains no credentials';
-
-    /**
-     * For TSC cache
-     *
-     * @var int
-     */
-    protected $expiration = 180;
 
     /**
      * CredentialTrait constructor.
@@ -57,11 +54,11 @@ class Provider
     {
         if (isset(self::$credentialsCache[$this->key()])) {
             $result = self::$credentialsCache[$this->key()];
-            if (\strtotime($result['Expiration']) - \time() >= $this->expiration) {
+            if (\strtotime($result['Expiration']) - \time() >= $this->expirationSlot) {
                 return $result;
             }
+            unset(self::$credentialsCache[$this->key()]);
         }
-        unset(self::$credentialsCache[$this->key()]);
 
         return null;
     }

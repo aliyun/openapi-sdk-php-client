@@ -26,21 +26,22 @@ trait ManageTrait
 {
     /**
      * @param int $timeout
+     * @param int $connectTimeout
      *
      * @return CredentialsInterface|StsCredential
      *
      * @throws ClientException
      * @throws ServerException
      */
-    public function getSessionCredential($timeout = Request::TIMEOUT)
+    public function getSessionCredential($timeout = Request::TIMEOUT, $connectTimeout = Request::CONNECT_TIMEOUT)
     {
         switch (\get_class($this->credential)) {
             case EcsRamRoleCredential::class:
                 return (new EcsRamRoleProvider($this))->get();
             case RamRoleArnCredential::class:
-                return (new RamRoleArnProvider($this))->get($timeout);
+                return (new RamRoleArnProvider($this))->get($timeout, $connectTimeout);
             case RsaKeyPairCredential::class:
-                return (new RsaKeyPairProvider($this))->get($timeout);
+                return (new RsaKeyPairProvider($this))->get($timeout, $connectTimeout);
             default:
                 return $this->credential;
         }

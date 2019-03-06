@@ -25,11 +25,11 @@ class EcsRamRoleProvider extends Provider
      */
     public static $config = [];
     /**
-     * For TSC cache
+     * Expiration time slot for temporary security credentials.
      *
      * @var int
      */
-    protected $expiration = 10;
+    protected $expirationSlot = 10;
     /**
      * @var string
      */

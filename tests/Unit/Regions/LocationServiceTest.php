@@ -5,7 +5,6 @@ namespace AlibabaCloud\Client\Tests\Unit\Regions;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Regions\LocationService;
-use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
 use GuzzleHttp\Handler\MockHandler;
@@ -31,7 +30,7 @@ class LocationServiceTest extends TestCase
         $domain   = 'c';
 
         // Test
-        $request = (new RpcRequest())->regionId($regionId)->product($product);
+        $request = AlibabaCloud::rpc()->regionId($regionId)->product($product);
         LocationService::addEndPoint($regionId, $product, $domain);
 
         // Assert
@@ -147,12 +146,6 @@ class LocationServiceTest extends TestCase
         self::assertEquals('cdn.aliyun.com', $host);
     }
 
-    protected function tearDown()
-    {
-        parent::tearDown();
-        \AlibabaCloud\Client\Request\Request::$config = [];
-    }
-
     /**
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Product cannot be empty
@@ -242,5 +235,11 @@ class LocationServiceTest extends TestCase
                 $e->getErrorMessage()
             );
         }
+    }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+        \AlibabaCloud\Client\Request\Request::$config = [];
     }
 }

@@ -38,8 +38,8 @@ class DistinguishSignatureAndCredentialErrorsTest extends TestCase
                         ->version('2018-05-18')
                         ->method('POST')
                         ->action('CreateToken')
-                        ->connectTimeout(20)
-                        ->timeout(25)
+                        ->connectTimeout(25)
+                        ->timeout(30)
                         ->request();
         } catch (ServerException $e) {
             self::assertEquals('Specified Access Key Secret is not valid.', $e->getErrorMessage());

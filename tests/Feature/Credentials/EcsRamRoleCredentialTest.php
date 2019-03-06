@@ -58,8 +58,8 @@ class EcsRamRoleCredentialTest extends TestCase
     {
         try {
             (new DescribeRegionsRequest())->client($this->clientName)
-                                          ->connectTimeout(20)
-                                          ->timeout(25)
+                                          ->connectTimeout(25)
+                                          ->timeout(30)
                                           ->request();
         } catch (ServerException $e) {
             self::assertContains(

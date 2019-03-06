@@ -17,7 +17,7 @@ class CredentialsProvider
     /**
      * @var array
      */
-    private static $hasCustomChain;
+    private static $customChains;
 
     /**
      * @throws ClientException
@@ -36,12 +36,15 @@ class CredentialsProvider
             }
         }
 
-        self::$hasCustomChain = $providers;
+        self::$customChains = $providers;
     }
 
+    /**
+     * Forget the custom providers chain.
+     */
     public static function flush()
     {
-        self::$hasCustomChain = [];
+        self::$customChains = [];
     }
 
     /**
@@ -49,7 +52,7 @@ class CredentialsProvider
      */
     public static function hasCustomChain()
     {
-        return (bool)self::$hasCustomChain;
+        return (bool)self::$customChains;
     }
 
     /**
@@ -59,7 +62,7 @@ class CredentialsProvider
      */
     public static function customProvider($clientName)
     {
-        foreach (self::$hasCustomChain as $provider) {
+        foreach (self::$customChains as $provider) {
             $provider();
             if (AlibabaCloud::has($clientName)) {
                 break;
@@ -93,7 +96,7 @@ class CredentialsProvider
      */
     public static function env()
     {
-        return function () {
+        return function() {
             $accessKeyId     = \AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_ACCESS_KEY_ID');
             $accessKeySecret = \AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_ACCESS_KEY_SECRET');
 
@@ -108,7 +111,7 @@ class CredentialsProvider
      */
     public static function ini()
     {
-        return function () {
+        return function() {
             $ini = \AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_CREDENTIALS_FILE');
 
             if ($ini) {
@@ -155,7 +158,7 @@ class CredentialsProvider
      */
     public static function instance()
     {
-        return function () {
+        return function() {
             $instance = \AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_ECS_METADATA');
             if ($instance) {
                 AlibabaCloud::ecsRamRoleClient($instance)->asDefaultClient();

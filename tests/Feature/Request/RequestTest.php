@@ -53,8 +53,8 @@ class RequestTest extends TestCase
             (new  DescribeClusterServicesRequest())
                 ->client('BEARER_TOKEN')
                 ->withClusterId(\time())
-                ->connectTimeout(15)
-                ->timeout(20)
+                ->connectTimeout(25)
+                ->timeout(30)
                 ->request();
         } catch (ServerException $e) {
             // Assert
@@ -78,8 +78,8 @@ class RequestTest extends TestCase
         // Test
         try {
             (new  DescribeClusterServicesRequest())
-                ->connectTimeout(15)
-                ->timeout(20)
+                ->connectTimeout(25)
+                ->timeout(30)
                 ->client(__METHOD__)
                 ->withClusterId(\time())
                 ->request();
@@ -100,8 +100,8 @@ class RequestTest extends TestCase
 
         // Test
         try {
-            $request->connectTimeout(20)
-                    ->timeout(25)
+            $request->connectTimeout(25)
+                    ->timeout(30)
                     ->request();
             // Assert
         } catch (ServerException $e) {

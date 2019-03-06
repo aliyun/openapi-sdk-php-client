@@ -64,8 +64,8 @@ class RequestDebugTest extends TestCase
         // Assert
         $request = (new DescribeRegionsRequest())->client($nameClient)
                                                  ->debug(true)
-                                                 ->connectTimeout(15)
-                                                 ->timeout(20);
+                                                 ->connectTimeout(25)
+                                                 ->timeout(30);
         $request->request();
 
         self::assertArrayHasKey('debug', $request->options);
