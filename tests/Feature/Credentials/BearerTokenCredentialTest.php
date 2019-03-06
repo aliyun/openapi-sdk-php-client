@@ -81,8 +81,8 @@ class BearerTokenCredentialTest extends TestCase
     {
         (new DescribeAccessPointsRequest())
             ->client($this->clientName)
-            ->connectTimeout(20)
-            ->timeout(25)
+            ->connectTimeout(25)
+            ->timeout(30)
             ->request();
     }
 
@@ -94,8 +94,8 @@ class BearerTokenCredentialTest extends TestCase
     public function testCdn()
     {
         (new DescribeCdnServiceRequest())->client($this->clientName)
-                                         ->connectTimeout(20)
-                                         ->timeout(25)
+                                         ->connectTimeout(25)
+                                         ->timeout(30)
                                          ->request();
     }
 }

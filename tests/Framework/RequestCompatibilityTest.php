@@ -34,8 +34,8 @@ class RequestCompatibilityTest extends TestCase
 
         $client  = new DefaultAcsClient($profile);
         $request = new DescribeRegionsRequest();
-        $request->connectTimeout(15)
-                ->timeout(20);
+        $request->connectTimeout(25)
+                ->timeout(30);
 
         $result = $client->getAcsResponse($request->client('test'));
 
@@ -62,8 +62,8 @@ class RequestCompatibilityTest extends TestCase
         try {
             $result = $client->getAcsResponse(
                 $request->client('test')
-                        ->connectTimeout(15)
-                        ->timeout(20)
+                        ->connectTimeout(25)
+                        ->timeout(30)
                         ->request()
             );
             // Assert

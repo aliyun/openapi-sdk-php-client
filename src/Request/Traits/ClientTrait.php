@@ -37,7 +37,15 @@ trait ClientTrait
             return $this->httpClient()->getCredential();
         }
 
-        return $this->httpClient()->getSessionCredential();
+        $timeout = isset($this->options['timeout'])
+            ? $this->options['timeout']
+            : Request::TIMEOUT;
+
+        $connectTimeout = isset($this->options['connect_timeout'])
+            ? $this->options['connect_timeout']
+            : Request::CONNECT_TIMEOUT;
+
+        return $this->httpClient()->getSessionCredential($timeout, $connectTimeout);
     }
 
     /**

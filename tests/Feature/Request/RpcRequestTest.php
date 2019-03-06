@@ -37,8 +37,8 @@ class RpcRequestTest extends TestCase
         // Assert
 
         $result = (new DescribeRegionsRequest())->client($nameClient)
-                                                ->connectTimeout(15)
-                                                ->timeout(20)
+                                                ->connectTimeout(25)
+                                                ->timeout(30)
                                                 ->request();
 
         $this->assertNotNull($result->RequestId);
@@ -74,8 +74,8 @@ class RpcRequestTest extends TestCase
             );
             $this->assertEquals(1, $request->options['query']['test_true']);
             $this->assertEquals(1, $request->options['query']['test_false']);
-            $result = $request->connectTimeout(15)
-                              ->timeout(20)
+            $result = $request->connectTimeout(25)
+                              ->timeout(30)
                               ->request();
             self::assertArrayHasKey('Regions', $result);
         } catch (ServerException $e) {
@@ -98,8 +98,8 @@ class RpcRequestTest extends TestCase
                                     ->product('Cdn')
                                     ->version('2014-11-11')
                                     ->action('DescribeCdnService')
-                                    ->connectTimeout(20)
-                                    ->timeout(25)
+                                    ->connectTimeout(25)
+                                    ->timeout(30)
                                     ->request();
 
         self::assertNotEmpty('PayByTraffic', $result['ChangingChargeType']);

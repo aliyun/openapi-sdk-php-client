@@ -82,8 +82,8 @@ class RsaKeyPairCredentialTest extends TestCase
         (new DescribeAccessPointsRequest())
             ->client($this->clientName)
             ->regionId(\AlibabaCloud\Client\env('REGION_ID'))
-            ->connectTimeout(20)
-            ->timeout(25)
+            ->connectTimeout(25)
+            ->timeout(30)
             ->request();
     }
 }

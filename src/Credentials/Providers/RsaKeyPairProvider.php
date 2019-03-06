@@ -25,17 +25,18 @@ class RsaKeyPairProvider extends Provider
      * Get credential.
      *
      * @param int $timeout
+     * @param int $connectTimeout
      *
      * @return StsCredential
      * @throws ClientException
      * @throws ServerException
      */
-    public function get($timeout = Request::TIMEOUT)
+    public function get($timeout = Request::TIMEOUT, $connectTimeout = Request::CONNECT_TIMEOUT)
     {
         $credential = $this->getCredentialsInCache();
 
         if ($credential === null) {
-            $result = $this->request($timeout);
+            $result = $this->request($timeout, $connectTimeout);
 
             if (!isset($result['SessionAccessKey']['SessionAccessKeyId'],
                 $result['SessionAccessKey']['SessionAccessKeySecret'])) {
@@ -55,13 +56,14 @@ class RsaKeyPairProvider extends Provider
     /**
      * Get credentials by request.
      *
-     * @param int $timeout
+     * @param $timeout
+     * @param $connectTimeout
      *
      * @return Result
      * @throws ClientException
      * @throws ServerException
      */
-    private function request($timeout)
+    private function request($timeout, $connectTimeout)
     {
         $clientName = __CLASS__ . \uniqid('rsa', true);
 
@@ -76,7 +78,7 @@ class RsaKeyPairProvider extends Provider
         return (new GenerateSessionAccessKey($this->client->getCredential()))
             ->client($clientName)
             ->timeout($timeout)
-            ->connectTimeout($timeout)
+            ->connectTimeout($connectTimeout)
             ->debug($this->client->isDebug())
             ->request();
     }

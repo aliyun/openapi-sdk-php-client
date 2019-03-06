@@ -58,8 +58,8 @@ class RamRoleArnCredentialTest extends TestCase
     {
         try {
             $result = (new DescribeAccessPointsRequest())->client($this->clientName)
-                                                         ->connectTimeout(20)
-                                                         ->timeout(25)
+                                                         ->connectTimeout(25)
+                                                         ->timeout(30)
                                                          ->request();
             $this->assertTrue(isset($result['AccessPointSet']));
         } catch (ServerException $e) {

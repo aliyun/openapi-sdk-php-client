@@ -22,18 +22,20 @@ class RamRoleArnProvider extends Provider
     /**
      * Get credential.
      *
+     *
      * @param int $timeout
+     * @param int $connectTimeout
      *
      * @return StsCredential
      * @throws ClientException
      * @throws ServerException
      */
-    public function get($timeout = Request::TIMEOUT)
+    public function get($timeout = Request::TIMEOUT, $connectTimeout = Request::CONNECT_TIMEOUT)
     {
         $credential = $this->getCredentialsInCache();
 
         if (null === $credential) {
-            $result = $this->request($timeout);
+            $result = $this->request($timeout, $connectTimeout);
 
             if (!isset($result['Credentials']['AccessKeyId'],
                 $result['Credentials']['AccessKeySecret'],
@@ -55,13 +57,14 @@ class RamRoleArnProvider extends Provider
     /**
      * Get credentials by request.
      *
-     * @param int $timeout
+     * @param $timeout
+     * @param $connectTimeout
      *
      * @return Result
      * @throws ClientException
      * @throws ServerException
      */
-    private function request($timeout)
+    private function request($timeout, $connectTimeout)
     {
         $clientName = __CLASS__ . \uniqid('ak', true);
 
@@ -71,9 +74,9 @@ class RamRoleArnProvider extends Provider
         )->name($clientName);
 
         return (new AssumeRole($this->client->getCredential()))
-            ->timeout($timeout)
-            ->connectTimeout($timeout)
             ->client($clientName)
+            ->timeout($timeout)
+            ->connectTimeout($connectTimeout)
             ->debug($this->client->isDebug())
             ->request();
     }

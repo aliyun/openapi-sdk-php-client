@@ -55,8 +55,8 @@ class AccessKeyCredentialTest extends TestCase
     {
         $result = (new DescribeAccessPointsRequest())
             ->client($this->clientName)
-            ->connectTimeout(20)
-            ->timeout(25)
+            ->connectTimeout(25)
+            ->timeout(30)
             ->request();
 
         $this->assertArrayHasKey('AccessPointSet', $result);
@@ -85,8 +85,8 @@ class AccessKeyCredentialTest extends TestCase
     {
         $result = (new DescribeCdnServiceRequest())
             ->client($this->clientName)
-            ->connectTimeout(20)
-            ->timeout(25)
+            ->connectTimeout(25)
+            ->timeout(30)
             ->request();
 
         $this->assertArrayHasKey('ChangingChargeType', $result);
@@ -100,8 +100,8 @@ class AccessKeyCredentialTest extends TestCase
     {
         $result = (new DescribeVpcsRequest())
             ->client($this->clientName)
-            ->connectTimeout(20)
-            ->timeout(25)
+            ->connectTimeout(25)
+            ->timeout(30)
             ->request();
 
         $this->assertArrayHasKey('Vpcs', $result);
