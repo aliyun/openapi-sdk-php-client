@@ -153,10 +153,13 @@ class IniCredentialTest extends TestCase
         self::assertEquals([], $properties['hasLoaded']);
     }
 
+    /**
+     * @throws ClientException
+     */
     public static function testInOpenBaseDir()
     {
         if (!\AlibabaCloud\Client\isWindows()) {
-            $dirs = 'vfs://AlibabaCloud:/home:/Users:/private:/a/b';
+            $dirs = 'vfs://AlibabaCloud:/home:/Users:/private:/a/b:/d';
             ini_set('open_basedir', $dirs);
             self::assertEquals($dirs, ini_get('open_basedir'));
             self::assertTrue(\AlibabaCloud\Client\inOpenBasedir('/Users/alibabacloud'));
@@ -165,6 +168,9 @@ class IniCredentialTest extends TestCase
             self::assertFalse(\AlibabaCloud\Client\inOpenBasedir('/a'));
             self::assertTrue(\AlibabaCloud\Client\inOpenBasedir('/a/b/'));
             self::assertTrue(\AlibabaCloud\Client\inOpenBasedir('/a/b/c'));
+            self::assertFalse(\AlibabaCloud\Client\inOpenBasedir('/b'));
+            self::assertFalse(\AlibabaCloud\Client\inOpenBasedir('/b/'));
+            self::assertFalse(\AlibabaCloud\Client\inOpenBasedir('/x/d/c.txt'));
             self::assertFalse(\AlibabaCloud\Client\inOpenBasedir('/a/b.php'));
         }
         if (\AlibabaCloud\Client\isWindows()) {
