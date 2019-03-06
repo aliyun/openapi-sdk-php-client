@@ -36,13 +36,8 @@ function inOpenBasedir($filename, $throwException = false)
         return true;
     }
 
-    foreach ($dirs as $dir) {
-        if (!Stringy::create($dir)->endsWith(DIRECTORY_SEPARATOR)) {
-            $dir .= DIRECTORY_SEPARATOR;
-        }
-        if (false !== strpos($filename, $dir)) {
-            return true;
-        }
+    if (inDir($filename, $dirs)) {
+        return true;
     }
 
     if ($throwException === false) {
@@ -54,6 +49,27 @@ function inOpenBasedir($filename, $throwException = false)
         . "File($filename) is not within the allowed path(s): ($open_basedir)",
         'SDK.InvalidPath'
     );
+}
+
+/**
+ * @param string $filename
+ * @param array  $dirs
+ *
+ * @return bool
+ */
+function inDir($filename, array $dirs)
+{
+    foreach ($dirs as $dir) {
+        if (!Stringy::create($dir)->endsWith(DIRECTORY_SEPARATOR)) {
+            $dir .= DIRECTORY_SEPARATOR;
+        }
+
+        if (0 === strpos($filename, $dir)) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 /**
@@ -225,26 +241,36 @@ function env($key, $default = null)
         return value($default);
     }
 
-    switch (strtolower($value)) {
-        case 'true':
-        case '(true)':
-            return true;
-        case 'false':
-        case '(false)':
-            return false;
-        case 'empty':
-        case '(empty)':
-            return '';
-        case 'null':
-        case '(null)':
-            return null;
-    }
-
     if (envSubstr($value)) {
         return substr($value, 1, -1);
     }
 
-    return $value;
+    return envConversion($value);
+}
+
+/**
+ * @param $value
+ *
+ * @return bool|string|null
+ */
+function envConversion($value)
+{
+    $key = strtolower($value);
+
+    if ($key === 'null' || $key === '(null)') {
+        return null;
+    }
+
+    $list = [
+        'true'    => true,
+        '(true)'  => true,
+        'false'   => false,
+        '(false)' => false,
+        'empty'   => '',
+        '(empty)' => '',
+    ];
+
+    return isset($list[$key]) ? $list[$key] : $value;
 }
 
 /**
