@@ -1267,6 +1267,7 @@ return [
                 ],
             'ram'             =>
                 [
+                    'global'              => 'ram.aliyuncs.com',
                     'us-east-1'           => 'ram.aliyuncs.com',
                     'cn-hongkong'         => 'ram.aliyuncs.com',
                     'cn-qingdao-cm9'      => 'ram.aliyuncs.com',
@@ -1364,6 +1365,7 @@ return [
                 ],
             'cdn'             =>
                 [
+                    'global'              => 'cdn.aliyuncs.com',
                     'us-east-1'           => 'cdn.aliyuncs.com',
                     'cn-hongkong'         => 'cdn.aliyuncs.com',
                     'cn-qingdao-cm9'      => 'cdn.aliyuncs.com',

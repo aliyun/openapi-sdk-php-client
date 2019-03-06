@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Filter;
 
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\SDK;
 
 /**
  * Class ClientFilter
@@ -23,14 +24,14 @@ class ClientFilter
         if (!is_string($regionId)) {
             throw new ClientException(
                 'Region ID must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($regionId === '') {
             throw new ClientException(
                 'Region ID cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -49,14 +50,14 @@ class ClientFilter
         if (!is_string($clientName)) {
             throw new ClientException(
                 'Client Name must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($clientName === '') {
             throw new ClientException(
                 'Client Name cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -74,7 +75,7 @@ class ClientFilter
         if ($connectTimeout === '') {
             throw new ClientException(
                 'Connect Timeout cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -92,7 +93,7 @@ class ClientFilter
         if ($timeout === '') {
             throw new ClientException(
                 'Timeout cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 

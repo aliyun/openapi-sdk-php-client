@@ -1,7 +1,7 @@
 [← 首页](../README-CN.md) | 安装[(English)](Installation-EN.md) | [客户端 →](Client-CN.md)
 ***
 
-## 安装
+# 安装
 1. 下载并安装 Composer（Windows 用户请下载并运行 [Composer-Setup.exe](https://getcomposer.org/Composer-Setup.exe)）
 ```bash
 curl -sS https://getcomposer.org/installer | php

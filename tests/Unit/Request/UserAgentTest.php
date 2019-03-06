@@ -13,12 +13,6 @@ use PHPUnit\Framework\TestCase;
  */
 class UserAgentTest extends TestCase
 {
-    protected function tearDown()
-    {
-        parent::tearDown();
-        UserAgent::clear();
-    }
-
     public static function testUserAgentString()
     {
         $userAgent = UserAgent::toString();
@@ -246,5 +240,11 @@ class UserAgentTest extends TestCase
                                     ]);
 
         self::assertStringEndsWith('Append', UserAgent::toString());
+    }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+        UserAgent::clear();
     }
 }

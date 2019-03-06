@@ -9,6 +9,7 @@ use AlibabaCloud\Client\Credentials\Providers\RsaKeyPairProvider;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\SDK;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -96,7 +97,7 @@ class EcsRamRoleProviderTest extends TestCase
         try {
             $credential->get();
         } catch (ClientException $e) {
-            $this->assertEquals($e->getErrorCode(), \ALIBABA_CLOUD_SERVER_UNREACHABLE);
+            $this->assertEquals($e->getErrorCode(), SDK::SERVER_UNREACHABLE);
         }
     }
 
@@ -118,7 +119,7 @@ class EcsRamRoleProviderTest extends TestCase
         } catch (ServerException $e) {
             $this->assertEquals(
                 $e->getErrorCode(),
-                \ALIBABA_CLOUD_INVALID_CREDENTIAL
+                SDK::INVALID_CREDENTIAL
             );
         }
     }

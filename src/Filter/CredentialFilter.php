@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Filter;
 
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\SDK;
 
 /**
  * Class CredentialFilter
@@ -22,14 +23,14 @@ class CredentialFilter
         if (!is_string($bearerToken)) {
             throw new ClientException(
                 'Bearer Token must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($bearerToken === '') {
             throw new ClientException(
                 'Bearer Token cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -47,14 +48,14 @@ class CredentialFilter
         if (!is_string($publicKeyId)) {
             throw new ClientException(
                 'Public Key ID must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($publicKeyId === '') {
             throw new ClientException(
                 'Public Key ID cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -72,14 +73,14 @@ class CredentialFilter
         if (!is_string($privateKeyFile)) {
             throw new ClientException(
                 'Private Key File must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($privateKeyFile === '') {
             throw new ClientException(
                 'Private Key File cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -98,14 +99,14 @@ class CredentialFilter
         if (!is_string($roleName)) {
             throw new ClientException(
                 'Role Name must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($roleName === '') {
             throw new ClientException(
                 'Role Name cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -123,28 +124,28 @@ class CredentialFilter
         if (!is_string($accessKeyId)) {
             throw new ClientException(
                 'AccessKey ID must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($accessKeyId === '') {
             throw new ClientException(
                 'AccessKey ID cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if (!is_string($accessKeySecret)) {
             throw new ClientException(
                 'AccessKey Secret must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($accessKeySecret === '') {
             throw new ClientException(
                 'AccessKey Secret cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
     }

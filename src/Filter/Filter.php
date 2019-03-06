@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Filter;
 
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\SDK;
 
 /**
  * Class Filter
@@ -24,14 +25,14 @@ class Filter
         if (!is_string($name)) {
             throw new ClientException(
                 'Name must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($name === '') {
             throw new ClientException(
                 'Name cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -50,14 +51,14 @@ class Filter
         if (!is_numeric($value) && !is_string($value)) {
             throw new ClientException(
                 'Value must be a string or int',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($value === '') {
             throw new ClientException(
                 'Value cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 

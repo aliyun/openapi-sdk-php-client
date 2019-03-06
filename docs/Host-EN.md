@@ -1,10 +1,10 @@
 [← Region](Region-EN.md) | Host[(中文)](Host-CN.md) | [Debug →](Debug-EN.md)
 ***
 
-## Host
+# Host
 Before sending the detailed request for each product, Alibaba Cloud Client for PHP will find the Host of the product in the region, Please refer to [Host List][endpoints].
 
-### Specify the Host for the request
+## Specify the Host for the request
 > If a Host is specified for the request, the Location Service will not be enabled. It is recommended that the specified Host be the same as the server's region, or close.
 ```php
 <?php
@@ -19,7 +19,7 @@ $request = AlibabaCloud::rpc()
                        ->request();
 ```
 
-### Add a searchable Host for the addressing service
+## Add a searchable Host for the addressing service
 > You can also set a Host in a region for a product. The addressing service will not make a request, but use this Host directly.
 
 ```php

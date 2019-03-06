@@ -12,6 +12,11 @@ use AlibabaCloud\Client\Clients\Client;
 class Provider
 {
     /**
+     * For TSC Duration Seconds
+     */
+    const DURATION_SECONDS = 3600;
+
+    /**
      * @var array
      */
     protected static $credentialsCache = [];
@@ -44,6 +49,24 @@ class Provider
     }
 
     /**
+     * Get the credentials from the cache in the validity period.
+     *
+     * @return array|null
+     */
+    public function getCredentialsInCache()
+    {
+        if (isset(self::$credentialsCache[$this->key()])) {
+            $result = self::$credentialsCache[$this->key()];
+            if (\strtotime($result['Expiration']) - \time() >= $this->expiration) {
+                return $result;
+            }
+        }
+        unset(self::$credentialsCache[$this->key()]);
+
+        return null;
+    }
+
+    /**
      * Get the toString of the credentials as the key.
      *
      * @return string
@@ -61,23 +84,5 @@ class Provider
     protected function cache(array $credential)
     {
         self::$credentialsCache[$this->key()] = $credential;
-    }
-
-    /**
-     * Get the credentials from the cache in the validity period.
-     *
-     * @return array|null
-     */
-    public function getCredentialsInCache()
-    {
-        if (isset(self::$credentialsCache[$this->key()])) {
-            $result = self::$credentialsCache[$this->key()];
-            if (\strtotime($result['Expiration']) - \time() >= $this->expiration) {
-                return $result;
-            }
-        }
-        unset(self::$credentialsCache[$this->key()]);
-
-        return null;
     }
 }

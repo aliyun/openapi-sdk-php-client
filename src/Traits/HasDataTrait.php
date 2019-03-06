@@ -23,14 +23,6 @@ trait HasDataTrait
     protected $dot;
 
     /**
-     * @param array $data
-     */
-    protected function dot($data = [])
-    {
-        $this->dot = new Dot($data);
-    }
-
-    /**
      * @param string $expression
      *
      * @return mixed|null
@@ -41,28 +33,6 @@ trait HasDataTrait
     }
 
     /**
-     * Set a given key / value pair or pairs
-     * if the key doesn't exist already
-     *
-     * @param array|int|string $keys
-     * @param mixed            $value
-     */
-    public function add($keys, $value = null)
-    {
-        $this->dot->add($keys, $value);
-    }
-
-    /**
-     * Return all the stored items
-     *
-     * @return array
-     */
-    public function all()
-    {
-        return $this->dot->all();
-    }
-
-    /**
      * Delete the contents of a given key or keys
      *
      * @param array|int|string|null $keys
@@ -70,16 +40,6 @@ trait HasDataTrait
     public function clear($keys = null)
     {
         $this->dot->clear($keys);
-    }
-
-    /**
-     * Delete the given key or keys
-     *
-     * @param array|int|string $keys
-     */
-    public function delete($keys)
-    {
-        $this->dot->delete($keys);
     }
 
     /**
@@ -107,18 +67,6 @@ trait HasDataTrait
     public function get($key = null, $default = null)
     {
         return $this->dot->get($key, $default);
-    }
-
-    /**
-     * Check if a given key or keys exists
-     *
-     * @param  array|int|string $keys
-     *
-     * @return bool
-     */
-    public function has($keys)
-    {
-        return $this->dot->has($keys);
     }
 
     /**
@@ -175,12 +123,6 @@ trait HasDataTrait
         return $this->dot->all();
     }
 
-    /*
-     * --------------------------------------------------------------
-     * ArrayAccess interface
-     * --------------------------------------------------------------
-     */
-
     /**
      * Check if a given key exists
      *
@@ -226,9 +168,19 @@ trait HasDataTrait
         $this->delete($key);
     }
 
+    /**
+     * Delete the given key or keys
+     *
+     * @param array|int|string $keys
+     */
+    public function delete($keys)
+    {
+        $this->dot->delete($keys);
+    }
+
     /*
      * --------------------------------------------------------------
-     * Countable interface
+     * ArrayAccess interface
      * --------------------------------------------------------------
      */
 
@@ -264,13 +216,6 @@ trait HasDataTrait
         return $this->dot->jsonSerialize();
     }
 
-
-    /*
-     * --------------------------------------------------------------
-     * ObjectAccess
-     * --------------------------------------------------------------
-     */
-
     /**
      * @param string $name
      *
@@ -285,6 +230,22 @@ trait HasDataTrait
         return \json_decode(\json_encode($this->all()))->$name;
     }
 
+    /*
+     * --------------------------------------------------------------
+     * Countable interface
+     * --------------------------------------------------------------
+     */
+
+    /**
+     * Return all the stored items
+     *
+     * @return array
+     */
+    public function all()
+    {
+        return $this->dot->all();
+    }
+
     /**
      * @param string $name
      * @param mixed  $value
@@ -293,6 +254,25 @@ trait HasDataTrait
     {
         $this->add($name, $value);
     }
+
+    /**
+     * Set a given key / value pair or pairs
+     * if the key doesn't exist already
+     *
+     * @param array|int|string $keys
+     * @param mixed            $value
+     */
+    public function add($keys, $value = null)
+    {
+        $this->dot->add($keys, $value);
+    }
+
+
+    /*
+     * --------------------------------------------------------------
+     * ObjectAccess
+     * --------------------------------------------------------------
+     */
 
     /**
      * @param string $name
@@ -305,6 +285,18 @@ trait HasDataTrait
     }
 
     /**
+     * Check if a given key or keys exists
+     *
+     * @param  array|int|string $keys
+     *
+     * @return bool
+     */
+    public function has($keys)
+    {
+        return $this->dot->has($keys);
+    }
+
+    /**
      * @param $name
      *
      * @return void
@@ -312,5 +304,13 @@ trait HasDataTrait
     public function __unset($name)
     {
         $this->delete($name);
+    }
+
+    /**
+     * @param array $data
+     */
+    protected function dot($data = [])
+    {
+        $this->dot = new Dot($data);
     }
 }

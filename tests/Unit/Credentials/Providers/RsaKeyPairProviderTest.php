@@ -6,6 +6,7 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Clients\RsaKeyPairClient;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\Providers\RsaKeyPairProvider;
+use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\Request;
@@ -77,7 +78,7 @@ class RsaKeyPairProviderTest extends TestCase
         $actual = $provider->get();
 
         // Assert
-        self::assertInstanceOf(AccessKeyCredential::class, $actual);
+        self::assertInstanceOf(StsCredential::class, $actual);
     }
 
     /**
@@ -95,8 +96,8 @@ class RsaKeyPairProviderTest extends TestCase
         Request::$config = ['handler' => HandlerStack::create($mock)];
 
         $client = AlibabaCloud::rsaKeyPairClient(
-            \AlibabaCloud\Client\env('PUBLIC_KEY_ID'),
-            VirtualRsaKeyPairCredential::success()
+            'publicKeyId',
+            VirtualRsaKeyPairCredential::privateKeyFileUrl()
         );
 
         $provider = new RsaKeyPairProvider($client);
@@ -107,7 +108,7 @@ class RsaKeyPairProviderTest extends TestCase
      * @throws ClientException
      * @throws ServerException
      */
-    public function testOk()
+    public function testSuccess()
     {
         $mock = new MockHandler([
                                     new Response(200, [], '{
@@ -124,12 +125,18 @@ class RsaKeyPairProviderTest extends TestCase
 
         $client = AlibabaCloud::rsaKeyPairClient(
             \AlibabaCloud\Client\env('PUBLIC_KEY_ID'),
-            VirtualRsaKeyPairCredential::success()
+            VirtualRsaKeyPairCredential::privateKeyFileUrl()
         );
 
         $provider   = new RsaKeyPairProvider($client);
         $credential = $provider->get();
-        self::assertInstanceOf(AccessKeyCredential::class, $credential);
+        self::assertInstanceOf(StsCredential::class, $credential);
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        Request::$config = [];
     }
 
     protected function tearDown()

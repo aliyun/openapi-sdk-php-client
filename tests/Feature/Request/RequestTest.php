@@ -18,18 +18,6 @@ class RequestTest extends TestCase
     /**
      * @throws ClientException
      */
-    protected function setUp()
-    {
-        parent::setUp();
-        AlibabaCloud::accessKeyClient(
-            \getenv('ACCESS_KEY_ID'),
-            \getenv('ACCESS_KEY_SECRET')
-        )->asDefaultClient()->regionId(\getenv('REGION_ID'));
-    }
-
-    /**
-     * @throws ClientException
-     */
     public function testConstruct()
     {
         // Setup
@@ -39,8 +27,8 @@ class RequestTest extends TestCase
 
         // Test
         try {
-            $request->connectTimeout(20)
-                    ->timeout(25)
+            $request->connectTimeout(25)
+                    ->timeout(30)
                     ->request();
         } catch (ServerException $e) {
             // Assert
@@ -120,5 +108,17 @@ class RequestTest extends TestCase
             // Assert
             $this->assertEquals('ErrorClusterNotFound', $e->getErrorCode());
         }
+    }
+
+    /**
+     * @throws ClientException
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+        AlibabaCloud::accessKeyClient(
+            \getenv('ACCESS_KEY_ID'),
+            \getenv('ACCESS_KEY_SECRET')
+        )->asDefaultClient()->regionId(\getenv('REGION_ID'));
     }
 }

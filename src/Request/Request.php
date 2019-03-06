@@ -9,14 +9,16 @@ use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Filter\ClientFilter;
 use AlibabaCloud\Client\Filter\Filter;
 use AlibabaCloud\Client\Filter\HttpFilter;
-use AlibabaCloud\Client\Http\GuzzleTrait;
 use AlibabaCloud\Client\Request\Traits\AcsTrait;
 use AlibabaCloud\Client\Request\Traits\ClientTrait;
 use AlibabaCloud\Client\Request\Traits\DeprecatedTrait;
 use AlibabaCloud\Client\Request\Traits\MagicTrait;
 use AlibabaCloud\Client\Result\Result;
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Traits\ArrayAccessTrait;
+use AlibabaCloud\Client\Traits\HttpTrait;
 use AlibabaCloud\Client\Traits\ObjectAccessTrait;
+use AlibabaCloud\Client\Traits\RegionTrait;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Uri;
@@ -31,12 +33,23 @@ use GuzzleHttp\Psr7\Uri;
 abstract class Request implements \ArrayAccess
 {
     use DeprecatedTrait;
-    use GuzzleTrait;
+    use HttpTrait;
+    use RegionTrait;
     use MagicTrait;
     use ClientTrait;
     use AcsTrait;
     use ArrayAccessTrait;
     use ObjectAccessTrait;
+
+    /**
+     * Request Connect Timeout
+     */
+    const CONNECT_TIMEOUT = 3;
+
+    /**
+     * Request Timeout
+     */
+    const TIMEOUT = 15;
 
     /**
      * @var array
@@ -102,8 +115,8 @@ abstract class Request implements \ArrayAccess
         $this->uri                        = $this->uri->withScheme($this->scheme);
         $this->guzzle                     = new Client(self::$config);
         $this->options['http_errors']     = false;
-        $this->options['timeout']         = ALIBABA_CLOUD_TIMEOUT;
-        $this->options['connect_timeout'] = ALIBABA_CLOUD_CONNECT_TIMEOUT;
+        $this->options['connect_timeout'] = self::CONNECT_TIMEOUT;
+        $this->options['timeout']         = self::TIMEOUT;
         if ($options !== []) {
             $this->options($options);
         }
@@ -192,7 +205,7 @@ abstract class Request implements \ArrayAccess
         if (!\is_array($content) && !\is_object($content)) {
             throw new ClientException(
                 'jsonBody only accepts an array or object',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -376,7 +389,7 @@ abstract class Request implements \ArrayAccess
         } catch (GuzzleException $e) {
             throw new ClientException(
                 $e->getMessage(),
-                \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                SDK::SERVER_UNREACHABLE,
                 $e
             );
         }

@@ -9,6 +9,7 @@ use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\Request;
+use AlibabaCloud\Client\SDK;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
@@ -43,7 +44,7 @@ class RamRoleArnProviderTest extends TestCase
             $actual = $provider->get();
             self::assertInstanceOf(StsCredential::class, $actual);
         } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(SDK::SERVER_UNREACHABLE, $e->getErrorCode());
         } catch (ServerException $e) {
             self::assertEquals('InvalidAccessKeyId.NotFound', $e->getErrorCode());
         }

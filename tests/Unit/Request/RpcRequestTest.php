@@ -21,6 +21,22 @@ class RpcRequestTest extends TestCase
 {
 
     /**
+     * @return array
+     */
+    public static function booleanValueToStringData()
+    {
+        return [
+            ['true', 'true'],
+            ['false', 'false'],
+            [true, 'true'],
+            [false, 'false'],
+            ['string', 'string'],
+            [1, 1],
+            [null, null],
+        ];
+    }
+
+    /**
      * @param $value
      * @param $expected
      *
@@ -43,22 +59,6 @@ class RpcRequestTest extends TestCase
 
         // Assert
         self::assertEquals($expected, $actual);
-    }
-
-    /**
-     * @return array
-     */
-    public static function booleanValueToStringData()
-    {
-        return [
-            ['true', 'true'],
-            ['false', 'false'],
-            [true, 'true'],
-            [false, 'false'],
-            ['string', 'string'],
-            [1, 1],
-            [null, null],
-        ];
     }
 
     /**

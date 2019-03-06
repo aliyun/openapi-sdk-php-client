@@ -1,10 +1,10 @@
 [← Result](Result-EN.md) | Region[(中文)](Region-CN.md) | [Host →](Host-EN.md)
 ***
 
-## Region
+# Region
 Each request carries an region called `regionId`. Since most of the requested regions are the same, it is not necessary to set the region for each request, Please refer to [Region List][endpoints].
 
-### Specify the Region for the Request
+## Specify the Region for the Request
 > If you specify an Region separately for the request, the client Region or default Region will not be used.
 ```php
 <?php
@@ -21,7 +21,7 @@ $result = AlibabaCloud::rpc()
                       ->request();
 ```
 
-### Specify the Region for the Client
+## Specify the Region for the Client
 > You can also specify an Region when you create a client, and if the client's request is not specified Region, use the client's Region.
 ```php
 <?php
@@ -33,7 +33,7 @@ AlibabaCloud::accessKeyClient('accessKeyId', 'accessKeySecret')
             ->name('client1');
 ```
 
-### Set the Default Region
+## Set the Default Region
 > If both the Request and Request's client do not have an Region, the default Region will be used.
 ```php
 <?php

@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Filter;
 
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\SDK;
 
 /**
  * Class HttpFilter
@@ -23,14 +24,14 @@ class HttpFilter
         if (!is_string($host)) {
             throw new ClientException(
                 'Host must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($host === '') {
             throw new ClientException(
                 'Host cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -49,14 +50,14 @@ class HttpFilter
         if (!is_string($scheme)) {
             throw new ClientException(
                 'Scheme must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($scheme === '') {
             throw new ClientException(
                 'Scheme cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -74,14 +75,14 @@ class HttpFilter
         if (!is_string($body) && !is_numeric($body)) {
             throw new ClientException(
                 'Body must be a string or int',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($body === '') {
             throw new ClientException(
                 'Body cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -99,14 +100,14 @@ class HttpFilter
         if (!is_string($method)) {
             throw new ClientException(
                 'Method must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($method === '') {
             throw new ClientException(
                 'Method cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 

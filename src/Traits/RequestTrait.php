@@ -55,6 +55,17 @@ trait RequestTrait
     }
 
     /**
+     * @param array $options
+     *
+     * @return RpcRequest
+     * @throws ClientException
+     */
+    public static function rpc(array $options = [])
+    {
+        return new RpcRequest($options);
+    }
+
+    /**
      * @deprecated
      * @codeCoverageIgnore
      *
@@ -66,17 +77,6 @@ trait RequestTrait
     public static function roaRequest(array $options = [])
     {
         return self::roa($options);
-    }
-
-    /**
-     * @param array $options
-     *
-     * @return RpcRequest
-     * @throws ClientException
-     */
-    public static function rpc(array $options = [])
-    {
-        return new RpcRequest($options);
     }
 
     /**

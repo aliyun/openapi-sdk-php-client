@@ -14,6 +14,15 @@ class DescribeCdnServiceRequest extends RpcRequest
 {
 
     /**
+     * @var
+     */
+    private $securityToken;
+    /**
+     * @var
+     */
+    private $ownerId;
+
+    /**
      * DescribeCdnServiceRequest constructor.
      *
      * @param array $options
@@ -29,16 +38,6 @@ class DescribeCdnServiceRequest extends RpcRequest
         $this->action('DescribeCdnService');
         $this->options($options);
     }
-
-    /**
-     * @var
-     */
-    private $securityToken;
-
-    /**
-     * @var
-     */
-    private $ownerId;
 
     /**
      * @return mixed

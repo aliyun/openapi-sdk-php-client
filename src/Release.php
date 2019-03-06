@@ -28,52 +28,6 @@ class Release
     }
 
     /**
-     * @return string
-     */
-    private static function getCodeFile()
-    {
-        return __DIR__ . '/AlibabaCloud.php';
-    }
-
-    /**
-     * @return string
-     */
-    private static function getChangeLogFile()
-    {
-        return __DIR__ . '/../CHANGELOG.md';
-    }
-
-    /**
-     * @return string
-     */
-    private static function getCodeContent()
-    {
-        return file_get_contents(self::getCodeFile());
-    }
-
-    /**
-     * @return string
-     */
-    private static function getChangeLogContent()
-    {
-        return file_get_contents(self::getChangeLogFile());
-    }
-
-    /**
-     * @param $version
-     */
-    private static function changeVersionInCode($version)
-    {
-        $content = preg_replace(
-            "/const VERSION = \'(.*)\';/",
-            "const VERSION = '" . $version . "';",
-            self::getCodeContent()
-        );
-
-        file_put_contents(self::getCodeFile(), $content);
-    }
-
-    /**
      * @param $version
      * @param $changeLog
      */
@@ -108,5 +62,51 @@ class Release
         }
 
         return $string;
+    }
+
+    /**
+     * @return string
+     */
+    private static function getChangeLogContent()
+    {
+        return file_get_contents(self::getChangeLogFile());
+    }
+
+    /**
+     * @return string
+     */
+    private static function getChangeLogFile()
+    {
+        return __DIR__ . '/../CHANGELOG.md';
+    }
+
+    /**
+     * @param $version
+     */
+    private static function changeVersionInCode($version)
+    {
+        $content = preg_replace(
+            "/const VERSION = \'(.*)\';/",
+            "const VERSION = '" . $version . "';",
+            self::getCodeContent()
+        );
+
+        file_put_contents(self::getCodeFile(), $content);
+    }
+
+    /**
+     * @return string
+     */
+    private static function getCodeContent()
+    {
+        return file_get_contents(self::getCodeFile());
+    }
+
+    /**
+     * @return string
+     */
+    private static function getCodeFile()
+    {
+        return __DIR__ . '/AlibabaCloud.php';
     }
 }

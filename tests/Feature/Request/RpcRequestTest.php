@@ -98,8 +98,8 @@ class RpcRequestTest extends TestCase
                                     ->product('Cdn')
                                     ->version('2014-11-11')
                                     ->action('DescribeCdnService')
-                                    ->connectTimeout(15)
-                                    ->timeout(20)
+                                    ->connectTimeout(20)
+                                    ->timeout(25)
                                     ->request();
 
         self::assertNotEmpty('PayByTraffic', $result['ChangingChargeType']);

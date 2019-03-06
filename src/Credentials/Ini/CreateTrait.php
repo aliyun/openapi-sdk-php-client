@@ -9,6 +9,7 @@ use AlibabaCloud\Client\Clients\EcsRamRoleClient;
 use AlibabaCloud\Client\Clients\RamRoleArnClient;
 use AlibabaCloud\Client\Clients\RsaKeyPairClient;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\SDK;
 
 /**
  * Trait CreateTrait
@@ -62,32 +63,9 @@ trait CreateTrait
             default:
                 throw new ClientException(
                     "Invalid type '{$credential['type']}' for '$clientName' in {$this->filename}",
-                    \ALIBABA_CLOUD_INVALID_CREDENTIAL
+                    SDK::INVALID_CREDENTIAL
                 );
         }
-    }
-
-    /**
-     * @param array  $credential
-     * @param string $clientName
-     *
-     * @return RsaKeyPairClient
-     * @throws ClientException
-     */
-    private function rsaKeyPairClient($clientName, array $credential)
-    {
-        if (!isset($credential['public_key_id'])) {
-            $this->missingRequired('public_key_id', $clientName);
-        }
-
-        if (!isset($credential['private_key_file'])) {
-            $this->missingRequired('private_key_file', $clientName);
-        }
-
-        return new RsaKeyPairClient(
-            $credential['public_key_id'],
-            $credential['private_key_file']
-        );
     }
 
     /**
@@ -176,5 +154,28 @@ trait CreateTrait
         }
 
         return new BearerTokenClient($credential['bearer_token']);
+    }
+
+    /**
+     * @param array  $credential
+     * @param string $clientName
+     *
+     * @return RsaKeyPairClient
+     * @throws ClientException
+     */
+    private function rsaKeyPairClient($clientName, array $credential)
+    {
+        if (!isset($credential['public_key_id'])) {
+            $this->missingRequired('public_key_id', $clientName);
+        }
+
+        if (!isset($credential['private_key_file'])) {
+            $this->missingRequired('private_key_file', $clientName);
+        }
+
+        return new RsaKeyPairClient(
+            $credential['public_key_id'],
+            $credential['private_key_file']
+        );
     }
 }

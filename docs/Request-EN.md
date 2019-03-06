@@ -1,7 +1,7 @@
 [← Client](Client-EN.md) | Request[(中文)](Request-CN.md) | [Result →](Result-EN.md)
 ***
 
-## Request
+# Request
 
 Each request supports Chain Settings, Construct Settings, and so on. In addition to the requesting parameters, the `Client`, `Timeout`, `Region`, `Debug Mode` et al. can be set separately.For the constructing and `options()` parameters, please refer to: [Guzzle Request Options][guzzle-docs]
 

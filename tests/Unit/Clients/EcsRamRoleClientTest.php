@@ -6,6 +6,7 @@ use AlibabaCloud\Client\Clients\EcsRamRoleClient;
 use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use PHPUnit\Framework\TestCase;
 
@@ -49,7 +50,7 @@ class EcsRamRoleClientTest extends TestCase
         try {
             $client->getSessionCredential(1);
         } catch (ClientException $exception) {
-            self::assertEquals($exception->getErrorCode(), \ALIBABA_CLOUD_SERVER_UNREACHABLE);
+            self::assertEquals($exception->getErrorCode(), SDK::SERVER_UNREACHABLE);
         }
     }
 }

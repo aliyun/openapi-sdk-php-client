@@ -7,6 +7,7 @@ use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Result\Result;
+use AlibabaCloud\Client\SDK;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
@@ -20,21 +21,19 @@ use Stringy\Stringy;
 class EcsRamRoleProvider extends Provider
 {
     /**
-     * @var string
-     */
-    private $uri = 'http://100.100.100.200/latest/meta-data/ram/security-credentials/';
-
-    /**
      * @var array
      */
     public static $config = [];
-
     /**
      * For TSC cache
      *
      * @var int
      */
     protected $expiration = 10;
+    /**
+     * @var string
+     */
+    private $uri = 'http://100.100.100.200/latest/meta-data/ram/security-credentials/';
 
     /**
      * Get credential.
@@ -51,7 +50,7 @@ class EcsRamRoleProvider extends Provider
             $result = $this->request();
 
             if (!isset($result['AccessKeyId'], $result['AccessKeySecret'], $result['SecurityToken'])) {
-                throw new ServerException($result, $this->error, \ALIBABA_CLOUD_INVALID_CREDENTIAL);
+                throw new ServerException($result, $this->error, SDK::INVALID_CREDENTIAL);
             }
 
             $this->cache($result->toArray());
@@ -77,12 +76,12 @@ class EcsRamRoleProvider extends Provider
 
         if ($result->getResponse()->getStatusCode() === 404) {
             $message = 'The role was not found in the instance';
-            throw new ClientException($message, \ALIBABA_CLOUD_INVALID_CREDENTIAL);
+            throw new ClientException($message, SDK::INVALID_CREDENTIAL);
         }
 
         if (!$result->isSuccess()) {
             $message = 'Error retrieving credentials from result';
-            throw new ServerException($result, $message, \ALIBABA_CLOUD_INVALID_CREDENTIAL);
+            throw new ServerException($result, $message, SDK::INVALID_CREDENTIAL);
         }
 
         return $result;
@@ -120,7 +119,7 @@ class EcsRamRoleProvider extends Provider
 
             throw new ClientException(
                 $message,
-                \ALIBABA_CLOUD_SERVER_UNREACHABLE,
+                SDK::SERVER_UNREACHABLE,
                 $e
             );
         }

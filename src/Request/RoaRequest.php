@@ -10,6 +10,7 @@ use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Filter\Filter;
 use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
+use AlibabaCloud\Client\SDK;
 
 /**
  * RESTful ROA Request.
@@ -23,39 +24,23 @@ class RoaRequest extends Request
     /**
      * @var string
      */
-    public $pathPattern = '/';
-
-    /**
-     * @var array
-     */
-    public $pathParameters = [];
-
-    /**
-     * @var string
-     */
-    private $dateTimeFormat = "D, d M Y H:i:s \G\M\T";
-
-    /**
-     * @var string
-     */
     private static $headerSeparator = "\n";
-
     /**
      * @var string
      */
     private static $querySeparator = '&';
-
     /**
-     * Calculate the md5 value of the content.
-     *
-     * @return string
+     * @var string
      */
-    private function contentMD5()
-    {
-        return base64_encode(
-            md5(json_encode($this->options['form_params']), true)
-        );
-    }
+    public $pathPattern = '/';
+    /**
+     * @var array
+     */
+    public $pathParameters = [];
+    /**
+     * @var string
+     */
+    private $dateTimeFormat = "D, d M Y H:i:s \G\M\T";
 
     /**
      * Resolve request parameter.
@@ -81,13 +66,62 @@ class RoaRequest extends Request
             $this->options['headers']['Content-MD5'] = $this->contentMD5();
         }
         $this->options['headers']['Content-Type'] = "{$this->options['headers']['Accept']};chrset=utf-8";
-        if ($credential instanceof StsCredential) {
+
+        $this->resolveSecurityToken($credential);
+        $this->resolveBearerToken($credential);
+
+        $this->sign($credential);
+    }
+
+    /**
+     * Returns the accept header according to format.
+     *
+     * @param string $format
+     *
+     * @return string
+     */
+    private static function formatToAccept($format)
+    {
+        switch (\strtoupper($format)) {
+            case 'JSON':
+                return 'application/json';
+            case 'XML':
+                return 'application/xml';
+            default:
+                return 'application/octet-stream';
+        }
+    }
+
+    /**
+     * Calculate the md5 value of the content.
+     *
+     * @return string
+     */
+    private function contentMD5()
+    {
+        return base64_encode(
+            md5(json_encode($this->options['form_params']), true)
+        );
+    }
+
+    /**
+     * @param CredentialsInterface $credential
+     */
+    private function resolveSecurityToken(CredentialsInterface $credential)
+    {
+        if ($credential instanceof StsCredential && $credential->getSecurityToken()) {
             $this->options['headers']['x-acs-security-token'] = $credential->getSecurityToken();
         }
+    }
+
+    /**
+     * @param CredentialsInterface $credential
+     */
+    private function resolveBearerToken(CredentialsInterface $credential)
+    {
         if ($credential instanceof BearerTokenCredential) {
             $this->options['headers']['x-acs-bearer-token'] = $credential->getBearerToken();
         }
-        $this->sign($credential);
     }
 
     /**
@@ -141,22 +175,6 @@ class RoaRequest extends Request
     }
 
     /**
-     * Assign path parameters to the url.
-     *
-     * @return string
-     */
-    private function assignPathParameters()
-    {
-        $result = $this->pathPattern;
-        foreach ($this->pathParameters as $pathParameterKey => $apiParameterValue) {
-            $target = '[' . $pathParameterKey . ']';
-            $result = str_replace($target, $apiParameterValue, $result);
-        }
-
-        return $result;
-    }
-
-    /**
      * Construct standard Header for Alibaba Cloud.
      *
      * @return string
@@ -177,6 +195,22 @@ class RoaRequest extends Request
         }
 
         return $headerString;
+    }
+
+    /**
+     * Assign path parameters to the url.
+     *
+     * @return string
+     */
+    private function assignPathParameters()
+    {
+        $result = $this->pathPattern;
+        foreach ($this->pathParameters as $pathParameterKey => $apiParameterValue) {
+            $target = '[' . $pathParameterKey . ']';
+            $result = str_replace($target, $apiParameterValue, $result);
+        }
+
+        return $result;
     }
 
     /**
@@ -222,25 +256,6 @@ class RoaRequest extends Request
     }
 
     /**
-     * Returns the accept header according to format.
-     *
-     * @param string $format
-     *
-     * @return string
-     */
-    private static function formatToAccept($format)
-    {
-        switch (\strtoupper($format)) {
-            case 'JSON':
-                return 'application/json';
-            case 'XML':
-                return 'application/xml';
-            default:
-                return 'application/octet-stream';
-        }
-    }
-
-    /**
      * Set path parameter by name.
      *
      * @param string $name
@@ -256,7 +271,7 @@ class RoaRequest extends Request
         if ($value === '') {
             throw new ClientException(
                 'Value cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 

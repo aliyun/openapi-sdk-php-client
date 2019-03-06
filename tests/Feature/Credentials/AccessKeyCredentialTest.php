@@ -8,8 +8,6 @@ use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\Dds\DescribeRegionsRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeAccessPointsRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Ram\ListAccessKeysRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Slb\DescribeRulesRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\Vpc\DescribeVpcsRequest;
 use PHPUnit\Framework\TestCase;
 
@@ -50,114 +48,62 @@ class AccessKeyCredentialTest extends TestCase
     }
 
     /**
+     * @throws ClientException
      * @throws ServerException
      */
     public function testEcs()
     {
-        try {
-            $result = (new DescribeAccessPointsRequest())->client($this->clientName)
-                                                         ->connectTimeout(5)
-                                                         ->timeout(5)
-                                                         ->request();
-            $this->assertTrue(isset($result['AccessPointSet']));
-        } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        }
+        $result = (new DescribeAccessPointsRequest())
+            ->client($this->clientName)
+            ->connectTimeout(20)
+            ->timeout(25)
+            ->request();
+
+        $this->assertArrayHasKey('AccessPointSet', $result);
     }
 
     /**
+     * @throws ClientException
      * @throws ServerException
      */
     public function testDds()
     {
-        try {
-            $result = (new DescribeRegionsRequest())->client($this->clientName)
-                                                    ->request();
-            $this->assertTrue(isset($result['Regions']));
-        } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        }
+        $result = (new DescribeRegionsRequest())
+            ->client($this->clientName)
+            ->connectTimeout(25)
+            ->timeout(30)
+            ->request();
+
+        $this->assertArrayHasKey('Regions', $result);
     }
 
     /**
-     * Assert for Cdn
+     * @throws ClientException
+     * @throws ServerException
      */
     public function testCdn()
     {
-        try {
-            $result = (new DescribeCdnServiceRequest())->client($this->clientName)
-                                                       ->request();
-            $this->assertTrue(isset($result['ChangingChargeType']));
-        } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            $this->assertEquals(
-                'OperationDenied',
-                $e->getErrorCode()
-            );
-        }
+        $result = (new DescribeCdnServiceRequest())
+            ->client($this->clientName)
+            ->connectTimeout(20)
+            ->timeout(25)
+            ->request();
+
+        $this->assertArrayHasKey('ChangingChargeType', $result);
     }
 
     /**
-     * Assert for Slb
-     */
-    public function testSlb()
-    {
-        // Setup
-        $clusterId = \time();
-
-        try {
-            $request = new DescribeRulesRequest();
-            $request->withLoadBalancerId($clusterId);
-            $request->withListenerPort(55656);
-            $request->client($this->clientName)
-                    ->request();
-        } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            $this->assertEquals(
-                'InvalidLoadBalancerId.NotFound',
-                $e->getErrorCode()
-            );
-        }
-    }
-
-    /**
-     * Assert for Ram
-     */
-    public function testRam()
-    {
-        // Setup
-        $userName = \time();
-
-        try {
-            (new ListAccessKeysRequest())->client($this->clientName)
-                                         ->withUserName($userName)
-                                         ->request();
-        } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            $this->assertEquals(
-                'EntityNotExist.User',
-                $e->getErrorCode()
-            );
-        }
-    }
-
-    /**
-     * Assert for Vpc
-     *
+     * @throws ClientException
      * @throws ServerException
      */
     public function testVpc()
     {
-        try {
-            $result = (new DescribeVpcsRequest())->client($this->clientName)
-                                                 ->request();
+        $result = (new DescribeVpcsRequest())
+            ->client($this->clientName)
+            ->connectTimeout(20)
+            ->timeout(25)
+            ->request();
 
-            $this->assertArrayHasKey('Vpcs', $result);
-        } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        }
+        $this->assertArrayHasKey('Vpcs', $result);
     }
 }

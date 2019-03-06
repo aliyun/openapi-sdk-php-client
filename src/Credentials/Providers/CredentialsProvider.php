@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Credentials\Providers;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\SDK;
 use Closure;
 
 /**
@@ -26,12 +27,12 @@ class CredentialsProvider
         $providers = func_get_args();
 
         if (empty($providers)) {
-            throw new ClientException('No providers in chain', \ALIBABA_CLOUD_INVALID_ARGUMENT);
+            throw new ClientException('No providers in chain', SDK::INVALID_ARGUMENT);
         }
 
         foreach ($providers as $provider) {
             if (!$provider instanceof Closure) {
-                throw new ClientException('Providers must all be Closures', \ALIBABA_CLOUD_INVALID_ARGUMENT);
+                throw new ClientException('Providers must all be Closures', SDK::INVALID_ARGUMENT);
             }
         }
 
@@ -135,19 +136,6 @@ class CredentialsProvider
     }
 
     /**
-     * @return Closure
-     */
-    public static function instance()
-    {
-        return function () {
-            $instance = \AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_ECS_METADATA');
-            if ($instance) {
-                AlibabaCloud::ecsRamRoleClient($instance)->asDefaultClient();
-            }
-        };
-    }
-
-    /**
      * @return array|false|string
      * @throws ClientException
      */
@@ -160,5 +148,18 @@ class CredentialsProvider
         }
 
         return 'default';
+    }
+
+    /**
+     * @return Closure
+     */
+    public static function instance()
+    {
+        return function () {
+            $instance = \AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_ECS_METADATA');
+            if ($instance) {
+                AlibabaCloud::ecsRamRoleClient($instance)->asDefaultClient();
+            }
+        };
     }
 }

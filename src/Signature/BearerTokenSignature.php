@@ -11,12 +11,9 @@ class BearerTokenSignature implements SignatureInterface
 {
 
     /**
-     * @param string $string
-     * @param string $accessKeySecret
-     *
      * @return string
      */
-    public function sign($string, $accessKeySecret)
+    public function getMethod()
     {
         return '';
     }
@@ -24,9 +21,9 @@ class BearerTokenSignature implements SignatureInterface
     /**
      * @return string
      */
-    public function getMethod()
+    public function getType()
     {
-        return '';
+        return 'BEARERTOKEN';
     }
 
     /**
@@ -38,10 +35,13 @@ class BearerTokenSignature implements SignatureInterface
     }
 
     /**
+     * @param string $string
+     * @param string $accessKeySecret
+     *
      * @return string
      */
-    public function getType()
+    public function sign($string, $accessKeySecret)
     {
-        return 'BEARERTOKEN';
+        return '';
     }
 }

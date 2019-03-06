@@ -14,6 +14,15 @@ class ListPhoneNumbersRequest extends RpcRequest
 {
 
     /**
+     * @var
+     */
+    private $outboundOnly;
+    /**
+     * @var
+     */
+    private $instanceId;
+
+    /**
      * GetConfigRequest constructor.
      *
      * @param array $options
@@ -31,16 +40,6 @@ class ListPhoneNumbersRequest extends RpcRequest
         $this->method('POST');
         $this->options($options);
     }
-
-    /**
-     * @var
-     */
-    private $outboundOnly;
-
-    /**
-     * @var
-     */
-    private $instanceId;
 
     /**
      * @return mixed

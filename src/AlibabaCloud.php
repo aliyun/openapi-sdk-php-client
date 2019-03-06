@@ -4,8 +4,8 @@ namespace AlibabaCloud\Client;
 
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Traits\ClientTrait;
+use AlibabaCloud\Client\Traits\DefaultRegionTrait;
 use AlibabaCloud\Client\Traits\EndpointTrait;
-use AlibabaCloud\Client\Traits\RegionTrait;
 use AlibabaCloud\Client\Traits\RequestTrait;
 
 /**
@@ -17,7 +17,7 @@ use AlibabaCloud\Client\Traits\RequestTrait;
 class AlibabaCloud
 {
     use ClientTrait;
-    use RegionTrait;
+    use DefaultRegionTrait;
     use EndpointTrait;
     use RequestTrait;
 
@@ -48,7 +48,7 @@ class AlibabaCloud
         if (!\trait_exists("AlibabaCloud\\ServiceResolverTrait")) {
             throw new ClientException(
                 'Please install alibabacloud/sdk to support product quick access.',
-                \ALIBABA_CLOUD_SERVICE_NOT_FOUND
+                SDK::SERVICE_NOT_FOUND
             );
         }
 
@@ -56,7 +56,7 @@ class AlibabaCloud
             "May not yet support product $serviceName quick access, "
             . 'you can use [Alibaba Cloud Client for PHP] to send any custom '
             . 'requests: https://github.com/aliyun/openapi-sdk-php-client#request',
-            \ALIBABA_CLOUD_SERVICE_NOT_FOUND
+            SDK::SERVICE_NOT_FOUND
         );
     }
 }

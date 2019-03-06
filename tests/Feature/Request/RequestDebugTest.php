@@ -33,12 +33,12 @@ class RequestDebugTest extends TestCase
                     ->regionId($regionId)
                     ->name($nameClient);
 
-        // Assert
         $request = (new DescribeRegionsRequest())->client($nameClient)
-                                                 ->connectTimeout(20)
-                                                 ->timeout(25);
+                                                 ->connectTimeout(25)
+                                                 ->timeout(30);
         $request->request();
 
+        // Assert
         self::assertArrayHasKey('debug', $request->options);
         self::assertTrue($request->options['debug']);
     }

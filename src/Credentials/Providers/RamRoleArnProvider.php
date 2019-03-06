@@ -7,7 +7,9 @@ use AlibabaCloud\Client\Credentials\Requests\AssumeRole;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Result\Result;
+use AlibabaCloud\Client\SDK;
 
 /**
  * Class RamRoleArnProvider
@@ -26,7 +28,7 @@ class RamRoleArnProvider extends Provider
      * @throws ClientException
      * @throws ServerException
      */
-    public function get($timeout = \ALIBABA_CLOUD_TIMEOUT)
+    public function get($timeout = Request::TIMEOUT)
     {
         $credential = $this->getCredentialsInCache();
 
@@ -36,7 +38,7 @@ class RamRoleArnProvider extends Provider
             if (!isset($result['Credentials']['AccessKeyId'],
                 $result['Credentials']['AccessKeySecret'],
                 $result['Credentials']['SecurityToken'])) {
-                throw new ServerException($result, $this->error, \ALIBABA_CLOUD_INVALID_CREDENTIAL);
+                throw new ServerException($result, $this->error, SDK::INVALID_CREDENTIAL);
             }
 
             $credential = $result['Credentials'];

@@ -5,9 +5,12 @@ namespace AlibabaCloud\Client\Credentials\Providers;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKey;
+use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Result\Result;
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature;
 
 /**
@@ -23,11 +26,11 @@ class RsaKeyPairProvider extends Provider
      *
      * @param int $timeout
      *
-     * @return AccessKeyCredential
+     * @return StsCredential
      * @throws ClientException
      * @throws ServerException
      */
-    public function get($timeout = \ALIBABA_CLOUD_TIMEOUT)
+    public function get($timeout = Request::TIMEOUT)
     {
         $credential = $this->getCredentialsInCache();
 
@@ -36,14 +39,14 @@ class RsaKeyPairProvider extends Provider
 
             if (!isset($result['SessionAccessKey']['SessionAccessKeyId'],
                 $result['SessionAccessKey']['SessionAccessKeySecret'])) {
-                throw new ServerException($result, $this->error, \ALIBABA_CLOUD_INVALID_CREDENTIAL);
+                throw new ServerException($result, $this->error, SDK::INVALID_CREDENTIAL);
             }
 
             $credential = $result['SessionAccessKey'];
             $this->cache($credential);
         }
 
-        return new AccessKeyCredential(
+        return new StsCredential(
             $credential['SessionAccessKeyId'],
             $credential['SessionAccessKeySecret']
         );

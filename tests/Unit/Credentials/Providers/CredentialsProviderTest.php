@@ -14,12 +14,6 @@ use PHPUnit\Framework\TestCase;
  */
 class CredentialsProviderTest extends TestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        AlibabaCloud::flush();
-    }
-
     /**
      * @expectedExceptionMessage Providers must all be Closures
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
@@ -58,5 +52,11 @@ class CredentialsProviderTest extends TestCase
         putenv('ALIBABA_CLOUD_PROFILE=test');
         self::assertEquals('test', CredentialsProvider::getDefaultName());
         putenv('ALIBABA_CLOUD_PROFILE=default');
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        AlibabaCloud::flush();
     }
 }

@@ -65,6 +65,42 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
     }
 
     /**
+     * @param string $response
+     *
+     * @return array
+     */
+    private function jsonToArray($response)
+    {
+        try {
+            return \GuzzleHttp\json_decode($response, true);
+        } catch (\InvalidArgumentException $e) {
+            return [];
+        }
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return array
+     */
+    private function xmlToArray($string)
+    {
+        try {
+            return json_decode(json_encode(simplexml_load_string($string)), true);
+        } catch (\Exception $exception) {
+            return [];
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->response->getBody();
+    }
+
+    /**
      * @return Request
      */
     public function getRequest()
@@ -87,41 +123,5 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
     {
         return 200 <= $this->response->getStatusCode()
                && 300 > $this->response->getStatusCode();
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string)$this->response->getBody();
-    }
-
-    /**
-     * @param string $string
-     *
-     * @return array
-     */
-    private function xmlToArray($string)
-    {
-        try {
-            return json_decode(json_encode(simplexml_load_string($string)), true);
-        } catch (\Exception $exception) {
-            return [];
-        }
-    }
-
-    /**
-     * @param string $response
-     *
-     * @return array
-     */
-    private function jsonToArray($response)
-    {
-        try {
-            return \GuzzleHttp\json_decode($response, true);
-        } catch (\InvalidArgumentException $e) {
-            return [];
-        }
     }
 }

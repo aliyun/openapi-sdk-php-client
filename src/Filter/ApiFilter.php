@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Filter;
 
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\SDK;
 
 /**
  * Class ApiFilter
@@ -22,14 +23,14 @@ class ApiFilter
         if (!is_string($serviceCode)) {
             throw new ClientException(
                 'Service Code must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($serviceCode === '') {
             throw new ClientException(
                 'Service Code cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -47,14 +48,14 @@ class ApiFilter
         if (!is_string($endpointType)) {
             throw new ClientException(
                 'Endpoint Type must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($endpointType === '') {
             throw new ClientException(
                 'Endpoint Type cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -72,14 +73,14 @@ class ApiFilter
         if (!is_string($action)) {
             throw new ClientException(
                 'Action must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($action === '') {
             throw new ClientException(
                 'Action cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -97,14 +98,14 @@ class ApiFilter
         if (!is_string($version)) {
             throw new ClientException(
                 'Version must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($version === '') {
             throw new ClientException(
                 'Version cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -122,14 +123,14 @@ class ApiFilter
         if (!is_string($format)) {
             throw new ClientException(
                 'Format must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($format === '') {
             throw new ClientException(
                 'Format cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -148,14 +149,14 @@ class ApiFilter
         if (!is_string($product)) {
             throw new ClientException(
                 'Product must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($product === '') {
             throw new ClientException(
                 'Product cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
@@ -174,14 +175,14 @@ class ApiFilter
         if (!is_string($pattern)) {
             throw new ClientException(
                 'Pattern must be a string',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 
         if ($pattern === '') {
             throw new ClientException(
                 'Pattern cannot be empty',
-                \ALIBABA_CLOUD_INVALID_ARGUMENT
+                SDK::INVALID_ARGUMENT
             );
         }
 

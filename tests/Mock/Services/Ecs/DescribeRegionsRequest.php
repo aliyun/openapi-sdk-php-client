@@ -14,6 +14,35 @@ class DescribeRegionsRequest extends RpcRequest
 {
 
     /**
+     * @var
+     */
+    private $resourceOwnerId;
+    /**
+     * @var
+     */
+    private $resourceOwnerAccount;
+    /**
+     * @var
+     */
+    private $ownerAccount;
+    /**
+     * @var
+     */
+    private $acceptLanguage;
+    /**
+     * @var
+     */
+    private $ownerId;
+    /**
+     * @var
+     */
+    private $instanceChargeType;
+    /**
+     * @var
+     */
+    private $resourceType;
+
+    /**
      * DescribeRegionsRequest constructor.
      *
      * @param array $options
@@ -31,41 +60,6 @@ class DescribeRegionsRequest extends RpcRequest
         $this->endpointType = 'openAPI';
         $this->options($options);
     }
-
-    /**
-     * @var
-     */
-    private $resourceOwnerId;
-
-    /**
-     * @var
-     */
-    private $resourceOwnerAccount;
-
-    /**
-     * @var
-     */
-    private $ownerAccount;
-
-    /**
-     * @var
-     */
-    private $acceptLanguage;
-
-    /**
-     * @var
-     */
-    private $ownerId;
-
-    /**
-     * @var
-     */
-    private $instanceChargeType;
-
-    /**
-     * @var
-     */
-    private $resourceType;
 
     /**
      * @return mixed

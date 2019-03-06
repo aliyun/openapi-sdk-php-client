@@ -1,7 +1,7 @@
 [← Host](Host-EN.md) | Debug[(中文)](Debug-CN.md) | [Home →](../README.md)
 ***
 
-## Debugging
+# Debugging
 If there is an environment variable `DEBUG=sdk` , all requests will enable debug mode.
 
 ***
