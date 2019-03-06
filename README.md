@@ -148,15 +148,11 @@ try {
 [guzzle-docs]: http://docs.guzzlephp.org/en/stable/request-options.html
 [composer]: http://getcomposer.org
 [packagist]: https://packagist.org/packages/alibabacloud/sdk
-[ak]: https://usercenter.console.aliyun.com/#/manage/ak
 [home]: https://home.console.aliyun.com
-[ram]: https://ram.console.aliyun.com/users
-[permissions]: https://ram.console.aliyun.com/permissions
 [alibabacloud]: https://www.alibabacloud.com
 [endpoints]: https://developer.aliyun.com/endpoints
 [cURL]: http://php.net/manual/en/book.curl.php
 [OPCache]: http://php.net/manual/en/book.opcache.php
 [xdebug]: http://xdebug.org
 [OpenSSL]: http://php.net/manual/en/book.openssl.php
-[RAM Role]: https://ram.console.aliyun.com/#/role/list
 [client]: https://github.com/aliyun/openapi-sdk-php-client

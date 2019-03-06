@@ -178,3 +178,8 @@ AlibabaCloud::get('client1')->getSessionCredential();
 
 ***
 [← 安装](Installation-CN.md) | 客户端[(English)](Client-EN.md) | [请求 →](Request-CN.md)
+
+[ak]: https://usercenter.console.aliyun.com/#/manage/ak
+[ram]: https://ram.console.aliyun.com/users
+[permissions]: https://ram.console.aliyun.com/permissions
+[RAM Role]: https://ram.console.aliyun.com/#/role/list
