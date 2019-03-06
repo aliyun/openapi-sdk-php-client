@@ -16,6 +16,50 @@ use PHPUnit\Framework\TestCase;
  */
 class RsaKeyPaireCredentialTest extends TestCase
 {
+    public static function testNotFoundFile()
+    {
+        // Setup
+        $publicKeyId = 'PUBLIC_KEY_ID';
+        if (\AlibabaCloud\Client\isWindows()) {
+            $privateKeyFile = 'C:\\projects\\no.no';
+        } else {
+            $privateKeyFile = '/a/b/no.no';
+        }
+
+        // Test
+        try {
+            new RsaKeyPairCredential($publicKeyId, $privateKeyFile);
+        } catch (ClientException $e) {
+            self::assertEquals(
+                "file_get_contents($privateKeyFile): failed to open stream: No such file or directory",
+                $e->getErrorMessage()
+            );
+        }
+    }
+
+    public static function testOpenBasedirException()
+    {
+        // Setup
+        $publicKeyId = 'PUBLIC_KEY_ID';
+        if (\AlibabaCloud\Client\isWindows()) {
+            $dirs           = 'C:\\projects;C:\\Users';
+            $privateKeyFile = 'C:\\AlibabaCloud\\no.no';
+        } else {
+            $dirs           = 'vfs://AlibabaCloud:/home:/Users:/private:/a/b';
+            $privateKeyFile = '/dev/no.no';
+        }
+
+        // Test
+        ini_set('open_basedir', $dirs);
+        try {
+            new RsaKeyPairCredential($publicKeyId, $privateKeyFile);
+        } catch (ClientException $e) {
+            self::assertEquals(
+                "file_get_contents(): open_basedir restriction in effect. File($privateKeyFile) is not within the allowed path(s): ($dirs)",
+                $e->getErrorMessage()
+            );
+        }
+    }
 
     /**
      * @throws ClientException
@@ -96,50 +140,5 @@ class RsaKeyPaireCredentialTest extends TestCase
 
         // Test
         new RsaKeyPairCredential($publicKeyId, $privateKeyFile);
-    }
-
-    public static function testNotFoundFile()
-    {
-        // Setup
-        $publicKeyId = 'PUBLIC_KEY_ID';
-        if (\AlibabaCloud\Client\isWindows()) {
-            $privateKeyFile = 'C:\\projects\\no.no';
-        } else {
-            $privateKeyFile = '/a/b/no.no';
-        }
-
-        // Test
-        try {
-            new RsaKeyPairCredential($publicKeyId, $privateKeyFile);
-        } catch (ClientException $e) {
-            self::assertEquals(
-                "file_get_contents($privateKeyFile): failed to open stream: No such file or directory",
-                $e->getErrorMessage()
-            );
-        }
-    }
-
-    public static function testOpenBasedirException()
-    {
-        // Setup
-        $publicKeyId = 'PUBLIC_KEY_ID';
-        if (\AlibabaCloud\Client\isWindows()) {
-            $dirs           = 'C:\\projects;C:\\Users';
-            $privateKeyFile = 'C:\\AlibabaCloud\\no.no';
-        } else {
-            $dirs           = 'vfs://AlibabaCloud:/home:/Users:/private:/a/b';
-            $privateKeyFile = '/dev/no.no';
-        }
-
-        // Test
-        ini_set('open_basedir', $dirs);
-        try {
-            new RsaKeyPairCredential($publicKeyId, $privateKeyFile);
-        } catch (ClientException $e) {
-            self::assertEquals(
-                "file_get_contents(): open_basedir restriction in effect. File($privateKeyFile) is not within the allowed path(s): ($dirs)",
-                $e->getErrorMessage()
-            );
-        }
     }
 }

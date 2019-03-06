@@ -62,37 +62,12 @@ EOT;
      */
     public static function privateKeyFileUrl()
     {
+        $line1   = \AlibabaCloud\Client\env('PRIVATE_KEY_LINE_1');
+        $line2   = \AlibabaCloud\Client\env('PRIVATE_KEY_LINE_2');
         $content = <<<EOT
 -----BEGIN PRIVATE KEY-----
-MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBANo4ozuqmZ3znf9G
-gSYfSQjHf3bhqOgY3aDV4dItmfGpekj5lam7iVeVaM/+qaA763ycbwtdgzJmgV5k
-nUyN0sa0CExMtuxj2mPGEypB1PlT9cdxVeV7tNUafdGivZgux/6/HvfUL+5+BscP
-QxLJG8V9KmmqF6Fbk3QUDLK1M9hPAgMBAAECgYA7dLMEzraMEpQ5uTv25w8/FRvl
-iBY9Jok8CQo9+a636TUoLNhaJn6FHnAwO3J79ddzXCvlLNVSJhuZXFB/SyTh/ZJO
-ytUtRVqzEMmYAH2ssuQ5jX2ZbTvKs+7ZD1K+ErfAyEmKq9kgjdZlHawbY9ZYNHFX
-N+teLtNgS6HkDdAQAQJBAP0W5aC5DnCiW+dzpn59vncxuErhTuL2jzVFrcULsff1
-9FYCNd1MPd+eOuQiEgolNEzFmXHUMkZ3d7fUKwLkjm8CQQDcuxZtFOtVSKfR0zsh
-ifcvGpcnf/Vouc0CrHv6bc687jSeLtZNi20T/HZRa2zKLa16lFwD7N27ZSyL5xnS
-mEQhAkEAj74/cUdpoiM0m4Id392/HaeJik3pJhLvR0xp424/CBwTR/49ZZD121nd
-DNEk+cojqC7adcIVQ9x6jFfejegN1QJBANGjzvTjPW/OhbU/TZXZFy9hrdYSLd69
-OP0lHMsIp6XBB7CFA3y6w2qMCUPjJ3wOTglyBsKjoSRuPxTQ9TGS9IECQQClahFq
-K44HPAaADobsh8tS9KxW/bxNF6yLvssj8is4Z2sRTRFfrulQcf79JiJND5DAV866
-KnLZdZy5DK6T/MmX
------END PRIVATE KEY-----
-EOT;
-
-        return (new static($content))->url();
-    }
-
-    /**
-     * @return string
-     */
-    public static function success()
-    {
-        $content = <<<EOT
------BEGIN PRIVATE KEY-----
-MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCXsch1ftcW5oi1
-bLJLsNYlhQYkoKgXup7F7X9t2Z0wkOEnRagRuM+mZX3Vr6ZKVcusnH75e1R2a/eF
+$line1
+$line2
 k95zoHyfj5nGSsSSYwrnNbxAVfbyCvP9QakNE35yM4PH7bCaUbzu/R3dAN+NDY51
 edF4krNXlx2RjGVz/+CoD5gUFZZIPiEGxb0XyWNbCdioxj2W3O8eUjW3EZsPCVJh
 u+oEYN/v5Lz1uGgPMzQn5d6F/bg+qo2FrqXhYZMrOW0d3b0kdZRCPEnkvpmjuIiU

@@ -1,7 +1,7 @@
 [← 客户端](Client-CN.md) | 请求[(English)](Request-EN.md) | [结果 →](Result-CN.md)
 ***
 
-## 请求
+# 请求
 
 每个请求都支持链式设置、构造设置等，除请求参数外，还可单独设置 `客户端`、 `超时`、 `区域`、 `调试模式` 等。构造参数和 `options()` 参数请参考：[请求选项 Guzzle中文文档][guzzle-docs]
 

@@ -5,12 +5,7 @@ namespace AlibabaCloud\Client\Tests\Feature\Credentials;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\Dds\DescribeRegionsRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeAccessPointsRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Ram\ListAccessKeysRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Slb\DescribeRulesRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Vpc\DescribeVpcsRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -54,13 +49,18 @@ class EcsRamRoleCredentialTest extends TestCase
         AlibabaCloud::del($this->clientName);
     }
 
-    public function testGetSessionCredentialWithTest()
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Timeout or instance does not belong to Alibaba Cloud
+     * @throws ClientException
+     */
+    public function testGetSessionCredential()
     {
         try {
-            (new DescribeRegionsRequest())->client($this->clientName)->request();
-        } catch (ClientException $e) {
-            // If the request is not from a bound ECS instance.
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
+            (new DescribeRegionsRequest())->client($this->clientName)
+                                          ->connectTimeout(20)
+                                          ->timeout(25)
+                                          ->request();
         } catch (ServerException $e) {
             self::assertContains(
                 $e->getErrorMessage(),
@@ -68,132 +68,6 @@ class EcsRamRoleCredentialTest extends TestCase
                     'Error in retrieving assume role credentials.',
                     'The role was not found in the instance',
                 ]
-            );
-        }
-    }
-
-    /**
-     * Assert for Ecs
-     */
-    public function testEcs()
-    {
-        try {
-            $result = (new DescribeAccessPointsRequest())->client($this->clientName)->request();
-            $this->assertTrue(isset($result['AccessPointSet']));
-        } catch (ClientException $e) {
-            self::assertEquals(
-                \ALIBABA_CLOUD_SERVER_UNREACHABLE,
-                $e->getErrorCode()
-            );
-        } catch (ServerException $e) {
-            self::assertEquals(
-                'Error in retrieving assume role credentials.',
-                $e->getErrorMessage()
-            );
-        }
-    }
-
-    /**
-     * Assert for Dds
-     */
-    public function testDds()
-    {
-        try {
-            $result = (new DescribeRegionsRequest())->client($this->clientName)
-                                                    ->request();
-            // Only ECS instance can get result
-            $this->assertTrue(isset($result['Regions']));
-        } catch (ClientException $e) {
-            // If the request is not from a bound ECS instance.
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            self::assertEquals(
-                'Error in retrieving assume role credentials.',
-                $e->getErrorMessage()
-            );
-        }
-    }
-
-    /**
-     * Assert for Cdn
-     */
-    public function testCdn()
-    {
-        try {
-            (new DescribeCdnServiceRequest())->client($this->clientName)
-                                             ->request();
-        } catch (ClientException $e) {
-            // If the request is not from a bound ECS instance.
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            $this->assertEquals(
-                'Forbidden.RAM',
-                $e->getErrorCode()
-            );
-        }
-    }
-
-    /**
-     * Assert for Slb
-     */
-    public function testSlb()
-    {
-        try {
-            (new DescribeRulesRequest())
-                ->withLoadBalancerId(\time())
-                ->withListenerPort(55656)
-                ->client($this->clientName)
-                ->request();
-        } catch (ClientException $e) {
-            // If the request is not from a bound ECS instance.
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            $this->assertEquals(
-                'InvalidLoadBalancerId.NotFound',
-                $e->getErrorCode()
-            );
-        }
-    }
-
-    /**
-     * Assert for Ram
-     */
-    public function testRam()
-    {
-        try {
-            (new ListAccessKeysRequest())
-                ->withUserName(\time())
-                ->client($this->clientName)
-                ->request();
-        } catch (ClientException $e) {
-            // If the request is not from a bound ECS instance.
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            $this->assertEquals(
-                'EntityNotExist.User',
-                $e->getErrorCode()
-            );
-        }
-    }
-
-    /**
-     * Assert for Vpc
-     */
-    public function testVpc()
-    {
-        try {
-            $result = (new DescribeVpcsRequest())
-                ->client($this->clientName)
-                ->request();
-
-            $this->assertArrayHasKey('Vpcs', $result);
-        } catch (ClientException $e) {
-            // If the request is not from a bound ECS instance.
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            self::assertEquals(
-                'Error in retrieving assume role credentials.',
-                $e->getErrorMessage()
             );
         }
     }

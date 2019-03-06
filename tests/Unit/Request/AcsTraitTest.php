@@ -6,7 +6,7 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\RpcRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
+use AlibabaCloud\Client\SDK;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -434,25 +434,6 @@ class AcsTraitTest extends TestCase
     }
 
     /**
-     * @expectedException \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage Can't resolve host for Cdn in us-west-no, You can specify host via the host() method
-     * @throws ClientException
-     */
-    public function testNotFoundHost()
-    {
-        // Setup
-        $regionId = 'us-west-no';
-        AlibabaCloud::accessKeyClient('foo', 'bar')
-                    ->name($regionId);
-        AlibabaCloud::setDefaultRegionId($regionId);
-
-        // Test
-        $request = new DescribeCdnServiceRequest();
-        $request->client($regionId);
-        $request->resolveUri();
-    }
-
-    /**
      * @throws ClientException
      */
     public function testFindDomainOnLocationService()
@@ -478,8 +459,8 @@ class AcsTraitTest extends TestCase
             self::assertContains(
                 $exception->getErrorCode(),
                 [
-                    \ALIBABA_CLOUD_SERVER_UNREACHABLE,
-                    \ALIBABA_CLOUD_INVALID_REGION_ID,
+                    SDK::SERVER_UNREACHABLE,
+                    SDK::INVALID_REGION_ID,
                 ]
             );
         }

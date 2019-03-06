@@ -7,11 +7,7 @@ use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Tests\Mock\Services\CCC\ListPhoneNumbersRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Dds\DescribeRegionsRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeAccessPointsRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Ram\ListAccessKeysRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Slb\DescribeRulesRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Vpc\DescribeVpcsRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -50,119 +46,56 @@ class BearerTokenCredentialTest extends TestCase
     }
 
     /**
-     * Assert for CCC
+     * @throws ClientException
      */
     public function testCCC()
     {
         try {
-            $request = (new ListPhoneNumbersRequest())->client($this->clientName)
-                                                      ->withInstanceId(\getenv('CC_INSTANCE_ID'))
-                                                      ->withOutboundOnly(true)
-                                                      ->scheme('https')
-                                                      ->host('ccc.cn-shanghai.aliyuncs.com');
-            $result  = $request->request();
-            self::assertArrayHasKey('PhoneNumbers', $result);
-        } catch (ClientException $e) {
-            $this->assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
+            (new ListPhoneNumbersRequest())
+                ->client($this->clientName)
+                ->withInstanceId(\getenv('CC_INSTANCE_ID'))
+                ->withOutboundOnly(true)
+                ->scheme('https')
+                ->host('ccc.cn-shanghai.aliyuncs.com')
+                ->options([
+                              'verify' => false,
+                          ])
+                ->connectTimeout(25)
+                ->timeout(30)
+                ->request();
         } catch (ServerException $e) {
-            self::assertContains(
-                $e->getErrorCode(),
-                [
-                    'InvalidBearerToken.Inactive',
-                    'NotExist.Instance',
-                ]
+            $result = $e->getResult();
+            self::assertEquals(
+                'InvalidBearerTokenException: Bearertoken has expired',
+                $result['Message']
             );
         }
     }
 
     /**
-     * Assert for Ecs
+     * @expectedException \AlibabaCloud\Client\Exception\ServerException
+     * @expectedExceptionMessageRegExp /UnsupportedSignatureType: This signature type is not supported./
+     * @throws ClientException
      */
     public function testEcs()
     {
-        try {
-            (new DescribeAccessPointsRequest())
-                ->client($this->clientName)
-                ->connectTimeout(10)
-                ->timeout(15)
-                ->request();
-        } catch (ClientException $e) {
-            self::assertEquals(
-                \ALIBABA_CLOUD_INVALID_REGION_ID,
-                $e->getErrorCode()
-            );
-        } catch (ServerException $e) {
-            $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
-        }
+        (new DescribeAccessPointsRequest())
+            ->client($this->clientName)
+            ->connectTimeout(20)
+            ->timeout(25)
+            ->request();
     }
 
     /**
-     * Assert for Dds
-     */
-    public function testDds()
-    {
-        try {
-            (new DescribeRegionsRequest())->client($this->clientName)->request();
-        } catch (ClientException $e) {
-            $this->assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
-        }
-    }
-
-    /**
-     * Assert for Cdn
+     * @expectedException \AlibabaCloud\Client\Exception\ServerException
+     * @expectedExceptionMessageRegExp /UnsupportedSignatureType: This signature type is not supported./
+     * @throws ClientException
      */
     public function testCdn()
     {
-        try {
-            (new DescribeCdnServiceRequest())->client($this->clientName)->request();
-        } catch (ClientException $e) {
-            $this->assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
-        }
-    }
-
-    /**
-     * Assert for Slb
-     */
-    public function testSlb()
-    {
-        try {
-            (new DescribeRulesRequest())->client($this->clientName)->request();
-        } catch (ClientException $e) {
-            $this->assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
-        }
-    }
-
-    /**
-     * Assert for Ram
-     */
-    public function testRam()
-    {
-        try {
-            (new ListAccessKeysRequest())->client($this->clientName)->request();
-        } catch (ClientException $e) {
-            $this->assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
-        }
-    }
-
-    /**
-     * Assert for Vpc
-     */
-    public function testVpc()
-    {
-        try {
-            (new DescribeVpcsRequest())->client($this->clientName)->request();
-        } catch (ClientException $e) {
-            $this->assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
-        } catch (ServerException $e) {
-            $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
-        }
+        (new DescribeCdnServiceRequest())->client($this->clientName)
+                                         ->connectTimeout(20)
+                                         ->timeout(25)
+                                         ->request();
     }
 }

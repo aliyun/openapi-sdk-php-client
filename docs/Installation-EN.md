@@ -1,7 +1,7 @@
 [← Home](../README.md) | Installation[(中文)](Installation-CN.md) | [Client →](Client-EN.md)
 ***
 
-## Installation
+# Installation
 1. Download and install Composer（Windows user please download and run [Composer-Setup.exe](https://getcomposer.org/Composer-Setup.exe))
 ```bash
 curl -sS https://getcomposer.org/installer | php

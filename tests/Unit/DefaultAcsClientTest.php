@@ -7,7 +7,9 @@ use AlibabaCloud\Client\DefaultAcsClient;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Profile\DefaultProfile;
+use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Result\Result;
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeRegionsRequest;
 use PHPUnit\Framework\TestCase;
 
@@ -189,7 +191,7 @@ class DefaultAcsClientTest extends TestCase
                 $e->getErrorMessage()
             );
         } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(SDK::SERVER_UNREACHABLE, $e->getErrorCode());
         }
     }
 
@@ -200,7 +202,7 @@ class DefaultAcsClientTest extends TestCase
     {
         try {
             $request = new DescribeRegionsRequest();
-            $request->timeout(\ALIBABA_CLOUD_TIMEOUT);
+            $request->timeout(Request::TIMEOUT);
             $request->connectTimeout(10);
             $request->product('BadProduct');
             $request->connectTimeout(20);
@@ -231,7 +233,7 @@ class DefaultAcsClientTest extends TestCase
             );
         } catch (ClientException $e) {
             // Assert
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(SDK::SERVER_UNREACHABLE, $e->getErrorCode());
         }
     }
 

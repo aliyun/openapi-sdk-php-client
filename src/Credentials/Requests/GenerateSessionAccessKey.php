@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Credentials\Requests;
 
+use AlibabaCloud\Client\Credentials\Providers\Provider;
 use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RpcRequest;
@@ -28,9 +29,10 @@ class GenerateSessionAccessKey extends RpcRequest
         $this->version('2015-04-01');
         $this->action('GenerateSessionAccessKey');
         $this->host('sts.ap-northeast-1.aliyuncs.com');
-        $this->options['query']['PublicKeyId']     = $credential->getPublicKeyId();
-        $this->options['query']['DurationSeconds'] = ALIBABA_CLOUD_STS_EXPIRE;
         $this->scheme('https');
         $this->regionId('cn-hangzhou');
+        $this->options['verify']                   = false;
+        $this->options['query']['PublicKeyId']     = $credential->getPublicKeyId();
+        $this->options['query']['DurationSeconds'] = Provider::DURATION_SECONDS;
     }
 }

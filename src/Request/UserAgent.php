@@ -28,19 +28,6 @@ class UserAgent
     ];
 
     /**
-     * UserAgent constructor.
-     */
-    private static function defaultFields()
-    {
-        if (self::$userAgent === []) {
-            self::$userAgent = [
-                'Client' => AlibabaCloud::VERSION,
-                'PHP'    => \PHP_VERSION,
-            ];
-        }
-    }
-
-    /**
      * @param array $append
      *
      * @return string
@@ -77,6 +64,19 @@ class UserAgent
     }
 
     /**
+     * UserAgent constructor.
+     */
+    private static function defaultFields()
+    {
+        if (self::$userAgent === []) {
+            self::$userAgent = [
+                'Client' => AlibabaCloud::VERSION,
+                'PHP'    => \PHP_VERSION,
+            ];
+        }
+    }
+
+    /**
      * @param array $append
      *
      * @return array
@@ -91,6 +91,16 @@ class UserAgent
         }
 
         return $append;
+    }
+
+    /**
+     * @param $name
+     *
+     * @return bool
+     */
+    public static function isGuarded($name)
+    {
+        return in_array(strtolower($name), self::$guard, true);
     }
 
     /**
@@ -127,15 +137,5 @@ class UserAgent
     public static function clear()
     {
         self::$userAgent = [];
-    }
-
-    /**
-     * @param $name
-     *
-     * @return bool
-     */
-    public static function isGuarded($name)
-    {
-        return in_array(strtolower($name), self::$guard, true);
     }
 }

@@ -64,8 +64,6 @@
             "AlibabaCloud\\Client\\": "src"
         },
         "files": [
-            "src/Constants/Business.php",
-            "src/Constants/ErrorCode.php",
             "src/Functions.php"
         ]
     },

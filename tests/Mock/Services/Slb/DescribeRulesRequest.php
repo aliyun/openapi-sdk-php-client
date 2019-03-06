@@ -14,6 +14,39 @@ class DescribeRulesRequest extends RpcRequest
 {
 
     /**
+     * @var
+     */
+    private $access_key_id;
+    /**
+     * @var
+     */
+    private $resourceOwnerId;
+    /**
+     * @var
+     */
+    private $listenerPort;
+    /**
+     * @var
+     */
+    private $loadBalancerId;
+    /**
+     * @var
+     */
+    private $resourceOwnerAccount;
+    /**
+     * @var
+     */
+    private $ownerAccount;
+    /**
+     * @var
+     */
+    private $ownerId;
+    /**
+     * @var
+     */
+    private $tags;
+
+    /**
      * DescribeRulesRequest constructor.
      *
      * @param array $options
@@ -31,46 +64,6 @@ class DescribeRulesRequest extends RpcRequest
         $this->endpointType = 'openAPI';
         $this->options($options);
     }
-
-    /**
-     * @var
-     */
-    private $access_key_id;
-
-    /**
-     * @var
-     */
-    private $resourceOwnerId;
-
-    /**
-     * @var
-     */
-    private $listenerPort;
-
-    /**
-     * @var
-     */
-    private $loadBalancerId;
-
-    /**
-     * @var
-     */
-    private $resourceOwnerAccount;
-
-    /**
-     * @var
-     */
-    private $ownerAccount;
-
-    /**
-     * @var
-     */
-    private $ownerId;
-
-    /**
-     * @var
-     */
-    private $tags;
 
     /**
      * @return mixed

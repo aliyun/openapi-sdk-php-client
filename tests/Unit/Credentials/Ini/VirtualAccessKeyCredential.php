@@ -36,22 +36,6 @@ class VirtualAccessKeyCredential
     }
 
     /**
-     * @return string Virtual Credential Filename
-     */
-    public function url()
-    {
-        $fileName = 'credentials';
-        if ($this->fileName) {
-            $fileName .= "-$this->fileName";
-        }
-
-        return vfsStream::newFile($fileName)
-                        ->withContent($this->content)
-                        ->at(vfsStream::setup('AlibabaCloud'))
-                        ->url();
-    }
-
-    /**
      * @param string $clineName
      *
      * @return string
@@ -79,6 +63,22 @@ proxy_no = .mit.edu,foo.com
 EOT;
 
         return (new static($content))->url();
+    }
+
+    /**
+     * @return string Virtual Credential Filename
+     */
+    public function url()
+    {
+        $fileName = 'credentials';
+        if ($this->fileName) {
+            $fileName .= "-$this->fileName";
+        }
+
+        return vfsStream::newFile($fileName)
+                        ->withContent($this->content)
+                        ->at(vfsStream::setup('AlibabaCloud'))
+                        ->url();
     }
 
     /**

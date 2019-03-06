@@ -15,6 +15,7 @@ use AlibabaCloud\Client\Credentials\Ini\IniCredential;
 use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Filter\ClientFilter;
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Signature\SignatureInterface;
 
 /**
@@ -30,28 +31,6 @@ trait ClientTrait
      * @var array Containers of Clients
      */
     protected static $clients = [];
-
-    /**
-     * Get the Client instance by name.
-     *
-     * @param string $clientName
-     *
-     * @return Client
-     * @throws ClientException
-     */
-    public static function get($clientName)
-    {
-        ClientFilter::clientName($clientName);
-
-        if (self::has($clientName)) {
-            return self::$clients[\strtolower($clientName)];
-        }
-
-        throw new ClientException(
-            "Client '$clientName' not found",
-            \ALIBABA_CLOUD_CLIENT_NOT_FOUND
-        );
-    }
 
     /**
      * @param string $clientName
@@ -124,6 +103,28 @@ trait ClientTrait
     public static function getDefaultClient()
     {
         return self::get(CredentialsProvider::getDefaultName());
+    }
+
+    /**
+     * Get the Client instance by name.
+     *
+     * @param string $clientName
+     *
+     * @return Client
+     * @throws ClientException
+     */
+    public static function get($clientName)
+    {
+        ClientFilter::clientName($clientName);
+
+        if (self::has($clientName)) {
+            return self::$clients[\strtolower($clientName)];
+        }
+
+        throw new ClientException(
+            "Client '$clientName' not found",
+            SDK::CLIENT_NOT_FOUND
+        );
     }
 
     /**

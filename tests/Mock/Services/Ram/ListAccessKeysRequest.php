@@ -14,6 +14,11 @@ class ListAccessKeysRequest extends RpcRequest
 {
 
     /**
+     * @var
+     */
+    private $userName;
+
+    /**
      * ListAccessKeysRequest constructor.
      *
      * @param array $options
@@ -30,11 +35,6 @@ class ListAccessKeysRequest extends RpcRequest
         $this->action('ListAccessKeys');
         $this->options($options);
     }
-
-    /**
-     * @var
-     */
-    private $userName;
 
     /**
      * @return mixed

@@ -9,6 +9,7 @@ use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Filter\ClientFilter;
 use AlibabaCloud\Client\Filter\HttpFilter;
 use AlibabaCloud\Client\Request\Request;
+use AlibabaCloud\Client\SDK;
 use Exception;
 
 /**
@@ -18,16 +19,20 @@ use Exception;
  */
 class LocationService
 {
-
     /**
-     * @var Request
+     * Global Region Name
      */
-    protected $request;
+    const GLOBAL_REGION = 'global';
 
     /**
      * @var array
      */
     protected static $hosts = [];
+
+    /**
+     * @var Request
+     */
+    protected $request;
 
     /**
      * LocationService constructor.
@@ -90,23 +95,21 @@ class LocationService
             return '';
         }
 
-        // @codeCoverageIgnoreStart
         if (!isset($result['Endpoints']['Endpoint'][0]['Endpoint'])) {
             throw new ClientException(
-                'Not found RegionId in ' . $domain,
-                \ALIBABA_CLOUD_INVALID_REGION_ID
+                'Not found Region ID in ' . $domain,
+                SDK::INVALID_REGION_ID
             );
         }
 
         if (!$result['Endpoints']['Endpoint'][0]['Endpoint']) {
             throw new ClientException(
-                'Invalid RegionId: ' . $result['Endpoints']['Endpoint'][0]['Endpoint'],
-                \ALIBABA_CLOUD_INVALID_REGION_ID
+                'Invalid Region ID in ' . $domain,
+                SDK::INVALID_REGION_ID
             );
         }
 
         return $result['Endpoints']['Endpoint'][0]['Endpoint'];
-        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -130,7 +133,7 @@ class LocationService
      *
      * @throws ClientException
      */
-    public static function addHost($product, $host, $regionId = \ALIBABA_CLOUD_GLOBAL_REGION)
+    public static function addHost($product, $host, $regionId = self::GLOBAL_REGION)
     {
         ApiFilter::product($product);
 

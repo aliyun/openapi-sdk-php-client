@@ -6,7 +6,11 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -50,6 +54,103 @@ class LocationServiceTest extends TestCase
 
         // Assert
         self::assertEquals(LocationService::resolveHost($request), $host);
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function testResolveHostWithServiceException()
+    {
+        $mock = new MockHandler([
+                                    new Response(500),
+                                ]);
+
+        \AlibabaCloud\Client\Request\Request::$config = ['handler' => HandlerStack::create($mock)];
+
+        $request = AlibabaCloud::rpc()->product(__METHOD__)->regionId('regionId');
+
+        $host = LocationService::resolveHost($request);
+        self::assertEquals('', $host);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Not found Region ID in location.aliyuncs.com
+     * @throws ClientException
+     */
+    public function testResolveHostNotFound()
+    {
+        $mock = new MockHandler([
+                                    new Response(200),
+                                ]);
+
+        \AlibabaCloud\Client\Request\Request::$config = ['handler' => HandlerStack::create($mock)];
+
+        $request = AlibabaCloud::rpc()->product(__METHOD__)->regionId('regionId');
+
+        LocationService::resolveHost($request);
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Invalid Region ID in location.aliyuncs.com
+     * @throws ClientException
+     */
+    public function testResolveHostInvalidRegionId()
+    {
+        $body = [
+            'Endpoints' => [
+                'Endpoint' => [
+                    0 => [
+                        'Endpoint' => '',
+                    ],
+                ],
+            ],
+        ];
+
+        $mock = new MockHandler([
+                                    new Response(200, [], json_encode($body)),
+                                ]);
+
+        \AlibabaCloud\Client\Request\Request::$config = ['handler' => HandlerStack::create($mock)];
+
+        $request = AlibabaCloud::rpc()->product(__METHOD__)->regionId('regionId');
+
+        LocationService::resolveHost($request);
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function testResolveHostSuccess()
+    {
+        $body = [
+            'Endpoints' => [
+                'Endpoint' => [
+                    0 => [
+                        'Endpoint' => 'cdn.aliyun.com',
+                    ],
+                ],
+            ],
+        ];
+
+        $mock = new MockHandler([
+                                    new Response(200, [], json_encode($body)),
+                                ]);
+
+        \AlibabaCloud\Client\Request\Request::$config = ['handler' => HandlerStack::create($mock)];
+
+        $request = AlibabaCloud::rpc()->product(__METHOD__)->regionId('regionId');
+
+        $host = LocationService::resolveHost($request);
+
+        self::assertEquals('cdn.aliyun.com', $host);
+    }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+        \AlibabaCloud\Client\Request\Request::$config = [];
     }
 
     /**
@@ -122,7 +223,7 @@ class LocationServiceTest extends TestCase
         try {
             LocationService::findProductDomain($request);
         } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(SDK::SERVER_UNREACHABLE, $e->getErrorCode());
         }
     }
 

@@ -16,6 +16,31 @@ class DeleteDatabaseRequest extends RpcRequest
 {
 
     /**
+     * @var
+     */
+    private $resourceOwnerId;
+    /**
+     * @var
+     */
+    private $dBName;
+    /**
+     * @var
+     */
+    private $resourceOwnerAccount;
+    /**
+     * @var
+     */
+    private $ownerAccount;
+    /**
+     * @var
+     */
+    private $dBInstanceId;
+    /**
+     * @var
+     */
+    private $ownerId;
+
+    /**
      * DeleteDatabaseRequest constructor.
      *
      * @param array $options
@@ -33,36 +58,6 @@ class DeleteDatabaseRequest extends RpcRequest
         $this->endpointType = 'openAPI';
         $this->options($options);
     }
-
-    /**
-     * @var
-     */
-    private $resourceOwnerId;
-
-    /**
-     * @var
-     */
-    private $dBName;
-
-    /**
-     * @var
-     */
-    private $resourceOwnerAccount;
-
-    /**
-     * @var
-     */
-    private $ownerAccount;
-
-    /**
-     * @var
-     */
-    private $dBInstanceId;
-
-    /**
-     * @var
-     */
-    private $ownerId;
 
     /**
      * @return mixed

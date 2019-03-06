@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Credentials\Ini;
 
 use AlibabaCloud\Client\Clients\Client;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\SDK;
 
 /**
  * Class IniCredential
@@ -42,17 +43,7 @@ class IniCredential
      */
     public function getDefaultFile()
     {
-        return self::getHomeDirectory() . '/.alibabacloud/credentials';
-    }
-
-    /**
-     * Get the credential file.
-     *
-     * @return string
-     */
-    public function getFilename()
-    {
-        return $this->filename;
+        return self::getHomeDirectory() . DIRECTORY_SEPARATOR . '.alibabacloud' . DIRECTORY_SEPARATOR . 'credentials';
     }
 
     /**
@@ -69,6 +60,26 @@ class IniCredential
         return (getenv('HOMEDRIVE') && getenv('HOMEPATH'))
             ? getenv('HOMEDRIVE') . getenv('HOMEPATH')
             : null;
+    }
+
+    /**
+     * Clear credential cache.
+     *
+     * @return void
+     */
+    public static function forgetLoadedCredentialsFile()
+    {
+        self::$hasLoaded = [];
+    }
+
+    /**
+     * Get the credential file.
+     *
+     * @return string
+     */
+    public function getFilename()
+    {
+        return $this->filename;
     }
 
     /**
@@ -92,18 +103,8 @@ class IniCredential
     {
         throw new ClientException(
             "Missing required '$key' option for '$clientName' in " . $this->getFilename(),
-            \ALIBABA_CLOUD_INVALID_CREDENTIAL
+            SDK::INVALID_CREDENTIAL
         );
-    }
-
-    /**
-     * Clear credential cache.
-     *
-     * @return void
-     */
-    public static function forgetLoadedCredentialsFile()
-    {
-        self::$hasLoaded = [];
     }
 
     /**
@@ -147,7 +148,7 @@ class IniCredential
             }
             throw new ClientException(
                 'Credential file is not readable: ' . $this->getFilename(),
-                \ALIBABA_CLOUD_INVALID_CREDENTIAL
+                SDK::INVALID_CREDENTIAL
             );
         }
 
@@ -169,12 +170,12 @@ class IniCredential
             }
             throw new ClientException(
                 'Format error: ' . $this->getFilename(),
-                \ALIBABA_CLOUD_INVALID_CREDENTIAL
+                SDK::INVALID_CREDENTIAL
             );
         } catch (\Exception $e) {
             throw new ClientException(
                 $e->getMessage(),
-                \ALIBABA_CLOUD_INVALID_CREDENTIAL,
+                SDK::INVALID_CREDENTIAL,
                 $e
             );
         }

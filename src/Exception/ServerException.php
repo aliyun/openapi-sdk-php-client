@@ -61,27 +61,6 @@ class ServerException extends AlibabaCloudException
     }
 
     /**
-     * Get standard exception message.
-     *
-     * @return string
-     */
-    private function getMessageString()
-    {
-        $message = "$this->errorCode: $this->errorMessage RequestId: $this->requestId";
-
-        if ($this->getResult()->getRequest()) {
-            $method  = $this->getResult()->getRequest()->method;
-            $uri     = (string)$this->getResult()->getRequest()->uri;
-            $message .= " $method \"$uri\"";
-            if ($this->result->getResponse()) {
-                $message .= ' ' . $this->result->getResponse()->getStatusCode();
-            }
-        }
-
-        return $message;
-    }
-
-    /**
      * @return void
      */
     private function settingProperties()
@@ -107,6 +86,35 @@ class ServerException extends AlibabaCloudException
     }
 
     /**
+     * Get standard exception message.
+     *
+     * @return string
+     */
+    private function getMessageString()
+    {
+        $message = "$this->errorCode: $this->errorMessage RequestId: $this->requestId";
+
+        if ($this->getResult()->getRequest()) {
+            $method  = $this->getResult()->getRequest()->method;
+            $uri     = (string)$this->getResult()->getRequest()->uri;
+            $message .= " $method \"$uri\"";
+            if ($this->result->getResponse()) {
+                $message .= ' ' . $this->result->getResponse()->getStatusCode();
+            }
+        }
+
+        return $message;
+    }
+
+    /**
+     * @return Result
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
      * @codeCoverageIgnore
      *
      * @return string
@@ -116,14 +124,6 @@ class ServerException extends AlibabaCloudException
     public function getErrorType()
     {
         return 'Server';
-    }
-
-    /**
-     * @return Result
-     */
-    public function getResult()
-    {
-        return $this->result;
     }
 
     /**

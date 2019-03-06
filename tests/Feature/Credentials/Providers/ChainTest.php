@@ -15,12 +15,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ChainTest extends TestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        AlibabaCloud::flush();
-    }
-
     /**
      * @expectedExceptionMessage Environment variable 'ALIBABA_CLOUD_ACCESS_KEY_ID' cannot be empty
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
@@ -154,5 +148,11 @@ class ChainTest extends TestCase
     public function testChainException()
     {
         CredentialsProvider::chain();
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        AlibabaCloud::flush();
     }
 }

@@ -30,7 +30,7 @@ class ShaHmac256WithRsaSignatureTest extends TestCase
         $string         = 'string';
         $privateKeyFile = VirtualRsaKeyPairCredential::privateKeyFileUrl();
         $expected       =
-            'hZUg7J/jQYnK8yog47uzzyRvYDsh1m+vpYBsXzjVNSaSE+9q4moiPve/oIfWcWsC0nvjdOpKRhM53YxoafPJJ6Ejga9es4Gclx/4ZRWMdujZbD5EVymd4QyP/d3x2ys6wYmy2jEKT/SDjiEww/A6IXkSdZsJKb0KLDEbN0+G69M=';
+            'gjWgwRf/BjOYbjrPleU9qzNrZXNO+Z9aiwxmbBj1TPF2/PEOjBy5/YSk+GfL2GGg5pkupzrKiG+4FQ4r+EjeQcdByRDv1x1eBrQHwAbieKmjLc1++vJWQQpSKJykMl5dRzADUwsXYzvCCvVCIXjYZJNsrdt/0G+gaRVX7oelAX+d1MiTjRam7Ugzxcr1nELz2dc3DOyhXqCw8loNtsFVNcrDC5B/urx4eYdAFWRYVbORdTTgPdOF/gNJOWPqQgvFQsICJpScwIXP2OntCjYj8EBGNafBK3bCe4jxHwtxBA72PmuJ/ZHxUqSstwbcVk5S40PlRIhqtrfn6ajxYk41SQ==';
 
         // Test
         $signature = new ShaHmac256WithRsaSignature();

@@ -14,6 +14,47 @@ class DescribeVpcsRequest extends RpcRequest
 {
 
     /**
+     * @var
+     */
+    private $vpcName;
+    /**
+     * @var
+     */
+    private $resourceGroupId;
+    /**
+     * @var
+     */
+    private $resourceOwnerId;
+    /**
+     * @var
+     */
+    private $resourceOwnerAccount;
+    /**
+     * @var
+     */
+    private $vpcId;
+    /**
+     * @var
+     */
+    private $ownerAccount;
+    /**
+     * @var
+     */
+    private $pageSize;
+    /**
+     * @var
+     */
+    private $isDefault;
+    /**
+     * @var
+     */
+    private $ownerId;
+    /**
+     * @var
+     */
+    private $pageNumber;
+
+    /**
      * DescribeVpcsRequest constructor.
      *
      * @param array $options
@@ -31,56 +72,6 @@ class DescribeVpcsRequest extends RpcRequest
         $this->endpointType = 'openAPI';
         $this->options($options);
     }
-
-    /**
-     * @var
-     */
-    private $vpcName;
-
-    /**
-     * @var
-     */
-    private $resourceGroupId;
-
-    /**
-     * @var
-     */
-    private $resourceOwnerId;
-
-    /**
-     * @var
-     */
-    private $resourceOwnerAccount;
-
-    /**
-     * @var
-     */
-    private $vpcId;
-
-    /**
-     * @var
-     */
-    private $ownerAccount;
-
-    /**
-     * @var
-     */
-    private $pageSize;
-
-    /**
-     * @var
-     */
-    private $isDefault;
-
-    /**
-     * @var
-     */
-    private $ownerId;
-
-    /**
-     * @var
-     */
-    private $pageNumber;
 
     /**
      * @return mixed

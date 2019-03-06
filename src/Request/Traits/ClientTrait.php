@@ -25,6 +25,22 @@ use AlibabaCloud\Client\Request\Request;
 trait ClientTrait
 {
     /**
+     * Return credentials directly if it is an AssumeRole or GenerateSessionAccessKey.
+     *
+     * @return AccessKeyCredential|BearerTokenCredential|CredentialsInterface|StsCredential
+     * @throws ClientException
+     * @throws ServerException
+     */
+    public function credential()
+    {
+        if ($this instanceof AssumeRole || $this instanceof GenerateSessionAccessKey) {
+            return $this->httpClient()->getCredential();
+        }
+
+        return $this->httpClient()->getSessionCredential();
+    }
+
+    /**
      * Get the client based on the request's settings.
      *
      * @return Client
@@ -41,22 +57,6 @@ trait ClientTrait
         }
 
         return AlibabaCloud::get($this->client);
-    }
-
-    /**
-     * Return credentials directly if it is an AssumeRole or GenerateSessionAccessKey.
-     *
-     * @return AccessKeyCredential|BearerTokenCredential|CredentialsInterface|StsCredential
-     * @throws ClientException
-     * @throws ServerException
-     */
-    public function credential()
-    {
-        if ($this instanceof AssumeRole || $this instanceof GenerateSessionAccessKey) {
-            return $this->httpClient()->getCredential();
-        }
-
-        return $this->httpClient()->getSessionCredential();
     }
 
     /**

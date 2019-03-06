@@ -1,7 +1,7 @@
 [← 请求](Request-CN.md) | 结果[(English)](Result-EN.md) | [区域 →](Region-CN.md)
 ***
 
-## 结果
+# 结果
 返回的结果不只是字段，而是个实现了 `ArrayAccess`、 `IteratorAggregate`、 `Countable`、 `JmesPath` 等特性的对象。
 
 ```php

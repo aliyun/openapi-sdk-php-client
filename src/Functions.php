@@ -285,7 +285,7 @@ function envNotEmpty($key)
     if ($value !== false && !$value) {
         throw new ClientException(
             "Environment variable '$key' cannot be empty",
-            \ALIBABA_CLOUD_INVALID_ARGUMENT
+            SDK::INVALID_ARGUMENT
         );
     }
     if ($value) {

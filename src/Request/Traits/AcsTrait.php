@@ -7,6 +7,7 @@ use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Request\Request;
+use AlibabaCloud\Client\SDK;
 
 /**
  * Trait AcsTrait
@@ -118,27 +119,6 @@ trait AcsTrait
     }
 
     /**
-     * @return string
-     * @throws ClientException
-     */
-    public function realRegionId()
-    {
-        if ($this->regionId !== null) {
-            return $this->regionId;
-        }
-
-        if ($this->httpClient()->regionId !== null) {
-            return $this->httpClient()->regionId;
-        }
-
-        if (AlibabaCloud::getDefaultRegionId() !== null) {
-            return AlibabaCloud::getDefaultRegionId();
-        }
-
-        throw new ClientException("Missing required 'RegionId' for Request", \ALIBABA_CLOUD_INVALID_REGION_ID);
-    }
-
-    /**
      * Resolve Uri.
      *
      * @throws ClientException
@@ -161,11 +141,32 @@ trait AcsTrait
                     "Can't resolve host for {$this->product} in "
                     . $this->realRegionId()
                     . ', You can specify host via the host() method.',
-                    \ALIBABA_CLOUD_INVALID_REGION_ID
+                    SDK::INVALID_REGION_ID
                 );
             }
 
             $this->uri = $this->uri->withHost($host);
         }
+    }
+
+    /**
+     * @return string
+     * @throws ClientException
+     */
+    public function realRegionId()
+    {
+        if ($this->regionId !== null) {
+            return $this->regionId;
+        }
+
+        if ($this->httpClient()->regionId !== null) {
+            return $this->httpClient()->regionId;
+        }
+
+        if (AlibabaCloud::getDefaultRegionId() !== null) {
+            return AlibabaCloud::getDefaultRegionId();
+        }
+
+        throw new ClientException("Missing required 'RegionId' for Request", SDK::INVALID_REGION_ID);
     }
 }

@@ -6,6 +6,7 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualAccessKeyCredential;
 use PHPUnit\Framework\TestCase;
 
@@ -16,13 +17,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ChainProviderRequestTest extends TestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        AlibabaCloud::flush();
-        CredentialsProvider::flush();
-    }
-
     /**
      * @throws ClientException
      * @throws ServerException
@@ -65,7 +59,7 @@ EOT;
                         ->debug(true)
                         ->request();
         } catch (ClientException $e) {
-            self::assertEquals(\ALIBABA_CLOUD_SERVER_UNREACHABLE, $e->getErrorCode());
+            self::assertEquals(SDK::SERVER_UNREACHABLE, $e->getErrorCode());
         }
     }
 
@@ -131,5 +125,12 @@ EOT;
                               ->request();
 
         self::assertNotEmpty('PayByTraffic', $result['ChangingChargeType']);
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        AlibabaCloud::flush();
+        CredentialsProvider::flush();
     }
 }

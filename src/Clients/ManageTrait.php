@@ -3,7 +3,6 @@
 namespace AlibabaCloud\Client\Clients;
 
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
 use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
@@ -16,6 +15,7 @@ use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Filter\Filter;
+use AlibabaCloud\Client\Request\Request;
 
 /**
  * Trait ManageTrait.
@@ -27,12 +27,12 @@ trait ManageTrait
     /**
      * @param int $timeout
      *
-     * @return AccessKeyCredential|CredentialsInterface|StsCredential
+     * @return CredentialsInterface|StsCredential
      *
      * @throws ClientException
      * @throws ServerException
      */
-    public function getSessionCredential($timeout = \ALIBABA_CLOUD_TIMEOUT)
+    public function getSessionCredential($timeout = Request::TIMEOUT)
     {
         switch (\get_class($this->credential)) {
             case EcsRamRoleCredential::class:
@@ -44,21 +44,6 @@ trait ManageTrait
             default:
                 return $this->credential;
         }
-    }
-
-    /**
-     * Naming clients.
-     *
-     * @param string $name
-     *
-     * @return static
-     * @throws ClientException
-     */
-    public function name($name)
-    {
-        Filter::name($name);
-
-        return AlibabaCloud::set($name, $this);
     }
 
     /**
@@ -83,6 +68,21 @@ trait ManageTrait
     public function asDefaultClient()
     {
         return $this->name(CredentialsProvider::getDefaultName());
+    }
+
+    /**
+     * Naming clients.
+     *
+     * @param string $name
+     *
+     * @return static
+     * @throws ClientException
+     */
+    public function name($name)
+    {
+        Filter::name($name);
+
+        return AlibabaCloud::set($name, $this);
     }
 
     /**

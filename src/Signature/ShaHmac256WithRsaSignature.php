@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Signature;
 
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\SDK;
 use Exception;
 
 /**
@@ -12,6 +13,30 @@ use Exception;
  */
 class ShaHmac256WithRsaSignature implements SignatureInterface
 {
+
+    /**
+     * @return string
+     */
+    public function getMethod()
+    {
+        return 'SHA256withRSA';
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return 'PRIVATEKEY';
+    }
+
+    /**
+     * @return string
+     */
+    public function getVersion()
+    {
+        return '1.0';
+    }
 
     /**
      * @param string $string
@@ -33,34 +58,10 @@ class ShaHmac256WithRsaSignature implements SignatureInterface
         } catch (Exception $exception) {
             throw  new ClientException(
                 $exception->getMessage(),
-                \ALIBABA_CLOUD_INVALID_CREDENTIAL
+                SDK::INVALID_CREDENTIAL
             );
         }
 
         return base64_encode($binarySignature);
-    }
-
-    /**
-     * @return string
-     */
-    public function getMethod()
-    {
-        return 'SHA256withRSA';
-    }
-
-    /**
-     * @return string
-     */
-    public function getVersion()
-    {
-        return '1.0';
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return 'PRIVATEKEY';
     }
 }

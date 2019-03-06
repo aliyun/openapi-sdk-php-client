@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Request;
 
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
+use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 
@@ -19,6 +20,30 @@ class RpcRequest extends Request
      * @var string
      */
     private $dateTimeFormat = 'Y-m-d\TH:i:s\Z';
+
+    /**
+     * Resolve request parameter.
+     *
+     * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
+     *
+     * @throws ClientException
+     */
+    public function resolveParameters($credential)
+    {
+        $this->resolveQuery($credential);
+
+        $this->options['query']['Signature'] = $this->signature(
+            $this->options['query'],
+            $credential->getAccessKeySecret()
+        );
+
+        if ($this->method === 'POST') {
+            foreach ($this->options['query'] as $apiParamKey => $apiParamValue) {
+                $this->options['form_params'][$apiParamKey] = $apiParamValue;
+            }
+            unset($this->options['query']);
+        }
+    }
 
     /**
      * Resolve request query.
@@ -47,36 +72,8 @@ class RpcRequest extends Request
         $this->options['query']['Timestamp']      = gmdate($this->dateTimeFormat);
         $this->options['query']['Action']         = $this->action;
         $this->options['query']['Version']        = $this->version;
-        if ($credential instanceof StsCredential) {
-            $this->options['query']['SecurityToken'] = $credential->getSecurityToken();
-        }
-        if ($credential instanceof BearerTokenCredential) {
-            $this->options['query']['BearerToken'] = $credential->getBearerToken();
-        }
-    }
-
-    /**
-     * Resolve request parameter.
-     *
-     * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
-     *
-     * @throws ClientException
-     */
-    public function resolveParameters($credential)
-    {
-        $this->resolveQuery($credential);
-
-        $this->options['query']['Signature'] = $this->signature(
-            $this->options['query'],
-            $credential->getAccessKeySecret()
-        );
-
-        if ($this->method === 'POST') {
-            foreach ($this->options['query'] as $apiParamKey => $apiParamValue) {
-                $this->options['form_params'][$apiParamKey] = $apiParamValue;
-            }
-            unset($this->options['query']);
-        }
+        $this->resolveSecurityToken($credential);
+        $this->resolveBearerToken($credential);
     }
 
     /**
@@ -97,6 +94,26 @@ class RpcRequest extends Request
         }
 
         return $value;
+    }
+
+    /**
+     * @param CredentialsInterface $credential
+     */
+    private function resolveSecurityToken(CredentialsInterface $credential)
+    {
+        if ($credential instanceof StsCredential && $credential->getSecurityToken()) {
+            $this->options['query']['SecurityToken'] = $credential->getSecurityToken();
+        }
+    }
+
+    /**
+     * @param CredentialsInterface $credential
+     */
+    private function resolveBearerToken(CredentialsInterface $credential)
+    {
+        if ($credential instanceof BearerTokenCredential) {
+            $this->options['query']['BearerToken'] = $credential->getBearerToken();
+        }
     }
 
     /**

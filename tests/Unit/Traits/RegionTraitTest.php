@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @package   AlibabaCloud\Client\Tests\Unit\Client\Traits
  *
- * @coversDefaultClass \AlibabaCloud\Client\Traits\RegionTrait
+ * @coversDefaultClass \AlibabaCloud\Client\Traits\DefaultRegionTrait
  */
 class RegionTraitTest extends TestCase
 {

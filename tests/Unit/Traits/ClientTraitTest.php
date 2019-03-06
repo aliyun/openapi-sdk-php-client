@@ -10,6 +10,7 @@ use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
 use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualAccessKeyCredential;
@@ -53,6 +54,17 @@ class ClientTraitTest extends TestCase
      * @var string
      */
     private static $bearerToken;
+
+    /**
+     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Client 'default' not found
+     * @throws                   ClientException
+     */
+    public static function testGetDefaultClient()
+    {
+        AlibabaCloud::flush();
+        AlibabaCloud::getDefaultClient();
+    }
 
     public function setUp()
     {
@@ -415,7 +427,7 @@ class ClientTraitTest extends TestCase
         try {
             AlibabaCloud::get('None')->getCredential()->getAccessKeyId();
         } catch (ClientException $e) {
-            $this->assertEquals(\ALIBABA_CLOUD_CLIENT_NOT_FOUND, $e->getErrorCode());
+            $this->assertEquals(SDK::CLIENT_NOT_FOUND, $e->getErrorCode());
         }
     }
 
@@ -429,17 +441,6 @@ class ClientTraitTest extends TestCase
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name('client1');
         AlibabaCloud::get('client1')->debug(true);
         self::assertTrue(AlibabaCloud::get('client1')->isDebug());
-    }
-
-    /**
-     * @expectedException        \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage Client 'default' not found
-     * @throws                   ClientException
-     */
-    public static function testGetDefaultClient()
-    {
-        AlibabaCloud::flush();
-        AlibabaCloud::getDefaultClient();
     }
 
     /**
