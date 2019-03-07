@@ -7,10 +7,10 @@ use AlibabaCloud\Client\DefaultAcsClient;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Profile\DefaultProfile;
-use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Result\Result;
 use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeRegionsRequest;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -196,34 +196,15 @@ class DefaultAcsClientTest extends TestCase
     }
 
     /**
-     * @throws ServerException
+     * @throws ClientException
      */
-    public function testBadProduct()
-    {
-        try {
-            $request = new DescribeRegionsRequest();
-            $request->timeout(Request::TIMEOUT);
-            $request->connectTimeout(10);
-            $request->product('BadProduct');
-            $request->connectTimeout(20);
-            $request->timeout(25);
-            $response = self::$client->getAcsResponse($request);
-            $this->assertNotNull($response);
-        } catch (ClientException $e) {
-            $expected = [
-                'The specified parameter "Action or Version" is not valid.',
-                'Can\'t resolve host for BadProduct in cn-hangzhou, You can specify host via the host() method.',
-            ];
-
-            $this->assertContains($e->getErrorMessage(), $expected);
-        }
-    }
-
     public function testBadVersion()
     {
         try {
             $request = new DescribeRegionsRequest();
             $request->version('BadVersion');
+            $request->connectTimeout(25);
+            $request->timeout(30);
             $response = self::$client->getAcsResponse($request);
             $this->assertNotNull($response);
         } catch (ServerException $e) {
@@ -231,9 +212,6 @@ class DefaultAcsClientTest extends TestCase
                 'Specified parameter Version is not valid.',
                 $e->getErrorMessage()
             );
-        } catch (ClientException $e) {
-            // Assert
-            self::assertEquals(SDK::SERVER_UNREACHABLE, $e->getErrorCode());
         }
     }
 
@@ -250,7 +228,7 @@ class DefaultAcsClientTest extends TestCase
                     ->regionId('cn-hangzhou')
                     ->asDefaultClient();
 
-        $result = self::$client->getAcsResponse(new Result(new \GuzzleHttp\Psr7\Response));
+        $result = self::$client->getAcsResponse(new Result(new Response));
 
         self::assertInstanceOf(Result::class, $result);
     }

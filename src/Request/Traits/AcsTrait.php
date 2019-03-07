@@ -122,6 +122,7 @@ trait AcsTrait
      * Resolve Uri.
      *
      * @throws ClientException
+     * @throws \AlibabaCloud\Client\Exception\ServerException
      */
     public function resolveUri()
     {

@@ -50,18 +50,6 @@ class ServerException extends AlibabaCloudException
     }
 
     /**
-     * If the string to be signed are the same with server's, it is considered a credential error.
-     */
-    private function distinguishSignatureErrors()
-    {
-        if ($this->result->getRequest()
-            && Stringy::create($this->errorMessage)->contains($this->result->getRequest()->stringToBeSigned())) {
-            $this->errorCode    = 'InvalidAccessKeySecret';
-            $this->errorMessage = 'Specified Access Key Secret is not valid.';
-        }
-    }
-
-    /**
      * Resolve the error message based on the return of the server.
      *
      * @return void
@@ -85,6 +73,18 @@ class ServerException extends AlibabaCloudException
         }
         if (isset($this->result['RequestId'])) {
             $this->requestId = $this->result['RequestId'];
+        }
+    }
+
+    /**
+     * If the string to be signed are the same with server's, it is considered a credential error.
+     */
+    private function distinguishSignatureErrors()
+    {
+        if ($this->result->getRequest()
+            && Stringy::create($this->errorMessage)->contains($this->result->getRequest()->stringToBeSigned())) {
+            $this->errorCode    = 'InvalidAccessKeySecret';
+            $this->errorMessage = 'Specified Access Key Secret is not valid.';
         }
     }
 

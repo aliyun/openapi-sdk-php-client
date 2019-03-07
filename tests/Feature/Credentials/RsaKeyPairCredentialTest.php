@@ -52,7 +52,8 @@ class RsaKeyPairCredentialTest extends TestCase
      */
     public function testGetSessionCredential()
     {
-        $credential = AlibabaCloud::get($this->clientName)->getSessionCredential();
+        $credential = AlibabaCloud::get($this->clientName)
+                                  ->getSessionCredential(30, 25);
         self::assertInstanceOf(StsCredential::class, $credential);
     }
 

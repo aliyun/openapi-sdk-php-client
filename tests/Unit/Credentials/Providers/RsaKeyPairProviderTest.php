@@ -9,11 +9,8 @@ use AlibabaCloud\Client\Credentials\Providers\RsaKeyPairProvider;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Request\Request;
+use AlibabaCloud\Client\Tests\Mock\Mock;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -89,11 +86,7 @@ class RsaKeyPairProviderTest extends TestCase
      */
     public function testNoCredentials()
     {
-        $mock = new MockHandler([
-                                    new Response(200),
-                                ]);
-
-        Request::$config = ['handler' => HandlerStack::create($mock)];
+        AlibabaCloud::mockResponse();
 
         $client = AlibabaCloud::rsaKeyPairClient(
             'publicKeyId',
@@ -110,18 +103,18 @@ class RsaKeyPairProviderTest extends TestCase
      */
     public function testSuccess()
     {
-        $mock = new MockHandler([
-                                    new Response(200, [], '{
+        AlibabaCloud::mockResponse(
+            200,
+            [],
+            '{
     "RequestId": "F702286E-F231-4F40-BB86-XXXXXX",
     "SessionAccessKey": {
         "SessionAccessKeyId": "TMPSK.**************",
         "Expiration": "2019-02-19T07:02:36.225Z",
         "SessionAccessKeySecret": "**************"
     }
-}'),
-                                ]);
-
-        Request::$config = ['handler' => HandlerStack::create($mock)];
+}'
+        );
 
         $client = AlibabaCloud::rsaKeyPairClient(
             \AlibabaCloud\Client\env('PUBLIC_KEY_ID'),
@@ -130,18 +123,19 @@ class RsaKeyPairProviderTest extends TestCase
 
         $provider   = new RsaKeyPairProvider($client);
         $credential = $provider->get();
+
         self::assertInstanceOf(StsCredential::class, $credential);
     }
 
     protected function setUp()
     {
         parent::setUp();
-        Request::$config = [];
+        AlibabaCloud::clearMockQueue();
     }
 
     protected function tearDown()
     {
         parent::tearDown();
-        Request::$config = [];
+        AlibabaCloud::clearMockQueue();
     }
 }

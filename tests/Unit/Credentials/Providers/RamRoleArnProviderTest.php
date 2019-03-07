@@ -8,11 +8,7 @@ use AlibabaCloud\Client\Credentials\Providers\RamRoleArnProvider;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\SDK;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use ReflectionException;
 
@@ -94,11 +90,7 @@ class RamRoleArnProviderTest extends TestCase
      */
     public function testNoCredentials()
     {
-        $mock = new MockHandler([
-                                    new Response(200),
-                                ]);
-
-        Request::$config = ['handler' => HandlerStack::create($mock)];
+        AlibabaCloud::mockResponse();
 
         $client = AlibabaCloud::ramRoleArnClient('id', 'secret', 'arn', 'session');
 
@@ -112,8 +104,10 @@ class RamRoleArnProviderTest extends TestCase
      */
     public function testOk()
     {
-        $mock = new MockHandler([
-                                    new Response(200, [], '{
+        AlibabaCloud::mockResponse(
+            200,
+            [],
+            '{
     "RequestId": "88FEA385-EF5D-4A8A-8C00-A07DAE3BFD44",
     "AssumedRoleUser": {
         "AssumedRoleId": "********************",
@@ -125,10 +119,8 @@ class RamRoleArnProviderTest extends TestCase
         "Expiration": "2020-02-25T03:56:19Z",
         "SecurityToken": "**************"
     }
-}'),
-                                ]);
-
-        Request::$config = ['handler' => HandlerStack::create($mock)];
+}'
+        );
 
         $client = AlibabaCloud::ramRoleArnClient('id', 'secret', 'arn', 'session');
 
@@ -140,6 +132,6 @@ class RamRoleArnProviderTest extends TestCase
     protected function tearDown()
     {
         parent::tearDown();
-        Request::$config = [];
+        AlibabaCloud::clearMockQueue();
     }
 }

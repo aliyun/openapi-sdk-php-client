@@ -70,8 +70,8 @@ class LocationService
     public static function resolveHost(Request $request, $domain = 'location.aliyuncs.com')
     {
         $locationService = new static($request);
-        $product  = $locationService->request->product;
-        $regionId = $locationService->request->realRegionId();
+        $product         = $locationService->request->product;
+        $regionId        = $locationService->request->realRegionId();
 
         if (!isset(self::$hosts[$product][$regionId])) {
             self::$hosts[$product][$regionId] = self::getResult($locationService, $domain);
@@ -97,13 +97,6 @@ class LocationService
         if (!isset($result['Endpoints']['Endpoint'][0]['Endpoint'])) {
             throw new ClientException(
                 'Not found Region ID in ' . $domain,
-                SDK::INVALID_REGION_ID
-            );
-        }
-
-        if (!$result['Endpoints']['Endpoint'][0]['Endpoint']) {
-            throw new ClientException(
-                'Invalid Region ID in ' . $domain,
                 SDK::INVALID_REGION_ID
             );
         }
