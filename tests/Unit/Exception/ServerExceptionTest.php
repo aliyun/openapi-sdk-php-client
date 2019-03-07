@@ -20,8 +20,8 @@ class ServerExceptionTest extends TestCase
     {
 
         // Setup
-        $errorMessage = 'message';
-        $errorCode    = 'code';
+        $errorMessage = 'errorMsg';
+        $errorCode    = 'errorCode';
         $body         = \json_encode(
             [
                 'message'   => 'message',

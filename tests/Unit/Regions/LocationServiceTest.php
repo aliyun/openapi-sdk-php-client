@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Tests\Unit\Regions;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
@@ -21,6 +22,7 @@ class LocationServiceTest extends TestCase
 {
     /**
      * @throws ClientException
+     * @throws ServerException
      */
     public function testAddEndPoint()
     {
@@ -39,6 +41,7 @@ class LocationServiceTest extends TestCase
 
     /**
      * @throws ClientException
+     * @throws ServerException
      */
     public function testAddHost()
     {
@@ -57,8 +60,11 @@ class LocationServiceTest extends TestCase
 
     /**
      * @throws ClientException
+     * @throws ServerException
+     * @expectedException \AlibabaCloud\Client\Exception\ServerException
+     * @expectedExceptionMessageRegExp /SDK.UnknownError: The response is empty/
      */
-    public function testResolveHostWithServiceException()
+    public function testResolveHostWithServiceUnknownError()
     {
         $mock = new MockHandler([
                                     new Response(500),
@@ -76,6 +82,7 @@ class LocationServiceTest extends TestCase
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Not found Region ID in location.aliyuncs.com
      * @throws ClientException
+     * @throws ServerException
      */
     public function testResolveHostNotFound()
     {
@@ -94,6 +101,7 @@ class LocationServiceTest extends TestCase
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Invalid Region ID in location.aliyuncs.com
      * @throws ClientException
+     * @throws ServerException
      */
     public function testResolveHostInvalidRegionId()
     {
@@ -120,6 +128,7 @@ class LocationServiceTest extends TestCase
 
     /**
      * @throws ClientException
+     * @throws ServerException
      */
     public function testResolveHostSuccess()
     {
@@ -207,9 +216,12 @@ class LocationServiceTest extends TestCase
     }
 
     /**
+     * @expectedException \AlibabaCloud\Client\Exception\ServerException
+     * @expectedExceptionMessageRegExp /InvalidAccessKeyId.NotFound: Specified access key is not found/
      * @throws ClientException
+     * @throws ServerException
      */
-    public function testLocationServiceWithBadAK()
+    public function testLocationServiceException()
     {
         AlibabaCloud::accessKeyClient('key', 'secret')->asDefaultClient();
         $request = (new DeleteDatabaseRequest())->regionId('cn-hangzhou');
@@ -222,6 +234,7 @@ class LocationServiceTest extends TestCase
 
     /**
      * @throws ClientException
+     * @throws ServerException
      */
     public function testLocationServiceWithBadServiceDomain()
     {

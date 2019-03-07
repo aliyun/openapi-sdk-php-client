@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Tests\Unit\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Regions\EndpointProvider;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Request\RpcRequest;
@@ -166,6 +167,7 @@ class EndpointTraitTest extends TestCase
      * @param array  $expectedHost
      *
      * @throws ClientException
+     * @throws ServerException
      */
     public function testLocationServiceResolveHost($productName, $serviceCode, array $expectedHost)
     {
@@ -177,18 +179,39 @@ class EndpointTraitTest extends TestCase
                     ->asDefaultClient();
 
         // Test
-        $request              = new RpcRequest();
+        $request = new RpcRequest();
+        $request->connectTimeout(25)->timeout(30);
         $request->product     = $productName;
         $request->serviceCode = $serviceCode;
 
         // Assert
-        try {
-            $host = LocationService::resolveHost($request);
-            self::assertContains($host, $expectedHost);
-        } catch (ClientException $e) {
-            // Ignore client errors.
-            self::assertNotEmpty($e->getErrorMessage());
-        }
+        $host = LocationService::resolveHost($request);
+        self::assertContains($host, $expectedHost);
+    }
+
+    /**
+     * @throws ClientException
+     * @throws ServerException
+     * @expectedException \AlibabaCloud\Client\Exception\ServerException
+     * @expectedExceptionMessageRegExp  /Illegal Parameter: Please check the parameters RequestId:/
+     */
+    public function testLocationServiceResolveHostWithException()
+    {
+        // Setup
+        $accessKeyId     = \getenv('ACCESS_KEY_ID');
+        $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
+        AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
+                    ->regionId('cn-hangzhou')
+                    ->asDefaultClient();
+
+        // Test
+        $request = new RpcRequest();
+        $request->connectTimeout(25)->timeout(30);
+        $request->product     = 'Dysmsapi';
+        $request->serviceCode = 'dysmsapi';
+
+        // Assert
+        LocationService::resolveHost($request);
     }
 
     /**
@@ -202,13 +225,6 @@ class EndpointTraitTest extends TestCase
                 'slb',
                 [
                     'slb.aliyuncs.com',
-                    '',
-                ],
-            ],
-            [
-                'Dysmsapi',
-                'dysmsapi',
-                [
                     '',
                 ],
             ],
