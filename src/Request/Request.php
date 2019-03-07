@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Request;
 
+use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
@@ -52,11 +53,6 @@ abstract class Request implements \ArrayAccess
     const TIMEOUT = 15;
 
     /**
-     * @var array
-     */
-    public static $config = [];
-
-    /**
      * @var string
      */
     public $scheme = 'http';
@@ -80,11 +76,6 @@ abstract class Request implements \ArrayAccess
      * @var Uri
      */
     public $uri;
-
-    /**
-     * @var Client
-     */
-    public $guzzle;
 
     /**
      * @var array The original parameters of the request.
@@ -113,7 +104,6 @@ abstract class Request implements \ArrayAccess
         $this->client                     = CredentialsProvider::getDefaultName();
         $this->uri                        = new Uri();
         $this->uri                        = $this->uri->withScheme($this->scheme);
-        $this->guzzle                     = new Client(self::$config);
         $this->options['http_errors']     = false;
         $this->options['connect_timeout'] = self::CONNECT_TIMEOUT;
         $this->options['timeout']         = self::TIMEOUT;
@@ -380,8 +370,16 @@ abstract class Request implements \ArrayAccess
      */
     private function response()
     {
+        $config = [];
+        if (AlibabaCloud::hasMockQueue()) {
+            $config['handler'] = AlibabaCloud::getMockQueue();
+            $client            = new Client($config);
+        } else {
+            $client = new Client();
+        }
+
         try {
-            return $this->guzzle->request(
+            return $client->request(
                 $this->method,
                 (string)$this->uri,
                 $this->options

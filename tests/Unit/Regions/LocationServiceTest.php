@@ -8,9 +8,6 @@ use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -61,18 +58,14 @@ class LocationServiceTest extends TestCase
     /**
      * @throws ClientException
      * @throws ServerException
-     * @expectedException \AlibabaCloud\Client\Exception\ServerException
-     * @expectedExceptionMessageRegExp /SDK.UnknownError: The response is empty/
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessageRegExp /Not found Region ID in location.aliyuncs.com/
      */
     public function testResolveHostWithServiceUnknownError()
     {
-        $mock = new MockHandler([
-                                    new Response(500),
-                                ]);
-
-        \AlibabaCloud\Client\Request\Request::$config = ['handler' => HandlerStack::create($mock)];
-
-        $request = AlibabaCloud::rpc()->product(__METHOD__)->regionId('regionId');
+        AlibabaCloud::mockResponse();
+        $request = AlibabaCloud::rpc()->product(__METHOD__)
+                               ->regionId('regionId');
 
         $host = LocationService::resolveHost($request);
         self::assertEquals('', $host);
@@ -86,40 +79,7 @@ class LocationServiceTest extends TestCase
      */
     public function testResolveHostNotFound()
     {
-        $mock = new MockHandler([
-                                    new Response(200),
-                                ]);
-
-        \AlibabaCloud\Client\Request\Request::$config = ['handler' => HandlerStack::create($mock)];
-
-        $request = AlibabaCloud::rpc()->product(__METHOD__)->regionId('regionId');
-
-        LocationService::resolveHost($request);
-    }
-
-    /**
-     * @expectedException \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage Invalid Region ID in location.aliyuncs.com
-     * @throws ClientException
-     * @throws ServerException
-     */
-    public function testResolveHostInvalidRegionId()
-    {
-        $body = [
-            'Endpoints' => [
-                'Endpoint' => [
-                    0 => [
-                        'Endpoint' => '',
-                    ],
-                ],
-            ],
-        ];
-
-        $mock = new MockHandler([
-                                    new Response(200, [], json_encode($body)),
-                                ]);
-
-        \AlibabaCloud\Client\Request\Request::$config = ['handler' => HandlerStack::create($mock)];
+        AlibabaCloud::mockResponse();
 
         $request = AlibabaCloud::rpc()->product(__METHOD__)->regionId('regionId');
 
@@ -142,11 +102,7 @@ class LocationServiceTest extends TestCase
             ],
         ];
 
-        $mock = new MockHandler([
-                                    new Response(200, [], json_encode($body)),
-                                ]);
-
-        \AlibabaCloud\Client\Request\Request::$config = ['handler' => HandlerStack::create($mock)];
+        AlibabaCloud::mockResponse(200, [], $body);
 
         $request = AlibabaCloud::rpc()->product(__METHOD__)->regionId('regionId');
 
@@ -224,7 +180,10 @@ class LocationServiceTest extends TestCase
     public function testLocationServiceException()
     {
         AlibabaCloud::accessKeyClient('key', 'secret')->asDefaultClient();
-        $request = (new DeleteDatabaseRequest())->regionId('cn-hangzhou');
+        $request = (new DeleteDatabaseRequest())
+            ->regionId('cn-hangzhou')
+            ->connectTimeout(25)
+            ->timeout(30);
         try {
             LocationService::findProductDomain($request);
         } catch (ClientException $e) {
@@ -253,6 +212,6 @@ class LocationServiceTest extends TestCase
     protected function tearDown()
     {
         parent::tearDown();
-        \AlibabaCloud\Client\Request\Request::$config = [];
+        AlibabaCloud::clearMockQueue();
     }
 }

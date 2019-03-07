@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Credentials\Providers;
 
+use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
@@ -21,15 +22,13 @@ use Stringy\Stringy;
 class EcsRamRoleProvider extends Provider
 {
     /**
-     * @var array
-     */
-    public static $config = [];
-    /**
      * Expiration time slot for temporary security credentials.
      *
      * @var int
      */
+
     protected $expirationSlot = 10;
+
     /**
      * @var string
      */
@@ -108,8 +107,16 @@ class EcsRamRoleProvider extends Provider
             'debug'           => $this->client->isDebug(),
         ];
 
+        $config = [];
+        if (AlibabaCloud::hasMockQueue()) {
+            $config['handler'] = AlibabaCloud::getMockQueue();
+            $client            = new Client($config);
+        } else {
+            $client = new Client();
+        }
+
         try {
-            return (new Client(self::$config))->request('GET', $url, $options);
+            return $client->request('GET', $url, $options);
         } catch (GuzzleException $e) {
             if (Stringy::create($e->getMessage())->contains('timed')) {
                 $message = 'Timeout or instance does not belong to Alibaba Cloud';

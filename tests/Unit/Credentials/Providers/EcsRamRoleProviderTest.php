@@ -10,11 +10,7 @@ use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\SDK;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use ReflectionException;
 
@@ -130,20 +126,20 @@ class EcsRamRoleProviderTest extends TestCase
      */
     public function testOk()
     {
-        $mock = new MockHandler([
-                                    new Response(200, ['X-Foo' => 'Bar'], '{
+        AlibabaCloud::mockResponse(
+            200,
+            [],
+            '{
   "AccessKeyId" : "STS.*******",
   "AccessKeySecret" : "*******",
   "Expiration" : "2019-01-28T15:15:56Z",
   "SecurityToken" : "****",
   "LastUpdated" : "2019-01-28T09:15:55Z",
   "Code" : "Success"
-}'),
-                                ]);
-
-        EcsRamRoleProvider::$config = ['handler' => HandlerStack::create($mock)];
-        $provider                   = new EcsRamRoleProvider(AlibabaCloud::ecsRamRoleClient('role'));
-        $credential                 = $provider->get();
+}'
+        );
+        $provider   = new EcsRamRoleProvider(AlibabaCloud::ecsRamRoleClient('role'));
+        $credential = $provider->get();
         self::assertInstanceOf(StsCredential::class, $credential);
     }
 
@@ -155,12 +151,8 @@ class EcsRamRoleProviderTest extends TestCase
      */
     public function testNoCredentials()
     {
-        $mock = new MockHandler([
-                                    new Response(200),
-                                ]);
-
-        EcsRamRoleProvider::$config = ['handler' => HandlerStack::create($mock)];
-        $provider                   = new EcsRamRoleProvider(AlibabaCloud::ecsRamRoleClient('role'));
+        AlibabaCloud::mockResponse();
+        $provider = new EcsRamRoleProvider(AlibabaCloud::ecsRamRoleClient('role'));
         $provider->get();
     }
 
@@ -172,12 +164,8 @@ class EcsRamRoleProviderTest extends TestCase
      */
     public function test404()
     {
-        $mock = new MockHandler([
-                                    new Response(404),
-                                ]);
-
-        EcsRamRoleProvider::$config = ['handler' => HandlerStack::create($mock)];
-        $provider                   = new EcsRamRoleProvider(AlibabaCloud::ecsRamRoleClient('role'));
+        AlibabaCloud::mockResponse(404);
+        $provider = new EcsRamRoleProvider(AlibabaCloud::ecsRamRoleClient('role'));
         $provider->get();
     }
 
@@ -189,12 +177,8 @@ class EcsRamRoleProviderTest extends TestCase
      */
     public function testErrorRetrieving()
     {
-        $mock = new MockHandler([
-                                    new Response(500),
-                                ]);
-
-        EcsRamRoleProvider::$config = ['handler' => HandlerStack::create($mock)];
-        $provider                   = new EcsRamRoleProvider(AlibabaCloud::ecsRamRoleClient('role'));
+        AlibabaCloud::mockResponse(500);
+        $provider = new EcsRamRoleProvider(AlibabaCloud::ecsRamRoleClient('role'));
         $provider->get();
     }
 
@@ -206,18 +190,14 @@ class EcsRamRoleProviderTest extends TestCase
      */
     public function testRequestException()
     {
-        $mock = new MockHandler([
-                                    new RequestException('Error', new Request('GET', 'test')),
-                                ]);
-
-        EcsRamRoleProvider::$config = ['handler' => HandlerStack::create($mock)];
-        $provider                   = new EcsRamRoleProvider(AlibabaCloud::ecsRamRoleClient('role'));
+        AlibabaCloud::mockRequestException('Error', new Request('GET', 'test'));
+        $provider = new EcsRamRoleProvider(AlibabaCloud::ecsRamRoleClient('role'));
         $provider->get();
     }
 
     protected function tearDown()
     {
         parent::tearDown();
-        EcsRamRoleProvider::$config = [];
+        AlibabaCloud::clearMockQueue();
     }
 }

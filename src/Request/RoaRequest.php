@@ -311,18 +311,27 @@ class RoaRequest extends Request
      */
     public function __call($name, $arguments)
     {
-        if (\strpos($name, 'get') !== false) {
+        if (\strpos($name, 'get') === 0) {
             $parameterName = $this->propertyNameByMethodName($name);
 
             return $this->__get($parameterName);
         }
 
-        if (\strpos($name, 'with') !== false) {
+        if (\strpos($name, 'with') === 0) {
             $parameterName = $this->propertyNameByMethodName($name, 4);
             $this->__set($parameterName, $arguments[0]);
             $this->pathParameters[$parameterName] = $arguments[0];
+
+            return $this;
         }
 
-        return $this;
+        if (\strpos($name, 'set') === 0) {
+            $parameterName = $this->propertyNameByMethodName($name);
+            $withMethod    = "with$parameterName";
+
+            return $this->$withMethod($arguments[0]);
+        }
+
+        throw new \RuntimeException('Call to undefined method ' . __CLASS__ . '::' . $name . '()');
     }
 }

@@ -6,7 +6,6 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\RpcRequest;
-use AlibabaCloud\Client\SDK;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -411,58 +410,91 @@ class AcsTraitTest extends TestCase
 
     /**
      * @throws ClientException
+     * @throws ServerException
      */
     public function testFindDomainInConfig()
     {
         // Setup
-        $regionId = 'cn-shanghai';
-        AlibabaCloud::accessKeyClient('foo', 'bar')
-                    ->name($regionId);
-        AlibabaCloud::setDefaultRegionId($regionId);
+        $request = new RpcRequest();
+        $request->product('ecs');
+        $request->regionId('eu-central-1');
 
         // Test
-        $request = new RpcRequest();
-        $request->client($regionId);
-        $request->product('ecs');
         $request->resolveUri();
 
         // Assert
         self::assertEquals(
-            'ecs-cn-hangzhou.aliyuncs.com',
+            'ecs.eu-central-1.aliyuncs.com',
             $request->uri->getHost()
         );
     }
 
     /**
      * @throws ClientException
+     * @throws ServerException
      */
     public function testFindDomainOnLocationService()
     {
         // Setup
-        $regionId = 'cn-shanghai';
-        AlibabaCloud::accessKeyClient('foo', 'bar')
-                    ->name($regionId);
-        AlibabaCloud::setDefaultRegionId($regionId);
+        $body = [
+            'Endpoints' => [
+                'Endpoint' => [
+                    0 => [
+                        'Endpoint' => 'ecs-cn-hangzhou.aliyuncs.com',
+                    ],
+                ],
+            ],
+        ];
+
+        AlibabaCloud::mockResponse(200, [], $body);
+        AlibabaCloud::accessKeyClient('foo', 'bar')->asDefaultClient()->regionId('cn-hangzhou');
 
         // Test
         $request = new RpcRequest();
-        $request->client($regionId);
         $request->product('ecs2');
         $request->serviceCode('ecs');
 
         // Assert
-        try {
-            $request->resolveUri();
-        } catch (ServerException $exception) {
-            self::assertEquals('InvalidAccessKeyId.NotFound', $exception->getErrorCode());
-        } catch (ClientException $exception) {
-            self::assertContains(
-                $exception->getErrorCode(),
-                [
-                    SDK::SERVER_UNREACHABLE,
-                    SDK::INVALID_REGION_ID,
-                ]
-            );
-        }
+        $request->resolveUri();
+        self::assertEquals('ecs-cn-hangzhou.aliyuncs.com', $request->uri->getHost());
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Can't resolve host for no in cn-hangzhou, You can specify host via the host() method.
+     * @throws ClientException
+     * @throws ServerException
+     */
+    public function testFindDomainOnLocationServiceWithEmpty()
+    {
+        // Setup
+        $body = [
+            'Endpoints' => [
+                'Endpoint' => [
+                    0 => [
+                        'Endpoint' => '',
+                    ],
+                ],
+            ],
+        ];
+
+        AlibabaCloud::mockResponse(200, [], $body);
+        AlibabaCloud::setDefaultRegionId('cn-hangzhou');
+        AlibabaCloud::accessKeyClient('ak', 'bar')->asDefaultClient();
+
+        // Test
+        $request = new RpcRequest();
+        $request->product('no');
+        $request->serviceCode('no');
+
+        // Assert
+        $request->resolveUri();
+        self::assertEquals('ecs-cn-hangzhou.aliyuncs.com', $request->uri->getHost());
+    }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+        AlibabaCloud::clearMockQueue();
     }
 }
