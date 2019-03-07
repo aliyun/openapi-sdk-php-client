@@ -25,18 +25,22 @@ class RoaRequest extends Request
      * @var string
      */
     private static $headerSeparator = "\n";
+
     /**
      * @var string
      */
     private static $querySeparator = '&';
+
     /**
      * @var string
      */
     public $pathPattern = '/';
+
     /**
      * @var array
      */
     public $pathParameters = [];
+
     /**
      * @var string
      */
@@ -51,9 +55,9 @@ class RoaRequest extends Request
      */
     public function resolveParameters($credential)
     {
+        $signature                                           = $this->httpClient()->getSignature();
         $this->options['query']['Version']                   = $this->version;
         $this->options['headers']['x-acs-version']           = $this->version;
-        $signature                                           = $this->httpClient()->getSignature();
         $this->options['headers']['Date']                    = gmdate($this->dateTimeFormat);
         $this->options['headers']['Accept']                  = self::formatToAccept($this->format);
         $this->options['headers']['x-acs-signature-method']  = $signature->getMethod();

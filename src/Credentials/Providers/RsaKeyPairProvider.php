@@ -66,16 +66,17 @@ class RsaKeyPairProvider extends Provider
     private function request($timeout, $connectTimeout)
     {
         $clientName = __CLASS__ . \uniqid('rsa', true);
+        $credential = $this->client->getCredential();
 
         AlibabaCloud::client(
             new AccessKeyCredential(
-                $this->client->getCredential()->getPublicKeyId(),
-                $this->client->getCredential()->getPrivateKey()
+                $credential->getPublicKeyId(),
+                $credential->getPrivateKey()
             ),
             new ShaHmac256WithRsaSignature()
         )->name($clientName);
 
-        return (new GenerateSessionAccessKey($this->client->getCredential()))
+        return (new GenerateSessionAccessKey($credential->getPublicKeyId()))
             ->client($clientName)
             ->timeout($timeout)
             ->connectTimeout($connectTimeout)
