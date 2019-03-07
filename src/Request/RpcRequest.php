@@ -59,9 +59,11 @@ class RpcRequest extends Request
                 $this->options['query'][$key] = self::booleanValueToString($value);
             }
         }
-        $signature                                  = $this->httpClient()->getSignature();
+        $signature = $this->httpClient()->getSignature();
+        if ($credential->getAccessKeyId()) {
+            $this->options['query']['AccessKeyId'] = $credential->getAccessKeyId();
+        }
         $this->options['query']['RegionId']         = $this->realRegionId();
-        $this->options['query']['AccessKeyId']      = $credential->getAccessKeyId();
         $this->options['query']['Format']           = $this->format;
         $this->options['query']['SignatureMethod']  = $signature->getMethod();
         $this->options['query']['SignatureVersion'] = $signature->getVersion();

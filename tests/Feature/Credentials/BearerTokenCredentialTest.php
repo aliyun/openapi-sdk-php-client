@@ -62,6 +62,7 @@ class BearerTokenCredentialTest extends TestCase
                           ])
                 ->connectTimeout(25)
                 ->timeout(30)
+                ->debug(true)
                 ->request();
         } catch (ServerException $e) {
             $result = $e->getResult();
