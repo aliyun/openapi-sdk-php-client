@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 1.0.16 - 2019-03-07
+- Support Credential Provider Chain.
+- Support `CCC`.
+- Add `ap-south-1` for `cas`.
+- Add `ap-southeast-1` for `waf`.
+- Update Docs.
+
+
 ## 1.0.15 - 2019-02-27
 - Add endpoints for `Chatbot`.
 - Change endpoints for `drdspost` and `drdspre`.

@@ -37,5 +37,16 @@ class SDK
     /**
      * Service Not Found
      */
+
     const SERVICE_NOT_FOUND = 'SDK.ServiceNotFound';
+
+    /**
+     * Service Unknown Error
+     */
+    const SERVICE_UNKNOWN_ERROR = 'SDK.UnknownError';
+
+    /**
+     * Response Empty
+     */
+    const RESPONSE_EMPTY = 'The response is empty';
 }

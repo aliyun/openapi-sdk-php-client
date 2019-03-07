@@ -3,7 +3,6 @@
 namespace AlibabaCloud\Client\Credentials\Requests;
 
 use AlibabaCloud\Client\Credentials\Providers\Provider;
-use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RpcRequest;
 
@@ -18,11 +17,11 @@ class GenerateSessionAccessKey extends RpcRequest
     /**
      * GenerateSessionAccessKey constructor.
      *
-     * @param RsaKeyPairCredential $credential
+     * @param string $publicKeyId
      *
      * @throws ClientException
      */
-    public function __construct(RsaKeyPairCredential $credential)
+    public function __construct($publicKeyId)
     {
         parent::__construct();
         $this->product('Sts');
@@ -32,7 +31,7 @@ class GenerateSessionAccessKey extends RpcRequest
         $this->scheme('https');
         $this->regionId('cn-hangzhou');
         $this->options['verify']                   = false;
-        $this->options['query']['PublicKeyId']     = $credential->getPublicKeyId();
+        $this->options['query']['PublicKeyId']     = $publicKeyId;
         $this->options['query']['DurationSeconds'] = Provider::DURATION_SECONDS;
     }
 }

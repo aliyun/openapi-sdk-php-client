@@ -67,13 +67,14 @@ class RamRoleArnProvider extends Provider
     private function request($timeout, $connectTimeout)
     {
         $clientName = __CLASS__ . \uniqid('ak', true);
+        $credential = $this->client->getCredential();
 
         AlibabaCloud::accessKeyClient(
-            $this->client->getCredential()->getAccessKeyId(),
-            $this->client->getCredential()->getAccessKeySecret()
+            $credential->getAccessKeyId(),
+            $credential->getAccessKeySecret()
         )->name($clientName);
 
-        return (new AssumeRole($this->client->getCredential()))
+        return (new AssumeRole($credential))
             ->client($clientName)
             ->timeout($timeout)
             ->connectTimeout($connectTimeout)

@@ -52,6 +52,7 @@ class LocationService
      *
      * @return mixed
      * @throws ClientException
+     * @throws ServerException
      */
     public static function findProductDomain(Request $request, $domain = 'location.aliyuncs.com')
     {
@@ -64,36 +65,34 @@ class LocationService
      *
      * @return string
      * @throws ClientException
+     * @throws ServerException
      */
     public static function resolveHost(Request $request, $domain = 'location.aliyuncs.com')
     {
-        $instance = new static($request);
-        $product  = $instance->request->product;
-        $regionId = $instance->request->realRegionId();
+        $locationService = new static($request);
+        $product  = $locationService->request->product;
+        $regionId = $locationService->request->realRegionId();
 
         if (!isset(self::$hosts[$product][$regionId])) {
-            self::$hosts[$product][$regionId] = self::getResult($instance, $domain);
+            self::$hosts[$product][$regionId] = self::getResult($locationService, $domain);
         }
 
         return self::$hosts[$product][$regionId];
     }
 
     /**
-     * @param static $instance
+     * @param static $locationService
      * @param string $domain
      *
      * @return string
      * @throws ClientException
+     * @throws ServerException
      */
-    private static function getResult($instance, $domain)
+    private static function getResult($locationService, $domain)
     {
-        $locationRequest = new LocationServiceRequest($instance->request, $domain);
+        $locationRequest = new LocationServiceRequest($locationService->request, $domain);
 
-        try {
-            $result = $locationRequest->request();
-        } catch (ServerException $exception) {
-            return '';
-        }
+        $result = $locationRequest->request();
 
         if (!isset($result['Endpoints']['Endpoint'][0]['Endpoint'])) {
             throw new ClientException(

@@ -96,7 +96,7 @@ class CredentialsProvider
      */
     public static function env()
     {
-        return function() {
+        return function () {
             $accessKeyId     = \AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_ACCESS_KEY_ID');
             $accessKeySecret = \AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_ACCESS_KEY_SECRET');
 
@@ -111,7 +111,7 @@ class CredentialsProvider
      */
     public static function ini()
     {
-        return function() {
+        return function () {
             $ini = \AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_CREDENTIALS_FILE');
 
             if ($ini) {
@@ -158,7 +158,7 @@ class CredentialsProvider
      */
     public static function instance()
     {
-        return function() {
+        return function () {
             $instance = \AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_ECS_METADATA');
             if ($instance) {
                 AlibabaCloud::ecsRamRoleClient($instance)->asDefaultClient();

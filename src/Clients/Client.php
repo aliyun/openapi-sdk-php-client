@@ -26,7 +26,7 @@ class Client
     use ManageTrait;
 
     /**
-     * @var CredentialsInterface
+     * @var CredentialsInterface|AccessKeyCredential|BearerTokenCredential|StsCredential|EcsRamRoleCredential|RamRoleArnCredential|RsaKeyPairCredential
      */
     private $credential;
 
@@ -50,7 +50,7 @@ class Client
     }
 
     /**
-     * @return CredentialsInterface|AccessKeyCredential|BearerTokenCredential|StsCredential|EcsRamRoleCredential|RamRoleArnCredential|RsaKeyPairCredential
+     * @return AccessKeyCredential|BearerTokenCredential|CredentialsInterface|EcsRamRoleCredential|RamRoleArnCredential|RsaKeyPairCredential|StsCredential
      */
     public function getCredential()
     {
