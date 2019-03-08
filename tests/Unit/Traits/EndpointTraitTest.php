@@ -4,7 +4,6 @@ namespace AlibabaCloud\Client\Tests\Unit\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Regions\EndpointProvider;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Request\RpcRequest;
@@ -160,46 +159,22 @@ class EndpointTraitTest extends TestCase
     }
 
     /**
-     * @dataProvider products
-     *
-     * @param string $productName
-     * @param string $serviceCode
-     * @param array  $expectedHost
-     *
-     * @throws ClientException
-     * @throws ServerException
-     */
-    public function testLocationServiceResolveHost($productName, $serviceCode, array $expectedHost)
-    {
-        // Setup
-        $accessKeyId     = \getenv('ACCESS_KEY_ID');
-        $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
-        AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
-                    ->regionId('cn-hangzhou')
-                    ->asDefaultClient();
-
-        // Test
-        $request = new RpcRequest();
-        $request->connectTimeout(25)->timeout(30);
-        $request->product     = $productName;
-        $request->serviceCode = $serviceCode;
-
-        // Assert
-        $host = LocationService::resolveHost($request);
-        self::assertContains($host, $expectedHost);
-    }
-
-    /**
-     * @throws ClientException
-     * @throws ServerException
      * @expectedException \AlibabaCloud\Client\Exception\ServerException
-     * @expectedExceptionMessageRegExp  /Illegal Parameter: Please check the parameters RequestId:/
+     * @expectedExceptionMessageRegExp  /Please check the parameters RequestId:/
+     * @throws ClientException
      */
     public function testLocationServiceResolveHostWithException()
     {
         // Setup
         $accessKeyId     = \getenv('ACCESS_KEY_ID');
         $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
+        AlibabaCloud::mockResponse(
+            400,
+            [],
+            [
+                                       'Message' => 'Please check the parameters',
+                                   ]
+        );
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
                     ->regionId('cn-hangzhou')
                     ->asDefaultClient();
@@ -212,55 +187,6 @@ class EndpointTraitTest extends TestCase
 
         // Assert
         LocationService::resolveHost($request);
-    }
-
-    /**
-     * @return array
-     */
-    public function products()
-    {
-        return [
-            [
-                'Slb',
-                'slb',
-                [
-                    'slb.aliyuncs.com',
-                    '',
-                ],
-            ],
-            [
-                'Ess',
-                'ess',
-                [
-                    'ess.aliyuncs.com',
-                    '',
-                ],
-            ],
-            [
-                'EHPC',
-                'ehs',
-                [
-                    'ehpc.cn-hangzhou.aliyuncs.com',
-                    '',
-                ],
-            ],
-            [
-                'EHPC',
-                'badServiceCode',
-                [
-                    'ehpc.cn-hangzhou.aliyuncs.com',
-                    '',
-                ],
-            ],
-            [
-                'Slb',
-                '',
-                [
-                    'slb.aliyuncs.com',
-                    '',
-                ],
-            ],
-        ];
     }
 
     /**

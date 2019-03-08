@@ -26,6 +26,7 @@ class RequestTest extends TestCase
     {
         // Setup
         $options = ['testConstruct' => __METHOD__];
+        putenv('DEBUG=sdk');
 
         // Test
         $rpcRequest = new RpcRequest($options);

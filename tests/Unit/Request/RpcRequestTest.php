@@ -237,35 +237,37 @@ class RpcRequestTest extends TestCase
     }
 
     /**
-     * @param $setName
-     * @param $getName
-     * @param $setValue
-     *
-     * @param $getValue
-     *
-     * @dataProvider call
      * @throws ClientException
      */
-    public function testCall($setName, $getName, $setValue, $getValue)
+    public function testCall()
     {
-        // Setup
-        $request = new  RpcRequest();
+        $request = new RpcRequest();
 
-        // Test
-        $request->$setName($setValue);
+        $request->setPrefix('set');
+        self::assertEquals('set', $request->getPrefix());
+        self::assertEquals(['Prefix' => 'set',], $request->options['query']);
 
-        // Assert
-        self::assertEquals($getValue, $request->$getName());
+        $request->withPrefix('with');
+        self::assertEquals('with', $request->getPrefix());
+        self::assertEquals(['Prefix' => 'with',], $request->options['query']);
+
+        $request->setprefix('set');
+        self::assertEquals('set', $request->getprefix());
+        self::assertEquals(['Prefix' => 'with', 'prefix' => 'set',], $request->options['query']);
+
+        $request->withprefix('with');
+        self::assertEquals('with', $request->getprefix());
+        self::assertEquals(['Prefix' => 'with', 'prefix' => 'with',], $request->options['query']);
     }
 
     /**
-     * @return array
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Call to undefined method AlibabaCloud\Client\Request\RpcRequest::nowithvalue()
+     * @throws ClientException
      */
-    public function call()
+    public function testCallException()
     {
-        return [
-            ['withVirtualParameter', 'getVirtualParameter', 'value', 'value'],
-            ['withVirtualParameter', 'getNone', 'value', null],
-        ];
+        $request = new RpcRequest();
+        $request->nowithvalue('value');
     }
 }
