@@ -196,23 +196,24 @@ class DefaultAcsClientTest extends TestCase
     }
 
     /**
+     * @expectedException \AlibabaCloud\Client\Exception\ServerException
+     * @expectedExceptionMessageRegExp /Specified parameter Version is not valid./
+     * @expectedExceptionCode          400
      * @throws ClientException
      */
     public function testBadVersion()
     {
-        try {
-            $request = new DescribeRegionsRequest();
-            $request->version('BadVersion');
-            $request->connectTimeout(25);
-            $request->timeout(30);
-            $response = self::$client->getAcsResponse($request);
-            $this->assertNotNull($response);
-        } catch (ServerException $e) {
-            self::assertEquals(
-                'Specified parameter Version is not valid.',
-                $e->getErrorMessage()
-            );
-        }
+        AlibabaCloud::mockResponse(400,
+                                   [],
+                                   [
+                                       'Message' => 'Specified parameter Version is not valid.',
+                                   ]);
+        $request = new DescribeRegionsRequest();
+        $request->version('BadVersion');
+        $request->connectTimeout(25);
+        $request->timeout(30);
+        $response = self::$client->getAcsResponse($request);
+        $this->assertNotNull($response);
     }
 
     /**

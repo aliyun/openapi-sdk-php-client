@@ -130,12 +130,12 @@ class RsaKeyPairProviderTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        AlibabaCloud::clearMockQueue();
+        AlibabaCloud::cancelMock();
     }
 
     protected function tearDown()
     {
         parent::tearDown();
-        AlibabaCloud::clearMockQueue();
+        AlibabaCloud::cancelMock();
     }
 }

@@ -131,6 +131,7 @@ try {
 * [区域](./docs/Region-CN.md)
 * [域名](./docs/Host-CN.md)
 * [调试](./docs/Debug-CN.md)
+* [测试](./docs/Test-CN.md)
 
 
 ## 相关

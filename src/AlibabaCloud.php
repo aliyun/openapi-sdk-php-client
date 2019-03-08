@@ -6,6 +6,7 @@ use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Traits\ClientTrait;
 use AlibabaCloud\Client\Traits\DefaultRegionTrait;
 use AlibabaCloud\Client\Traits\EndpointTrait;
+use AlibabaCloud\Client\Traits\HistoryTrait;
 use AlibabaCloud\Client\Traits\MockTrait;
 use AlibabaCloud\Client\Traits\RequestTrait;
 
@@ -22,6 +23,7 @@ class AlibabaCloud
     use EndpointTrait;
     use RequestTrait;
     use MockTrait;
+    use HistoryTrait;
 
     /**
      * Version of the Client

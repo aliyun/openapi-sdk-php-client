@@ -212,6 +212,6 @@ class LocationServiceTest extends TestCase
     protected function tearDown()
     {
         parent::tearDown();
-        AlibabaCloud::clearMockQueue();
+        AlibabaCloud::cancelMock();
     }
 }
