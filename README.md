@@ -131,6 +131,7 @@ try {
 * [Region](./docs/Region-EN.md)
 * [Host](./docs/Host-EN.md)
 * [Debug](./docs/Debug-EN.md)
+* [Test](./docs/Test-EN.md)
 
 
 ## References

@@ -22,6 +22,8 @@ use AlibabaCloud\Client\Traits\ObjectAccessTrait;
 use AlibabaCloud\Client\Traits\RegionTrait;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Uri;
 
 /**
@@ -366,20 +368,32 @@ abstract class Request implements \ArrayAccess
     }
 
     /**
+     * @return Client
+     */
+    public static function createClient()
+    {
+        if (AlibabaCloud::hasMock()) {
+            $stack = HandlerStack::create(AlibabaCloud::getMock());
+        } else {
+            $stack = HandlerStack::create();
+        }
+
+        if (AlibabaCloud::isRememberHistory()) {
+            $stack->push(Middleware::history(AlibabaCloud::referenceHistory()));
+        }
+
+        return new Client([
+                              'handler' => $stack,
+                          ]);
+    }
+
+    /**
      * @throws ClientException
      */
     private function response()
     {
-        $config = [];
-        if (AlibabaCloud::hasMockQueue()) {
-            $config['handler'] = AlibabaCloud::getMockQueue();
-            $client            = new Client($config);
-        } else {
-            $client = new Client();
-        }
-
         try {
-            return $client->request(
+            return self::createClient()->request(
                 $this->method,
                 (string)$this->uri,
                 $this->options

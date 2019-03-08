@@ -132,6 +132,6 @@ class RamRoleArnProviderTest extends TestCase
     protected function tearDown()
     {
         parent::tearDown();
-        AlibabaCloud::clearMockQueue();
+        AlibabaCloud::cancelMock();
     }
 }
