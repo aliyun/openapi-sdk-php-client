@@ -36,12 +36,10 @@ class EcsRamRoleProviderTest extends TestCase
         // Setup
         $client   = new EcsRamRoleClient('foo');
         $provider = new EcsRamRoleProvider($client);
+        AlibabaCloud::mockRequestException('timed', new Request('GET', 'url'));
 
         // Test
-        $actual = $provider->get();
-
-        // Assert
-        self::assertInstanceOf(StsCredential::class, $actual);
+        $provider->get();
     }
 
     /**

@@ -8,6 +8,7 @@ use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Request\RoaRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClusterServicesRequest;
 use PHPUnit\Framework\TestCase;
 
@@ -384,39 +385,6 @@ class RoaRequestTest extends TestCase
     }
 
     /**
-     * @param $setName
-     * @param $getName
-     * @param $setValue
-     *
-     * @param $getValue
-     *
-     * @dataProvider call
-     * @throws ClientException
-     */
-    public function testCall($setName, $getName, $setValue, $getValue)
-    {
-        // Setup
-        $request = new  DescribeClusterServicesRequest();
-
-        // Test
-        $request->$setName($setValue);
-
-        // Assert
-        self::assertEquals($getValue, $request->$getName());
-    }
-
-    /**
-     * @return array
-     */
-    public function call()
-    {
-        return [
-            ['withVirtualParameter', 'getVirtualParameter', 'value', 'value'],
-            ['withVirtualParameter', 'getNone', 'value', null],
-        ];
-    }
-
-    /**
      * @return array
      * @throws ClientException
      */
@@ -469,5 +437,41 @@ class RoaRequestTest extends TestCase
 
         // Assert
         self::assertEquals($expected, (string)$request->uri);
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function testCall()
+    {
+        $request = new RoaRequest();
+        self::assertEquals([], $request->pathParameters);
+
+        $request->setPrefix('set');
+        self::assertEquals('set', $request->getPrefix());
+        self::assertEquals(['Prefix' => 'set',], $request->pathParameters);
+
+        $request->withPrefix('with');
+        self::assertEquals('with', $request->getPrefix());
+        self::assertEquals(['Prefix' => 'with',], $request->pathParameters);
+
+        $request->setprefix('set');
+        self::assertEquals('set', $request->getprefix());
+        self::assertEquals(['Prefix' => 'with', 'prefix' => 'set',], $request->pathParameters);
+
+        $request->withprefix('with');
+        self::assertEquals('with', $request->getprefix());
+        self::assertEquals(['Prefix' => 'with', 'prefix' => 'with',], $request->pathParameters);
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Call to undefined method AlibabaCloud\Client\Request\RoaRequest::nowithvalue()
+     * @throws ClientException
+     */
+    public function testCallException()
+    {
+        $request = new RoaRequest();
+        $request->nowithvalue('value');
     }
 }
