@@ -21,6 +21,7 @@ class HistoryTraitTest extends TestCase
      */
     public function testCountHistory()
     {
+        AlibabaCloud::cancelMock();
         AlibabaCloud::forgetHistory();
         AlibabaCloud::rememberHistory();
         $header = ['X-Foo' => 'Bar'];

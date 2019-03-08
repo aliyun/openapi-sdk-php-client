@@ -203,11 +203,13 @@ class DefaultAcsClientTest extends TestCase
      */
     public function testBadVersion()
     {
-        AlibabaCloud::mockResponse(400,
-                                   [],
-                                   [
+        AlibabaCloud::mockResponse(
+            400,
+            [],
+            [
                                        'Message' => 'Specified parameter Version is not valid.',
-                                   ]);
+                                   ]
+        );
         $request = new DescribeRegionsRequest();
         $request->version('BadVersion');
         $request->connectTimeout(25);

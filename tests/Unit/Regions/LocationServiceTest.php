@@ -6,7 +6,6 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Regions\LocationService;
-use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
 use PHPUnit\Framework\TestCase;
 
@@ -173,22 +172,30 @@ class LocationServiceTest extends TestCase
 
     /**
      * @expectedException \AlibabaCloud\Client\Exception\ServerException
-     * @expectedExceptionMessageRegExp /InvalidAccessKeyId.NotFound: Specified access key is not found/
+     * @expectedExceptionMessageRegExp /Specified access key is not found/
      * @throws ClientException
      * @throws ServerException
      */
     public function testLocationServiceException()
     {
+        // Setup
         AlibabaCloud::accessKeyClient('key', 'secret')->asDefaultClient();
+
+        AlibabaCloud::mockResponse(
+            401,
+            [],
+            [
+                'message' => 'Specified access key is not found',
+            ]
+        );
+
         $request = (new DeleteDatabaseRequest())
             ->regionId('cn-hangzhou')
             ->connectTimeout(25)
             ->timeout(30);
-        try {
-            LocationService::findProductDomain($request);
-        } catch (ClientException $e) {
-            self::assertEquals(SDK::SERVER_UNREACHABLE, $e->getErrorCode());
-        }
+
+        // Test
+        LocationService::findProductDomain($request);
     }
 
     /**

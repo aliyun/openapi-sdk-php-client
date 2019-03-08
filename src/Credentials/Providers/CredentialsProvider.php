@@ -117,7 +117,9 @@ class CredentialsProvider
             if ($ini) {
                 AlibabaCloud::load($ini);
             } else {
+                // @codeCoverageIgnoreStart
                 AlibabaCloud::load();
+                // @codeCoverageIgnoreEnd
             }
 
             self::compatibleWithGlobal();

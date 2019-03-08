@@ -104,39 +104,4 @@ class RpcRequestTest extends TestCase
 
         self::assertNotEmpty('PayByTraffic', $result['ChangingChargeType']);
     }
-
-    /**
-     * @throws ClientException
-     */
-    public function testCall()
-    {
-        $request = new RpcRequest();
-
-        $request->setPrefix('set');
-        self::assertEquals('set', $request->getPrefix());
-        self::assertEquals(['Prefix' => 'set',], $request->options['query']);
-
-        $request->withPrefix('with');
-        self::assertEquals('with', $request->getPrefix());
-        self::assertEquals(['Prefix' => 'with',], $request->options['query']);
-
-        $request->setprefix('set');
-        self::assertEquals('set', $request->getprefix());
-        self::assertEquals(['Prefix' => 'with', 'prefix' => 'set',], $request->options['query']);
-
-        $request->withprefix('with');
-        self::assertEquals('with', $request->getprefix());
-        self::assertEquals(['Prefix' => 'with', 'prefix' => 'with',], $request->options['query']);
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Call to undefined method AlibabaCloud\Client\Request\RpcRequest::nowithvalue()
-     * @throws ClientException
-     */
-    public function testCallException()
-    {
-        $request = new RpcRequest();
-        $request->nowithvalue('value');
-    }
 }

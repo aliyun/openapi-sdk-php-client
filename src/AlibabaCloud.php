@@ -33,18 +33,18 @@ class AlibabaCloud
     /**
      * This static method can directly call the specific service.
      *
-     * @param string $serviceName
+     * @param string $product
      * @param array  $arguments
      *
      * @codeCoverageIgnore
      * @return object
      * @throws ClientException
      */
-    public static function __callStatic($serviceName, $arguments)
+    public static function __callStatic($product, $arguments)
     {
-        $serviceName = \ucfirst($serviceName);
+        $product = \ucfirst($product);
 
-        $class = 'AlibabaCloud' . '\\' . $serviceName . '\\' . $serviceName;
+        $class = 'AlibabaCloud' . '\\' . $product . '\\' . $product;
         if (\class_exists($class)) {
             return new $class;
         }
@@ -57,9 +57,9 @@ class AlibabaCloud
         }
 
         throw new ClientException(
-            "May not yet support product $serviceName quick access, "
+            "May not yet support product $product quick access, "
             . 'you can use [Alibaba Cloud Client for PHP] to send any custom '
-            . 'requests: https://github.com/aliyun/openapi-sdk-php-client#request',
+            . 'requests: https://github.com/aliyun/openapi-sdk-php-client/blob/master/docs/Request-EN.md',
             SDK::SERVICE_NOT_FOUND
         );
     }
