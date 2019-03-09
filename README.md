@@ -37,6 +37,10 @@ English | [简体中文](./README-CN.md)
 
 
 ## Installation
+> To install Alibaba Cloud Client for PHP, you must know how to use [Composer][composer].
+
+<br/>
+
 1. Download and install Composer（Windows user please download and run [Composer-Setup.exe](https://getcomposer.org/Composer-Setup.exe))
 ```bash
 curl -sS https://getcomposer.org/installer | php
@@ -147,7 +151,7 @@ try {
 [open-api]: https://api.alibabacloud.com
 [latest-release]: https://github.com/aliyun/openapi-sdk-php-client
 [guzzle-docs]: http://docs.guzzlephp.org/en/stable/request-options.html
-[composer]: http://getcomposer.org
+[composer]: https://getcomposer.org
 [packagist]: https://packagist.org/packages/alibabacloud/sdk
 [home]: https://home.console.aliyun.com
 [alibabacloud]: https://www.alibabacloud.com
