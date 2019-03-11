@@ -47,12 +47,12 @@ abstract class Request implements \ArrayAccess
     /**
      * Request Connect Timeout
      */
-    const CONNECT_TIMEOUT = 3;
+    const CONNECT_TIMEOUT = 5;
 
     /**
      * Request Timeout
      */
-    const TIMEOUT = 15;
+    const TIMEOUT = 10;
 
     /**
      * @var string
@@ -109,6 +109,7 @@ abstract class Request implements \ArrayAccess
         $this->options['http_errors']     = false;
         $this->options['connect_timeout'] = self::CONNECT_TIMEOUT;
         $this->options['timeout']         = self::TIMEOUT;
+        $this->options['verify']          = false;
         if ($options !== []) {
             $this->options($options);
         }
