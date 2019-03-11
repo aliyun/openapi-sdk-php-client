@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 1.0.18 - 2019-03-11
+- Add endpoints for `acr`.
+- Add endpoints for `faas`.
+- Add endpoints for `ehs`.
+- SSL certificates are not validated by default.
+
+
+## 1.0.17 - 2019-03-08
+- Support Mock for Test.
+
+
 ## 1.0.16 - 2019-03-07
 - Support Credential Provider Chain.
 - Support `CCC`.

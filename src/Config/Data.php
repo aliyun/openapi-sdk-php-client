@@ -1555,6 +1555,7 @@ return [
                     'ap-southeast-1' => 'ehpc.ap-southeast-1.aliyuncs.com',
                     'ap-southeast-2' => 'ehpc.ap-southeast-2.aliyuncs.com',
                     'eu-central-1'   => 'ehpc.eu-central-1.aliyuncs.com',
+                    'ap-northeast-1' => 'ehpc.ap-northeast-1.aliyuncs.com',
                 ],
             'redisa'          =>
                 [
@@ -2077,6 +2078,36 @@ return [
                     'cn-shanghai' => 'drds.cn-shanghai.aliyuncs.com',
                     'cn-shenzhen' => 'drds.cn-shenzhen.aliyuncs.com',
                     'cn-hongkong' => 'drds.cn-hangzhou.aliyuncs.com',
+                ],
+            'acr'             =>
+                [
+                    'cn-qingdao'     => 'cr.cn-qingdao.aliyuncs.com',
+                    'cn-beijing'     => 'cr.cn-beijing.aliyuncs.com',
+                    'cn-zhangjiakou' => 'cr.cn-zhangjiakou.aliyuncs.com',
+                    'cn-huhehaote'   => 'cr.cn-huhehaote.aliyuncs.com',
+                    'cn-hangzhou'    => 'cr.cn-hangzhou.aliyuncs.com',
+                    'cn-shanghai'    => 'cr.cn-shanghai.aliyuncs.com',
+                    'cn-shenzhen'    => 'cr.cn-shenzhen.aliyuncs.com',
+                    'cn-hongkong'    => 'cr.cn-hongkong.aliyuncs.com',
+                    'ap-southeast-1' => 'cr.ap-southeast-1.aliyuncs.com',
+                    'ap-southeast-2' => 'cr.ap-southeast-2.aliyuncs.com',
+                    'ap-southeast-3' => 'cr.ap-southeast-3.aliyuncs.com',
+                    'ap-southeast-5' => 'cr.ap-southeast-5.aliyuncs.com',
+                    'ap-northeast-1' => 'cr.ap-northeast-1.aliyuncs.com',
+                    'eu-west-1'      => 'cr.eu-west-1.aliyuncs.com',
+                    'us-west-1'      => 'cr.us-west-1.aliyuncs.com',
+                    'us-east-1'      => 'cr.us-east-1.aliyuncs.com',
+                    'eu-central-1'   => 'cr.eu-central-1.aliyuncs.com',
+                    'me-east-1'      => 'cr.me-east-1.aliyuncs.com',
+                    'ap-south-1'     => 'cr.ap-south-1.aliyuncs.com',
+                ],
+            'faas'            =>
+                [
+                    'cn-beijing'     => 'faas.cn-beijing.aliyuncs.com',
+                    'cn-zhangjiakou' => 'faas.cn-zhangjiakou.aliyuncs.com',
+                    'cn-hangzhou'    => 'faas.cn-hangzhou.aliyuncs.com',
+                    'cn-shanghai'    => 'faas.cn-shanghai.aliyuncs.com',
+                    'cn-shenzhen'    => 'faas.cn-shenzhen.aliyuncs.com',
                 ],
         ],
 ];
