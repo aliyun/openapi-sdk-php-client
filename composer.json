@@ -8,7 +8,8 @@
         "alibabacloud",
         "client",
         "sdk",
-        "cloud"
+        "cloud",
+        "tool"
     ],
     "type": "library",
     "license": "Apache-2.0",
