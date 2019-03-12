@@ -3,9 +3,9 @@ English | [简体中文](./README-CN.md)
 
 <p align="center"><img src="./src/Files/AlibabaCloud.svg"></p>
 <p align="center">
-<a href="https://packagist.org/packages/alibabacloud/client"><img src="https://badge.fury.io/ph/alibabacloud%2Fclient.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/v/stable" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/v/unstable" alt="Latest Unstable Version"></a>
+<a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/composerlock" alt="composer.lock"></a>
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/downloads" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/license" alt="License"></a>
 <br/>
@@ -15,7 +15,6 @@ English | [简体中文](./README-CN.md)
 <a href="https://ci.appveyor.com/project/songshenzong/openapi-sdk-php-client/branch/master"><img src="https://ci.appveyor.com/api/projects/status/0l0msff7dwvt7cqg/branch/master?svg=true" alt="Appveyor Build Status"></a>
 <a href="https://scrutinizer-ci.com/code-intelligence"><img src="https://scrutinizer-ci.com/g/aliyun/openapi-sdk-php-client/badges/code-intelligence.svg" alt="Code Intelligence Status"></a>
 </p>
-
 
 ## About
 **Alibaba Cloud Client for PHP** is a client tool that helps PHP developers manage credentials and send requests, [Alibaba Cloud SDK for PHP][SDK] dependency on this tool.
@@ -157,6 +156,7 @@ try {
 [packagist]: https://packagist.org/packages/alibabacloud/sdk
 [home]: https://home.console.aliyun.com
 [alibabacloud]: https://www.alibabacloud.com
+[regions]: https://www.alibabacloud.com/help/doc-detail/40654.html
 [endpoints]: https://developer.aliyun.com/endpoints
 [cURL]: http://php.net/manual/en/book.curl.php
 [OPCache]: http://php.net/manual/en/book.opcache.php
