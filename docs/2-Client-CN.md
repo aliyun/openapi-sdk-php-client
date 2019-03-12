@@ -1,4 +1,4 @@
-[← 安装](Installation-CN.md) | 客户端[(English)](Client-EN.md) | [请求 →](Request-CN.md)
+[← 安装](1-Installation-CN.md) | 客户端[(English)](2-Client-EN.md) | [请求 →](3-Request-CN.md)
 ***
 
 # 客户端
@@ -217,7 +217,7 @@ AlibabaCloud::get('client1')->getSessionCredential();
 ```
 
 ***
-[← 安装](Installation-CN.md) | 客户端[(English)](Client-EN.md) | [请求 →](Request-CN.md)
+[← 安装](1-Installation-CN.md) | 客户端[(English)](2-Client-EN.md) | [请求 →](3-Request-CN.md)
 
 [ak]: https://usercenter.console.aliyun.com/#/manage/ak
 [ram]: https://ram.console.aliyun.com/users

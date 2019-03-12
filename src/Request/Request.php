@@ -109,7 +109,6 @@ abstract class Request implements \ArrayAccess
         $this->options['http_errors']     = false;
         $this->options['connect_timeout'] = self::CONNECT_TIMEOUT;
         $this->options['timeout']         = self::TIMEOUT;
-        $this->options['verify']          = false;
         if ($options !== []) {
             $this->options($options);
         }

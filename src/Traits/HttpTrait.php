@@ -85,6 +85,18 @@ trait HttpTrait
     }
 
     /**
+     * @param mixed $verify
+     *
+     * @return $this
+     */
+    public function verify($verify)
+    {
+        $this->options['verify'] = $verify;
+
+        return $this;
+    }
+
+    /**
      * @param array $options
      *
      * @return $this

@@ -40,7 +40,7 @@ class BearerTokenCredentialTest extends TestCase
      * @expectedExceptionMessage Bearer Token cannot be empty
      * @throws ClientException
      */
-    public function testBearerTokenEmpty()
+    public static function testBearerTokenEmpty()
     {
         // Setup
         $bearerToken = '';
@@ -54,7 +54,7 @@ class BearerTokenCredentialTest extends TestCase
      * @expectedExceptionMessage Bearer Token must be a string
      * @throws ClientException
      */
-    public function testBearerTokenFormat()
+    public static function testBearerTokenFormat()
     {
         // Setup
         $bearerToken = null;

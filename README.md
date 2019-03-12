@@ -128,14 +128,15 @@ try {
 
 
 ## Documentation
-* [Installation](./docs/Installation-EN.md)
-* [Client](./docs/Client-EN.md)
-* [Request](./docs/Request-EN.md)
-* [Result](./docs/Result-EN.md)
-* [Region](./docs/Region-EN.md)
-* [Host](./docs/Host-EN.md)
-* [Debug](./docs/Debug-EN.md)
-* [Test](./docs/Test-EN.md)
+* [Installation](docs/1-Installation-EN.md)
+* [Client](docs/2-Client-EN.md)
+* [Request](docs/3-Request-EN.md)
+* [Result](docs/4-Result-EN.md)
+* [Region](docs/5-Region-EN.md)
+* [Host](docs/6-Host-EN.md)
+* [SSL Verify](docs/7-Verify-EN.md)
+* [Debug](docs/8-Debug-EN.md)
+* [Test](docs/9-Test-EN.md)
 
 
 ## References

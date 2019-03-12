@@ -1,4 +1,4 @@
-[← Home](../README.md) | Installation[(中文)](Installation-CN.md) | [Client →](Client-EN.md)
+[← Home](../README.md) | Installation[(中文)](1-Installation-CN.md) | [Client →](2-Client-EN.md)
 ***
 
 # Installation
@@ -20,4 +20,4 @@ require __DIR__ . '/vendor/autoload.php';
 ```
 
 ***
-[← Home](../README.md) | Installation[(中文)](Installation-CN.md) | [Client →](Client-EN.md)
+[← Home](../README.md) | Installation[(中文)](1-Installation-CN.md) | [Client →](2-Client-EN.md)

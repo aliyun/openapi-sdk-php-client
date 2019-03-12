@@ -47,6 +47,7 @@ class Client
         $this->signature                  = $signature;
         $this->options['connect_timeout'] = Request::CONNECT_TIMEOUT;
         $this->options['timeout']         = Request::TIMEOUT;
+        $this->options['verify']          = false;
     }
 
     /**

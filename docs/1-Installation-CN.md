@@ -1,4 +1,4 @@
-[← 首页](../README-CN.md) | 安装[(English)](Installation-EN.md) | [客户端 →](Client-CN.md)
+[← 首页](../README-CN.md) | 安装[(English)](1-Installation-EN.md) | [客户端 →](2-Client-CN.md)
 ***
 
 # 安装
@@ -20,4 +20,4 @@ require __DIR__ . '/vendor/autoload.php';
 ```
 
 ***
-[← 首页](../README-CN.md) | 安装[(English)](Installation-EN.md) | [客户端 →](Client-CN.md)
+[← 首页](../README-CN.md) | 安装[(English)](1-Installation-EN.md) | [客户端 →](2-Client-CN.md)
