@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.19 - 2019-03-12
+- Add SSL Verify Option `verify()`.
+
+
 ## 1.0.18 - 2019-03-11
 - Add endpoints for `acr`.
 - Add endpoints for `faas`.
