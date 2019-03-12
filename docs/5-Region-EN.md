@@ -2,7 +2,7 @@
 ***
 
 # Region
-Each request carries an region called `regionId`. Since most of the requested regions are the same, it is not necessary to set the region for each request, Please refer to [Region List][endpoints].
+Each request carries an region called `regionId`. Since most of the requested regions are the same, it is not necessary to set the region for each request, Please refer to [Regions and Zones][regions].
 
 ## Specify the Region for the Request
 > If you specify an Region separately for the request, the client Region or default Region will not be used.

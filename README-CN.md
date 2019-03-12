@@ -1,10 +1,11 @@
 [English](./README.md) | 简体中文
 
 
+<p align="center"><img src="./src/Files/Aliyun.svg"></p>
 <p align="center">
-<a href="https://packagist.org/packages/alibabacloud/client"><img src="https://badge.fury.io/ph/alibabacloud%2Fclient.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/v/stable" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/v/unstable" alt="Latest Unstable Version"></a>
+<a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/composerlock" alt="composer.lock"></a>
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/downloads" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/license" alt="License"></a>
 <br/>
@@ -156,6 +157,7 @@ try {
 [packagist]: https://packagist.org/packages/alibabacloud/sdk
 [home]: https://home.console.aliyun.com
 [aliyun]: https://www.aliyun.com
+[regions]: https://help.aliyun.com/document_detail/40654.html
 [endpoints]: https://developer.aliyun.com/endpoints
 [cURL]: http://php.net/manual/zh/book.curl.php
 [OPCache]: http://php.net/manual/zh/book.opcache.php
