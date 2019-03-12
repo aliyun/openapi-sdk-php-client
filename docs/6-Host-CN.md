@@ -1,4 +1,4 @@
-[← 区域](Region-CN.md) | 域名[(English)](Host-EN.md) | [调试 →](Debug-CN.md)
+[← 区域](5-Region-CN.md) | 域名[(English)](6-Host-EN.md) | [SSL 验证 →](7-Verify-CN.md)
 ***
 
 # 域名
@@ -36,4 +36,4 @@ AlibabaCloud::addHost('product_name', 'product_name.aliyuncs.com');
 ```
 
 ***
-[← 区域](Region-CN.md) | 域名[(English)](Host-EN.md) | [调试 →](Debug-CN.md)
+[← 区域](5-Region-CN.md) | 域名[(English)](6-Host-EN.md) | [SSL 验证 →](7-Verify-CN.md)

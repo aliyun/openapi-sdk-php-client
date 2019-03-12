@@ -1,4 +1,4 @@
-[← 调试](Debug-CN.md) | 测试[(English)](Test-EN.md) | [首页 →](../README-CN.md)
+[← 调试](8-Debug-CN.md) | 测试[(English)](9-Test-EN.md) | [首页 →](../README-CN.md)
 ***
 
 # 测试
@@ -68,4 +68,4 @@ AlibabaCloud::cancelMock();
 
 
 ***
-[← 调试](Debug-CN.md) | 测试[(English)](Test-EN.md) | [首页 →](../README-CN.md)
+[← 调试](8-Debug-CN.md) | 测试[(English)](9-Test-EN.md) | [首页 →](../README-CN.md)

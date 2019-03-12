@@ -427,7 +427,7 @@ class RequestTest extends TestCase
     /**
      * @throws ClientException
      */
-    public function testIsset()
+    public static function testIsset()
     {
         // Setup
         $request = new DeleteDatabaseRequest();
@@ -445,5 +445,23 @@ class RequestTest extends TestCase
         // Unset
         unset($request->object);
         self::assertEquals(null, $request->object);
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public static function testRequest()
+    {
+        // Setup
+        $request = new RpcRequest();
+
+        // Assert
+        self::assertArrayNotHasKey('verify', $request->options);
+
+        // Test
+        $request->verify(true);
+
+        // Assert
+        self::assertTrue($request->options['verify']);
     }
 }
