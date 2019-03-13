@@ -62,4 +62,20 @@ class FunctionsTest extends TestCase
         self::assertEquals('"Alibaba Cloud', getenv('STRING'));
         self::assertEquals('"Alibaba Cloud', \AlibabaCloud\Client\env('STRING'));
     }
+
+    public static function testEnvNotEmpty()
+    {
+        self::assertFalse(\AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_NOT_EXISTS'));
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage Environment variable 'ALIBABA_CLOUD_NOT_EXISTS' cannot be empty
+     */
+    public static function testEnvNotEmptyException()
+    {
+        putenv('ALIBABA_CLOUD_NOT_EXISTS=');
+
+        self::assertFalse(\AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_NOT_EXISTS'));
+    }
 }

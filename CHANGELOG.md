@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.20 - 2019-03-13
+- Improve Tests.
+- Update Docs.
+
+
 ## 1.0.19 - 2019-03-12
 - Add SSL Verify Option `verify()`.
 
