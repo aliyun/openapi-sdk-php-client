@@ -73,8 +73,8 @@ class ClientTraitTest extends TestCase
         self::$accessKeyId     = \getenv('ACCESS_KEY_ID');
         self::$accessKeySecret = \getenv('ACCESS_KEY_SECRET');
         self::$roleName        = 'EcsRamRoleTest';
-        self::$roleArn         = \getenv('ROLE_ARN');
-        self::$roleSessionName = \getenv('ROLE_SESSION_NAME');
+        self::$roleArn         = 'acs:ram::1483445870618637:role/test';
+        self::$roleSessionName = 'role_session_name';
         self::$bearerToken     = 'BEARER_TOKEN';
     }
 

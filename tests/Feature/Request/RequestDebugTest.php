@@ -23,7 +23,7 @@ class RequestDebugTest extends TestCase
     {
         // Setup
         $nameClient      = 'name';
-        $regionId        = \getenv('REGION_ID');
+        $regionId        = \AlibabaCloud\Client\env('REGION_ID', 'cn-hangzhou');
         $accessKeyId     = \getenv('ACCESS_KEY_ID');
         $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
         putenv('DEBUG=sdk');
@@ -51,7 +51,7 @@ class RequestDebugTest extends TestCase
     {
         // Setup
         $nameClient      = 'name';
-        $regionId        = \getenv('REGION_ID');
+        $regionId        = \AlibabaCloud\Client\env('REGION_ID', 'cn-hangzhou');
         $accessKeyId     = \getenv('ACCESS_KEY_ID');
         $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
         putenv('DEBUG=false');

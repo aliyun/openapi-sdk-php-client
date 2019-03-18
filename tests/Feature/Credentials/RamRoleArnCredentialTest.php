@@ -30,16 +30,14 @@ class RamRoleArnCredentialTest extends TestCase
         $regionId        = 'cn-hangzhou';
         $accessKeyId     = \getenv('ACCESS_KEY_ID');
         $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
-        $roleArn         = \getenv('ROLE_ARN');
-        $roleSessionName = \getenv('ROLE_SESSION_NAME');
+        $roleArn         = 'acs:ram::1483445870618637:role/test';
+        $roleSessionName = 'role_session_name';
         AlibabaCloud::ramRoleArnClient(
             $accessKeyId,
             $accessKeySecret,
             $roleArn,
             $roleSessionName
-        )
-                    ->regionId($regionId)
-                    ->name($this->clientName);
+        )->regionId($regionId)->name($this->clientName);
     }
 
     /**
@@ -57,10 +55,11 @@ class RamRoleArnCredentialTest extends TestCase
     public function testEcs()
     {
         try {
-            $result = (new DescribeAccessPointsRequest())->client($this->clientName)
-                                                         ->connectTimeout(25)
-                                                         ->timeout(30)
-                                                         ->request();
+            $result = (new DescribeAccessPointsRequest())
+                ->client($this->clientName)
+                ->connectTimeout(25)
+                ->timeout(30)
+                ->request();
             $this->assertTrue(isset($result['AccessPointSet']));
         } catch (ServerException $e) {
             self::assertEquals(

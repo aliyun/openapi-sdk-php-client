@@ -117,7 +117,7 @@ class RsaKeyPairProviderTest extends TestCase
         );
 
         $client = AlibabaCloud::rsaKeyPairClient(
-            \AlibabaCloud\Client\env('PUBLIC_KEY_ID'),
+            'public_key_id',
             VirtualRsaKeyPairCredential::privateKeyFileUrl()
         );
 

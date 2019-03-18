@@ -30,7 +30,8 @@ class BearerTokenCredentialTest extends TestCase
     {
         parent::setUp();
         $regionId    = 'cn-hangzhou';
-        $bearerToken = \getenv('BEARER_TOKEN');
+        $bearerToken =
+            'eyJhbGciOiJSUzI1NiIsImsyaWQiOiJlNE92NnVOUDhsMEY2RmVUMVhvek5wb1NBcVZLblNGRyIsImtpZCI6IkpDOXd4enJocUowZ3RhQ0V0MlFMVWZldkVVSXdsdEZodWk0TzFiaDY3dFUifQ.N3plS0w2cm83YzhtVzJqSkI0U0JIMldzNW45cFBOSWdNellvQ3VpZGV5NzRVOHNsMkJUWTVULzl3RDdkbzhHQkorM3dvclg1SGY1STZXL1FjaVhLVnc5ck5YeVNYanBuK2N6UkN1SnRRc3FRMGJIVTF4cVVjUDVRNUJpK2JsSWxZdlowZ2VWSzYvS2pzcVNjWHJLSlVvWkNnWE0wWGJZZ0NCVm1BUlNXS1plUnNzdnAvUmwwV01tSFFkWmlOMGtKV0o5TllQU3M0QU1aenpHVTdUY1BnYlhIVy9uTmdMY1JVSytROXlrPQ.kvZes7-6IU-xjOzK1goPPjODz1XLt73yCmDLSpRwzlz3d9A_uYvbQK0HHltVKo0K0dI0wJOfpCeOHJlrV0m4RI4bynL9ltl31rscPhQ-G4Ybqw4KXVBZCIzjSqzWcniIWnGWl-TpOy0Y7sAcJmp0Lg2ndu_shGqiTP6DTVBNV8f94mveHmRqouLxr2OKMvCyxTV1zUEJmC-JnZaljfNG-i483qG8Hm60CwAjM91FTGib3eXGzjJa3XOOY7zpZTrvahBYFpyrVhRuvDvRs6tLKVAL_7bYwCIo_tdh9rhRmFtyq0k2iykZQJmAIlDMt-VENP7hJTH62uUQzNLQ28ISTQ';
         AlibabaCloud::bearerTokenClient($bearerToken)
                     ->regionId($regionId)
                     ->name($this->clientName);

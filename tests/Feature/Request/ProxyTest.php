@@ -24,7 +24,7 @@ class ProxyTest extends TestCase
     {
         // Setup
         $nameClient      = 'name';
-        $regionId        = \getenv('REGION_ID');
+        $regionId        = \AlibabaCloud\Client\env('REGION_ID', 'cn-hangzhou');
         $accessKeyId     = \getenv('ACCESS_KEY_ID');
         $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
 
@@ -58,7 +58,7 @@ class ProxyTest extends TestCase
     {
         // Setup
         $nameClient      = 'name';
-        $regionId        = \getenv('REGION_ID');
+        $regionId        = \AlibabaCloud\Client\env('REGION_ID', 'cn-hangzhou');
         $accessKeyId     = \getenv('ACCESS_KEY_ID');
         $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
 
@@ -77,5 +77,4 @@ class ProxyTest extends TestCase
                                               ])
                                       ->request();
     }
-
 }

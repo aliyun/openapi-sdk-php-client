@@ -41,10 +41,10 @@ class DefaultProfileTest extends TestCase
     {
         // Setup
         $regionId        = 'cn-hangzhou';
-        $accessKeyId     = \getenv('ACCESS_KEY_ID');
-        $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
-        $roleArn         = \getenv('ROLE_ARN');
-        $roleSessionName = \getenv('ROLE_SESSION_NAME');
+        $accessKeyId     = 'access_key_id';
+        $accessKeySecret = 'access_key_secret';
+        $roleArn         = 'role_arn';
+        $roleSessionName = 'role_session_name';
 
         // Test
         $profile = DefaultProfile::getRamRoleArnProfile(

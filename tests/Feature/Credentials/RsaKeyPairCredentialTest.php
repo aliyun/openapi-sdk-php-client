@@ -80,9 +80,11 @@ class RsaKeyPairCredentialTest extends TestCase
      */
     public function testEcsNotInJapan()
     {
+        // Setup
+        $regionId = \AlibabaCloud\Client\env('REGION_ID', 'cn-hangzhou');
         (new DescribeAccessPointsRequest())
             ->client($this->clientName)
-            ->regionId(\AlibabaCloud\Client\env('REGION_ID'))
+            ->regionId($regionId)
             ->connectTimeout(25)
             ->timeout(30)
             ->request();
