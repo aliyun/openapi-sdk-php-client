@@ -38,8 +38,7 @@ script:
   # Start Proxy
   - sudo o_o &
   # Test
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then composer test; fi
-  - if [ "$TRAVIS_BRANCH" != "master" ]; then composer unit; fi
+  - test -z $ACCESS_KEY_ID -a -z $ACCESS_KEY_SECRET || composer test
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

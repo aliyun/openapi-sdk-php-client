@@ -63,11 +63,10 @@ EOT;
     public static function privateKeyFileUrl()
     {
         $line1   = \AlibabaCloud\Client\env('PRIVATE_KEY_LINE_1');
-        $line2   = \AlibabaCloud\Client\env('PRIVATE_KEY_LINE_2');
         $content = <<<EOT
 -----BEGIN PRIVATE KEY-----
 $line1
-$line2
+bLJLsNYlhQYkoKgXup7F7X9t2Z0wkOEnRagRuM+mZX3Vr6ZKVcusnH75e1R2a/eF
 k95zoHyfj5nGSsSSYwrnNbxAVfbyCvP9QakNE35yM4PH7bCaUbzu/R3dAN+NDY51
 edF4krNXlx2RjGVz/+CoD5gUFZZIPiEGxb0XyWNbCdioxj2W3O8eUjW3EZsPCVJh
 u+oEYN/v5Lz1uGgPMzQn5d6F/bg+qo2FrqXhYZMrOW0d3b0kdZRCPEnkvpmjuIiU

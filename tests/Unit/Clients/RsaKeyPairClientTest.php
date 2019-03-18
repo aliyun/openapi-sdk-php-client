@@ -22,7 +22,7 @@ class RsaKeyPairClientTest extends TestCase
     public function testConstruct()
     {
         // Setup
-        $publicKeyId    = \AlibabaCloud\Client\env('PUBLIC_KEY_ID');
+        $publicKeyId    = 'public_key_id';
         $privateKeyFile = VirtualRsaKeyPairCredential::privateKeyFileUrl();
 
         // Test

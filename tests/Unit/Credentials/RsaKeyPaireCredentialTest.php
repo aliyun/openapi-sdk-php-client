@@ -67,7 +67,7 @@ class RsaKeyPaireCredentialTest extends TestCase
     public function testConstruct()
     {
         // Setup
-        $publicKeyId    = \getenv('PUBLIC_KEY_ID');
+        $publicKeyId    = 'public_key_id';
         $privateKeyFile = VirtualRsaKeyPairCredential::privateKeyFileUrl();
 
         // Test

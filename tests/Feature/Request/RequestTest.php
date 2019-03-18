@@ -119,6 +119,6 @@ class RequestTest extends TestCase
         AlibabaCloud::accessKeyClient(
             \getenv('ACCESS_KEY_ID'),
             \getenv('ACCESS_KEY_SECRET')
-        )->asDefaultClient()->regionId(\getenv('REGION_ID'));
+        )->asDefaultClient()->regionId(\AlibabaCloud\Client\env('REGION_ID', 'cn-hangzhou'));
     }
 }
