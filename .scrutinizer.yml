@@ -7,6 +7,11 @@ build:
     coverage:
       tests:
         override:
+          # Install Proxy
+          - command: npm install o_o -g
+          # Start Proxy
+          - command: o_o &
+          # Make test
           - command: composer test
             coverage:
               file: cache/coverage.clover

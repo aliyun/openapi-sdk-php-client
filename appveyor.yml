@@ -8,8 +8,10 @@ branches:
 
 # Install PHP/Composer and set PATH
 install:
+  # Install curl
   - cinst -y curl
   - SET PATH=C:\Program Files\curl;%PATH%
+  - curl --proxy http://localhost:8989 -I https://world.taobao.com
   # Which is only needed by the test suite.
   - cinst -y which
   - SET PATH=C:\Program Files\which;%PATH%
@@ -39,6 +41,11 @@ install:
   - SET PATH=%APPVEYOR_BUILD_FOLDER%;%APPVEYOR_BUILD_FOLDER%/vendor/bin;%PATH%
 
 test_script:
+  # Install Proxy
+  - npm install o_o -g
+  # Start Proxy
+  - ps: Start-Process -FilePath o_o -NoNewWindow
+  # Test
   - phpunit --colors=always
 
 # environment variables

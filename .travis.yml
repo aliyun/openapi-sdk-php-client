@@ -27,6 +27,14 @@ install:
   - 'if { [ $(phpenv version-name) == "7.2" ] || [ $(phpenv version-name) == "7.3" ]; } && [ -v COMPOSER_OPTS ]; then composer require --dev phpunit/phpunit "^5.7.11"; fi'
   - composer --version
   - travis_retry composer update $COMPOSER_OPTS --no-interaction --prefer-source --profile
+  # Install Proxy
+  - sudo rm -rf ~/.nvm - curl -sL "https://deb.nodesource.com/setup_7.x" | sudo -E bash -
+  - sudo apt-get install -y nodejs
+  - sudo ln -s /usr/bin/nodejs /usr/bin/node
+  - sudo apt-get install -y npm
+  - sudo npm install o_o -g --registry=https://registry.npm.taobao.org
+  # Start Proxy
+  - sudo o_o &
 
 script:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then composer test; fi
