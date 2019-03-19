@@ -21,43 +21,19 @@
 **Alibaba Cloud Client for PHP** 是帮助 PHP 开发者管理凭据、发送请求的客户端工具，[Alibaba Cloud SDK for PHP][SDK] 由本工具提供底层支持。
 
 
-## 要求
-- 您必须使用 PHP 5.5.0 或更高版本。
-- 如果您使用了 `RsaKeyPair` 客户端（仅支持日本站），还需要 [OpenSSL PHP 扩展][OpenSSL]。
-
-
-## 建议
-- 使用 [Composer][composer] 并优化自动加载 `composer dump-autoload --optimize`
-- 安装 [cURL][cURL] 7.16.2 或更高版本
-- 使用 [OPCache][OPCache]
-- 生产环境中不要使用 [Xdebug][xdebug]
-
-
 ## 在线示例
-[API Explorer](https://api.aliyun.com) 提供在线调用阿里云产品，并动态生成 SDK 代码和快速检索接口等能力，能显著降低使用云 API 的难度，强烈推荐使用。
+[API Explorer](https://api.aliyun.com) 提供在线调用阿里云产品，并动态生成 SDK 代码和快速检索接口等能力，能显著降低使用云 API 的难度。
 
 
-## 安装
-> 安装 Alibaba Cloud Client for PHP，您必须掌握如何使用 [Composer][composer]。
+## 快速开始
 
-<br/>
-
-1. 下载并安装 Composer（Windows 用户请下载并运行 [Composer-Setup.exe](https://getcomposer.org/Composer-Setup.exe)）
-```bash
-curl -sS https://getcomposer.org/installer | php
-```
-
-2. 执行 Composer 命令安装 Alibaba Cloud Client for PHP 的最新稳定版本
-```bash
-php -d memory_limit=-1 composer.phar require alibabacloud/client
-```
-
-3. 在代码中引入 Composer 自动加载工具
-```php
-<?php
-
-require __DIR__ . '/vendor/autoload.php'; 
-```
+1. **阿里云帐户**  - 在您开始之前，您需要注册阿里云帐户并获取您的[凭据](https://usercenter.console.aliyun.com/#/manage/ak)。
+1. **环境要求**  - 您的系统需要满足[环境要求](docs/0-Requirements-CN.md)），包括 **PHP> = 5.5**。 我们强烈建议使用cURL扩展，并使用TLS后端编译cURL 7.16.2+。
+1. **安装依赖**  - 如果在您的系统上全局安装Composer，您可以在项目目录中运行以下内容，将 Alibaba Cloud Client for PHP 添加为依赖项：
+   ```
+   composer require alibabacloud/client
+   ```
+   请看 [安装](docs/1-Installation-CN.md) 有关通过 Composer 和其他方式安装的详细信息。
 
 
 ## 快速使用
@@ -129,6 +105,7 @@ try {
 
 
 ## 文档
+* [环境要求](docs/0-Requirements-CN.md)
 * [安装](docs/1-Installation-CN.md)
 * [客户端](docs/2-Client-CN.md)
 * [请求](docs/3-Request-CN.md)

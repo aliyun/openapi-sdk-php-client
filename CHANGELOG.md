@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.21 - 2019-03-19
+- Installing by Using the ZIP file.
+- Update Docs.
+
+
 ## 1.0.20 - 2019-03-13
 - Improve Tests.
 - Update Docs.
