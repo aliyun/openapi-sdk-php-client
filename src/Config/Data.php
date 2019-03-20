@@ -2109,5 +2109,9 @@ return [
                     'cn-shanghai'    => 'faas.cn-shanghai.aliyuncs.com',
                     'cn-shenzhen'    => 'faas.cn-shenzhen.aliyuncs.com',
                 ],
+            'idaas'           =>
+                [
+                    'cn-hangzhou' => 'idaas.aliyuncs.com',
+                ],
         ],
 ];

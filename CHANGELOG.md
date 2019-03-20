@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.22 - 2019-03-20
+- Add endpoint `cn-hangzhou` for `idaas` .
+
+
 ## 1.0.21 - 2019-03-19
 - Installing by Using the ZIP file.
 - Update Docs.

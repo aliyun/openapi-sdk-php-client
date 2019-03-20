@@ -21,7 +21,6 @@ your [issues][issues] or [pull requests][pull-requests] through GitHub.
    your pull requests before we accept them. We also reserve the right to deny
    any pull requests that do not align with our standards or goals.
 
-
 [issues]: https://github.com/aliyun/openapi-sdk-php-client/issues
 [pull-requests]: https://github.com/aliyun/openapi-sdk-php-client/pulls
 [license]: http://www.apache.org/licenses/LICENSE-2.0

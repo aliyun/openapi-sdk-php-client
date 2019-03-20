@@ -82,6 +82,8 @@ class RsaKeyPairCredentialTest extends TestCase
     {
         // Setup
         $regionId = \AlibabaCloud\Client\env('REGION_ID', 'cn-hangzhou');
+
+        // Test
         (new DescribeAccessPointsRequest())
             ->client($this->clientName)
             ->regionId($regionId)
