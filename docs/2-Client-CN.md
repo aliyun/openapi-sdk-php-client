@@ -127,11 +127,6 @@ role_session_name = session_name
 #..................................# 其他配置忽略同上
 
 [client3]                          # 命名为 `client3` 的客户端
-type = bearer_token                # 认证方式为 bearer_token
-bearer_token = bearer_token        # Token
-#..................................# 其他配置忽略同上
-
-[client4]                          # 命名为 `client4` 的客户端
 type = rsa_key_pair                # 认证方式为 rsa_key_pair
 public_key_id = publicKeyId        # Public Key ID
 private_key_file = /your/pk.pem    # Private Key 文件

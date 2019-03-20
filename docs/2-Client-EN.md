@@ -128,11 +128,6 @@ role_session_name = session_name
 #..................................# As above, other configurations ignored.
 
 [client3]                          # Client that is named as `client3`
-type = bearer_token                # Certification type: bearer_token
-bearer_token = bearer_token        # Token
-#..................................# As above, other configurations ignored.
-
-[client4]                          # Client that is named as `client4`
 type = rsa_key_pair                # Certification type: rsa_key_pair
 public_key_id = publicKeyId        # Public Key ID
 private_key_file = /your/pk.pem    # Private Key file
