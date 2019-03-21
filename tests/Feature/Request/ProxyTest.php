@@ -43,6 +43,10 @@ class ProxyTest extends TestCase
                                                         ])
                                                 ->request();
 
+        $headers = $result->getResponse()->getHeaders();
+        self::assertArrayHasKey('Via', $headers);
+        self::assertEquals('HTTP/1.1 o_o', $headers['Via'][0]);
+
         $this->assertNotNull($result->RequestId);
         $this->assertNotNull($result->Regions->Region[0]->LocalName);
         $this->assertNotNull($result->Regions->Region[0]->RegionId);

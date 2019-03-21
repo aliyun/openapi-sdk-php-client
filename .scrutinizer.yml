@@ -8,9 +8,16 @@ build:
       tests:
         override:
           # Install Proxy
-          - command: npm install o_o -g
+          - command: ls -la /home/scrutinizer/.nvm/versions/io.js
+          - command: sudo ln -s "/home/scrutinizer/.nvm/versions/io.js/v1.3.0/bin/node" /usr/bin/node
+          - command: sudo ln -s /home/scrutinizer/.nvm/versions/io.js/v1.3.0/bin/npm /usr/bin/npm
+          - command: sudo npm i -g n --force
+          - command: sudo n latest
+          - command: sudo node -v
+          - command: sudo npm -v
+          - command: sudo npm install o_o -g
           # Start Proxy
-          - command: o_o &
+          - command: sudo o_o &
           # Make test
           - command: composer test
             coverage:
