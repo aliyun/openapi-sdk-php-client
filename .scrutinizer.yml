@@ -8,13 +8,10 @@ build:
       tests:
         override:
           # Install Proxy
-          - command: ls -la /home/scrutinizer/.nvm/versions/io.js
-          - command: sudo ln -s "/home/scrutinizer/.nvm/versions/io.js/v1.3.0/bin/node" /usr/bin/node
-          - command: sudo ln -s /home/scrutinizer/.nvm/versions/io.js/v1.3.0/bin/npm /usr/bin/npm
-          - command: sudo npm i -g n --force
-          - command: sudo n latest
-          - command: sudo node -v
-          - command: sudo npm -v
+          - command: npm i -g n@1.3.0 --force
+          - command: sudo /home/scrutinizer/.nvm/versions/io.js/v1.3.0/bin/n 11.12.0
+          - command: sudo ln -s /usr/local/n/versions/node/11.12.0/bin/node /usr/bin/node
+          - command: sudo ln -s /usr/local/n/versions/node/11.12.0/bin/npm /usr/bin/npm
           - command: sudo npm install o_o -g
           # Start Proxy
           - command: sudo o_o &

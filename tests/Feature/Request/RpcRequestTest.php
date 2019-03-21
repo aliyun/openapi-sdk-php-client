@@ -24,9 +24,8 @@ class RpcRequestTest extends TestCase
     public function testWithCredential()
     {
         // Setup
-        $nameClient = 'name';
-        $regionId   = \AlibabaCloud\Client\env('REGION_ID', 'cn-hangzhou');
-        ;
+        $nameClient      = 'name';
+        $regionId        = \AlibabaCloud\Client\env('REGION_ID', 'cn-hangzhou');
         $accessKeyId     = \getenv('ACCESS_KEY_ID');
         $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
 
