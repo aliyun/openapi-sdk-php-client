@@ -8,9 +8,13 @@ build:
       tests:
         override:
           # Install Proxy
-          - command: npm install o_o -g
+          - command: npm i -g n@1.3.0 --force
+          - command: sudo /home/scrutinizer/.nvm/versions/io.js/v1.3.0/bin/n 11.12.0
+          - command: sudo ln -s /usr/local/n/versions/node/11.12.0/bin/node /usr/bin/node
+          - command: sudo ln -s /usr/local/n/versions/node/11.12.0/bin/npm /usr/bin/npm
+          - command: sudo npm install o_o -g
           # Start Proxy
-          - command: o_o &
+          - command: sudo o_o &
           # Make test
           - command: composer test
             coverage:

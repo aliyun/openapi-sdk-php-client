@@ -33,8 +33,7 @@ class ProxyTest extends TestCase
                     ->regionId($regionId)
                     ->name($nameClient);
 
-        // Assert
-
+        // Test
         $result = (new DescribeRegionsRequest())->client($nameClient)
                                                 ->connectTimeout(25)
                                                 ->timeout(30)
@@ -43,6 +42,10 @@ class ProxyTest extends TestCase
                                                         ])
                                                 ->request();
 
+        // Assert
+        $headers = $result->getResponse()->getHeaders();
+        $this->assertArrayHasKey('Via', $headers);
+        $this->assertEquals('HTTP/1.1 o_o', $headers['Via'][0]);
         $this->assertNotNull($result->RequestId);
         $this->assertNotNull($result->Regions->Region[0]->LocalName);
         $this->assertNotNull($result->Regions->Region[0]->RegionId);
@@ -68,7 +71,6 @@ class ProxyTest extends TestCase
                     ->name($nameClient);
 
         // Assert
-
         (new DescribeRegionsRequest())->client($nameClient)
                                       ->connectTimeout(1)
                                       ->timeout(2)
