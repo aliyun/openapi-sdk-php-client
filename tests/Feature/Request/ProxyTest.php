@@ -20,6 +20,34 @@ class ProxyTest extends TestCase
      * @throws ServerException
      * @throws ClientException
      */
+    public function testNoProxy()
+    {
+        // Setup
+        $nameClient      = 'name';
+        $regionId        = \AlibabaCloud\Client\env('REGION_ID', 'cn-hangzhou');
+        $accessKeyId     = \getenv('ACCESS_KEY_ID');
+        $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
+
+        // Test
+        AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
+                    ->regionId($regionId)
+                    ->name($nameClient);
+
+        // Test
+        $result = (new DescribeRegionsRequest())->client($nameClient)
+                                                ->connectTimeout(25)
+                                                ->timeout(30)
+                                                ->request();
+
+        // Assert
+        $headers = $result->getResponse()->getHeaders();
+        $this->assertArrayNotHasKey('Via', $headers);
+    }
+
+    /**
+     * @throws ServerException
+     * @throws ClientException
+     */
     public function testProxyWithoutPassword()
     {
         // Setup

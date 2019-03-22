@@ -54,7 +54,7 @@ class IniCredentialFeatureTest extends TestCase
      * @expectedException        \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Format error: vfs://AlibabaCloud/credentials
      */
-    public function testBadFormat()
+    public static function testBadFormat()
     {
         AlibabaCloud::load(VirtualAccessKeyCredential::badFormat());
     }
@@ -64,7 +64,7 @@ class IniCredentialFeatureTest extends TestCase
      * @expectedExceptionCode          0
      * @expectedExceptionMessageRegExp /Credential file is not readable: \w+/
      */
-    public function testLoadCredentialsFile()
+    public static function testLoadCredentialsFile()
     {
         AlibabaCloud::load('no/file');
     }
@@ -73,7 +73,7 @@ class IniCredentialFeatureTest extends TestCase
      * @expectedException        \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Credential file is not readable: /root/AlibabaCloud/NoneFile
      */
-    public function testLoadDirectory()
+    public static function testLoadDirectory()
     {
         AlibabaCloud::load('/root/AlibabaCloud/NoneFile');
     }
@@ -81,7 +81,7 @@ class IniCredentialFeatureTest extends TestCase
     /**
      * @throws ClientException
      */
-    public function testDisableClient()
+    public static function testDisableClient()
     {
         AlibabaCloud::load(VirtualAccessKeyCredential::disable());
         self::assertFalse(AlibabaCloud::has('phpunit'));
@@ -92,7 +92,7 @@ class IniCredentialFeatureTest extends TestCase
      * @expectedExceptionCode    0
      * @expectedExceptionMessage Missing required 'type' option for 'phpunit'
      */
-    public function testNoType()
+    public static function testNoType()
     {
         AlibabaCloud::load(VirtualAccessKeyCredential::noType());
     }
@@ -102,7 +102,7 @@ class IniCredentialFeatureTest extends TestCase
      * @expectedExceptionCode    0
      * @expectedExceptionMessage Invalid type 'invalidType' for 'phpunit'
      */
-    public function testInvalidType()
+    public static function testInvalidType()
     {
         AlibabaCloud::load(VirtualAccessKeyCredential::invalidType());
     }
@@ -112,7 +112,7 @@ class IniCredentialFeatureTest extends TestCase
      * @expectedExceptionCode    0
      * @expectedExceptionMessage Missing required 'access_key_id' option for 'phpunit'
      */
-    public function testNoKey()
+    public static function testNoKey()
     {
         AlibabaCloud::load(VirtualAccessKeyCredential::noKey());
     }
@@ -122,7 +122,7 @@ class IniCredentialFeatureTest extends TestCase
      * @expectedExceptionCode    0
      * @expectedExceptionMessage Missing required 'access_key_secret' option for 'phpunit'
      */
-    public function testNoSecret()
+    public static function testNoSecret()
     {
         AlibabaCloud::load(VirtualAccessKeyCredential::noSecret());
     }
