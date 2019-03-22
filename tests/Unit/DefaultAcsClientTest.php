@@ -207,8 +207,8 @@ class DefaultAcsClientTest extends TestCase
             400,
             [],
             [
-                                       'Message' => 'Specified parameter Version is not valid.',
-                                   ]
+                'Message' => 'Specified parameter Version is not valid.',
+            ]
         );
         $request = new DescribeRegionsRequest();
         $request->version('BadVersion');

@@ -11,6 +11,7 @@ use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Filter\Filter;
 use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
 use AlibabaCloud\Client\SDK;
+use RuntimeException;
 
 /**
  * RESTful ROA Request.
@@ -332,6 +333,6 @@ class RoaRequest extends Request
             return $this->$withMethod($arguments[0]);
         }
 
-        throw new \RuntimeException('Call to undefined method ' . __CLASS__ . '::' . $name . '()');
+        throw new RuntimeException('Call to undefined method ' . __CLASS__ . '::' . $name . '()');
     }
 }

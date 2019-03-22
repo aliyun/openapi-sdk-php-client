@@ -7,6 +7,7 @@ use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
+use RuntimeException;
 
 /**
  * RESTful RPC Request.
@@ -189,6 +190,6 @@ class RpcRequest extends Request
             return $this->$withMethod($arguments[0]);
         }
 
-        throw new \RuntimeException('Call to undefined method ' . __CLASS__ . '::' . $name . '()');
+        throw new RuntimeException('Call to undefined method ' . __CLASS__ . '::' . $name . '()');
     }
 }

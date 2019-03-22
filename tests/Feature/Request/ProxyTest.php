@@ -20,7 +20,7 @@ class ProxyTest extends TestCase
      * @throws ServerException
      * @throws ClientException
      */
-    public function testProxyOk()
+    public function testProxyWithoutPassword()
     {
         // Setup
         $nameClient      = 'name';
@@ -39,6 +39,41 @@ class ProxyTest extends TestCase
                                                 ->timeout(30)
                                                 ->proxy([
                                                             'http' => 'http://localhost:8989',
+                                                        ])
+                                                ->request();
+
+        // Assert
+        $headers = $result->getResponse()->getHeaders();
+        $this->assertArrayHasKey('Via', $headers);
+        $this->assertEquals('HTTP/1.1 o_o', $headers['Via'][0]);
+        $this->assertNotNull($result->RequestId);
+        $this->assertNotNull($result->Regions->Region[0]->LocalName);
+        $this->assertNotNull($result->Regions->Region[0]->RegionId);
+    }
+
+    /**
+     * @throws ServerException
+     * @throws ClientException
+     */
+    public function testProxyWithPassword()
+    {
+        // Setup
+        $nameClient      = 'name';
+        $regionId        = \AlibabaCloud\Client\env('REGION_ID', 'cn-hangzhou');
+        $accessKeyId     = \getenv('ACCESS_KEY_ID');
+        $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
+
+        // Test
+        AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
+                    ->regionId($regionId)
+                    ->name($nameClient);
+
+        // Test
+        $result = (new DescribeRegionsRequest())->client($nameClient)
+                                                ->connectTimeout(25)
+                                                ->timeout(30)
+                                                ->proxy([
+                                                            'http' => 'http://username:password@localhost:8989',
                                                         ])
                                                 ->request();
 

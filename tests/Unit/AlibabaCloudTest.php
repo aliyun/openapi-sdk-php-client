@@ -14,12 +14,6 @@ use PHPUnit\Framework\TestCase;
  */
 class AlibabaCloudTest extends TestCase
 {
-    public function tearDown()
-    {
-        parent::tearDown();
-        AlibabaCloud::flush();
-    }
-
     /**
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Please install alibabacloud/sdk to support product quick access.
@@ -27,5 +21,11 @@ class AlibabaCloudTest extends TestCase
     public static function testCallStatic()
     {
         AlibabaCloud::Ecs();
+    }
+
+    public function tearDown()
+    {
+        parent::tearDown();
+        AlibabaCloud::flush();
     }
 }
