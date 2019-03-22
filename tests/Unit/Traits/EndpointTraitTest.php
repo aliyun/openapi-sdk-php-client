@@ -172,8 +172,8 @@ class EndpointTraitTest extends TestCase
             400,
             [],
             [
-                                       'Message' => 'Please check the parameters',
-                                   ]
+                'Message' => 'Please check the parameters',
+            ]
         );
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
                     ->regionId('cn-hangzhou')

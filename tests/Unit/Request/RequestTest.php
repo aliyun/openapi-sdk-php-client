@@ -22,6 +22,47 @@ class RequestTest extends TestCase
     /**
      * @throws ClientException
      */
+    public static function testIsset()
+    {
+        // Setup
+        $request = new DeleteDatabaseRequest();
+
+        // Get
+        self::assertFalse(isset($request->object));
+
+        // Set
+        $request->object = 'object';
+
+        // Isset
+        self::assertTrue(isset($request->object));
+        self::assertEquals('object', $request->object);
+
+        // Unset
+        unset($request->object);
+        self::assertEquals(null, $request->object);
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public static function testRequest()
+    {
+        // Setup
+        $request = new RpcRequest();
+
+        // Assert
+        self::assertArrayNotHasKey('verify', $request->options);
+
+        // Test
+        $request->verify(true);
+
+        // Assert
+        self::assertTrue($request->options['verify']);
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testConstruct()
     {
         // Setup
@@ -422,46 +463,5 @@ class RequestTest extends TestCase
         } catch (ClientException $e) {
             self::assertStringStartsWith('cURL error', $e->getErrorMessage());
         }
-    }
-
-    /**
-     * @throws ClientException
-     */
-    public static function testIsset()
-    {
-        // Setup
-        $request = new DeleteDatabaseRequest();
-
-        // Get
-        self::assertFalse(isset($request->object));
-
-        // Set
-        $request->object = 'object';
-
-        // Isset
-        self::assertTrue(isset($request->object));
-        self::assertEquals('object', $request->object);
-
-        // Unset
-        unset($request->object);
-        self::assertEquals(null, $request->object);
-    }
-
-    /**
-     * @throws ClientException
-     */
-    public static function testRequest()
-    {
-        // Setup
-        $request = new RpcRequest();
-
-        // Assert
-        self::assertArrayNotHasKey('verify', $request->options);
-
-        // Test
-        $request->verify(true);
-
-        // Assert
-        self::assertTrue($request->options['verify']);
     }
 }

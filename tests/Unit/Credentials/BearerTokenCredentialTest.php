@@ -17,25 +17,6 @@ class BearerTokenCredentialTest extends TestCase
 {
 
     /**
-     * @throws ClientException
-     */
-    public function testConstruct()
-    {
-        // Setup
-        $bearerToken = 'BEARER_TOKEN';
-        $expected    = 'bearerToken#BEARER_TOKEN';
-
-        // Test
-        $credential = new BearerTokenCredential($bearerToken);
-
-        // Assert
-        $this->assertEquals($bearerToken, $credential->getBearerToken());
-        $this->assertEquals('', $credential->getAccessKeyId());
-        $this->assertEquals('', $credential->getAccessKeySecret());
-        $this->assertEquals($expected, (string)$credential);
-    }
-
-    /**
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Bearer Token cannot be empty
      * @throws ClientException
@@ -61,5 +42,24 @@ class BearerTokenCredentialTest extends TestCase
 
         // Test
         new BearerTokenCredential($bearerToken);
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function testConstruct()
+    {
+        // Setup
+        $bearerToken = 'BEARER_TOKEN';
+        $expected    = 'bearerToken#BEARER_TOKEN';
+
+        // Test
+        $credential = new BearerTokenCredential($bearerToken);
+
+        // Assert
+        $this->assertEquals($bearerToken, $credential->getBearerToken());
+        $this->assertEquals('', $credential->getAccessKeyId());
+        $this->assertEquals('', $credential->getAccessKeySecret());
+        $this->assertEquals($expected, (string)$credential);
     }
 }
