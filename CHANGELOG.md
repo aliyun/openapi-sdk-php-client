@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.23 - 2019-03-23
+- Remove SVG.
+
+
 ## 1.0.22 - 2019-03-20
 - Add endpoint `cn-hangzhou` for `idaas` .
 
