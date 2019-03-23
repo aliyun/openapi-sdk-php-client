@@ -1,7 +1,7 @@
 [English](./README.md) | 简体中文
 
 
-<p align="center"><img src="./src/Files/Aliyun.svg"></p>
+<p align="center"><img src="https://aliyunsdk-pages.alicdn.com/icons/Aliyun.svg"></p>
 <p align="center">
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/v/stable" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/v/unstable" alt="Latest Unstable Version"></a>
