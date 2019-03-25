@@ -2,11 +2,10 @@
 
 
 <p align="center">
-  <a href=" https://www.aliyun.com">
-    <img src="https://aliyunsdk-pages.alicdn.com/icons/Aliyun.svg">
-  </a>
-  <h1 align="center">Alibaba Cloud Client for PHP</h1>
+<a href=" https://www.alibabacloud.com"><img src="https://aliyunsdk-pages.alicdn.com/icons/Aliyun.svg"></a>
 </p>
+
+<h1 align="center">Alibaba Cloud Client for PHP</h1>
 
 <p align="center">
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/v/stable" alt="Latest Stable Version"></a>
