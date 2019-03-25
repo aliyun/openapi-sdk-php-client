@@ -30,7 +30,7 @@ Alibaba Cloud Client for PHP is a client tool that helps PHP developers manage c
 
 
 ## Requirements
-Your system will need to meet the [Requirements](docs/0-Requirements-EN.md), including having **PHP >= 5.5**. We highly recommend having it compiled with the cURL extension and cURL 7.16.2+.
+Your system will need to meet the [Requirements](docs/0-Requirements-EN.md), including having PHP >= 5.5. We highly recommend having it compiled with the cURL extension and cURL 7.16.2+.
 
 
 ## Installation
