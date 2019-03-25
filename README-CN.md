@@ -30,7 +30,7 @@ Alibaba Cloud Client for PHP 是帮助 PHP 开发者管理凭据、发送请求�
 
 
 ## 环境要求
-您的系统需要满足[环境要求](docs/0-Requirements-CN.md)），包括 **PHP> = 5.5**。 我们强烈建议使用cURL扩展，并使用TLS后端编译cURL 7.16.2+。
+您的系统需要满足[环境要求](docs/0-Requirements-CN.md)，包括 PHP> = 5.5。 我们强烈建议使用cURL扩展，并使用TLS后端编译cURL 7.16.2+。
 
 
 ## 安装依赖
