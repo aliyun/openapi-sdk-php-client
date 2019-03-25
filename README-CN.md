@@ -1,7 +1,13 @@
 [English](./README.md) | 简体中文
 
 
-<p align="center"><img src="https://aliyunsdk-pages.alicdn.com/icons/Aliyun.svg"></p>
+<p align="center">
+  <a href=" https://www.aliyun.com">
+    <img src="https://aliyunsdk-pages.alicdn.com/icons/Aliyun.svg">
+  </a>
+  <h1 align="center">Alibaba Cloud Client for PHP</h1>
+</p>
+
 <p align="center">
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/v/stable" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/alibabacloud/client"><img src="https://poser.pugx.org/alibabacloud/client/v/unstable" alt="Latest Unstable Version"></a>
@@ -17,26 +23,27 @@
 </p>
 
 
-## 关于
-**Alibaba Cloud Client for PHP** 是帮助 PHP 开发者管理凭据、发送请求的客户端工具，[Alibaba Cloud SDK for PHP][SDK] 由本工具提供底层支持。
+Alibaba Cloud Client for PHP 是帮助 PHP 开发者管理凭据、发送请求的客户端工具，[Alibaba Cloud SDK for PHP][SDK] 由本工具提供底层支持。
 
 
 ## 在线示例
 [API Explorer](https://api.aliyun.com) 提供在线调用阿里云产品，并动态生成 SDK 代码和快速检索接口等能力，能显著降低使用云 API 的难度。
 
 
-## 快速开始
+## 环境要求
+您的系统需要满足[环境要求](docs/0-Requirements-CN.md)），包括 **PHP> = 5.5**。 我们强烈建议使用cURL扩展，并使用TLS后端编译cURL 7.16.2+。
 
-1. **阿里云帐户**  - 在您开始之前，您需要注册阿里云帐户并获取您的[凭证](https://usercenter.console.aliyun.com/#/manage/ak)。
-1. **环境要求**  - 您的系统需要满足[环境要求](docs/0-Requirements-CN.md)），包括 **PHP> = 5.5**。 我们强烈建议使用cURL扩展，并使用TLS后端编译cURL 7.16.2+。
-1. **安装依赖**  - 如果在您的系统上全局安装Composer，您可以在项目目录中运行以下内容，将 Alibaba Cloud Client for PHP 添加为依赖项：
-   ```
-   composer require alibabacloud/client
-   ```
-   请看 [安装](docs/1-Installation-CN.md) 有关通过 Composer 和其他方式安装的详细信息。
+
+## 安装依赖
+如果在您的系统上全局安装Composer，您可以在项目目录中运行以下内容，将 Alibaba Cloud Client for PHP 添加为依赖项：
+```
+composer require alibabacloud/client
+```
+请看 [安装](docs/1-Installation-CN.md) 有关通过 Composer 和其他方式安装的详细信息。
 
 
 ## 快速使用
+在您开始之前，您需要注册阿里云帐户并获取您的[凭证](https://usercenter.console.aliyun.com/#/manage/ak)。
 
 ### 创建客户端
 ```php
@@ -117,6 +124,18 @@ try {
 * [测试](docs/9-Test-CN.md)
 
 
+## 问题
+[提交 Issue](https://github.com/aliyun/openapi-sdk-php-client/issues/new/choose)，不符合指南的问题可能会立即关闭。
+
+
+## 发行说明
+每个版本的详细更改记录在[发行说明](CHANGELOG.md)中。
+
+
+## 贡献
+提交 Pull Request 之前请阅读[贡献指南](CONTRIBUTING.md)。
+
+
 ## 相关
 * [阿里云服务 Regions & Endpoints][endpoints]
 * [OpenAPI Explorer][open-api]
@@ -124,6 +143,12 @@ try {
 * [Composer][composer]
 * [Guzzle中文文档][guzzle-docs]
 * [最新源码][latest-release]
+
+
+## 许可证
+[Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+版权所有 1999-2019 阿里巴巴集团
 
 
 [SDK]: https://github.com/aliyun/openapi-sdk-php/blob/master/README-CN.md
