@@ -388,7 +388,7 @@ abstract class Request implements \ArrayAccess
         if (AlibabaCloud::getLogger()) {
             $stack->push(Middleware::log(
                 AlibabaCloud::getLogger(),
-                new MessageFormatter(AlibabaCloud::getLogFormatter())
+                new MessageFormatter(AlibabaCloud::getLogFormat())
             ));
         }
 

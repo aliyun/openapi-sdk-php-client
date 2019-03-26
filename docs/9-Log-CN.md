@@ -34,7 +34,7 @@ AlibabaCloud::setLogger($logger);
 
 use AlibabaCloud\Client\AlibabaCloud;
 
-AlibabaCloud::setLogFormatter('{hostname} [{date_common_log}]');
+AlibabaCloud::setLogFormat('{hostname} [{date_common_log}]');
 ```
 
 ### 变量

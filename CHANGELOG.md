@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.24 - 2019-03-26
+- Support Log.
+
+
 ## 1.0.23 - 2019-03-23
 - Remove SVG.
 
