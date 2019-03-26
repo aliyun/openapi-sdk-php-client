@@ -4,6 +4,9 @@
 # 日志
 
 ## 设置 Logger
+
+若要启动日志功能，请传入实现了 `LoggerInterface` 接口的对象，例如：`Monolog\Logger`。
+
 ```php
 <?php
 

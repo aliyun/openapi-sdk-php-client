@@ -4,6 +4,9 @@
 # Log
 
 ## Set Logger
+
+To start the logging function, pass in an object that implements the `LoggerInterface` interface, for example: `Monolog\Logger`.
+
 ```php
 <?php
 
