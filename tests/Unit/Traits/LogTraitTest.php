@@ -30,6 +30,7 @@ class LogTraitTest extends TestCase
         $logger  = new Logger('AlibabaCloud');
         $logger->pushHandler(new StreamHandler($logFile));
         AlibabaCloud::setLogger($logger);
+        AlibabaCloud::setLogFormat('{uri} Custom field');
 
         // Setup
         $regionId    = 'cn-hangzhou';
@@ -53,5 +54,6 @@ class LogTraitTest extends TestCase
 
         $logContent = file_get_contents($logFile);
         self::assertNotFalse(strpos($logContent, 'Version=2015-12-15'));
+        self::assertNotFalse(strpos($logContent, 'Custom field'));
     }
 }

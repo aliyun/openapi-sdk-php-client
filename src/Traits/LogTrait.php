@@ -20,7 +20,7 @@ trait LogTrait
     /**
      * @var string
      */
-    private static $logFormatter;
+    private static $logFormat;
 
     /**
      * @param LoggerInterface $logger
@@ -48,19 +48,19 @@ trait LogTrait
      * @link http://httpd.apache.org/docs/2.4/logs.html#common
      * @see  \GuzzleHttp\MessageFormatter
      */
-    public static function setLogFormatter($formatter)
+    public static function setLogFormat($formatter)
     {
-        self::$logFormatter = $formatter;
+        self::$logFormat = $formatter;
     }
 
     /**
      * @return string
      */
-    public static function getLogFormatter()
+    public static function getLogFormat()
     {
         $pid = getmypid();
 
-        return self::$logFormatter
+        return self::$logFormat
             ?: "{hostname} [{date_common_log}] \"{method} {uri} HTTP/{version}\" {code} $pid";
     }
 }
