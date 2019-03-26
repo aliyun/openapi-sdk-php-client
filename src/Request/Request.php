@@ -20,9 +20,11 @@ use AlibabaCloud\Client\Traits\ArrayAccessTrait;
 use AlibabaCloud\Client\Traits\HttpTrait;
 use AlibabaCloud\Client\Traits\ObjectAccessTrait;
 use AlibabaCloud\Client\Traits\RegionTrait;
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Uri;
 
@@ -369,6 +371,7 @@ abstract class Request implements \ArrayAccess
 
     /**
      * @return Client
+     * @throws Exception
      */
     public static function createClient()
     {
@@ -382,6 +385,13 @@ abstract class Request implements \ArrayAccess
             $stack->push(Middleware::history(AlibabaCloud::referenceHistory()));
         }
 
+        if (AlibabaCloud::getLogger()) {
+            $stack->push(Middleware::log(
+                AlibabaCloud::getLogger(),
+                new MessageFormatter(AlibabaCloud::getLogFormatter())
+            ));
+        }
+
         return new Client([
                               'handler' => $stack,
                           ]);
@@ -389,6 +399,7 @@ abstract class Request implements \ArrayAccess
 
     /**
      * @throws ClientException
+     * @throws Exception
      */
     private function response()
     {

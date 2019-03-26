@@ -121,7 +121,8 @@ try {
 * [Host](docs/6-Host-EN.md)
 * [SSL Verify](docs/7-Verify-EN.md)
 * [Debug](docs/8-Debug-EN.md)
-* [Test](docs/9-Test-EN.md)
+* [Log](docs/9-Log-EN.md)
+* [Test](docs/10-Test-EN.md)
 
 
 ## Issues

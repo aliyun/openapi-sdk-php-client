@@ -1,9 +1,9 @@
-[← Debug](8-Debug-EN.md) | Test[(中文)](9-Test-CN.md) | [Home →](../README.md)
+[← 日志](9-Log-CN.md) | 测试[(English)](10-Test-EN.md) | [首页 →](../README-CN.md)
 ***
 
-# Test
+# 测试
 
-## Mock Response
+## Mock 响应
 ```php
 <?php
 
@@ -38,7 +38,7 @@ try {
 ```
 
 
-## Mock Exception
+## Mock 异常
 ```php
 <?php
 
@@ -57,7 +57,7 @@ try {
 ```
 
 
-## Cancel Mock
+## 取消 Mock
 ```php
 <?php
 
@@ -66,5 +66,6 @@ use AlibabaCloud\Client\AlibabaCloud;
 AlibabaCloud::cancelMock();
 ```
 
+
 ***
-[← Debug](8-Debug-EN.md) | Test[(中文)](9-Test-CN.md) | [Home →](../README.md)
+[← 日志](9-Log-CN.md) | 测试[(English)](10-Test-EN.md) | [首页 →](../README-CN.md)
