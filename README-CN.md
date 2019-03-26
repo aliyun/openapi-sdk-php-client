@@ -120,7 +120,8 @@ try {
 * [域名](docs/6-Host-CN.md)
 * [SSL 验证](docs/7-Verify-CN.md)
 * [调试](docs/8-Debug-CN.md)
-* [测试](docs/9-Test-CN.md)
+* [日志](docs/9-Log-CN.md)
+* [测试](docs/10-Test-CN.md)
 
 
 ## 问题

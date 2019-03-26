@@ -7,6 +7,7 @@ use AlibabaCloud\Client\Traits\ClientTrait;
 use AlibabaCloud\Client\Traits\DefaultRegionTrait;
 use AlibabaCloud\Client\Traits\EndpointTrait;
 use AlibabaCloud\Client\Traits\HistoryTrait;
+use AlibabaCloud\Client\Traits\LogTrait;
 use AlibabaCloud\Client\Traits\MockTrait;
 use AlibabaCloud\Client\Traits\RequestTrait;
 
@@ -24,6 +25,7 @@ class AlibabaCloud
     use RequestTrait;
     use MockTrait;
     use HistoryTrait;
+    use LogTrait;
 
     /**
      * Version of the Client
