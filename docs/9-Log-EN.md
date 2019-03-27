@@ -25,7 +25,7 @@ AlibabaCloud::setLogger($logger);
 
 ### Default Format
 ```text
-{hostname} [{date_common_log}] \"{method} {uri} HTTP/{version}\" {code} $pid
+"{method} {uri} HTTP/{version}" {code} {hostname} $pid
 ```
 
 ### Set Format
