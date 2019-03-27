@@ -25,7 +25,7 @@ AlibabaCloud::setLogger($logger);
 
 ### 默认格式
 ```text
-"{method} {uri} HTTP/{version}" {code} {hostname} $pid
+"{method} {uri} HTTP/{version}" {code} {cost} {hostname} {pid}
 ```
 
 ### 设置格式
@@ -41,8 +41,8 @@ AlibabaCloud::setLogFormat('{hostname} [{date_common_log}]');
 
 日志内容支持以下变量替换：
 
-| 变量 |   描述    |
-|----------|:-------------:|
+| 变量      |   描述       |
+|----------|-------------|
 | {request}     | 完整的HTTP请求消息 |
 | {response}     | 完整的HTTP响应消息 |
 | {ts}     | GMT中的 ISO 8601日期 |
@@ -63,6 +63,9 @@ AlibabaCloud::setLogFormat('{hostname} [{date_common_log}]');
 | {res_headers}     | 响应头 |
 | {req_body}     | 请求主体 |
 | {res_body}     | 响应主体 |
+| {pid}     | PID |
+| {cost}     | 耗时 |
+| {start_time}     | 开始时间 |
 
 ***
 [← 调试](8-Debug-CN.md) | 日志[(English)](9-Log-EN.md) | [测试 →](10-Test-CN.md)

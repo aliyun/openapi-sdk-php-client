@@ -25,7 +25,7 @@ AlibabaCloud::setLogger($logger);
 
 ### Default Format
 ```text
-"{method} {uri} HTTP/{version}" {code} {hostname} $pid
+"{method} {uri} HTTP/{version}" {code} {cost} {hostname} {pid}
 ```
 
 ### Set Format
@@ -41,8 +41,8 @@ AlibabaCloud::setLogFormat('{hostname} [{date_common_log}]');
 
 The following variable substitutions are supported:
 
-| Variable |   Describe    |
-|----------|:-------------:|
+| Variable |   Describe  |
+|----------|-------------|
 | {request}     | Full HTTP request message |
 | {response}     | Full HTTP response message |
 | {ts}     | ISO 8601 date in GMT |
@@ -63,6 +63,9 @@ The following variable substitutions are supported:
 | {res_headers}     | Response headers |
 | {req_body}     | Request body |
 | {res_body}     | Response body |
+| {pid}     | PID |
+| {cost}     | Cost Time |
+| {start_time}     | Start Time |
 
 ***
 [← Debug](8-Debug-EN.md) | Log[(中文)](9-Log-CN.md) | [Test →](10-Test-EN.md)

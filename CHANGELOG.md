@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.26 - 2019-03-27
+- Support `pid`, `cost`, `start_time` for Log.
+
+
 ## 1.0.25 - 2019-03-27
 - Updated default log format.
 - Add endpoints for `dbs`.

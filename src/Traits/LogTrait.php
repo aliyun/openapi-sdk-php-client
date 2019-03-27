@@ -58,9 +58,7 @@ trait LogTrait
      */
     public static function getLogFormat()
     {
-        $pid = getmypid();
-
         return self::$logFormat
-            ?: "\"{method} {uri} HTTP/{version}\" {code} {hostname} $pid";
+            ?: '"{method} {uri} HTTP/{version}" {code} {cost} {hostname} {pid}';
     }
 }
