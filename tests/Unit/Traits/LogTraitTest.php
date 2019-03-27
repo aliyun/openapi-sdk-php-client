@@ -30,7 +30,7 @@ class LogTraitTest extends TestCase
         $logger  = new Logger('AlibabaCloud');
         $logger->pushHandler(new StreamHandler($logFile));
         AlibabaCloud::setLogger($logger);
-        AlibabaCloud::setLogFormat('{uri} Custom field');
+        AlibabaCloud::setLogFormat('{start_time} "{method} {uri} HTTP/{version}" {code} {cost} {hostname} {pid} Custom field');
 
         // Setup
         $regionId    = 'cn-hangzhou';

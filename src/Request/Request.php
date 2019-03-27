@@ -10,6 +10,7 @@ use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Filter\ClientFilter;
 use AlibabaCloud\Client\Filter\Filter;
 use AlibabaCloud\Client\Filter\HttpFilter;
+use AlibabaCloud\Client\Log\LogFormatter;
 use AlibabaCloud\Client\Request\Traits\AcsTrait;
 use AlibabaCloud\Client\Request\Traits\ClientTrait;
 use AlibabaCloud\Client\Request\Traits\DeprecatedTrait;
@@ -24,7 +25,6 @@ use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Uri;
 
@@ -388,7 +388,7 @@ abstract class Request implements \ArrayAccess
         if (AlibabaCloud::getLogger()) {
             $stack->push(Middleware::log(
                 AlibabaCloud::getLogger(),
-                new MessageFormatter(AlibabaCloud::getLogFormat())
+                new LogFormatter(AlibabaCloud::getLogFormat())
             ));
         }
 
