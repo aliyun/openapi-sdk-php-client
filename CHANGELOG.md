@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.25 - 2019-03-27
+- Updated default log format.
+- Add endpoints for `dbs`.
+
+
 ## 1.0.24 - 2019-03-26
 - Support Log.
 
