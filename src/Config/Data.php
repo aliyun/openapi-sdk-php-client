@@ -14,6 +14,17 @@ return [
                     'global'      => 'ccc.cn-shanghai.aliyuncs.com',
                     'cn-shanghai' => 'ccc.cn-shanghai.aliyuncs.com',
                 ],
+            'dbs'             =>
+                [
+                    'cn-hangzhou'    => 'dbs-api.cn-hangzhou.aliyuncs.com',
+                    'cn-shanghai'    => 'dbs-api.cn-hangzhou.aliyuncs.com',
+                    'cn-qingdao'     => 'dbs-api.cn-hangzhou.aliyuncs.com',
+                    'cn-beijing'     => 'dbs-api.cn-hangzhou.aliyuncs.com',
+                    'cn-shenzhen'    => 'dbs-api.cn-hangzhou.aliyuncs.com',
+                    'cn-hongkong'    => 'dbs-api.cn-hangzhou.aliyuncs.com',
+                    'ap-southeast-1' => 'dbs-api.ap-southeast-1.aliyuncs.com',
+                    'ap-northeast-1' => 'dbs-api.ap-northeast-1.aliyuncs.com',
+                ],
             'dybaseapi'       =>
                 [
                     'global'      => 'dybaseapi.aliyuncs.com',
@@ -1869,7 +1880,8 @@ return [
                 ],
             'ddoscoo'         =>
                 [
-                    'cn-hangzhou' => 'ddoscoo.cn-hangzhou.aliyuncs.com',
+                    'cn-hangzhou'    => 'ddoscoo.cn-hangzhou.aliyuncs.com',
+                    'ap-southeast-1' => 'ddoscoo.ap-southeast-1.aliyuncs.com',
                 ],
             'waf'             =>
                 [
