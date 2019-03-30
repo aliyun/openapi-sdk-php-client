@@ -30,13 +30,40 @@ class RamRoleArnCredentialTest extends TestCase
         $regionId        = 'cn-hangzhou';
         $accessKeyId     = \getenv('ACCESS_KEY_ID');
         $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
-        $roleArn         = 'acs:ram::1483445870618637:role/test';
+        $roleArn         = 'acs:ram::1325847523475998:role/ecsramroletest';
         $roleSessionName = 'role_session_name';
+        $policy          = '{
+    "Version": "1",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "ecs:Describe*",
+            "Resource": "acs:ecs:cn-hangzhou:*:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "oss:ListObjects",
+                "oss:GetObject"
+            ],
+            "Resource": [
+                "acs:oss:*:*:mybucket",
+                "acs:oss:*:*:mybucket/*"
+            ],
+            "Condition":{
+                "IpAddress": {
+                    "acs:SourceIp": ["42.120.88.10", "42.120.66.0/24"]
+                }
+            }
+        }
+    ]
+}';
         AlibabaCloud::ramRoleArnClient(
             $accessKeyId,
             $accessKeySecret,
             $roleArn,
-            $roleSessionName
+            $roleSessionName,
+            $policy
         )->regionId($regionId)->name($this->clientName);
     }
 
@@ -63,7 +90,7 @@ class RamRoleArnCredentialTest extends TestCase
             $this->assertTrue(isset($result['AccessPointSet']));
         } catch (ServerException $e) {
             self::assertEquals(
-                'The specified Role not exists .',
+                'You are not authorized to do this action. You should be authorized by RAM.',
                 $e->getErrorMessage()
             );
         }

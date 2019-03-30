@@ -26,6 +26,7 @@ class RamRoleArnCredentialTest extends TestCase
         $accessKeySecret = 'access_key_secret';
         $arn             = 'role_arn';
         $sessionName     = 'role_session_name';
+        $policy          = '';
 
         // Test
         $credential = new RamRoleArnCredential($accessKeyId, $accessKeySecret, $arn, $sessionName);
@@ -35,6 +36,7 @@ class RamRoleArnCredentialTest extends TestCase
         $this->assertEquals($accessKeySecret, $credential->getAccessKeySecret());
         $this->assertEquals($arn, $credential->getRoleArn());
         $this->assertEquals($sessionName, $credential->getRoleSessionName());
+        $this->assertEquals($policy, $credential->getPolicy());
         $this->assertEquals(
             "$accessKeyId#$accessKeySecret#$arn#$sessionName",
             (string)$credential

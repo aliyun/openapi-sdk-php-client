@@ -34,16 +34,22 @@ class RamRoleArnCredential implements CredentialsInterface
     private $roleSessionName;
 
     /**
+     * @var string
+     */
+    private $policy;
+
+    /**
      * Class constructor.
      *
      * @param string $accessKeyId
      * @param string $accessKeySecret
      * @param string $roleArn
      * @param string $roleSessionName
+     * @param string $policy
      *
      * @throws ClientException
      */
-    public function __construct($accessKeyId, $accessKeySecret, $roleArn, $roleSessionName)
+    public function __construct($accessKeyId, $accessKeySecret, $roleArn, $roleSessionName, $policy = '')
     {
         CredentialFilter::AccessKey($accessKeyId, $accessKeySecret);
 
@@ -51,6 +57,7 @@ class RamRoleArnCredential implements CredentialsInterface
         $this->accessKeySecret = $accessKeySecret;
         $this->roleArn         = $roleArn;
         $this->roleSessionName = $roleSessionName;
+        $this->policy          = $policy;
     }
 
     /**
@@ -83,6 +90,14 @@ class RamRoleArnCredential implements CredentialsInterface
     public function getRoleSessionName()
     {
         return $this->roleSessionName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPolicy()
+    {
+        return $this->policy;
     }
 
     /**
