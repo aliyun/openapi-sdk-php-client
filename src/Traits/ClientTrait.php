@@ -191,11 +191,11 @@ trait ClientTrait
     /**
      * Use the AssumeRole of the RAM account to complete  the authentication.
      *
-     * @param string $accessKeyId
-     * @param string $accessKeySecret
-     * @param string $roleArn
-     * @param string $roleSessionName
-     * @param string $policy
+     * @param string       $accessKeyId
+     * @param string       $accessKeySecret
+     * @param string       $roleArn
+     * @param string       $roleSessionName
+     * @param string|array $policy
      *
      * @return RamRoleArnClient
      * @throws ClientException

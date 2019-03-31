@@ -41,11 +41,11 @@ class RamRoleArnCredential implements CredentialsInterface
     /**
      * Class constructor.
      *
-     * @param string $accessKeyId
-     * @param string $accessKeySecret
-     * @param string $roleArn
-     * @param string $roleSessionName
-     * @param string $policy
+     * @param string       $accessKeyId
+     * @param string       $accessKeySecret
+     * @param string       $roleArn
+     * @param string       $roleSessionName
+     * @param string|array $policy
      *
      * @throws ClientException
      */
