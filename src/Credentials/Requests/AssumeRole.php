@@ -36,7 +36,12 @@ class AssumeRole extends RpcRequest
         $this->options['query']['RoleSessionName'] = $arnCredential->getRoleSessionName();
         $this->options['query']['DurationSeconds'] = Provider::DURATION_SECONDS;
         if ($arnCredential->getPolicy()) {
-            $this->options['query']['Policy'] = $arnCredential->getPolicy();
+            if (is_array($arnCredential->getPolicy())) {
+                $this->options['query']['Policy'] = json_encode($arnCredential->getPolicy());
+            }
+            if (is_string($arnCredential->getPolicy())) {
+                $this->options['query']['Policy'] = $arnCredential->getPolicy();
+            }
         }
     }
 }
