@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.27 - 2019-03-31
+- Support `Policy` for `ramRoleArnClient`.
+
+
 ## 1.0.26 - 2019-03-27
 - Support `pid`, `cost`, `start_time` for Log.
 
