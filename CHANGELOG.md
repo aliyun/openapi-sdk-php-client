@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.0 - 2019-04-01
+- Updated `composer.json`.
+
+
 ## 1.0.27 - 2019-03-31
 - Support `Policy` for `ramRoleArnClient`.
 
