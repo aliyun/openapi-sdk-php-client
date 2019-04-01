@@ -3,60 +3,59 @@
     "homepage": "https://www.alibabacloud.com/",
     "description": "Alibaba Cloud Client for PHP - Use Alibaba Cloud in your PHP project",
     "keywords": [
+        "sdk",
+        "tool",
+        "cloud",
+        "client",
         "aliyun",
         "alibaba",
-        "alibabacloud",
-        "client",
-        "sdk",
-        "cloud",
-        "tool"
+        "library",
+        "alibabacloud"
     ],
     "type": "library",
     "license": "Apache-2.0",
     "support": {
-        "issues": "https://github.com/aliyun/openapi-sdk-php-client/issues",
-        "source": "https://github.com/aliyun/openapi-sdk-php-client"
+        "source": "https://github.com/aliyun/openapi-sdk-php-client",
+        "issues": "https://github.com/aliyun/openapi-sdk-php-client/issues"
     },
     "authors": [
         {
             "name": "Alibaba Cloud SDK",
-            "homepage": "http://www.alibabacloud.com",
-            "email": "sdk-team@alibabacloud.com"
+            "email": "sdk-team@alibabacloud.com",
+            "homepage": "http://www.alibabacloud.com"
         }
     ],
     "require": {
         "php": ">=5.5",
         "ext-curl": "*",
         "ext-json": "*",
-        "ext-mbstring": "*",
+        "ext-libxml": "*",
         "ext-openssl": "*",
+        "ext-mbstring": "*",
+        "ext-xmlwriter": "*",
         "ext-simplexml": "*",
-        "adbario/php-dot-notation": "^2.2",
-        "clagiordano/weblibs-configmanager": "^1.0",
-        "danielstjules/stringy": "^3.1",
         "guzzlehttp/guzzle": "^6.3",
-        "guzzlehttp/promises": "^1.3",
-        "guzzlehttp/psr7": "^1.4",
-        "mtdowling/jmespath.php": "^2.4"
+        "danielstjules/stringy": "^3.1",
+        "mtdowling/jmespath.php": "^2.4",
+        "adbario/php-dot-notation": "^2.2",
+        "clagiordano/weblibs-configmanager": "^1.0"
     },
     "require-dev": {
+        "ext-spl": "*",
         "ext-dom": "*",
         "ext-pcre": "*",
+        "psr/cache": "^1.0",
         "ext-sockets": "*",
-        "ext-spl": "*",
+        "drupal/coder": "^8.3",
+        "symfony/dotenv": "^3.4",
+        "league/climate": "^3.2.4",
+        "phpunit/phpunit": "^4.8.35|^5.4.3",
         "monolog/monolog": "^1.24",
         "composer/composer": "^1.8",
-        "drupal/coder": "^8.3",
-        "league/climate": "^3.2.4",
         "mikey179/vfsstream": "^1.6",
-        "phpunit/phpunit": "^4.8.35|^5.4.3",
-        "psr/cache": "^1.0",
-        "symfony/dotenv": "^3.4",
         "symfony/var-dumper": "^3.4"
     },
     "suggest": {
-        "ext-openssl": "Working with private distributions and verifying received messages",
-        "ext-curl": "To send requests using cURL",
         "ext-sockets": "To use client-side monitoring"
     },
     "autoload": {
@@ -80,8 +79,8 @@
         }
     },
     "config": {
-        "preferred-install": "dist",
         "sort-packages": true,
+        "preferred-install": "dist",
         "optimize-autoloader": true
     },
     "minimum-stability": "dev",
@@ -112,8 +111,8 @@
             "@clearCache",
             "phpunit --testsuite=Feature --colors=always"
         ],
-        "clearCache": "rm -rf cache/*",
         "coverage": "open cache/coverage/index.html",
+        "clearCache": "rm -rf cache/*",
         "endpoints": [
             "AlibabaCloud\\Client\\Regions\\LocationService::updateEndpoints",
             "@fixer"
