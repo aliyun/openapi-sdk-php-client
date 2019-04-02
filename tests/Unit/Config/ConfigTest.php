@@ -4,8 +4,11 @@ namespace AlibabaCloud\Client\Tests\Unit\Credentials;
 
 use AlibabaCloud\Client\Config\Config;
 use clagiordano\weblibs\configmanager\ConfigManager;
+use Exception;
 use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamFile;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 /**
  * Class AccessKeyCredentialTest
@@ -23,7 +26,7 @@ class ConfigTest extends TestCase
     /**
      * Restore static attribute.
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function tearDown()
     {
@@ -34,7 +37,7 @@ class ConfigTest extends TestCase
     /**
      * @param $value
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private static function setStaticProperty($value)
     {
@@ -45,7 +48,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function testGetConfigManager()
     {
@@ -57,7 +60,8 @@ class ConfigTest extends TestCase
 
     /**
      * @depends testGetConfigManager
-     * @throws  \ReflectionException
+     * @throws  ReflectionException
+     * @throws Exception
      */
     public function testSetAndGet()
     {
@@ -67,7 +71,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @return \org\bovigo\vfs\vfsStreamFile|string
+     * @return vfsStreamFile|string
      */
     private static function file()
     {

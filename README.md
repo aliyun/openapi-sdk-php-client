@@ -29,17 +29,16 @@ Alibaba Cloud Client for PHP is a client tool that helps PHP developers manage c
 [API Explorer](https://api.aliyun.com) provides the ability to call the cloud product OpenAPI online, and dynamically generate SDK Example code and quick retrieval interface, which can significantly reduce the difficulty of using the cloud API.
 
 
-## Requirements
-Your system will need to meet the [Requirements](docs/0-Requirements-EN.md), including having PHP >= 5.5. We highly recommend having it compiled with the cURL extension and cURL 7.16.2+.
+## Prerequisites
+Your system will need to meet the [Prerequisites](docs/0-Prerequisites-EN.md), including having PHP >= 5.5. We highly recommend having it compiled with the cURL extension and cURL 7.16.2+.
 
 
 ## Installation
-If Composer is installed globally on your system, you can run the following in the base directory of your project to add the Alibaba Cloud Client for PHP as a dependency:
+If Composer is already [installed globally on your system](https://getcomposer.org/doc/00-intro.md#globally), run the following in the base directory of your project to install Alibaba Cloud Client for PHP as a dependency:
 ```
 composer require alibabacloud/client
 ```
-Please see the
-[Installation](docs/1-Installation-EN.md) for more detailed information about installing the Alibaba Cloud Client for PHP through Composer and other means.
+Please see the [Installation](docs/1-Installation-EN.md) for more detailed information about installing the Alibaba Cloud Client for PHP through Composer and other means.
 
 
 ## Quick Examples
@@ -112,7 +111,7 @@ try {
 
 
 ## Documentation
-* [Requirements](docs/0-Requirements-EN.md)
+* [Prerequisites](docs/0-Prerequisites-EN.md)
 * [Installation](docs/1-Installation-EN.md)
 * [Client](docs/2-Client-EN.md)
 * [Request](docs/3-Request-EN.md)

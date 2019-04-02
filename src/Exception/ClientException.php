@@ -29,9 +29,8 @@ class ClientException extends AlibabaCloudException
     /**
      * @codeCoverageIgnore
      *
-     * @deprecated deprecated since version 2.0.
-     *
      * @return string
+     * @deprecated deprecated since version 2.0.
      */
     public function getErrorType()
     {

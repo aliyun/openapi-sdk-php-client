@@ -2125,5 +2125,13 @@ return [
                 [
                     'cn-hangzhou' => 'idaas.aliyuncs.com',
                 ],
+            'privatelink'     =>
+                [
+                    'cn-hangzhou' => 'privatelink.cn-hangzhou.aliyuncs.com',
+                ],
+            'batchcomputenew' =>
+                [
+                    'cn-hongkong' => 'batchcompute.cn-hongkong.aliyuncs.com',
+                ],
         ],
 ];

@@ -1,5 +1,9 @@
-[← Home](../README.md) | Requirements[(中文)](0-Requirements-CN.md) | [Installation →](1-Installation-EN.md)
+[← Home](../README.md) | Prerequisites[(中文)](0-Prerequisites-CN.md) | [Installation →](1-Installation-EN.md)
 ***
+
+# Requirements and Recommendations
+Before using the Alibaba Cloud Client for PHP, please ensure your environment supports the following requirements and recommendations.
+
 
 ## Requirements
 - You must use PHP 5.5.0 or later.
@@ -12,7 +16,7 @@
 - In a production environment, do not use [Xdebug][xdebug]
 
 ***
-[← Home](../README.md) | Requirements[(中文)](0-Requirements-CN.md) | [Installation →](1-Installation-EN.md)
+[← Home](../README.md) | Prerequisites[(中文)](0-Prerequisites-CN.md) | [Installation →](1-Installation-EN.md)
 
 [composer]: https://getcomposer.org
 [cURL]: http://php.net/manual/en/book.curl.php
