@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1.1 - 2019-04-02
+- Added endpoints for `batchcomputenew`, `privatelink`.
+- Improve Region ID tips.
+
+
 ## 1.1.0 - 2019-04-01
 - Updated `composer.json`.
 

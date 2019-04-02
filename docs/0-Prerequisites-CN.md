@@ -1,5 +1,9 @@
-[← 首页](../README-CN.md) | 环境要求[(English)](0-Requirements-EN.md) | [安装 →](1-Installation-CN.md)
+[← 首页](../README-CN.md) | 先决条件[(English)](0-Prerequisites-EN.md) | [安装 →](1-Installation-CN.md)
 ***
+
+# 要求和建议
+在使用 Alibaba Cloud Client for PHP 前请确保您的环境支持以下要求和建议。
+
 
 ## 要求
 - 您必须使用 PHP 5.5.0 或更高版本。
@@ -12,7 +16,7 @@
 - 生产环境中不要使用 [Xdebug][xdebug]
 
 ***
-[← 首页](../README-CN.md) | 环境要求[(English)](0-Requirements-EN.md) | [安装 →](1-Installation-CN.md)
+[← 首页](../README-CN.md) | 先决条件[(English)](0-Prerequisites-EN.md) | [安装 →](1-Installation-CN.md)
 
 [composer]: https://getcomposer.org
 [cURL]: http://php.net/manual/zh/book.curl.php

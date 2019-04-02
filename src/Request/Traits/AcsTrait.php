@@ -3,7 +3,9 @@
 namespace AlibabaCloud\Client\Request\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Config\Config;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Request\Request;
@@ -122,15 +124,16 @@ trait AcsTrait
      * Resolve Uri.
      *
      * @throws ClientException
-     * @throws \AlibabaCloud\Client\Exception\ServerException
+     * @throws ServerException
      */
     public function resolveUri()
     {
         if ($this->uri->getHost() === 'localhost') {
+            $regionId = $this->realRegionId();
             // Get the host by specified `ServiceCode` and `RegionId`.
             $host = AlibabaCloud::resolveHost(
                 $this->product,
-                $this->realRegionId()
+                $regionId
             );
 
             if (!$host && $this->serviceCode) {
@@ -138,10 +141,17 @@ trait AcsTrait
             }
 
             if (!$host) {
+                $product = Config::get("endpoints.{$this->product}");
+                unset($product['global'], $product[$regionId]);
+                if ($product) {
+                    $regions = implode(', ', array_keys($product));
+                    $message = "Product {$this->product} does not support [{$regionId}], but supports [$regions]";
+                } else {
+                    $message = "Can't resolve host for {$this->product} in $regionId";
+                }
+
                 throw new ClientException(
-                    "Can't resolve host for {$this->product} in "
-                    . $this->realRegionId()
-                    . ', You can specify host via the host() method.',
+                    $message . ', you still can specify host via the host() method.',
                     SDK::INVALID_REGION_ID
                 );
             }

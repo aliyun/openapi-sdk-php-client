@@ -29,12 +29,12 @@ Alibaba Cloud Client for PHP 是帮助 PHP 开发者管理凭据、发送请求�
 [API Explorer](https://api.aliyun.com) 提供在线调用阿里云产品，并动态生成 SDK 代码和快速检索接口等能力，能显著降低使用云 API 的难度。
 
 
-## 环境要求
-您的系统需要满足[环境要求](docs/0-Requirements-CN.md)，包括 PHP> = 5.5。 我们强烈建议使用cURL扩展，并使用TLS后端编译cURL 7.16.2+。
+## 先决条件
+您的系统需要满足[先决条件](docs/0-Prerequisites-CN.md)，包括 PHP> = 5.5。 我们强烈建议使用cURL扩展，并使用TLS后端编译cURL 7.16.2+。
 
 
 ## 安装依赖
-如果在您的系统上全局安装Composer，您可以在项目目录中运行以下内容，将 Alibaba Cloud Client for PHP 添加为依赖项：
+如果已在系统上[全局安装 Composer](https://getcomposer.org/doc/00-intro.md#globally)，请直接在项目目录中运行以下内容来安装 Alibaba Cloud Client for PHP 作为依赖项：
 ```
 composer require alibabacloud/client
 ```
@@ -111,7 +111,7 @@ try {
 
 
 ## 文档
-* [环境要求](docs/0-Requirements-CN.md)
+* [先决条件](docs/0-Prerequisites-CN.md)
 * [安装](docs/1-Installation-CN.md)
 * [客户端](docs/2-Client-CN.md)
 * [请求](docs/3-Request-CN.md)
