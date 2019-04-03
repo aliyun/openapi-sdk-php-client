@@ -28,6 +28,8 @@ curl -sS https://getcomposer.org/installer | php
 php -d memory_limit=-1 composer.phar require alibabacloud/client
 ```
 
+> 一些用户可能由于网络问题无法安装，可以尝试切换 Composer 镜像地址。
+
 ### 将自动加载工具添加到 PHP 脚本
 要在脚本中使用 Alibaba Cloud Client for PHP，请在脚本中包含自动加载工具，如下所示。
 ```php

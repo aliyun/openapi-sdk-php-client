@@ -38,6 +38,8 @@ If Composer is already [installed globally on your system](https://getcomposer.o
 ```
 composer require alibabacloud/client
 ```
+> Some users may not be able to install due to network problems, you can try to switch the Composer mirror.
+
 Please see the [Installation](docs/1-Installation-EN.md) for more detailed information about installing the Alibaba Cloud Client for PHP through Composer and other means.
 
 
