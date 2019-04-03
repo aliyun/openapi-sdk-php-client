@@ -95,4 +95,42 @@ class RamRoleArnCredentialTest extends TestCase
             );
         }
     }
+
+    /**
+     * @throws ClientException
+     */
+    public function testPolicyAsArray()
+    {
+        $regionId        = 'cn-hangzhou';
+        $accessKeyId     = \getenv('ACCESS_KEY_ID');
+        $accessKeySecret = \getenv('ACCESS_KEY_SECRET');
+        $roleArn         = 'acs:ram::1325847523475998:role/ecsramroletest';
+        $roleSessionName = 'role_session_name';
+        $policy          = [
+            'Version'   => '1',
+            'Statement' => [
+
+            ],
+        ];
+        AlibabaCloud::ramRoleArnClient(
+            $accessKeyId,
+            $accessKeySecret,
+            $roleArn,
+            $roleSessionName,
+            $policy
+        )->regionId($regionId)->name($this->clientName);
+        try {
+            $result = (new DescribeAccessPointsRequest())
+                ->client($this->clientName)
+                ->connectTimeout(25)
+                ->timeout(30)
+                ->request();
+            $this->assertTrue(isset($result['AccessPointSet']));
+        } catch (ServerException $e) {
+            self::assertEquals(
+                'You are not authorized to do this action. You should be authorized by RAM.',
+                $e->getErrorMessage()
+            );
+        }
+    }
 }
