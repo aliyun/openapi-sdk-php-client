@@ -38,6 +38,8 @@ Alibaba Cloud Client for PHP 是帮助 PHP 开发者管理凭据、发送请求�
 ```
 composer require alibabacloud/client
 ```
+> 一些用户可能由于网络问题无法安装，可以尝试切换 Composer 镜像地址。
+
 请看 [安装](docs/1-Installation-CN.md) 有关通过 Composer 和其他方式安装的详细信息。
 
 

@@ -28,6 +28,8 @@ Then type this Composer command to install the latest version of the Alibaba Clo
 php -d memory_limit=-1 composer.phar require alibabacloud/client
 ```
 
+> Some users may not be able to install due to network problems, you can try to switch the Composer mirror.
+
 ### Add autoloader to your PHP scripts
 To utilize the Alibaba Cloud Client for PHP in your scripts, include the autoloader in your scripts, as follows.
 ```php
