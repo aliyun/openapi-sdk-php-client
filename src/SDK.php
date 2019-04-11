@@ -20,6 +20,11 @@ class SDK
     const CLIENT_NOT_FOUND = 'SDK.ClientNotFound';
 
     /**
+     * Host Not Found
+     */
+    const HOST_NOT_FOUND = 'SDK.HostNotFound';
+
+    /**
      * Server Unreachable
      */
     const SERVER_UNREACHABLE = 'SDK.ServerUnreachable';
