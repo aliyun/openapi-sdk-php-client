@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.0 - 2019-04-11
+- Improve exception message for `Region ID`.
+
+
 ## 1.1.1 - 2019-04-02
 - Added endpoints for `batchcomputenew`, `privatelink`.
 - Improve Region ID tips.

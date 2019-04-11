@@ -3,7 +3,6 @@
 namespace AlibabaCloud\Client\Request\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Config\Config;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Filter\ApiFilter;
@@ -141,17 +140,8 @@ trait AcsTrait
             }
 
             if (!$host) {
-                $product = Config::get("endpoints.{$this->product}");
-                unset($product['global'], $product[$regionId]);
-                if ($product) {
-                    $regions = implode(', ', array_keys($product));
-                    $message = "Product {$this->product} does not support [{$regionId}], but supports [$regions]";
-                } else {
-                    $message = "Can't resolve host for {$this->product} in $regionId";
-                }
-
                 throw new ClientException(
-                    $message . ', you still can specify host via the host() method.',
+                    "Did not find the {$this->product} host in {$regionId}, you can specify host by host() method.",
                     SDK::INVALID_REGION_ID
                 );
             }

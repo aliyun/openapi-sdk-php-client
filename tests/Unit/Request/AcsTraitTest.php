@@ -461,7 +461,7 @@ class AcsTraitTest extends TestCase
 
     /**
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage Can't resolve host for no in cn-hangzhou, you still can specify host via the host() method.
+     * @expectedExceptionMessage Did not find the no host in cn-hangzhou, you can specify host by host() method.
      * @throws ClientException
      * @throws ServerException
      */
@@ -490,27 +490,6 @@ class AcsTraitTest extends TestCase
         // Assert
         $request->resolveUri();
         self::assertEquals('ecs-cn-hangzhou.aliyuncs.com', $request->uri->getHost());
-    }
-
-    /**
-     * @expectedException \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage Product nlp does not support [cn-beijing], but supports [cn-shanghai], you still can specify host via the host() method.
-     * @throws ClientException
-     * @throws ServerException
-     */
-    public function testReturnSupportsRegions()
-    {
-        // Setup
-        AlibabaCloud::cancelMock();
-        AlibabaCloud::setDefaultRegionId('cn-beijing');
-        AlibabaCloud::accessKeyClient('ak', 'bar')->asDefaultClient();
-
-        // Test
-        $request = AlibabaCloud::roa();
-        $request->product('nlp');
-
-        // Assert
-        $request->resolveUri();
     }
 
     protected function tearDown()
