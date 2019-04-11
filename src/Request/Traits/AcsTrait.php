@@ -141,8 +141,8 @@ trait AcsTrait
 
             if (!$host) {
                 throw new ClientException(
-                    "Did not find the {$this->product} host in {$regionId}, you can specify host by host() method.",
-                    SDK::INVALID_REGION_ID
+                    "No host found for {$this->product} in the {$regionId}, you can specify host by host() method.",
+                    SDK::HOST_NOT_FOUND
                 );
             }
 

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.1 - 2019-04-11
+- Improve exception code and message for `Region ID`.
+
+
 ## 1.2.0 - 2019-04-11
 - Improve exception message for `Region ID`.
 

@@ -461,7 +461,7 @@ class AcsTraitTest extends TestCase
 
     /**
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage Did not find the no host in cn-hangzhou, you can specify host by host() method.
+     * @expectedExceptionMessage No host found for no in the cn-hangzhou, you can specify host by host() method.
      * @throws ClientException
      * @throws ServerException
      */
