@@ -9,6 +9,7 @@ use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Result\Result;
 use AlibabaCloud\Client\SDK;
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 use Stringy\Stringy;
@@ -91,6 +92,7 @@ class EcsRamRoleProvider extends Provider
      *
      * @return mixed|ResponseInterface
      * @throws ClientException
+     * @throws Exception
      */
     public function getResponse()
     {

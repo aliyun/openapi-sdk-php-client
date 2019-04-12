@@ -2071,6 +2071,8 @@ return [
                     'cn-shanghai'    => 'foas.cn-shanghai.aliyuncs.com',
                     'cn-shenzhen'    => 'foas.cn-shenzhen.aliyuncs.com',
                     'ap-northeast-1' => 'foas.ap-northeast-1.aliyuncs.com',
+                    'ap-southeast-1' => 'foas.ap-southeast-1.aliyuncs.com',
+                    'ap-southeast-3' => 'foas.ap-southeast-3.aliyuncs.com',
                 ],
             'iotid'           =>
                 [
@@ -2132,6 +2134,21 @@ return [
             'batchcomputenew' =>
                 [
                     'cn-hongkong' => 'batchcompute.cn-hongkong.aliyuncs.com',
+                ],
+            'vcs'             =>
+                [
+                    'cn-hangzhou' => 'vcs.aliyuncs.com',
+                    'cn-shanghai' => 'vcs.cn-shanghai.aliyuncs.com',
+                ],
+            'vds'             =>
+                [
+                    'cn-hangzhou' => 'vds.aliyuncs.com',
+                    'cn-shanghai' => 'vds.cn-shanghai.aliyuncs.com',
+                ],
+            'vcsbasic'        =>
+                [
+                    'cn-hangzhou' => 'vcsbasic.aliyuncs.com',
+                    'cn-shanghai' => 'vcsbasic.cn-shanghai.aliyuncs.com',
                 ],
         ],
 ];

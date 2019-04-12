@@ -8,8 +8,8 @@
         "cloud",
         "client",
         "aliyun",
-        "alibaba",
         "library",
+        "alibaba",
         "alibabacloud"
     ],
     "type": "library",
@@ -32,8 +32,10 @@
         "ext-libxml": "*",
         "ext-openssl": "*",
         "ext-mbstring": "*",
-        "ext-xmlwriter": "*",
         "ext-simplexml": "*",
+        "ext-xmlwriter": "*",
+        "ramsey/uuid": "^3.8",
+        "moontoast/math": "^1.1",
         "guzzlehttp/guzzle": "^6.3",
         "danielstjules/stringy": "^3.1",
         "mtdowling/jmespath.php": "^2.4",
@@ -74,7 +76,6 @@
         ]
     },
     "config": {
-        "sort-packages": true,
         "preferred-install": "dist",
         "optimize-autoloader": true
     },

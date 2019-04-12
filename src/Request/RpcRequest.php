@@ -7,6 +7,8 @@ use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
+use Exception;
+use Ramsey\Uuid\Uuid;
 use RuntimeException;
 
 /**
@@ -31,26 +33,20 @@ class RpcRequest extends Request
      */
     public function resolveParameters($credential)
     {
-        $this->resolveQuery($credential);
-
+        $this->resolveCommonParameters($credential);
         $this->options['query']['Signature'] = $this->signature($credential->getAccessKeySecret());
-
-        if ($this->method === 'POST') {
-            foreach ($this->options['query'] as $apiParamKey => $apiParamValue) {
-                $this->options['form_params'][$apiParamKey] = $apiParamValue;
-            }
-            unset($this->options['query']);
-        }
+        $this->repositionParameters();
     }
 
     /**
-     * Resolve request query.
+     * Resolve Common Parameters.
      *
      * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
      *
      * @throws ClientException
+     * @throws Exception
      */
-    private function resolveQuery($credential)
+    private function resolveCommonParameters($credential)
     {
         if (isset($this->options['query'])) {
             foreach ($this->options['query'] as $key => $value) {
@@ -68,12 +64,25 @@ class RpcRequest extends Request
         if ($signature->getType()) {
             $this->options['query']['SignatureType'] = $signature->getType();
         }
-        $this->options['query']['SignatureNonce'] = $this->getSignatureNonce();
+        $this->options['query']['SignatureNonce'] = Uuid::uuid1()->toString();
         $this->options['query']['Timestamp']      = gmdate($this->dateTimeFormat);
         $this->options['query']['Action']         = $this->action;
         $this->options['query']['Version']        = $this->version;
         $this->resolveSecurityToken($credential);
         $this->resolveBearerToken($credential);
+    }
+
+    /**
+     * Adjust parameter position
+     */
+    private function repositionParameters()
+    {
+        if ($this->method === 'POST') {
+            foreach ($this->options['query'] as $apiParamKey => $apiParamValue) {
+                $this->options['form_params'][$apiParamKey] = $apiParamValue;
+            }
+            unset($this->options['query']);
+        }
     }
 
     /**
@@ -125,7 +134,7 @@ class RpcRequest extends Request
         return $this->httpClient()
                     ->getSignature()
                     ->sign(
-                        $this->stringToBeSigned(),
+                        $this->stringToSign(),
                         $accessKeySecret . '&'
                     );
     }
@@ -133,7 +142,7 @@ class RpcRequest extends Request
     /**
      * @return string
      */
-    public function stringToBeSigned()
+    public function stringToSign()
     {
         $parameters = isset($this->options['query']) ? $this->options['query'] : [];
         ksort($parameters);
@@ -142,9 +151,7 @@ class RpcRequest extends Request
             $canonicalizedQuery .= '&' . $this->percentEncode($key) . '=' . $this->percentEncode($value);
         }
 
-        return $this->method
-               . '&%2F&'
-               . $this->percentEncode(substr($canonicalizedQuery, 1));
+        return $this->method . '&%2F&' . $this->percentEncode(substr($canonicalizedQuery, 1));
     }
 
     /**
@@ -152,7 +159,7 @@ class RpcRequest extends Request
      *
      * @return null|string|string[]
      */
-    protected function percentEncode($string)
+    private function percentEncode($string)
     {
         $result = urlencode($string);
         $result = str_replace(['+', '*'], ['%20', '%2A'], $result);

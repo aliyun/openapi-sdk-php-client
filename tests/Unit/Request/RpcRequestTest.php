@@ -70,7 +70,7 @@ class RpcRequestTest extends TestCase
      * @throws ClientException
      * @dataProvider resolveQuery
      */
-    public function testResolveQuery($credential)
+    public function testResolveCommonParameters($credential)
     {
         // Setup
         AlibabaCloud::bearerTokenClient('token')->name('token');
@@ -88,7 +88,7 @@ class RpcRequestTest extends TestCase
         // Test
         $method = new ReflectionMethod(
             RpcRequest::class,
-            'resolveQuery'
+            'resolveCommonParameters'
         );
         $method->setAccessible(true);
         $method->invokeArgs($request, [$credential]);
