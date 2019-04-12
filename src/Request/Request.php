@@ -34,6 +34,7 @@ use GuzzleHttp\Psr7\Uri;
  * @package   AlibabaCloud\Client\Request
  *
  * @method string resolveParameters($credential)
+ * @method string stringToBeSigned()
  */
 abstract class Request implements \ArrayAccess
 {
@@ -85,11 +86,6 @@ abstract class Request implements \ArrayAccess
      * @var array The original parameters of the request.
      */
     public $data = [];
-
-    /**
-     * @var string
-     */
-    protected $stringToBeSigned = '';
 
     /**
      * @var array
@@ -298,7 +294,7 @@ abstract class Request implements \ArrayAccess
         $this->removeRedundantQuery();
         $this->removeRedundantHeaders();
         $this->removeRedundantHFormParams();
-        $this->resolveUri();
+        $this->resolveHost();
         $this->resolveParameters($this->credential());
 
         if (isset($this->options['form_params'])) {
@@ -421,8 +417,8 @@ abstract class Request implements \ArrayAccess
     /**
      * @return string
      */
-    public function stringToBeSigned()
+    protected function getSignatureNonce()
     {
-        return $this->stringToBeSigned;
+        return md5(uniqid(mt_rand(), true));
     }
 }

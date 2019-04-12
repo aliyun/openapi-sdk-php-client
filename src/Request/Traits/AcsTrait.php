@@ -120,21 +120,23 @@ trait AcsTrait
     }
 
     /**
-     * Resolve Uri.
+     * Resolve Host.
      *
      * @throws ClientException
      * @throws ServerException
      */
-    public function resolveUri()
+    public function resolveHost()
     {
         if ($this->uri->getHost() === 'localhost') {
             $regionId = $this->realRegionId();
-            // Get the host by specified `ServiceCode` and `RegionId`.
+
+            // 1. Find in the local array file
             $host = AlibabaCloud::resolveHost(
                 $this->product,
                 $regionId
             );
 
+            // 2. Find in the Location service
             if (!$host && $this->serviceCode) {
                 $host = LocationService::resolveHost($this);
             }

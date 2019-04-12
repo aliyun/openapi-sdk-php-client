@@ -75,7 +75,7 @@ class RoaRequest extends Request
         $this->resolveSecurityToken($credential);
         $this->resolveBearerToken($credential);
 
-        $this->sign($credential);
+        $this->options['headers']['Authorization'] = $this->signature($credential);
     }
 
     /**
@@ -130,53 +130,74 @@ class RoaRequest extends Request
     }
 
     /**
+     * @return string
+     */
+    private function headerStringToSign()
+    {
+        $string = $this->method . self::$headerSeparator;
+        if (isset($this->options['headers']['Accept'])) {
+            $string .= $this->options['headers']['Accept'];
+        }
+        $string .= self::$headerSeparator;
+
+        if (isset($this->options['headers']['Content-MD5'])) {
+            $string .= $this->options['headers']['Content-MD5'];
+        }
+        $string .= self::$headerSeparator;
+
+        if (isset($this->options['headers']['Content-Type'])) {
+            $string .= $this->options['headers']['Content-Type'];
+        }
+        $string .= self::$headerSeparator;
+
+        if (isset($this->options['headers']['Date'])) {
+            $string .= $this->options['headers']['Date'];
+        }
+        $string .= self::$headerSeparator;
+
+        $string .= $this->constructAcsHeader();
+
+        return $string;
+    }
+
+    /**
+     * @return string
+     */
+    private function resourceStringToSign()
+    {
+        $this->uri = $this->uri->withPath($this->assignPathParameters())
+                               ->withQuery($this->queryString());
+
+        return $this->uri->getPath() . '?' . $this->uri->getQuery();
+    }
+
+    /**
+     * @return string
+     */
+    public function stringToBeSigned()
+    {
+        return $this->headerStringToSign() . $this->resourceStringToSign();
+    }
+
+    /**
      * Sign the request message.
      *
      * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
      *
+     * @return string
      * @throws ClientException
      */
-    private function sign($credential)
+    private function signature($credential)
     {
-        $stringToBeSigned = $this->method . self::$headerSeparator;
-        if (isset($this->options['headers']['Accept'])) {
-            $stringToBeSigned .= $this->options['headers']['Accept'];
-        }
-        $stringToBeSigned .= self::$headerSeparator;
+        $accessKeyId = $credential->getAccessKeyId();
+        $signature   = $this->httpClient()
+                            ->getSignature()
+                            ->sign(
+                                $this->stringToBeSigned(),
+                                $credential->getAccessKeySecret()
+                            );
 
-        if (isset($this->options['headers']['Content-MD5'])) {
-            $stringToBeSigned .= $this->options['headers']['Content-MD5'];
-        }
-        $stringToBeSigned .= self::$headerSeparator;
-
-        if (isset($this->options['headers']['Content-Type'])) {
-            $stringToBeSigned .= $this->options['headers']['Content-Type'];
-        }
-        $stringToBeSigned .= self::$headerSeparator;
-
-        if (isset($this->options['headers']['Date'])) {
-            $stringToBeSigned .= $this->options['headers']['Date'];
-        }
-        $stringToBeSigned .= self::$headerSeparator;
-
-        $stringToBeSigned .= $this->constructAcsHeader();
-
-        $this->uri = $this->uri->withPath($this->assignPathParameters())
-                               ->withQuery($this->queryString());
-
-        $stringToBeSigned .= $this->uri->getPath() . '?' . $this->uri->getQuery();
-
-        $this->stringToBeSigned = $stringToBeSigned;
-
-        $this->options['headers']['Authorization'] = 'acs '
-                                                     . $credential->getAccessKeyId()
-                                                     . ':'
-                                                     . $this->httpClient()
-                                                            ->getSignature()
-                                                            ->sign(
-                                                                $this->stringToBeSigned,
-                                                                $credential->getAccessKeySecret()
-                                                            );
+        return "acs $accessKeyId:$signature";
     }
 
     /**

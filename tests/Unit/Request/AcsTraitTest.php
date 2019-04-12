@@ -420,7 +420,7 @@ class AcsTraitTest extends TestCase
         $request->regionId('eu-central-1');
 
         // Test
-        $request->resolveUri();
+        $request->resolveHost();
 
         // Assert
         self::assertEquals(
@@ -455,7 +455,7 @@ class AcsTraitTest extends TestCase
         $request->serviceCode('ecs');
 
         // Assert
-        $request->resolveUri();
+        $request->resolveHost();
         self::assertEquals('ecs-cn-hangzhou.aliyuncs.com', $request->uri->getHost());
     }
 
@@ -488,7 +488,7 @@ class AcsTraitTest extends TestCase
         $request->serviceCode('no');
 
         // Assert
-        $request->resolveUri();
+        $request->resolveHost();
         self::assertEquals('ecs-cn-hangzhou.aliyuncs.com', $request->uri->getHost());
     }
 
