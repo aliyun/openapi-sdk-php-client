@@ -33,10 +33,7 @@ class RpcRequest extends Request
     {
         $this->resolveQuery($credential);
 
-        $this->options['query']['Signature'] = $this->signature(
-            $this->options['query'],
-            $credential->getAccessKeySecret()
-        );
+        $this->options['query']['Signature'] = $this->signature($credential->getAccessKeySecret());
 
         if ($this->method === 'POST') {
             foreach ($this->options['query'] as $apiParamKey => $apiParamValue) {
@@ -71,7 +68,7 @@ class RpcRequest extends Request
         if ($signature->getType()) {
             $this->options['query']['SignatureType'] = $signature->getType();
         }
-        $this->options['query']['SignatureNonce'] = md5(uniqid(mt_rand(), true));
+        $this->options['query']['SignatureNonce'] = $this->getSignatureNonce();
         $this->options['query']['Timestamp']      = gmdate($this->dateTimeFormat);
         $this->options['query']['Action']         = $this->action;
         $this->options['query']['Version']        = $this->version;
@@ -89,11 +86,7 @@ class RpcRequest extends Request
     private static function booleanValueToString($value)
     {
         if (is_bool($value)) {
-            if ($value) {
-                return 'true';
-            }
-
-            return 'false';
+            return $value ? 'true' : 'false';
         }
 
         return $value;
@@ -122,27 +115,36 @@ class RpcRequest extends Request
     /**
      * Sign the parameters.
      *
-     * @param array  $parameters
      * @param string $accessKeySecret
      *
      * @return mixed
      * @throws ClientException
      */
-    private function signature($parameters, $accessKeySecret)
+    private function signature($accessKeySecret)
     {
+        return $this->httpClient()
+                    ->getSignature()
+                    ->sign(
+                        $this->stringToBeSigned(),
+                        $accessKeySecret . '&'
+                    );
+    }
+
+    /**
+     * @return string
+     */
+    public function stringToBeSigned()
+    {
+        $parameters = isset($this->options['query']) ? $this->options['query'] : [];
         ksort($parameters);
         $canonicalizedQuery = '';
         foreach ($parameters as $key => $value) {
             $canonicalizedQuery .= '&' . $this->percentEncode($key) . '=' . $this->percentEncode($value);
         }
 
-        $this->stringToBeSigned = $this->method
-                                  . '&%2F&'
-                                  . $this->percentEncode(substr($canonicalizedQuery, 1));
-
-        return $this->httpClient()
-                    ->getSignature()
-                    ->sign($this->stringToBeSigned, $accessKeySecret . '&');
+        return $this->method
+               . '&%2F&'
+               . $this->percentEncode(substr($canonicalizedQuery, 1));
     }
 
     /**

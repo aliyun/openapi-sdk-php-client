@@ -9,6 +9,8 @@ use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RpcRequest;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
+use ReflectionMethod;
 
 /**
  * Class RpcRequestTest
@@ -40,7 +42,7 @@ class RpcRequestTest extends TestCase
      * @param $value
      * @param $expected
      *
-     * @throws       \ReflectionException
+     * @throws       ReflectionException
      * @throws ClientException
      * @dataProvider booleanValueToStringData
      */
@@ -50,7 +52,7 @@ class RpcRequestTest extends TestCase
         $request = new  RpcRequest();
 
         // Test
-        $method = new \ReflectionMethod(
+        $method = new ReflectionMethod(
             RpcRequest::class,
             'booleanValueToString'
         );
@@ -64,7 +66,7 @@ class RpcRequestTest extends TestCase
     /**
      * @param CredentialsInterface $credential
      *
-     * @throws       \ReflectionException
+     * @throws       ReflectionException
      * @throws ClientException
      * @dataProvider resolveQuery
      */
@@ -84,7 +86,7 @@ class RpcRequestTest extends TestCase
         );
 
         // Test
-        $method = new \ReflectionMethod(
+        $method = new ReflectionMethod(
             RpcRequest::class,
             'resolveQuery'
         );
@@ -115,7 +117,7 @@ class RpcRequestTest extends TestCase
     /**
      * @param CredentialsInterface $credential
      *
-     * @throws       \ReflectionException
+     * @throws       ReflectionException
      * @throws ClientException
      * @dataProvider resolveQuery
      */
@@ -136,7 +138,7 @@ class RpcRequestTest extends TestCase
         );
 
         // Test
-        $method = new \ReflectionMethod(
+        $method = new ReflectionMethod(
             RpcRequest::class,
             'resolveParameters'
         );
@@ -152,7 +154,7 @@ class RpcRequestTest extends TestCase
      * @param $value
      * @param $expected
      *
-     * @throws       \ReflectionException
+     * @throws       ReflectionException
      * @throws ClientException
      * @dataProvider percentEncode
      */
@@ -162,7 +164,7 @@ class RpcRequestTest extends TestCase
         $request = new  RpcRequest();
 
         // Test
-        $method = new \ReflectionMethod(
+        $method = new ReflectionMethod(
             RpcRequest::class,
             'percentEncode'
         );
@@ -196,22 +198,23 @@ class RpcRequestTest extends TestCase
      * @param $accessKeySecret
      * @param $expected
      *
-     * @throws       \ReflectionException
+     * @throws       ReflectionException
      * @throws ClientException
      * @dataProvider signature
      */
     public function testSignature($parameters, $accessKeySecret, $expected)
     {
         // Setup
-        $request = new  RpcRequest();
+        $request                   = new  RpcRequest();
+        $request->options['query'] = $parameters;
 
         // Test
-        $method = new \ReflectionMethod(
+        $method = new ReflectionMethod(
             RpcRequest::class,
             'signature'
         );
         $method->setAccessible(true);
-        $actual = $method->invokeArgs($request, [$parameters, $accessKeySecret]);
+        $actual = $method->invokeArgs($request, [$accessKeySecret]);
 
         // Assert
         self::assertEquals($expected, $actual);
