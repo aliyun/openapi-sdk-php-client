@@ -82,7 +82,7 @@ class ServerException extends AlibabaCloudException
     private function distinguishSignatureErrors()
     {
         if ($this->result->getRequest()
-            && Stringy::create($this->errorMessage)->contains($this->result->getRequest()->stringToBeSigned())) {
+            && Stringy::create($this->errorMessage)->contains($this->result->getRequest()->stringToSign())) {
             $this->errorCode    = 'InvalidAccessKeySecret';
             $this->errorMessage = 'Specified Access Key Secret is not valid.';
         }

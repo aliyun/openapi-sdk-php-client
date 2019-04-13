@@ -11,6 +11,8 @@ use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Filter\Filter;
 use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
 use AlibabaCloud\Client\SDK;
+use Exception;
+use Ramsey\Uuid\Uuid;
 use RuntimeException;
 
 /**
@@ -53,8 +55,23 @@ class RoaRequest extends Request
      * @param AccessKeyCredential|BearerTokenCredential|StsCredential|CredentialsInterface $credential
      *
      * @throws ClientException
+     * @throws Exception
      */
     public function resolveParameters($credential)
+    {
+        $this->resolveCommonParameters($credential);
+        $this->options['headers']['Authorization'] = $this->signature($credential);
+    }
+
+    /**
+     * Resolve Common Parameters.
+     *
+     * @param AccessKeyCredential|BearerTokenCredential|StsCredential|CredentialsInterface $credential
+     *
+     * @throws ClientException
+     * @throws Exception
+     */
+    private function resolveCommonParameters($credential)
     {
         $signature                                           = $this->httpClient()->getSignature();
         $this->options['query']['Version']                   = $this->version;
@@ -62,6 +79,7 @@ class RoaRequest extends Request
         $this->options['headers']['Date']                    = gmdate($this->dateTimeFormat);
         $this->options['headers']['Accept']                  = self::formatToAccept($this->format);
         $this->options['headers']['x-acs-signature-method']  = $signature->getMethod();
+        $this->options['headers']['x-acs-signature-nonce']   = Uuid::uuid1()->toString();
         $this->options['headers']['x-acs-signature-version'] = $signature->getVersion();
         if ($signature->getType()) {
             $this->options['headers']['x-acs-signature-type'] = $signature->getType();
@@ -74,8 +92,6 @@ class RoaRequest extends Request
 
         $this->resolveSecurityToken($credential);
         $this->resolveBearerToken($credential);
-
-        $this->options['headers']['Authorization'] = $this->signature($credential);
     }
 
     /**
@@ -174,7 +190,7 @@ class RoaRequest extends Request
     /**
      * @return string
      */
-    public function stringToBeSigned()
+    public function stringToSign()
     {
         return $this->headerStringToSign() . $this->resourceStringToSign();
     }
@@ -193,7 +209,7 @@ class RoaRequest extends Request
         $signature   = $this->httpClient()
                             ->getSignature()
                             ->sign(
-                                $this->stringToBeSigned(),
+                                $this->stringToSign(),
                                 $credential->getAccessKeySecret()
                             );
 

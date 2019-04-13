@@ -45,9 +45,9 @@ trait HasDataTrait
     /**
      * Flatten an array with the given character as a key delimiter
      *
-     * @param  string     $delimiter
-     * @param  array|null $items
-     * @param  string     $prepend
+     * @param string     $delimiter
+     * @param array|null $items
+     * @param string     $prepend
      *
      * @return array
      */
@@ -59,8 +59,8 @@ trait HasDataTrait
     /**
      * Return the value of a given key
      *
-     * @param  int|string|null $key
-     * @param  mixed           $default
+     * @param int|string|null $key
+     * @param mixed           $default
      *
      * @return mixed
      */
@@ -83,7 +83,7 @@ trait HasDataTrait
     /**
      * Check if a given key or keys are empty
      *
-     * @param  array|int|string|null $keys
+     * @param array|int|string|null $keys
      *
      * @return bool
      */
@@ -105,8 +105,8 @@ trait HasDataTrait
     /**
      * Return the value of a given key or all the values as JSON
      *
-     * @param  mixed $key
-     * @param  int   $options
+     * @param mixed $key
+     * @param int   $options
      *
      * @return string
      */
@@ -126,7 +126,7 @@ trait HasDataTrait
     /**
      * Check if a given key exists
      *
-     * @param  int|string $key
+     * @param int|string $key
      *
      * @return bool
      */
@@ -138,7 +138,7 @@ trait HasDataTrait
     /**
      * Return the value of a given key
      *
-     * @param  int|string $key
+     * @param int|string $key
      *
      * @return mixed
      */
@@ -187,7 +187,7 @@ trait HasDataTrait
     /**
      * Return the number of items in a given key
      *
-     * @param  int|string|null $key
+     * @param int|string|null $key
      *
      * @return int
      */
@@ -287,7 +287,7 @@ trait HasDataTrait
     /**
      * Check if a given key or keys exists
      *
-     * @param  array|int|string $keys
+     * @param array|int|string $keys
      *
      * @return bool
      */

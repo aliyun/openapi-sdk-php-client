@@ -34,7 +34,7 @@ use GuzzleHttp\Psr7\Uri;
  * @package   AlibabaCloud\Client\Request
  *
  * @method string resolveParameters($credential)
- * @method string stringToBeSigned()
+ * @method string stringToSign()
  */
 abstract class Request implements \ArrayAccess
 {
@@ -412,13 +412,5 @@ abstract class Request implements \ArrayAccess
                 $e
             );
         }
-    }
-
-    /**
-     * @return string
-     */
-    protected function getSignatureNonce()
-    {
-        return md5(uniqid(mt_rand(), true));
     }
 }

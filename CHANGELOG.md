@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.0 - 2019-04-12
+- Optimize request processing logic.
+
+
 ## 1.2.1 - 2019-04-11
 - Improve exception code and message for `Region ID`.
 

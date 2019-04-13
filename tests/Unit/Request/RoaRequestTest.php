@@ -11,6 +11,9 @@ use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RoaRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClusterServicesRequest;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
+use ReflectionMethod;
+use Stringy\Stringy;
 
 /**
  * Class RoaRequestTest
@@ -23,7 +26,7 @@ class RoaRequestTest extends TestCase
 {
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      * @throws ClientException
      */
     public function testContentMD5()
@@ -41,7 +44,7 @@ class RoaRequestTest extends TestCase
         $expected = 'govO+HY8G8YW4loGvkuQ/w==';
 
         // Test
-        $method = new \ReflectionMethod(DescribeClusterServicesRequest::class, 'contentMD5');
+        $method = new ReflectionMethod(DescribeClusterServicesRequest::class, 'contentMD5');
         $method->setAccessible(true);
         $actual = $method->invoke($request);
 
@@ -50,7 +53,7 @@ class RoaRequestTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      * @throws ClientException
      */
     public function testAssignPathParametersWithMagicMethod()
@@ -62,7 +65,7 @@ class RoaRequestTest extends TestCase
 
         // Test
         $request->withClusterId($clusterId);
-        $method = new \ReflectionMethod(
+        $method = new ReflectionMethod(
             DescribeClusterServicesRequest::class,
             'assignPathParameters'
         );
@@ -74,7 +77,7 @@ class RoaRequestTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      * @throws ClientException
      */
     public function testAssignPathParametersWithOption()
@@ -86,7 +89,7 @@ class RoaRequestTest extends TestCase
 
         // Test
         $request->pathParameter('ClusterId', $clusterId);
-        $method = new \ReflectionMethod(
+        $method = new ReflectionMethod(
             DescribeClusterServicesRequest::class,
             'assignPathParameters'
         );
@@ -98,7 +101,7 @@ class RoaRequestTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      * @throws ClientException
      */
     public function testConstructAcsHeader()
@@ -111,13 +114,11 @@ class RoaRequestTest extends TestCase
         $credential = new AccessKeyCredential('key', 'secret');
         $request->resolveParameters($credential);
         $expected = "x-acs-region-id:cn-hangzhou\n" .
-                    "x-acs-signature-method:HMAC-SHA1\n" .
-                    "x-acs-signature-version:1.0\n" .
-                    "x-acs-version:2015-12-15\n";
+                    "x-acs-signature-method:HMAC-SHA1\n";
 
         // Test
         $request->pathParameter('ClusterId', $clusterId);
-        $method = new \ReflectionMethod(
+        $method = new ReflectionMethod(
             DescribeClusterServicesRequest::class,
             'constructAcsHeader'
         );
@@ -125,7 +126,7 @@ class RoaRequestTest extends TestCase
         $actual = $method->invoke($request);
 
         // Assert
-        self::assertEquals($expected, $actual);
+        self::assertTrue(Stringy::create($actual)->contains($expected));
     }
 
     /**
@@ -178,7 +179,7 @@ class RoaRequestTest extends TestCase
      * @param $format
      * @param $expected
      *
-     * @throws       \ReflectionException
+     * @throws       ReflectionException
      * @throws ClientException
      * @dataProvider formatToAccept
      */
@@ -190,7 +191,7 @@ class RoaRequestTest extends TestCase
 
         // Test
         $request->pathParameter('ClusterId', $clusterId);
-        $method = new \ReflectionMethod(
+        $method = new ReflectionMethod(
             DescribeClusterServicesRequest::class,
             'formatToAccept'
         );
