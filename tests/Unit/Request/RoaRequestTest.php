@@ -122,7 +122,7 @@ class RoaRequestTest extends TestCase
         $request->resolveParameters(AlibabaCloud::getDefaultClient()->getCredential());
 
         // Assert
-        self::assertEquals($expected, $request->queryString());
+        self::assertEquals($expected, $request->concatBody($request->options['query']));
     }
 
     /**

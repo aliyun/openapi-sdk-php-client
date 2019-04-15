@@ -2,11 +2,10 @@
 
 namespace AlibabaCloud\Client\Request;
 
-use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
-use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use Exception;
 use Ramsey\Uuid\Uuid;
 use RuntimeException;
@@ -27,26 +26,23 @@ class RpcRequest extends Request
     /**
      * Resolve request parameter.
      *
-     * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
-     *
      * @throws ClientException
+     * @throws ServerException
      */
-    public function resolveParameters($credential)
+    public function resolveParameters()
     {
-        $this->resolveCommonParameters($credential);
-        $this->options['query']['Signature'] = $this->signature($credential->getAccessKeySecret());
+        $this->resolveCommonParameters();
+        $this->options['query']['Signature'] = $this->signature();
         $this->repositionParameters();
     }
 
     /**
      * Resolve Common Parameters.
      *
-     * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
-     *
      * @throws ClientException
      * @throws Exception
      */
-    private function resolveCommonParameters($credential)
+    private function resolveCommonParameters()
     {
         if (isset($this->options['query'])) {
             foreach ($this->options['query'] as $key => $value) {
@@ -55,8 +51,8 @@ class RpcRequest extends Request
         }
 
         $signature = $this->httpClient()->getSignature();
-        if (!isset($this->options['query']['AccessKeyId']) && $credential->getAccessKeyId()) {
-            $this->options['query']['AccessKeyId'] = $credential->getAccessKeyId();
+        if (!isset($this->options['query']['AccessKeyId']) && $this->credential()->getAccessKeyId()) {
+            $this->options['query']['AccessKeyId'] = $this->credential()->getAccessKeyId();
         }
 
         if (!isset($this->options['query']['RegionId'])) {
@@ -91,12 +87,16 @@ class RpcRequest extends Request
             $this->options['query']['Action'] = $this->action;
         }
 
+        $this->resolveVersion();
+        $this->resolveSecurityToken();
+        $this->resolveBearerToken();
+    }
+
+    private function resolveVersion()
+    {
         if (!isset($this->options['query']['Version'])) {
             $this->options['query']['Version'] = $this->version;
         }
-
-        $this->resolveSecurityToken($credential);
-        $this->resolveBearerToken($credential);
     }
 
     /**
@@ -129,40 +129,41 @@ class RpcRequest extends Request
     }
 
     /**
-     * @param CredentialsInterface $credential
+     * @throws ClientException
+     * @throws ServerException
      */
-    private function resolveSecurityToken(CredentialsInterface $credential)
+    private function resolveSecurityToken()
     {
-        if ($credential instanceof StsCredential && $credential->getSecurityToken()) {
-            $this->options['query']['SecurityToken'] = $credential->getSecurityToken();
+        if ($this->credential() instanceof StsCredential && $this->credential()->getSecurityToken()) {
+            $this->options['query']['SecurityToken'] = $this->credential()->getSecurityToken();
         }
     }
 
     /**
-     * @param CredentialsInterface $credential
+     * @throws ClientException
+     * @throws ServerException
      */
-    private function resolveBearerToken(CredentialsInterface $credential)
+    private function resolveBearerToken()
     {
-        if ($credential instanceof BearerTokenCredential) {
-            $this->options['query']['BearerToken'] = $credential->getBearerToken();
+        if ($this->credential() instanceof BearerTokenCredential) {
+            $this->options['query']['BearerToken'] = $this->credential()->getBearerToken();
         }
     }
 
     /**
      * Sign the parameters.
      *
-     * @param string $accessKeySecret
-     *
      * @return mixed
      * @throws ClientException
+     * @throws ServerException
      */
-    private function signature($accessKeySecret)
+    private function signature()
     {
         return $this->httpClient()
                     ->getSignature()
                     ->sign(
                         $this->stringToSign(),
-                        $accessKeySecret . '&'
+                        $this->credential()->getAccessKeySecret() . '&'
                     );
     }
 

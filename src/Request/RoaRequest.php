@@ -2,11 +2,10 @@
 
 namespace AlibabaCloud\Client\Request;
 
-use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
-use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Filter\Filter;
 use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
@@ -52,33 +51,43 @@ class RoaRequest extends Request
     /**
      * Resolve request parameter.
      *
-     * @param AccessKeyCredential|BearerTokenCredential|StsCredential|CredentialsInterface $credential
-     *
      * @throws ClientException
      * @throws Exception
      */
-    public function resolveParameters($credential)
+    public function resolveParameters()
     {
-        $this->resolveCommonParameters($credential);
-        $this->options['headers']['Authorization'] = $this->signature($credential);
+        $this->resolveVersion();
+        $this->resolveBody();
+        $this->resolveCommonHeaders();
+        $this->resolveSecurityToken();
+        $this->resolveBearerToken();
+        $this->options['headers']['Authorization'] = $this->signature();
     }
 
-    /**
-     * Resolve Common Parameters.
-     *
-     * @param AccessKeyCredential|BearerTokenCredential|StsCredential|CredentialsInterface $credential
-     *
-     * @throws ClientException
-     * @throws Exception
-     */
-    private function resolveCommonParameters($credential)
+    private function resolveVersion()
     {
-        $signature = $this->httpClient()->getSignature();
-
         if (!isset($this->options['query']['Version'])) {
             $this->options['query']['Version'] = $this->version;
         }
+    }
 
+    private function resolveBody()
+    {
+        if (($this->method === 'POST' || $this->method === 'PUT') && !isset($this->options['body'])) {
+            $this->options['body']                    = $this->concatBody($this->data);
+            $this->options['headers']['Content-MD5']  = base64_encode(md5($this->options['body'], true));
+            $this->options['headers']['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+            unset($this->options['form_params']);
+        }
+    }
+
+    /**
+     * @throws ClientException
+     * @throws Exception
+     */
+    private function resolveCommonHeaders()
+    {
+        $signature = $this->httpClient()->getSignature();
         if (!isset($this->options['headers']['x-acs-version'])) {
             $this->options['headers']['x-acs-version'] = $this->version;
         }
@@ -111,45 +120,38 @@ class RoaRequest extends Request
             $this->options['headers']['x-acs-region-id'] = $this->realRegionId();
         }
 
-        if (($this->method === 'POST' || $this->method === 'PUT') && !isset($this->options['body'])) {
-            $this->options['body']                    = $this->concatContent($this->data);
-            $this->options['headers']['Content-MD5']  = base64_encode(md5($this->options['body'], true));
-            $this->options['headers']['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
-            unset($this->options['form_params']);
-        }
-
         if (!isset($this->options['headers']['Content-Type'])) {
             $this->options['headers']['Content-Type'] = "{$this->options['headers']['Accept']};chrset=utf-8";
         }
-
-        $this->resolveSecurityToken($credential);
-        $this->resolveBearerToken($credential);
     }
 
     /**
-     * @param array $sortMap
+     * @param array $data
      *
-     * @return bool|string
+     * @return string
      */
-    private function concatContent(array $sortMap)
+    public function concatBody(array $data)
     {
-        if (null === $sortMap || count($sortMap) === 0) {
+        if (null === $data || count($data) === 0) {
             return '';
         }
-        $queryString = '';
-        ksort($sortMap);
-        foreach ($sortMap as $sortMapKey => $sortMapValue) {
-            $queryString .= $sortMapKey;
-            if (isset($sortMapValue)) {
-                $queryString = $queryString . '=' . urlencode($sortMapValue);
+
+        $string = '';
+
+        ksort($data);
+        foreach ($data as $sortMapKey => $sortMapValue) {
+            $string .= $sortMapKey;
+            if ($sortMapValue !== null) {
+                $string .= '=' . urlencode($sortMapValue);
             }
-            $queryString .= self::$querySeparator;
-        }
-        if (count($sortMap) > 0) {
-            $queryString = substr($queryString, 0, -1);
+            $string .= self::$querySeparator;
         }
 
-        return $queryString;
+        if (0 < count($data)) {
+            $string = substr($string, 0, -1);
+        }
+
+        return $string;
     }
 
     /**
@@ -172,22 +174,24 @@ class RoaRequest extends Request
     }
 
     /**
-     * @param CredentialsInterface $credential
+     * @throws ClientException
+     * @throws ServerException
      */
-    private function resolveSecurityToken(CredentialsInterface $credential)
+    private function resolveSecurityToken()
     {
-        if ($credential instanceof StsCredential && $credential->getSecurityToken()) {
-            $this->options['headers']['x-acs-security-token'] = $credential->getSecurityToken();
+        if ($this->credential() instanceof StsCredential && $this->credential()->getSecurityToken()) {
+            $this->options['headers']['x-acs-security-token'] = $this->credential()->getSecurityToken();
         }
     }
 
     /**
-     * @param CredentialsInterface $credential
+     * @throws ClientException
+     * @throws ServerException
      */
-    private function resolveBearerToken(CredentialsInterface $credential)
+    private function resolveBearerToken()
     {
-        if ($credential instanceof BearerTokenCredential) {
-            $this->options['headers']['x-acs-bearer-token'] = $credential->getBearerToken();
+        if ($this->credential() instanceof BearerTokenCredential) {
+            $this->options['headers']['x-acs-bearer-token'] = $this->credential()->getBearerToken();
         }
     }
 
@@ -228,7 +232,13 @@ class RoaRequest extends Request
     private function resourceStringToSign()
     {
         $this->uri = $this->uri->withPath($this->assignPathParameters())
-                               ->withQuery($this->queryString());
+                               ->withQuery(
+                                   $this->concatBody(
+                                       isset($this->options['query'])
+                                           ? $this->options['query']
+                                           : []
+                                   )
+                               );
 
         return $this->uri->getPath() . '?' . $this->uri->getQuery();
     }
@@ -244,19 +254,18 @@ class RoaRequest extends Request
     /**
      * Sign the request message.
      *
-     * @param AccessKeyCredential|BearerTokenCredential|StsCredential $credential
-     *
      * @return string
      * @throws ClientException
+     * @throws ServerException
      */
-    private function signature($credential)
+    private function signature()
     {
-        $accessKeyId = $credential->getAccessKeyId();
+        $accessKeyId = $this->credential()->getAccessKeyId();
         $signature   = $this->httpClient()
                             ->getSignature()
                             ->sign(
                                 $this->stringToSign(),
-                                $credential->getAccessKeySecret()
+                                $this->credential()->getAccessKeySecret()
                             );
 
         return "acs $accessKeyId:$signature";
@@ -299,48 +308,6 @@ class RoaRequest extends Request
         }
 
         return $result;
-    }
-
-    /**
-     * Get the query string.
-     *
-     * @return bool|mixed|string
-     */
-    public function queryString()
-    {
-        $query = isset($this->options['query'])
-            ? $this->options['query']
-            : [];
-
-        $queryString = $this->ksort($queryString, $query);
-
-        if (0 < count($query)) {
-            $queryString = substr($queryString, 0, -1);
-        }
-
-        return $queryString;
-    }
-
-    /**
-     * Sort the entries by key.
-     *
-     * @param string $queryString
-     * @param array  $map
-     *
-     * @return string
-     */
-    private function ksort(&$queryString, array $map)
-    {
-        ksort($map);
-        foreach ($map as $sortMapKey => $sortMapValue) {
-            $queryString .= $sortMapKey;
-            if ($sortMapValue !== null) {
-                $queryString .= '=' . $sortMapValue;
-            }
-            $queryString .= self::$querySeparator;
-        }
-
-        return $queryString;
     }
 
     /**
