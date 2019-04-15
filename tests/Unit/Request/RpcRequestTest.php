@@ -23,9 +23,34 @@ class RpcRequestTest extends TestCase
 {
 
     /**
+     * @param $value
+     * @param $expected
+     *
+     * @throws       ReflectionException
+     * @throws ClientException
+     * @dataProvider boolToString
+     */
+    public function testBoolToString($value, $expected)
+    {
+        // Setup
+        $request = new  RpcRequest();
+
+        // Test
+        $method = new ReflectionMethod(
+            RpcRequest::class,
+            'boolToString'
+        );
+        $method->setAccessible(true);
+        $actual = $method->invokeArgs($request, [$value]);
+
+        // Assert
+        self::assertEquals($expected, $actual);
+    }
+
+    /**
      * @return array
      */
-    public static function booleanValueToStringData()
+    public static function boolToString()
     {
         return [
             ['true', 'true'],
@@ -36,31 +61,6 @@ class RpcRequestTest extends TestCase
             [1, 1],
             [null, null],
         ];
-    }
-
-    /**
-     * @param $value
-     * @param $expected
-     *
-     * @throws       ReflectionException
-     * @throws ClientException
-     * @dataProvider booleanValueToStringData
-     */
-    public function testConstructAcsHeader($value, $expected)
-    {
-        // Setup
-        $request = new  RpcRequest();
-
-        // Test
-        $method = new ReflectionMethod(
-            RpcRequest::class,
-            'booleanValueToString'
-        );
-        $method->setAccessible(true);
-        $actual = $method->invokeArgs($request, [$value]);
-
-        // Assert
-        self::assertEquals($expected, $actual);
     }
 
     /**

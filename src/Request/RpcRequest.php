@@ -27,13 +27,24 @@ class RpcRequest extends Request
      * Resolve request parameter.
      *
      * @throws ClientException
-     * @throws ServerException
      */
     public function resolveParameters()
     {
+        $this->resolveBoolInParameters();
         $this->resolveCommonParameters();
-        $this->options['query']['Signature'] = $this->signature();
         $this->repositionParameters();
+    }
+
+    private function resolveBoolInParameters()
+    {
+        if (isset($this->options['query'])) {
+            $this->options['query'] = array_map(
+                static function($value) {
+                    return self::boolToString($value);
+                },
+                $this->options['query']
+            );
+        }
     }
 
     /**
@@ -44,59 +55,26 @@ class RpcRequest extends Request
      */
     private function resolveCommonParameters()
     {
-        if (isset($this->options['query'])) {
-            foreach ($this->options['query'] as $key => $value) {
-                $this->options['query'][$key] = self::booleanValueToString($value);
-            }
-        }
-
-        $signature = $this->httpClient()->getSignature();
-        if (!isset($this->options['query']['AccessKeyId']) && $this->credential()->getAccessKeyId()) {
+        $signature                                  = $this->httpClient()->getSignature();
+        $this->options['query']['RegionId']         = $this->realRegionId();
+        $this->options['query']['Format']           = $this->format;
+        $this->options['query']['SignatureMethod']  = $signature->getMethod();
+        $this->options['query']['SignatureVersion'] = $signature->getVersion();
+        $this->options['query']['SignatureNonce']   = Uuid::uuid1()->toString();
+        $this->options['query']['Timestamp']        = gmdate($this->dateTimeFormat);
+        $this->options['query']['Action']           = $this->action;
+        if ($this->credential()->getAccessKeyId()) {
             $this->options['query']['AccessKeyId'] = $this->credential()->getAccessKeyId();
         }
-
-        if (!isset($this->options['query']['RegionId'])) {
-            $this->options['query']['RegionId'] = $this->realRegionId();
-        }
-
-        if (!isset($this->options['query']['Format'])) {
-            $this->options['query']['Format'] = $this->format;
-        }
-
-        if (!isset($this->options['query']['SignatureMethod'])) {
-            $this->options['query']['SignatureMethod'] = $signature->getMethod();
-        }
-
-        if (!isset($this->options['query']['SignatureVersion'])) {
-            $this->options['query']['SignatureVersion'] = $signature->getVersion();
-        }
-
-        if (!isset($this->options['query']['SignatureType']) && $signature->getType()) {
+        if ($signature->getType()) {
             $this->options['query']['SignatureType'] = $signature->getType();
         }
-
-        if (!isset($this->options['query']['SignatureNonce'])) {
-            $this->options['query']['SignatureNonce'] = Uuid::uuid1()->toString();
-        }
-
-        if (!isset($this->options['query']['Timestamp'])) {
-            $this->options['query']['Timestamp'] = gmdate($this->dateTimeFormat);
-        }
-
-        if (!isset($this->options['query']['Action'])) {
-            $this->options['query']['Action'] = $this->action;
-        }
-
-        $this->resolveVersion();
-        $this->resolveSecurityToken();
-        $this->resolveBearerToken();
-    }
-
-    private function resolveVersion()
-    {
         if (!isset($this->options['query']['Version'])) {
             $this->options['query']['Version'] = $this->version;
         }
+        $this->resolveSecurityToken();
+        $this->resolveBearerToken();
+        $this->options['query']['Signature'] = $this->signature();
     }
 
     /**
@@ -119,7 +97,7 @@ class RpcRequest extends Request
      *
      * @return string
      */
-    private static function booleanValueToString($value)
+    public static function boolToString($value)
     {
         if (is_bool($value)) {
             return $value ? 'true' : 'false';

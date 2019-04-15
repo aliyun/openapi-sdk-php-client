@@ -34,8 +34,8 @@ use GuzzleHttp\Psr7\Uri;
  *
  * @package   AlibabaCloud\Client\Request
  *
- * @method string resolveParameters()
  * @method string stringToSign()
+ * @method string resolveParameters()
  */
 abstract class Request implements ArrayAccess
 {

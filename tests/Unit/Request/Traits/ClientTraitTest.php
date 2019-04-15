@@ -54,7 +54,7 @@ class ClientTraitTest extends TestCase
         $name = 'testHttpClientWithCustomChain';
         AlibabaCloud::flush();
         CredentialsProvider::chain(
-            function () use ($name) {
+            static function () use ($name) {
                 AlibabaCloud::ecsRamRoleClient('role')->name($name);
             }
         );

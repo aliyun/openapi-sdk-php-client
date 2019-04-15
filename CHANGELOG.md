@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.1 - 2019-04-15
+- Improved parameters methods.
+
+
 ## 1.3.0 - 2019-04-12
 - Optimize request processing logic.
 
