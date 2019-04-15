@@ -21,6 +21,7 @@ use AlibabaCloud\Client\Traits\ArrayAccessTrait;
 use AlibabaCloud\Client\Traits\HttpTrait;
 use AlibabaCloud\Client\Traits\ObjectAccessTrait;
 use AlibabaCloud\Client\Traits\RegionTrait;
+use ArrayAccess;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -33,10 +34,10 @@ use GuzzleHttp\Psr7\Uri;
  *
  * @package   AlibabaCloud\Client\Request
  *
- * @method string resolveParameters($credential)
+ * @method string resolveParameters()
  * @method string stringToSign()
  */
-abstract class Request implements \ArrayAccess
+abstract class Request implements ArrayAccess
 {
     use DeprecatedTrait;
     use HttpTrait;
@@ -295,7 +296,7 @@ abstract class Request implements \ArrayAccess
         $this->removeRedundantHeaders();
         $this->removeRedundantHFormParams();
         $this->resolveHost();
-        $this->resolveParameters($this->credential());
+        $this->resolveParameters();
 
         if (isset($this->options['form_params'])) {
             $this->options['form_params'] = \GuzzleHttp\Psr7\parse_query(

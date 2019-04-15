@@ -195,14 +195,13 @@ class RpcRequestTest extends TestCase
 
     /**
      * @param $parameters
-     * @param $accessKeySecret
      * @param $expected
      *
      * @throws       ReflectionException
      * @throws ClientException
      * @dataProvider signature
      */
-    public function testSignature($parameters, $accessKeySecret, $expected)
+    public function testSignature($parameters, $expected)
     {
         // Setup
         $request                   = new  RpcRequest();
@@ -214,7 +213,7 @@ class RpcRequestTest extends TestCase
             'signature'
         );
         $method->setAccessible(true);
-        $actual = $method->invokeArgs($request, [$accessKeySecret]);
+        $actual = $method->invokeArgs($request, []);
 
         // Assert
         self::assertEquals($expected, $actual);
@@ -228,13 +227,11 @@ class RpcRequestTest extends TestCase
         return [
             [
                 [1, 2],
-                'accessKeySecret',
-                '7n82fKAFGRRYjudSFGqdd3SfVDE=',
+                'liZ2rLCylB5dy2kwxbuTa/BY5Uw=',
             ],
             [
                 [3, 4],
-                'accessKeySecret',
-                '7nXrGUUpKF1HPTx48NzVfgQBAqk=',
+                'gAQmuhD1C77I3WEgo4j1k+bFfss=',
             ],
         ];
     }
