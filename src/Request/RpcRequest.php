@@ -39,7 +39,7 @@ class RpcRequest extends Request
     {
         if (isset($this->options['query'])) {
             $this->options['query'] = array_map(
-                static function($value) {
+                static function ($value) {
                     return self::boolToString($value);
                 },
                 $this->options['query']

@@ -2,8 +2,8 @@
 
 namespace AlibabaCloud\Client\Request;
 
+use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
-use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
@@ -76,31 +76,41 @@ class RoaRequest extends Request
 
     /**
      * @throws ClientException
-     * @throws Exception
+     * @throws ServerException
      */
     private function resolveHeaders()
     {
-        $signature = $this->httpClient()->getSignature();
-
-        $this->options['headers']['x-acs-version']           = $this->version;
-        $this->options['headers']['x-acs-region-id']         = $this->realRegionId();
-        $this->options['headers']['Date']                    = gmdate($this->dateTimeFormat);
-        $this->options['headers']['Accept']                  = self::formatToAccept($this->format);
-        $this->options['headers']['x-acs-signature-method']  = $signature->getMethod();
-        $this->options['headers']['x-acs-signature-nonce']   = Uuid::uuid1()->toString();
-        $this->options['headers']['x-acs-signature-version'] = $signature->getVersion();
-
-        if ($signature->getType()) {
-            $this->options['headers']['x-acs-signature-type'] = $signature->getType();
-        }
-
-        if (!isset($this->options['headers']['Content-Type'])) {
-            $this->options['headers']['Content-Type'] = "{$this->options['headers']['Accept']};chrset=utf-8";
-        }
-
+        $this->options['headers']['x-acs-version']   = $this->version;
+        $this->options['headers']['x-acs-region-id'] = $this->realRegionId();
+        $this->options['headers']['Date']            = gmdate($this->dateTimeFormat);
+        $this->options['headers']['Accept']          = self::formatToAccept($this->format);
+        $this->resolveAcsSignature();
+        $this->resolveContentType();
         $this->resolveSecurityToken();
         $this->resolveBearerToken();
         $this->options['headers']['Authorization'] = $this->signature();
+    }
+
+    /**
+     * @throws ClientException
+     * @throws Exception
+     */
+    private function resolveAcsSignature()
+    {
+        $signature                                           = $this->httpClient()->getSignature();
+        $this->options['headers']['x-acs-signature-method']  = $signature->getMethod();
+        $this->options['headers']['x-acs-signature-nonce']   = Uuid::uuid1()->toString();
+        $this->options['headers']['x-acs-signature-version'] = $signature->getVersion();
+        if ($signature->getType()) {
+            $this->options['headers']['x-acs-signature-type'] = $signature->getType();
+        }
+    }
+
+    private function resolveContentType()
+    {
+        if (!isset($this->options['headers']['Content-Type'])) {
+            $this->options['headers']['Content-Type'] = "{$this->options['headers']['Accept']};chrset=utf-8";
+        }
     }
 
     /**
@@ -110,12 +120,7 @@ class RoaRequest extends Request
      */
     public function ksortAndEncode(array $data)
     {
-        if (count($data) === 0) {
-            return '';
-        }
-
         ksort($data);
-
         $string = '';
         foreach ($data as $key => $value) {
             $encode = urlencode($value);
@@ -236,17 +241,16 @@ class RoaRequest extends Request
     private function signature()
     {
         /**
-         * @var CredentialsInterface $credential
+         * @var AccessKeyCredential $credential
          */
-        $credential      = $this->credential();
-        $accessKeyId     = $credential->getAccessKeyId();
-        $accessKeySecret = $credential->getAccessKeySecret();
-        $signature       = $this->httpClient()
-                                ->getSignature()
-                                ->sign(
-                                    $this->stringToSign(),
-                                    $accessKeySecret
-                                );
+        $credential  = $this->credential();
+        $accessKeyId = $credential->getAccessKeyId();
+        $signature   = $this->httpClient()
+                            ->getSignature()
+                            ->sign(
+                                $this->stringToSign(),
+                                $credential->getAccessKeySecret()
+                            );
 
         return "acs $accessKeyId:$signature";
     }
