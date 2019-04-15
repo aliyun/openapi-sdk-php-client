@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Request;
 
+use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
@@ -31,11 +32,6 @@ class RoaRequest extends Request
     /**
      * @var string
      */
-    private static $querySeparator = '&';
-
-    /**
-     * @var string
-     */
     public $pathPattern = '/';
 
     /**
@@ -56,15 +52,12 @@ class RoaRequest extends Request
      */
     public function resolveParameters()
     {
-        $this->resolveVersion();
+        $this->resolveQuery();
         $this->resolveBody();
-        $this->resolveCommonHeaders();
-        $this->resolveSecurityToken();
-        $this->resolveBearerToken();
-        $this->options['headers']['Authorization'] = $this->signature();
+        $this->resolveHeaders();
     }
 
-    private function resolveVersion()
+    private function resolveQuery()
     {
         if (!isset($this->options['query']['Version'])) {
             $this->options['query']['Version'] = $this->version;
@@ -73,8 +66,8 @@ class RoaRequest extends Request
 
     private function resolveBody()
     {
-        if (($this->method === 'POST' || $this->method === 'PUT') && !isset($this->options['body'])) {
-            $this->options['body']                    = $this->concatBody($this->data);
+        if (isset($this->options['form_params']) && !isset($this->options['body'])) {
+            $this->options['body']                    = $this->ksortAndEncode($this->data);
             $this->options['headers']['Content-MD5']  = base64_encode(md5($this->options['body'], true));
             $this->options['headers']['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
             unset($this->options['form_params']);
@@ -83,43 +76,38 @@ class RoaRequest extends Request
 
     /**
      * @throws ClientException
+     * @throws ServerException
+     */
+    private function resolveHeaders()
+    {
+        $this->options['headers']['x-acs-version']   = $this->version;
+        $this->options['headers']['x-acs-region-id'] = $this->realRegionId();
+        $this->options['headers']['Date']            = gmdate($this->dateTimeFormat);
+        $this->options['headers']['Accept']          = self::formatToAccept($this->format);
+        $this->resolveAcsSignature();
+        $this->resolveContentType();
+        $this->resolveSecurityToken();
+        $this->resolveBearerToken();
+        $this->options['headers']['Authorization'] = $this->signature();
+    }
+
+    /**
+     * @throws ClientException
      * @throws Exception
      */
-    private function resolveCommonHeaders()
+    private function resolveAcsSignature()
     {
-        $signature = $this->httpClient()->getSignature();
-        if (!isset($this->options['headers']['x-acs-version'])) {
-            $this->options['headers']['x-acs-version'] = $this->version;
-        }
-
-        if (!isset($this->options['headers']['Date'])) {
-            $this->options['headers']['Date'] = gmdate($this->dateTimeFormat);
-        }
-
-        if (!isset($this->options['headers']['Accept'])) {
-            $this->options['headers']['Accept'] = self::formatToAccept($this->format);
-        }
-
-        if (!isset($this->options['headers']['x-acs-signature-method'])) {
-            $this->options['headers']['x-acs-signature-method'] = $signature->getMethod();
-        }
-
-        if (!isset($this->options['headers']['x-acs-signature-nonce'])) {
-            $this->options['headers']['x-acs-signature-nonce'] = Uuid::uuid1()->toString();
-        }
-
-        if (!isset($this->options['headers']['x-acs-signature-version'])) {
-            $this->options['headers']['x-acs-signature-version'] = $signature->getVersion();
-        }
-
-        if (!isset($this->options['headers']['x-acs-signature-type']) && $signature->getType()) {
+        $signature                                           = $this->httpClient()->getSignature();
+        $this->options['headers']['x-acs-signature-method']  = $signature->getMethod();
+        $this->options['headers']['x-acs-signature-nonce']   = Uuid::uuid1()->toString();
+        $this->options['headers']['x-acs-signature-version'] = $signature->getVersion();
+        if ($signature->getType()) {
             $this->options['headers']['x-acs-signature-type'] = $signature->getType();
         }
+    }
 
-        if (!isset($this->options['headers']['x-acs-region-id'])) {
-            $this->options['headers']['x-acs-region-id'] = $this->realRegionId();
-        }
-
+    private function resolveContentType()
+    {
         if (!isset($this->options['headers']['Content-Type'])) {
             $this->options['headers']['Content-Type'] = "{$this->options['headers']['Accept']};chrset=utf-8";
         }
@@ -130,21 +118,13 @@ class RoaRequest extends Request
      *
      * @return string
      */
-    public function concatBody(array $data)
+    public function ksortAndEncode(array $data)
     {
-        if (null === $data || count($data) === 0) {
-            return '';
-        }
-
-        $string = '';
-
         ksort($data);
-        foreach ($data as $sortMapKey => $sortMapValue) {
-            $string .= $sortMapKey;
-            if ($sortMapValue !== null) {
-                $string .= '=' . urlencode($sortMapValue);
-            }
-            $string .= self::$querySeparator;
+        $string = '';
+        foreach ($data as $key => $value) {
+            $encode = urlencode($value);
+            $string .= "$key=$encode&";
         }
 
         if (0 < count($data)) {
@@ -233,7 +213,7 @@ class RoaRequest extends Request
     {
         $this->uri = $this->uri->withPath($this->assignPathParameters())
                                ->withQuery(
-                                   $this->concatBody(
+                                   $this->ksortAndEncode(
                                        isset($this->options['query'])
                                            ? $this->options['query']
                                            : []
@@ -260,12 +240,16 @@ class RoaRequest extends Request
      */
     private function signature()
     {
-        $accessKeyId = $this->credential()->getAccessKeyId();
+        /**
+         * @var AccessKeyCredential $credential
+         */
+        $credential  = $this->credential();
+        $accessKeyId = $credential->getAccessKeyId();
         $signature   = $this->httpClient()
                             ->getSignature()
                             ->sign(
                                 $this->stringToSign(),
-                                $this->credential()->getAccessKeySecret()
+                                $credential->getAccessKeySecret()
                             );
 
         return "acs $accessKeyId:$signature";

@@ -3,9 +3,7 @@
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
-use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RoaRequest;
@@ -83,9 +81,8 @@ class RoaRequestTest extends TestCase
         $request = new  DescribeClusterServicesRequest();
         $request->withClusterId(\time());
         $request->regionId('cn-hangzhou');
-        $clusterId  = \time();
-        $credential = new AccessKeyCredential('key', 'secret');
-        $request->resolveParameters($credential);
+        $clusterId = \time();
+        $request->resolveParameters();
         $expected = "x-acs-region-id:cn-hangzhou\n" .
                     "x-acs-signature-method:HMAC-SHA1\n";
 
@@ -119,10 +116,10 @@ class RoaRequestTest extends TestCase
 
         // Test
         $request->options(['query' => $query]);
-        $request->resolveParameters(AlibabaCloud::getDefaultClient()->getCredential());
+        $request->resolveParameters();
 
         // Assert
-        self::assertEquals($expected, $request->concatBody($request->options['query']));
+        self::assertEquals($expected, $request->ksortAndEncode($request->options['query']));
     }
 
     /**
@@ -337,7 +334,7 @@ class RoaRequestTest extends TestCase
 
         // Test
         $request->version($version);
-        $request->resolveParameters(AlibabaCloud::getDefaultClient()->getCredential());
+        $request->resolveParameters();
 
         // Assert
         self::assertEquals($version, $request->version);
@@ -375,12 +372,10 @@ class RoaRequestTest extends TestCase
     }
 
     /**
-     * @param CredentialsInterface $credential
-     *
      * @throws       ClientException
      * @dataProvider resolveQuery
      */
-    public function testResolveParameters($credential)
+    public function testResolveParameters()
     {
         // Setup
         AlibabaCloud::bearerTokenClient('token')->name('token');
@@ -407,7 +402,7 @@ class RoaRequestTest extends TestCase
         $expected = "http://localhost/clusters/{$clusterId}/services?A=A&Version=2015-12-15";
 
         // Test
-        $request->resolveParameters($credential);
+        $request->resolveParameters();
 
         // Assert
         self::assertEquals($expected, (string)$request->uri);
