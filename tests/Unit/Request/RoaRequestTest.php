@@ -38,7 +38,7 @@ class RoaRequestTest extends TestCase
         $request->withClusterId($clusterId);
         $method = new ReflectionMethod(
             DescribeClusterServicesRequest::class,
-            'assignPathParameters'
+            'resolvePath'
         );
         $method->setAccessible(true);
         $actual = $method->invoke($request);
@@ -62,7 +62,7 @@ class RoaRequestTest extends TestCase
         $request->pathParameter('ClusterId', $clusterId);
         $method = new ReflectionMethod(
             DescribeClusterServicesRequest::class,
-            'assignPathParameters'
+            'resolvePath'
         );
         $method->setAccessible(true);
         $actual = $method->invoke($request);
@@ -90,7 +90,7 @@ class RoaRequestTest extends TestCase
         $request->pathParameter('ClusterId', $clusterId);
         $method = new ReflectionMethod(
             DescribeClusterServicesRequest::class,
-            'constructAcsHeader'
+            'acsHeaderString'
         );
         $method->setAccessible(true);
         $actual = $method->invoke($request);

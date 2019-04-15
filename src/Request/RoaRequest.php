@@ -2,18 +2,18 @@
 
 namespace AlibabaCloud\Client\Request;
 
-use AlibabaCloud\Client\Credentials\AccessKeyCredential;
-use AlibabaCloud\Client\Credentials\BearerTokenCredential;
-use AlibabaCloud\Client\Credentials\StsCredential;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Filter\ApiFilter;
-use AlibabaCloud\Client\Filter\Filter;
-use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
-use AlibabaCloud\Client\SDK;
 use Exception;
 use Ramsey\Uuid\Uuid;
 use RuntimeException;
+use AlibabaCloud\Client\SDK;
+use AlibabaCloud\Client\Filter\Filter;
+use AlibabaCloud\Client\Filter\ApiFilter;
+use AlibabaCloud\Client\Credentials\StsCredential;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Credentials\AccessKeyCredential;
+use AlibabaCloud\Client\Credentials\BearerTokenCredential;
+use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
 
 /**
  * RESTful ROA Request.
@@ -84,7 +84,7 @@ class RoaRequest extends Request
         $this->options['headers']['x-acs-region-id'] = $this->realRegionId();
         $this->options['headers']['Date']            = gmdate($this->dateTimeFormat);
         $this->options['headers']['Accept']          = self::formatToAccept($this->format);
-        $this->resolveAcsSignature();
+        $this->resolveSignature();
         $this->resolveContentType();
         $this->resolveSecurityToken();
         $this->resolveBearerToken();
@@ -95,7 +95,7 @@ class RoaRequest extends Request
      * @throws ClientException
      * @throws Exception
      */
-    private function resolveAcsSignature()
+    private function resolveSignature()
     {
         $signature                                           = $this->httpClient()->getSignature();
         $this->options['headers']['x-acs-signature-method']  = $signature->getMethod();
@@ -201,7 +201,7 @@ class RoaRequest extends Request
         }
         $string .= self::$headerSeparator;
 
-        $string .= $this->constructAcsHeader();
+        $string .= $this->acsHeaderString();
 
         return $string;
     }
@@ -211,7 +211,7 @@ class RoaRequest extends Request
      */
     private function resourceStringToSign()
     {
-        $this->uri = $this->uri->withPath($this->assignPathParameters())
+        $this->uri = $this->uri->withPath($this->resolvePath())
                                ->withQuery(
                                    $this->ksortAndEncode(
                                        isset($this->options['query'])
@@ -260,22 +260,22 @@ class RoaRequest extends Request
      *
      * @return string
      */
-    private function constructAcsHeader()
+    private function acsHeaderString()
     {
-        $sortMap = [];
+        $array = [];
         foreach ($this->options['headers'] as $headerKey => $headerValue) {
             $key = strtolower($headerKey);
             if (strpos($key, 'x-acs-') === 0) {
-                $sortMap[$key] = $headerValue;
+                $array[$key] = $headerValue;
             }
         }
-        ksort($sortMap);
-        $headerString = '';
-        foreach ($sortMap as $sortMapKey => $sortMapValue) {
-            $headerString .= $sortMapKey . ':' . $sortMapValue . self::$headerSeparator;
+        ksort($array);
+        $string = '';
+        foreach ($array as $sortMapKey => $sortMapValue) {
+            $string .= $sortMapKey . ':' . $sortMapValue . self::$headerSeparator;
         }
 
-        return $headerString;
+        return $string;
     }
 
     /**
@@ -283,12 +283,12 @@ class RoaRequest extends Request
      *
      * @return string
      */
-    private function assignPathParameters()
+    private function resolvePath()
     {
         $result = $this->pathPattern;
-        foreach ($this->pathParameters as $pathParameterKey => $apiParameterValue) {
-            $target = '[' . $pathParameterKey . ']';
-            $result = str_replace($target, $apiParameterValue, $result);
+        foreach ($this->pathParameters as $pathKey => $apiValue) {
+            $target = "[$pathKey]";
+            $result = str_replace($target, $apiValue, $result);
         }
 
         return $result;
