@@ -73,25 +73,83 @@ class RoaRequest extends Request
      */
     private function resolveCommonParameters($credential)
     {
-        $signature                                           = $this->httpClient()->getSignature();
-        $this->options['query']['Version']                   = $this->version;
-        $this->options['headers']['x-acs-version']           = $this->version;
-        $this->options['headers']['Date']                    = gmdate($this->dateTimeFormat);
-        $this->options['headers']['Accept']                  = self::formatToAccept($this->format);
-        $this->options['headers']['x-acs-signature-method']  = $signature->getMethod();
-        $this->options['headers']['x-acs-signature-nonce']   = Uuid::uuid1()->toString();
-        $this->options['headers']['x-acs-signature-version'] = $signature->getVersion();
-        if ($signature->getType()) {
+        $signature = $this->httpClient()->getSignature();
+
+        if (!isset($this->options['query']['Version'])) {
+            $this->options['query']['Version'] = $this->version;
+        }
+
+        if (!isset($this->options['headers']['x-acs-version'])) {
+            $this->options['headers']['x-acs-version'] = $this->version;
+        }
+
+        if (!isset($this->options['headers']['Date'])) {
+            $this->options['headers']['Date'] = gmdate($this->dateTimeFormat);
+        }
+
+        if (!isset($this->options['headers']['Accept'])) {
+            $this->options['headers']['Accept'] = self::formatToAccept($this->format);
+        }
+
+        if (!isset($this->options['headers']['x-acs-signature-method'])) {
+            $this->options['headers']['x-acs-signature-method'] = $signature->getMethod();
+        }
+
+        if (!isset($this->options['headers']['x-acs-signature-nonce'])) {
+            $this->options['headers']['x-acs-signature-nonce'] = Uuid::uuid1()->toString();
+        }
+
+        if (!isset($this->options['headers']['x-acs-signature-version'])) {
+            $this->options['headers']['x-acs-signature-version'] = $signature->getVersion();
+        }
+
+        if (!isset($this->options['headers']['x-acs-signature-type']) && $signature->getType()) {
             $this->options['headers']['x-acs-signature-type'] = $signature->getType();
         }
-        $this->options['headers']['x-acs-region-id'] = $this->realRegionId();
-        if (isset($this->options['form_params'])) {
-            $this->options['headers']['Content-MD5'] = $this->contentMD5();
+
+        if (!isset($this->options['headers']['x-acs-region-id'])) {
+            $this->options['headers']['x-acs-region-id'] = $this->realRegionId();
         }
-        $this->options['headers']['Content-Type'] = "{$this->options['headers']['Accept']};chrset=utf-8";
+
+        if (($this->method === 'POST' || $this->method === 'PUT') && !isset($this->options['body'])) {
+            $this->options['body']                    = $this->concatContent($this->data);
+            $this->options['headers']['Content-MD5']  = base64_encode(md5($this->options['body'], true));
+            $this->options['headers']['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+            unset($this->options['form_params']);
+        }
+
+        if (!isset($this->options['headers']['Content-Type'])) {
+            $this->options['headers']['Content-Type'] = "{$this->options['headers']['Accept']};chrset=utf-8";
+        }
 
         $this->resolveSecurityToken($credential);
         $this->resolveBearerToken($credential);
+    }
+
+    /**
+     * @param array $sortMap
+     *
+     * @return bool|string
+     */
+    private function concatContent(array $sortMap)
+    {
+        if (null === $sortMap || count($sortMap) === 0) {
+            return '';
+        }
+        $queryString = '';
+        ksort($sortMap);
+        foreach ($sortMap as $sortMapKey => $sortMapValue) {
+            $queryString .= $sortMapKey;
+            if (isset($sortMapValue)) {
+                $queryString = $queryString . '=' . urlencode($sortMapValue);
+            }
+            $queryString .= self::$querySeparator;
+        }
+        if (count($sortMap) > 0) {
+            $queryString = substr($queryString, 0, -1);
+        }
+
+        return $queryString;
     }
 
     /**
@@ -111,18 +169,6 @@ class RoaRequest extends Request
             default:
                 return 'application/octet-stream';
         }
-    }
-
-    /**
-     * Calculate the md5 value of the content.
-     *
-     * @return string
-     */
-    private function contentMD5()
-    {
-        return base64_encode(
-            md5(json_encode($this->options['form_params']), true)
-        );
     }
 
     /**

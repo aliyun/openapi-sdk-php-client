@@ -53,21 +53,48 @@ class RpcRequest extends Request
                 $this->options['query'][$key] = self::booleanValueToString($value);
             }
         }
+
         $signature = $this->httpClient()->getSignature();
-        if ($credential->getAccessKeyId()) {
+        if (!isset($this->options['query']['AccessKeyId']) && $credential->getAccessKeyId()) {
             $this->options['query']['AccessKeyId'] = $credential->getAccessKeyId();
         }
-        $this->options['query']['RegionId']         = $this->realRegionId();
-        $this->options['query']['Format']           = $this->format;
-        $this->options['query']['SignatureMethod']  = $signature->getMethod();
-        $this->options['query']['SignatureVersion'] = $signature->getVersion();
-        if ($signature->getType()) {
+
+        if (!isset($this->options['query']['RegionId'])) {
+            $this->options['query']['RegionId'] = $this->realRegionId();
+        }
+
+        if (!isset($this->options['query']['Format'])) {
+            $this->options['query']['Format'] = $this->format;
+        }
+
+        if (!isset($this->options['query']['SignatureMethod'])) {
+            $this->options['query']['SignatureMethod'] = $signature->getMethod();
+        }
+
+        if (!isset($this->options['query']['SignatureVersion'])) {
+            $this->options['query']['SignatureVersion'] = $signature->getVersion();
+        }
+
+        if (!isset($this->options['query']['SignatureType']) && $signature->getType()) {
             $this->options['query']['SignatureType'] = $signature->getType();
         }
-        $this->options['query']['SignatureNonce'] = Uuid::uuid1()->toString();
-        $this->options['query']['Timestamp']      = gmdate($this->dateTimeFormat);
-        $this->options['query']['Action']         = $this->action;
-        $this->options['query']['Version']        = $this->version;
+
+        if (!isset($this->options['query']['SignatureNonce'])) {
+            $this->options['query']['SignatureNonce'] = Uuid::uuid1()->toString();
+        }
+
+        if (!isset($this->options['query']['Timestamp'])) {
+            $this->options['query']['Timestamp'] = gmdate($this->dateTimeFormat);
+        }
+
+        if (!isset($this->options['query']['Action'])) {
+            $this->options['query']['Action'] = $this->action;
+        }
+
+        if (!isset($this->options['query']['Version'])) {
+            $this->options['query']['Version'] = $this->version;
+        }
+
         $this->resolveSecurityToken($credential);
         $this->resolveBearerToken($credential);
     }
@@ -77,7 +104,7 @@ class RpcRequest extends Request
      */
     private function repositionParameters()
     {
-        if ($this->method === 'POST') {
+        if ($this->method === 'POST' || $this->method === 'PUT') {
             foreach ($this->options['query'] as $apiParamKey => $apiParamValue) {
                 $this->options['form_params'][$apiParamKey] = $apiParamValue;
             }
@@ -144,7 +171,9 @@ class RpcRequest extends Request
      */
     public function stringToSign()
     {
-        $parameters = isset($this->options['query']) ? $this->options['query'] : [];
+        $query       = isset($this->options['query']) ? $this->options['query'] : [];
+        $form_params = isset($this->options['form_params']) ? $this->options['form_params'] : [];
+        $parameters  = \AlibabaCloud\Client\arrayMerge([$query, $form_params]);
         ksort($parameters);
         $canonicalizedQuery = '';
         foreach ($parameters as $key => $value) {

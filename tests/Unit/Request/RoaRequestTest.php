@@ -29,33 +29,6 @@ class RoaRequestTest extends TestCase
      * @throws ReflectionException
      * @throws ClientException
      */
-    public function testContentMD5()
-    {
-        // Setup
-        $request = new  DescribeClusterServicesRequest();
-        $request->withClusterId(\time());
-        $request->options(
-            [
-                'form_params' => [
-                    'test' => 'test',
-                ],
-            ]
-        );
-        $expected = 'govO+HY8G8YW4loGvkuQ/w==';
-
-        // Test
-        $method = new ReflectionMethod(DescribeClusterServicesRequest::class, 'contentMD5');
-        $method->setAccessible(true);
-        $actual = $method->invoke($request);
-
-        // Assert
-        self::assertEquals($expected, $actual);
-    }
-
-    /**
-     * @throws ReflectionException
-     * @throws ClientException
-     */
     public function testAssignPathParametersWithMagicMethod()
     {
         // Setup
