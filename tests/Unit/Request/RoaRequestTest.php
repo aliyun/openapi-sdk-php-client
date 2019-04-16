@@ -6,6 +6,8 @@ use Stringy\Stringy;
 use RuntimeException;
 use ReflectionMethod;
 use ReflectionException;
+use AlibabaCloud\Client\Encode;
+use AlibabaCloud\Client\Format;
 use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Request\RoaRequest;
@@ -83,7 +85,7 @@ class RoaRequestTest extends TestCase
         $request->withClusterId(\time());
         $request->regionId('cn-hangzhou');
         $clusterId = \time();
-        $request->resolveParameters();
+        $request->resolveParameter();
         $expected = "x-acs-region-id:cn-hangzhou\n" .
                     "x-acs-signature-method:HMAC-SHA1\n";
 
@@ -117,10 +119,10 @@ class RoaRequestTest extends TestCase
 
         // Test
         $request->options(['query' => $query]);
-        $request->resolveParameters();
+        $request->resolveParameter();
 
         // Assert
-        self::assertEquals($expected, $request->ksortAndEncode($request->options['query']));
+        self::assertEquals($expected, Encode::create($request->options['query'])->ksort()->toString());
     }
 
     /**
@@ -150,27 +152,11 @@ class RoaRequestTest extends TestCase
      * @param $format
      * @param $expected
      *
-     * @throws       ReflectionException
-     * @throws ClientException
      * @dataProvider formatToAccept
      */
     public function testFormatToAccept($format, $expected)
     {
-        // Setup
-        $request   = new  DescribeClusterServicesRequest();
-        $clusterId = \time();
-
-        // Test
-        $request->pathParameter('ClusterId', $clusterId);
-        $method = new ReflectionMethod(
-            DescribeClusterServicesRequest::class,
-            'formatToAccept'
-        );
-        $method->setAccessible(true);
-        $actual = $method->invokeArgs($request, [$format]);
-
-        // Assert
-        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, Format::create($format)->toString());
     }
 
     /**
@@ -335,7 +321,7 @@ class RoaRequestTest extends TestCase
 
         // Test
         $request->version($version);
-        $request->resolveParameters();
+        $request->resolveParameter();
 
         // Assert
         self::assertEquals($version, $request->version);
@@ -403,7 +389,7 @@ class RoaRequestTest extends TestCase
         $expected = "http://localhost/clusters/{$clusterId}/services?A=A&Version=2015-12-15";
 
         // Test
-        $request->resolveParameters();
+        $request->resolveParameter();
 
         // Assert
         self::assertEquals($expected, (string)$request->uri);

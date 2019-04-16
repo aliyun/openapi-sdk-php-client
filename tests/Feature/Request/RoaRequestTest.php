@@ -65,7 +65,7 @@ class RoaRequestTest extends TestCase
         $request->pathParameter('Domain', 'general');
         $request->jsonBody([
                                'lang' => 'ZH',
-                               'text' => 'Iphone专用数据线',
+                               'text' => 'Iphone专用数据线'
                            ]);
 
         $result = $request->client('content')
@@ -73,5 +73,47 @@ class RoaRequestTest extends TestCase
                           ->timeout(30)
                           ->request();
         self::assertEquals('Iphone', $result['data'][0]['word']);
+    }
+
+    /**
+     * Only in the pr-environment
+     *
+     * @throws ClientException
+     * @throws ServerException
+     */
+    public function testSearchImage()
+    {
+        AlibabaCloud::accessKeyClient(
+            \getenv('IMAGE_SEARCH_ACCESS_KEY_ID'),
+            \getenv('IMAGE_SEARCH_ACCESS_KEY_SECRET')
+        )->regionId('cn-shanghai')->name('im');
+
+        $request = AlibabaCloud::roa()
+                               ->connectTimeout(40)
+                               ->timeout(50)
+                               ->client('im')
+                               ->product('ImageSearch')
+                               ->version('2019-03-25')
+                               ->method('POST')
+                               ->action('SearchImage')
+                               ->pathPattern('/v2/image/search');
+
+        $content = file_get_contents(__DIR__ . '/ImageSearch.jpg');
+
+        //        Request::config([
+        //                            'curl' => [CURLOPT_RESOLVE => [\getenv('IMAGE_SEARCH_HOST')]]
+        //                        ]);
+
+        $result = $request->options([
+                                        'form_params' => [
+                                            'InstanceName' => 'yuanshoutest2',
+                                            'PicContent'   => base64_encode($content),
+                                            'Start'        => 0,
+                                            'Num'          => 10
+                                        ]
+                                    ])
+                          ->request();
+
+        self::assertArrayHasKey('Auctions', $result);
     }
 }

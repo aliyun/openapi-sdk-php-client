@@ -2,7 +2,7 @@
 
 ## 2.0.0 - 2019-04-15
 - Improved parameters methods.
-- Abolish method starting with `set` by exception message.
+- Abolished method starting with `set` by exception message.
 - Abolish DeprecatedTrait by exception message.
 
 

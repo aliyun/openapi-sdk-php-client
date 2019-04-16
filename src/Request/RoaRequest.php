@@ -6,6 +6,8 @@ use Exception;
 use Ramsey\Uuid\Uuid;
 use RuntimeException;
 use AlibabaCloud\Client\SDK;
+use AlibabaCloud\Client\Encode;
+use AlibabaCloud\Client\Format;
 use AlibabaCloud\Client\Filter\Filter;
 use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Credentials\StsCredential;
@@ -50,7 +52,7 @@ class RoaRequest extends Request
      * @throws ClientException
      * @throws Exception
      */
-    public function resolveParameters()
+    public function resolveParameter()
     {
         $this->resolveQuery();
         $this->resolveBody();
@@ -67,32 +69,18 @@ class RoaRequest extends Request
     private function resolveBody()
     {
         if (isset($this->options['form_params']) && !isset($this->options['body'])) {
-            $this->options['body']                    = $this->ksortAndEncode($this->data);
+            $params = \AlibabaCloud\Client\arrayMerge(
+                [
+                    $this->data,
+                    $this->options['form_params']
+                ]
+            );
+
+            $this->options['body']                    = Encode::create($params)->ksort()->toString();
             $this->options['headers']['Content-MD5']  = base64_encode(md5($this->options['body'], true));
             $this->options['headers']['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
             unset($this->options['form_params']);
         }
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return string
-     */
-    public function ksortAndEncode(array $data)
-    {
-        ksort($data);
-        $string = '';
-        foreach ($data as $key => $value) {
-            $encode = urlencode($value);
-            $string .= "$key=$encode&";
-        }
-
-        if (0 < count($data)) {
-            $string = substr($string, 0, -1);
-        }
-
-        return $string;
     }
 
     /**
@@ -104,31 +92,12 @@ class RoaRequest extends Request
         $this->options['headers']['x-acs-version']   = $this->version;
         $this->options['headers']['x-acs-region-id'] = $this->realRegionId();
         $this->options['headers']['Date']            = gmdate($this->dateTimeFormat);
-        $this->options['headers']['Accept']          = self::formatToAccept($this->format);
+        $this->options['headers']['Accept']          = Format::create($this->format)->toString();
         $this->resolveSignature();
         $this->resolveContentType();
         $this->resolveSecurityToken();
         $this->resolveBearerToken();
         $this->options['headers']['Authorization'] = $this->signature();
-    }
-
-    /**
-     * Returns the accept header according to format.
-     *
-     * @param string $format
-     *
-     * @return string
-     */
-    private static function formatToAccept($format)
-    {
-        switch (\strtoupper($format)) {
-            case 'JSON':
-                return 'application/json';
-            case 'XML':
-                return 'application/xml';
-            default:
-                return 'application/octet-stream';
-        }
     }
 
     /**
@@ -268,11 +237,11 @@ class RoaRequest extends Request
     {
         $this->uri = $this->uri->withPath($this->resolvePath())
                                ->withQuery(
-                                   $this->ksortAndEncode(
-                                       isset($this->options['query'])
-                                           ? $this->options['query']
-                                           : []
-                                   )
+                                   Encode::create(isset($this->options['query'])
+                                                      ? $this->options['query']
+                                                      : [])
+                                         ->ksort()
+                                         ->toString()
                                );
 
         return $this->uri->getPath() . '?' . $this->uri->getQuery();
@@ -286,9 +255,9 @@ class RoaRequest extends Request
     private function resolvePath()
     {
         $path = $this->pathPattern;
-        foreach ($this->pathParameters as $pathKey => $apiValue) {
+        foreach ($this->pathParameters as $pathKey => $value) {
             $target = "[$pathKey]";
-            $path   = str_replace($target, $apiValue, $path);
+            $path   = str_replace($target, $value, $path);
         }
 
         return $path;

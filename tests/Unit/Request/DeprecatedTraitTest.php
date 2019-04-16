@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
+use AlibabaCloud\Client\Encode;
 use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Exception\ClientException;
@@ -65,24 +66,24 @@ class DeprecatedTraitTest extends TestCase
     }
 
     /**
-     * @dataProvider getPostHttpBodyData
+     * @dataProvider encode
      *
      * @param array  $array
      * @param string $expected
      */
-    public function testGetPostHttpBody(array $array, $expected)
+    public function testEncode(array $array, $expected)
     {
         // Assert
         self::assertEquals(
             $expected,
-            RpcRequest::getPostHttpBody($array)
+            Encode::create($array)->toString()
         );
     }
 
     /**
      * @return array
      */
-    public function getPostHttpBodyData()
+    public function encode()
     {
         return [
             [
@@ -105,6 +106,15 @@ class DeprecatedTraitTest extends TestCase
                     4,
                 ],
                 'a=a&b=b&0=3&1=4',
+            ],
+            [
+                [
+                    'a' => 'a',
+                    'b' => 'b ',
+                    3,
+                    4,
+                ],
+                'a=a&b=b%20&0=3&1=4',
             ],
         ];
     }

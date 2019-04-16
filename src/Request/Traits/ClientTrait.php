@@ -25,6 +25,19 @@ use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKey;
 trait ClientTrait
 {
     /**
+     * @var array
+     */
+    private static $config = [];
+
+    /**
+     * @param array $config
+     */
+    public static function config(array $config)
+    {
+        self::$config = $config;
+    }
+
+    /**
      * Return credentials directly if it is an AssumeRole or GenerateSessionAccessKey.
      *
      * @return AccessKeyCredential|BearerTokenCredential|CredentialsInterface|StsCredential
