@@ -2,13 +2,13 @@
 
 namespace AlibabaCloud\Client\Tests\Feature\Request;
 
+use AlibabaCloud\Client\SDK;
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\SDK;
+use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualAccessKeyCredential;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class ChainRequestTest

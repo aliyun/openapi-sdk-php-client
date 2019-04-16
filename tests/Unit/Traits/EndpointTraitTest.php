@@ -2,12 +2,11 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Traits;
 
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Regions\EndpointProvider;
-use AlibabaCloud\Client\Regions\LocationService;
-use AlibabaCloud\Client\Request\RpcRequest;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Regions\LocationService;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class EndpointTraitTest
@@ -21,35 +20,11 @@ class EndpointTraitTest extends TestCase
      */
     public function testFindProductDomain()
     {
-        $this->assertEquals(
-            'ecs-cn-hangzhou.aliyuncs.com',
-            EndpointProvider::findProductDomain('cn-hangzhou', 'Ecs')
-        );
-        $this->assertEquals(
-            'kms.me-east-1.aliyuncs.com',
-            EndpointProvider::findProductDomain('me-east-1', 'kms')
-        );
-        $this->assertEquals(
-            'ecs-cn-hangzhou.aliyuncs.com',
-            EndpointProvider::resolveHost('Ecs', 'cn-hangzhou')
-        );
-        $this->assertEquals(
-            'kms.me-east-1.aliyuncs.com',
-            EndpointProvider::resolveHost('kms', 'me-east-1')
-        );
-        $this->assertEquals(
-            'ecs-cn-hangzhou.aliyuncs.com',
-            AlibabaCloud::findProductDomain('cn-hangzhou', 'Ecs')
-        );
-        $this->assertEquals(
-            'kms.me-east-1.aliyuncs.com',
-            AlibabaCloud::findProductDomain('me-east-1', 'kms')
-        );
-        $this->assertEquals(
+        static::assertEquals(
             'ecs-cn-hangzhou.aliyuncs.com',
             AlibabaCloud::resolveHost('Ecs', 'cn-hangzhou')
         );
-        $this->assertEquals(
+        static::assertEquals(
             'kms.me-east-1.aliyuncs.com',
             AlibabaCloud::resolveHost('kms', 'me-east-1')
         );
@@ -60,24 +35,12 @@ class EndpointTraitTest extends TestCase
      *
      * @throws ClientException
      */
-    public function testAddEndpoint()
+    public function testAddHost()
     {
         // Setup
         $regionId = 'cn-hangzhou';
         $product  = 'TestProduct';
         $host     = 'testproduct.aliyuncs.com';
-
-        // Test
-        EndpointProvider::addEndpoint($regionId, $product, $host);
-
-        // Assert
-        self::assertEquals($host, EndpointProvider::findProductDomain($regionId, $product));
-
-        // Test
-        AlibabaCloud::addHost($product, $host, $regionId);
-
-        // Assert
-        self::assertEquals($host, AlibabaCloud::findProductDomain($regionId, $product));
 
         // Test
         AlibabaCloud::addHost($product, $host, $regionId);
@@ -227,7 +190,6 @@ class EndpointTraitTest extends TestCase
         $product  = 'null';
 
         // Test
-        self::assertEquals('', AlibabaCloud::findProductDomain($regionId, $product));
         self::assertEquals('', AlibabaCloud::resolveHost($product, $regionId));
     }
 }

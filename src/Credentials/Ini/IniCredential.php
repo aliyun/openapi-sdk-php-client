@@ -2,9 +2,9 @@
 
 namespace AlibabaCloud\Client\Credentials\Ini;
 
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Clients\Client;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\SDK;
 
 /**
  * Class IniCredential

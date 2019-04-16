@@ -2,11 +2,11 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Clients;
 
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\Clients\RsaKeyPairClient;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class RsaKeyPairClientTest

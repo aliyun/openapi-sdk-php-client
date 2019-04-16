@@ -2,14 +2,14 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Traits;
 
+use Exception;
+use Monolog\Logger;
+use PHPUnit\Framework\TestCase;
+use Monolog\Handler\StreamHandler;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClusterServicesRequest;
-use Exception;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class LogTraitTest
@@ -49,7 +49,7 @@ class LogTraitTest extends TestCase
                 ->request();
         } catch (ServerException $e) {
             // Assert
-            $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
+            static::assertEquals('UnsupportedSignatureType', $e->getErrorCode());
         }
 
         $logContent = file_get_contents($logFile);

@@ -2,17 +2,17 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Credentials\Providers;
 
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Clients\EcsRamRoleClient;
-use AlibabaCloud\Client\Credentials\Providers\EcsRamRoleProvider;
-use AlibabaCloud\Client\Credentials\Providers\RsaKeyPairProvider;
-use AlibabaCloud\Client\Credentials\StsCredential;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
+use ReflectionException;
 use AlibabaCloud\Client\SDK;
 use GuzzleHttp\Psr7\Request;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Clients\EcsRamRoleClient;
+use AlibabaCloud\Client\Credentials\StsCredential;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Credentials\Providers\EcsRamRoleProvider;
+use AlibabaCloud\Client\Credentials\Providers\RsaKeyPairProvider;
 
 /**
  * Class EcsRamRoleProviderTest

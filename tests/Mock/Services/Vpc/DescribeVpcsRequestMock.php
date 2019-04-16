@@ -2,8 +2,8 @@
 
 namespace AlibabaCloud\Client\Tests\Mock\Services\Vpc;
 
-use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Psr7\Response;
+use AlibabaCloud\Client\Result\Result;
 
 /**
  * Class DescribeVpcsRequestMock

@@ -2,8 +2,8 @@
 
 namespace AlibabaCloud\Client\Tests\Mock\Services\Vpc;
 
-use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class DescribeVpcsRequest

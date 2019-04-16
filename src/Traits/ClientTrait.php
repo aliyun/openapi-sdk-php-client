@@ -2,21 +2,22 @@
 
 namespace AlibabaCloud\Client\Traits;
 
+use RuntimeException;
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Clients\AccessKeyClient;
-use AlibabaCloud\Client\Clients\BearerTokenClient;
 use AlibabaCloud\Client\Clients\Client;
+use AlibabaCloud\Client\Clients\StsClient;
+use AlibabaCloud\Client\Filter\ClientFilter;
+use AlibabaCloud\Client\Clients\AccessKeyClient;
 use AlibabaCloud\Client\Clients\EcsRamRoleClient;
 use AlibabaCloud\Client\Clients\RamRoleArnClient;
 use AlibabaCloud\Client\Clients\RsaKeyPairClient;
-use AlibabaCloud\Client\Clients\StsClient;
-use AlibabaCloud\Client\Credentials\CredentialsInterface;
-use AlibabaCloud\Client\Credentials\Ini\IniCredential;
-use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
+use AlibabaCloud\Client\Clients\BearerTokenClient;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Filter\ClientFilter;
-use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Signature\SignatureInterface;
+use AlibabaCloud\Client\Credentials\Ini\IniCredential;
+use AlibabaCloud\Client\Credentials\CredentialsInterface;
+use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
 
 /**
  * Trait of the manage clients.
@@ -83,15 +84,11 @@ trait ClientTrait
 
     /**
      * @codeCoverageIgnore
-     * @return Client
-     * @throws ClientException
      * @deprecated
-     * Get the global client.
-     *
      */
     public static function getGlobalClient()
     {
-        return self::getDefaultClient();
+        throw new RuntimeException('deprecated since 2.0, Use getDefaultClient() instead.');
     }
 
     /**

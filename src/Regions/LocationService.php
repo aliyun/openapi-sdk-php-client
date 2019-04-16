@@ -2,15 +2,16 @@
 
 namespace AlibabaCloud\Client\Regions;
 
+use Exception;
+use RuntimeException;
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Config\Config;
+use AlibabaCloud\Client\Request\Request;
+use AlibabaCloud\Client\Filter\ApiFilter;
+use AlibabaCloud\Client\Filter\HttpFilter;
+use AlibabaCloud\Client\Filter\ClientFilter;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Filter\ApiFilter;
-use AlibabaCloud\Client\Filter\ClientFilter;
-use AlibabaCloud\Client\Filter\HttpFilter;
-use AlibabaCloud\Client\Request\Request;
-use AlibabaCloud\Client\SDK;
-use Exception;
 
 /**
  * Class LocationService
@@ -45,18 +46,21 @@ class LocationService
     }
 
     /**
-     * @deprecated deprecated since version 2.0, Use resolveHost() instead.
-     *
-     * @param Request $request
-     * @param string  $domain
-     *
-     * @return mixed
-     * @throws ClientException
-     * @throws ServerException
+     * @deprecated
+     * @codeCoverageIgnore
      */
-    public static function findProductDomain(Request $request, $domain = 'location.aliyuncs.com')
+    public static function findProductDomain()
     {
-        return self::resolveHost($request, $domain);
+        throw new RuntimeException('deprecated since 2.0, Use resolveHost() instead.');
+    }
+
+    /**
+     * @deprecated
+     * @codeCoverageIgnore
+     */
+    public static function addEndPoint()
+    {
+        throw new RuntimeException('deprecated since 2.0, Use addHost() instead.');
     }
 
     /**
@@ -105,20 +109,6 @@ class LocationService
     }
 
     /**
-     * @deprecated deprecated since version 2.0, Use addHost() instead.
-     *
-     * @param string $regionId
-     * @param string $product
-     * @param string $domain
-     *
-     * @throws ClientException
-     */
-    public static function addEndPoint($regionId, $product, $domain)
-    {
-        self::addHost($product, $domain, $regionId);
-    }
-
-    /**
      * @param string $product
      * @param string $host
      * @param string $regionId
@@ -134,17 +124,6 @@ class LocationService
         ClientFilter::regionId($regionId);
 
         self::$hosts[$product][$regionId] = $host;
-    }
-
-    /**
-     * @codeCoverageIgnore
-     *
-     * @deprecated deprecated since version 2.0.
-     *
-     * @return void
-     */
-    public static function modifyServiceDomain()
-    {
     }
 
     /**

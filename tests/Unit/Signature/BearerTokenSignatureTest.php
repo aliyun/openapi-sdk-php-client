@@ -2,8 +2,8 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Signature;
 
-use AlibabaCloud\Client\Signature\BearerTokenSignature;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Signature\BearerTokenSignature;
 
 /**
  * Class BearerTokenSignatureTest
@@ -32,10 +32,10 @@ class BearerTokenSignatureTest extends TestCase
         $signature = new BearerTokenSignature();
 
         // Assert
-        $this->assertInstanceOf(BearerTokenSignature::class, $signature);
-        $this->assertEquals($expected, $signature->sign($string, $accessKeySecret));
-        $this->assertEquals('', $signature->getMethod());
-        $this->assertEquals('1.0', $signature->getVersion());
-        $this->assertEquals('BEARERTOKEN', $signature->getType());
+        static::assertInstanceOf(BearerTokenSignature::class, $signature);
+        static::assertEquals($expected, $signature->sign($string, $accessKeySecret));
+        static::assertEquals('', $signature->getMethod());
+        static::assertEquals('1.0', $signature->getVersion());
+        static::assertEquals('BEARERTOKEN', $signature->getType());
     }
 }

@@ -2,14 +2,14 @@
 
 namespace AlibabaCloud\Client\Credentials\Providers;
 
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Credentials\Requests\AssumeRole;
+use AlibabaCloud\Client\Result\Result;
+use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Request\Request;
-use AlibabaCloud\Client\Result\Result;
-use AlibabaCloud\Client\SDK;
+use AlibabaCloud\Client\Credentials\Requests\AssumeRole;
 
 /**
  * Class RamRoleArnProvider

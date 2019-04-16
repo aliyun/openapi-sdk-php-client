@@ -2,11 +2,11 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Credentials\Providers;
 
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualAccessKeyCredential;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
+use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualAccessKeyCredential;
 
 /**
  * Class CredentialsProviderTest

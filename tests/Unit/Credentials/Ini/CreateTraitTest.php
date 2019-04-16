@@ -2,15 +2,15 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Credentials\Ini;
 
+use ReflectionException;
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\Clients\AccessKeyClient;
-use AlibabaCloud\Client\Clients\BearerTokenClient;
+use AlibabaCloud\Client\Clients\RsaKeyPairClient;
 use AlibabaCloud\Client\Clients\EcsRamRoleClient;
 use AlibabaCloud\Client\Clients\RamRoleArnClient;
-use AlibabaCloud\Client\Clients\RsaKeyPairClient;
-use AlibabaCloud\Client\Credentials\Ini\IniCredential;
+use AlibabaCloud\Client\Clients\BearerTokenClient;
 use AlibabaCloud\Client\Exception\ClientException;
-use PHPUnit\Framework\TestCase;
-use ReflectionException;
+use AlibabaCloud\Client\Credentials\Ini\IniCredential;
 
 /**
  * Class CreateTraitTest

@@ -2,13 +2,13 @@
 
 namespace AlibabaCloud\Client\Tests\Feature\Credentials;
 
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeAccessPointsRequest;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class RsaKeyPairCredentialTest
@@ -69,7 +69,7 @@ class RsaKeyPairCredentialTest extends TestCase
             ->timeout(25)
             ->request();
 
-        $this->assertArrayHasKey('AccessPointSet', $result);
+        static::assertArrayHasKey('AccessPointSet', $result);
     }
 
     /**

@@ -2,9 +2,9 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Traits;
 
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class HttpTraitTest

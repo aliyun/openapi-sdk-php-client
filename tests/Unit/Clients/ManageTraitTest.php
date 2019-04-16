@@ -2,11 +2,11 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Clients;
 
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 
 /**
  * Class ManageTraitTest
@@ -30,8 +30,8 @@ class ManageTraitTest extends TestCase
                 'SessionAccessKey' => [
                     'SessionAccessKeyId'     => 'TMPSK.abcd',
                     'Expiration'             => '2019-03-08T14:03:34.550Z',
-                    'SessionAccessKeySecret' => 'eIK-ASD891281212.',
-                ],
+                    'SessionAccessKeySecret' => 'eIK-ASD891281212.'
+                ]
             ]
         );
         $client     = AlibabaCloud::rsaKeyPairClient(

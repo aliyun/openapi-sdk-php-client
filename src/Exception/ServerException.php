@@ -2,9 +2,10 @@
 
 namespace AlibabaCloud\Client\Exception;
 
-use AlibabaCloud\Client\Result\Result;
-use AlibabaCloud\Client\SDK;
 use Stringy\Stringy;
+use RuntimeException;
+use AlibabaCloud\Client\SDK;
+use AlibabaCloud\Client\Result\Result;
 
 /**
  * Class ServerException
@@ -35,7 +36,8 @@ class ServerException extends AlibabaCloudException
         Result $result,
         $errorMessage = SDK::RESPONSE_EMPTY,
         $errorCode = SDK::SERVICE_UNKNOWN_ERROR
-    ) {
+    )
+    {
         $this->result       = $result;
         $this->errorMessage = $errorMessage;
         $this->errorCode    = $errorCode;
@@ -130,17 +132,6 @@ class ServerException extends AlibabaCloudException
     }
 
     /**
-     * @codeCoverageIgnore
-     *
-     * @return string
-     * @deprecated deprecated since version 2.0.
-     */
-    public function getErrorType()
-    {
-        return 'Server';
-    }
-
-    /**
      * @return string
      */
     public function getRequestId()
@@ -150,11 +141,19 @@ class ServerException extends AlibabaCloudException
 
     /**
      * @codeCoverageIgnore
-     * @return int
-     * @deprecated deprecated since version 2.0.
+     * @deprecated
+     */
+    public function getErrorType()
+    {
+        throw new RuntimeException('deprecated since 2.0.');
+    }
+
+    /**
+     * @codeCoverageIgnore
+     * @deprecated
      */
     public function getHttpStatus()
     {
-        return $this->getResult()->getResponse()->getStatusCode();
+        throw new RuntimeException('deprecated since 2.0, Use getResult()->getResponse()->getStatusCode() instead.');
     }
 }

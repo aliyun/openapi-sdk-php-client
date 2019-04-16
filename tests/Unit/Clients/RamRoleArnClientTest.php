@@ -2,12 +2,12 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Clients;
 
-use AlibabaCloud\Client\Clients\RamRoleArnClient;
-use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Clients\RamRoleArnClient;
+use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
 
 /**
  * Class RamRoleArnClientTest

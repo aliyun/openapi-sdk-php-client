@@ -2,8 +2,8 @@
 
 namespace AlibabaCloud\Client\Tests\Unit;
 
-use AlibabaCloud\Client\AlibabaCloud;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\AlibabaCloud;
 
 /**
  * Class AlibabaCloudTest

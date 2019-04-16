@@ -2,12 +2,12 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Clients;
 
-use AlibabaCloud\Client\Clients\BearerTokenClient;
-use AlibabaCloud\Client\Credentials\BearerTokenCredential;
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Clients\BearerTokenClient;
 use AlibabaCloud\Client\Signature\BearerTokenSignature;
-use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 
 /**
  * Class BearerTokenClientTest

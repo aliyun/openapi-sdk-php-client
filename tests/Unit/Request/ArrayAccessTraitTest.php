@@ -2,9 +2,9 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class ArrayAccessTraitTest

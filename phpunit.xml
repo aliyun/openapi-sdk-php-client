@@ -39,7 +39,10 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>
             <exclude>
-                <file>./src/Load.php</file>
+                <file>./src/Profile/DefaultProfile.php</file>
+                <file>./src/DefaultAcsClient.php</file>
+                <file>./src/Release.php</file>
+                <file>./src/SDK.php</file>
                 <file>./src/Functions.php</file>
                 <file>./src/Constants/Business.php</file>
                 <file>./src/Constants/ErrorCode.php</file>

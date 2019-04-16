@@ -2,10 +2,10 @@
 
 namespace AlibabaCloud\Client\Credentials;
 
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Filter\CredentialFilter;
-use AlibabaCloud\Client\SDK;
 use Exception;
+use AlibabaCloud\Client\SDK;
+use AlibabaCloud\Client\Filter\CredentialFilter;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Use the RSA key pair to complete the authentication (supported only on Japanese site)

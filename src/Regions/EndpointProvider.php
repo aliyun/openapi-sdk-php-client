@@ -2,16 +2,32 @@
 
 namespace AlibabaCloud\Client\Regions;
 
-use AlibabaCloud\Client\Traits\EndpointTrait;
+use RuntimeException;
 
 /**
  * Class EndpointProvider
  *
  * @package    AlibabaCloud\Client\Regions
  *
- * @deprecated deprecated since version 2.0, Use AlibabaCloud instead.
+ * @deprecated
+ * @codeCoverageIgnore
  */
 class EndpointProvider
 {
-    use EndpointTrait;
+
+    /**
+     * @deprecated
+     */
+    public static function findProductDomain()
+    {
+        throw new RuntimeException('deprecated since 2.0, Use AlibabaCloud::resolveHost() instead.');
+    }
+
+    /**
+     * @deprecated
+     */
+    public static function addEndpoint()
+    {
+        throw new RuntimeException('deprecated since 2.0, Use AlibabaCloud::addHost() instead.');
+    }
 }

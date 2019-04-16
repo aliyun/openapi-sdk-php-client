@@ -2,12 +2,12 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Regions;
 
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class LocationServiceTest
@@ -16,24 +16,6 @@ use PHPUnit\Framework\TestCase;
  */
 class LocationServiceTest extends TestCase
 {
-    /**
-     * @throws ClientException
-     * @throws ServerException
-     */
-    public function testAddEndPoint()
-    {
-        // Setup
-        $regionId = 'a';
-        $product  = 'b';
-        $domain   = 'c';
-
-        // Test
-        $request = AlibabaCloud::rpc()->regionId($regionId)->product($product);
-        LocationService::addEndPoint($regionId, $product, $domain);
-
-        // Assert
-        self::assertEquals(LocationService::findProductDomain($request), $domain);
-    }
 
     /**
      * @throws ClientException
@@ -195,10 +177,12 @@ class LocationServiceTest extends TestCase
             ->timeout(30);
 
         // Test
-        LocationService::findProductDomain($request);
+        LocationService::resolveHost($request);
     }
 
     /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessageRegExp /cURL error 6: Could not resolve/
      * @throws ClientException
      * @throws ServerException
      */
@@ -206,14 +190,16 @@ class LocationServiceTest extends TestCase
     {
         AlibabaCloud::accessKeyClient('key', 'secret')->asDefaultClient();
         $request = (new DeleteDatabaseRequest())->regionId('cn-hangzhou');
-        try {
-            LocationService::findProductDomain($request, 'not.alibaba.com');
-        } catch (ClientException $e) {
-            self::assertEquals(
-                'cURL error 6: Could not resolve host: not.alibaba.com (see http://curl.haxx.se/libcurl/c/libcurl-errors.html)',
-                $e->getErrorMessage()
-            );
-        }
+        LocationService::resolveHost($request, 'not.alibaba.com');
+    }
+
+    /**
+     * @throws ClientException
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+        AlibabaCloud::accessKeyClient('foo', 'bar')->asDefaultClient();
     }
 
     protected function tearDown()

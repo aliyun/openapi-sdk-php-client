@@ -2,17 +2,17 @@
 
 namespace AlibabaCloud\Client\Clients;
 
+use AlibabaCloud\Client\Request\Request;
+use AlibabaCloud\Client\Traits\HttpTrait;
+use AlibabaCloud\Client\Traits\RegionTrait;
+use AlibabaCloud\Client\Credentials\StsCredential;
+use AlibabaCloud\Client\Signature\SignatureInterface;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
-use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
 use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
 use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
-use AlibabaCloud\Client\Credentials\StsCredential;
-use AlibabaCloud\Client\Request\Request;
-use AlibabaCloud\Client\Signature\SignatureInterface;
-use AlibabaCloud\Client\Traits\HttpTrait;
-use AlibabaCloud\Client\Traits\RegionTrait;
+use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 
 /**
  * Custom Client.

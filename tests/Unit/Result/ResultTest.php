@@ -2,12 +2,12 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Result;
 
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Request\Request;
-use AlibabaCloud\Client\Request\RpcRequest;
-use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Result\Result;
+use AlibabaCloud\Client\Request\Request;
+use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class ResultTest

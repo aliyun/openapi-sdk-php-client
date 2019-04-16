@@ -3,11 +3,11 @@
 namespace AlibabaCloud\Client\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Filter\Filter;
-use AlibabaCloud\Client\Request\RoaRequest;
-use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Request\UserAgent;
+use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Request\RoaRequest;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Trait RequestTrait
@@ -41,13 +41,12 @@ trait RequestTrait
     }
 
     /**
-     * @deprecated
-     * @codeCoverageIgnore
-     *
      * @param array $options
      *
      * @return RpcRequest
      * @throws ClientException
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public static function rpcRequest(array $options = [])
     {
@@ -66,13 +65,12 @@ trait RequestTrait
     }
 
     /**
-     * @deprecated
-     * @codeCoverageIgnore
-     *
      * @param array $options
      *
      * @return RoaRequest
      * @throws ClientException
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public static function roaRequest(array $options = [])
     {

@@ -4,11 +4,11 @@ namespace AlibabaCloud\Client\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Config\Config;
-use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Filter\ApiFilter;
-use AlibabaCloud\Client\Filter\ClientFilter;
 use AlibabaCloud\Client\Filter\HttpFilter;
+use AlibabaCloud\Client\Filter\ClientFilter;
 use AlibabaCloud\Client\Regions\LocationService;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Help developers set up and get host.
@@ -23,20 +23,6 @@ trait EndpointTrait
      * @var array Host cache.
      */
     private static $hosts = [];
-
-    /**
-     * @deprecated deprecated since version 2.0, Use resolveHost() instead.
-     *
-     * @param string $regionId
-     * @param string $product
-     *
-     * @return string
-     * @throws ClientException
-     */
-    public static function findProductDomain($regionId, $product)
-    {
-        return self::resolveHost($product, $regionId);
-    }
 
     /**
      * Resolve host based on product name and region.
@@ -63,21 +49,6 @@ trait EndpointTrait
         }
 
         return $domain;
-    }
-
-    /**
-     * @deprecated deprecated since version 2.0, Use addHost() instead.
-     *
-     * @param string $regionId
-     * @param string $product
-     * @param string $domain
-     *
-     * @return void
-     * @throws ClientException
-     */
-    public static function addEndpoint($regionId, $product, $domain)
-    {
-        self::addHost($product, $domain, $regionId);
     }
 
     /**

@@ -2,9 +2,9 @@
 
 namespace AlibabaCloud\Client\Clients;
 
-use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
 
 /**
  * Use the RSA key pair to complete the authentication (supported only on Japanese site)

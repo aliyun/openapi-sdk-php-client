@@ -2,14 +2,14 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Clients;
 
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Clients\Client;
-use AlibabaCloud\Client\Credentials\AccessKeyCredential;
-use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
-use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature;
-use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
 
 /**
  * Class ClientTest

@@ -3,19 +3,19 @@
 namespace AlibabaCloud\Client\Clients;
 
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Credentials\CredentialsInterface;
-use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
-use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
-use AlibabaCloud\Client\Credentials\Providers\EcsRamRoleProvider;
-use AlibabaCloud\Client\Credentials\Providers\RamRoleArnProvider;
-use AlibabaCloud\Client\Credentials\Providers\RsaKeyPairProvider;
-use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
-use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
+use AlibabaCloud\Client\Filter\Filter;
+use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Filter\Filter;
-use AlibabaCloud\Client\Request\Request;
+use AlibabaCloud\Client\Credentials\CredentialsInterface;
+use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
+use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
+use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
+use AlibabaCloud\Client\Credentials\Providers\EcsRamRoleProvider;
+use AlibabaCloud\Client\Credentials\Providers\RamRoleArnProvider;
+use AlibabaCloud\Client\Credentials\Providers\RsaKeyPairProvider;
+use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
 
 /**
  * Trait ManageTrait.
@@ -48,12 +48,10 @@ trait ManageTrait
     }
 
     /**
-     * @deprecated
-     * @codeCoverageIgnore
-     * Set the current client as the global client.
-     *
      * @return static
      * @throws ClientException
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public function asGlobalClient()
     {
@@ -92,7 +90,7 @@ trait ManageTrait
     public function isDebug()
     {
         if (isset($this->options['debug'])) {
-            return true === $this->options['debug'] && PHP_SAPI === 'cli';
+            return $this->options['debug'] === true && PHP_SAPI === 'cli';
         }
 
         return false;

@@ -2,9 +2,9 @@
 
 namespace AlibabaCloud\Client\Regions;
 
-use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class LocationServiceRequest

@@ -23,6 +23,14 @@ trait LogTrait
     private static $logFormat;
 
     /**
+     * @return LoggerInterface
+     */
+    public static function getLogger()
+    {
+        return self::$logger;
+    }
+
+    /**
      * @param LoggerInterface $logger
      *
      * @throws Exception
@@ -33,11 +41,12 @@ trait LogTrait
     }
 
     /**
-     * @return LoggerInterface
+     * @return string
      */
-    public static function getLogger()
+    public static function getLogFormat()
     {
-        return self::$logger;
+        return self::$logFormat
+            ?: '"{method} {uri} HTTP/{version}" {code} {cost} {hostname} {pid}';
     }
 
     /**
@@ -51,14 +60,5 @@ trait LogTrait
     public static function setLogFormat($formatter)
     {
         self::$logFormat = $formatter;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getLogFormat()
-    {
-        return self::$logFormat
-            ?: '"{method} {uri} HTTP/{version}" {code} {cost} {hostname} {pid}';
     }
 }

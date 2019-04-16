@@ -2,8 +2,8 @@
 
 namespace AlibabaCloud\Client\Config;
 
-use clagiordano\weblibs\configmanager\ConfigManager;
 use Exception;
+use clagiordano\weblibs\configmanager\ConfigManager;
 
 /**
  * Class Config

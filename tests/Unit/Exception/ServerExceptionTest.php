@@ -2,10 +2,10 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Exception;
 
-use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Result\Result;
+use AlibabaCloud\Client\Exception\ServerException;
 
 /**
  * Class ServerExceptionTest
@@ -40,18 +40,18 @@ class ServerExceptionTest extends TestCase
         $exception = new ServerException($result, $errorMessage, $errorCode);
 
         // Assert
-        $this->assertEquals($errorMessage, $exception->getErrorMessage());
-        $this->assertEquals($errorCode, $exception->getErrorCode());
-        $this->assertEquals('RequestId', $exception->getRequestId());
-        $this->assertInstanceOf(Result::class, $exception->getResult());
-        $this->assertEquals('message', $exception->getResult()->toArray()['message']);
-        $this->assertEquals('code', $exception->getResult()->toArray()['code']);
-        $this->assertEquals('Message', $exception->getResult()->toArray()['Message']);
-        $this->assertEquals('Code', $exception->getResult()->toArray()['Code']);
-        $this->assertEquals('errorMsg', $exception->getResult()->toArray()['errorMsg']);
-        $this->assertEquals('errorCode', $exception->getResult()->toArray()['errorCode']);
-        $this->assertEquals('requestId', $exception->getResult()->toArray()['requestId']);
-        $this->assertEquals('RequestId', $exception->getResult()->toArray()['RequestId']);
+        static::assertEquals($errorMessage, $exception->getErrorMessage());
+        static::assertEquals($errorCode, $exception->getErrorCode());
+        static::assertEquals('RequestId', $exception->getRequestId());
+        static::assertInstanceOf(Result::class, $exception->getResult());
+        static::assertEquals('message', $exception->getResult()->toArray()['message']);
+        static::assertEquals('code', $exception->getResult()->toArray()['code']);
+        static::assertEquals('Message', $exception->getResult()->toArray()['Message']);
+        static::assertEquals('Code', $exception->getResult()->toArray()['Code']);
+        static::assertEquals('errorMsg', $exception->getResult()->toArray()['errorMsg']);
+        static::assertEquals('errorCode', $exception->getResult()->toArray()['errorCode']);
+        static::assertEquals('requestId', $exception->getResult()->toArray()['requestId']);
+        static::assertEquals('RequestId', $exception->getResult()->toArray()['RequestId']);
     }
 
     public function testNoContentAndParameter()
@@ -59,7 +59,7 @@ class ServerExceptionTest extends TestCase
         // Setup
         $body   = \json_encode(
             [
-                '1' => '1',
+                '1' => '1'
             ]
         );
         $result = new Result(new Response(200, [], $body));
@@ -68,6 +68,6 @@ class ServerExceptionTest extends TestCase
         $exception = new ServerException($result);
 
         // Assert
-        $this->assertEquals('{"1":"1"}', $exception->getErrorMessage());
+        static::assertEquals('{"1":"1"}', $exception->getErrorMessage());
     }
 }

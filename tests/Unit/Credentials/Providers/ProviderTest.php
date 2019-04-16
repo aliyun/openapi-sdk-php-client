@@ -2,19 +2,19 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Credentials\Providers;
 
-use AlibabaCloud\Client\Clients\AccessKeyClient;
-use AlibabaCloud\Client\Clients\BearerTokenClient;
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\Clients\Client;
+use AlibabaCloud\Client\Clients\StsClient;
+use AlibabaCloud\Client\Clients\AccessKeyClient;
 use AlibabaCloud\Client\Clients\EcsRamRoleClient;
 use AlibabaCloud\Client\Clients\RamRoleArnClient;
 use AlibabaCloud\Client\Clients\RsaKeyPairClient;
-use AlibabaCloud\Client\Clients\StsClient;
-use AlibabaCloud\Client\Credentials\AccessKeyCredential;
-use AlibabaCloud\Client\Credentials\Providers\Provider;
+use AlibabaCloud\Client\Clients\BearerTokenClient;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Credentials\Providers\Provider;
+use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class ProviderTest

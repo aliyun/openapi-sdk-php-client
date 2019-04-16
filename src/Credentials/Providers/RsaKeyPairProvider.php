@@ -2,16 +2,16 @@
 
 namespace AlibabaCloud\Client\Credentials\Providers;
 
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Credentials\AccessKeyCredential;
-use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKey;
+use AlibabaCloud\Client\Result\Result;
+use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Request\Request;
-use AlibabaCloud\Client\Result\Result;
-use AlibabaCloud\Client\SDK;
+use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature;
+use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKey;
 
 /**
  * Class RsaKeyPairProvider

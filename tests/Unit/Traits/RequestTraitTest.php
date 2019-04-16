@@ -2,11 +2,11 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Traits;
 
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Request\RoaRequest;
-use AlibabaCloud\Client\Request\RpcRequest;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Request\RoaRequest;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class RequestTraitTest

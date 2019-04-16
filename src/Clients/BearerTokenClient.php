@@ -2,9 +2,9 @@
 
 namespace AlibabaCloud\Client\Clients;
 
-use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Signature\BearerTokenSignature;
+use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 
 /**
  * Use the Bearer Token to complete the authentication.

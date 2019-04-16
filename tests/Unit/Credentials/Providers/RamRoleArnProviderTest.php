@@ -2,15 +2,15 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Credentials\Providers;
 
+use ReflectionException;
+use AlibabaCloud\Client\SDK;
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Clients\RamRoleArnClient;
-use AlibabaCloud\Client\Credentials\Providers\RamRoleArnProvider;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\SDK;
-use PHPUnit\Framework\TestCase;
-use ReflectionException;
+use AlibabaCloud\Client\Credentials\Providers\RamRoleArnProvider;
 
 /**
  * Class RamRoleArnProviderTest

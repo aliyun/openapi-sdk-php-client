@@ -2,20 +2,20 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Traits;
 
+use AlibabaCloud\Client\SDK;
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Credentials\StsCredential;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
-use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
 use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
 use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
-use AlibabaCloud\Client\Credentials\StsCredential;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\SDK;
-use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualAccessKeyCredential;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class ClientTraitTest
@@ -419,7 +419,7 @@ class ClientTraitTest extends TestCase
         $accessKeyId     = uniqid('', true);
         $accessKeySecret = uniqid('', true);
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name('client1');
-        $this->assertEquals(
+        static::assertEquals(
             $accessKeyId,
             AlibabaCloud::get('client1')->getCredential()->getAccessKeyId()
         );
@@ -427,7 +427,7 @@ class ClientTraitTest extends TestCase
         try {
             AlibabaCloud::get('None')->getCredential()->getAccessKeyId();
         } catch (ClientException $e) {
-            $this->assertEquals(SDK::CLIENT_NOT_FOUND, $e->getErrorCode());
+            static::assertEquals(SDK::CLIENT_NOT_FOUND, $e->getErrorCode());
         }
     }
 
@@ -451,7 +451,7 @@ class ClientTraitTest extends TestCase
         $accessKeyId     = uniqid('', true);
         $accessKeySecret = uniqid('', true);
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name('client1');
-        $this->assertInstanceOf(ShaHmac1Signature::class, AlibabaCloud::get('client1')->getSignature());
+        static::assertInstanceOf(ShaHmac1Signature::class, AlibabaCloud::get('client1')->getSignature());
     }
 
     /**
@@ -466,9 +466,9 @@ class ClientTraitTest extends TestCase
 
         // Test
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name($clientName);
-        $this->assertEquals(true, AlibabaCloud::has($clientName));
+        static::assertEquals(true, AlibabaCloud::has($clientName));
         AlibabaCloud::del($clientName);
-        $this->assertEquals(false, AlibabaCloud::has($clientName));
+        static::assertEquals(false, AlibabaCloud::has($clientName));
     }
 
     /**
@@ -481,7 +481,7 @@ class ClientTraitTest extends TestCase
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name('client1');
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name('client2');
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name('client3');
-        $this->assertArrayHasKey('client3', AlibabaCloud::all());
+        static::assertArrayHasKey('client3', AlibabaCloud::all());
     }
 
     /**
@@ -493,7 +493,7 @@ class ClientTraitTest extends TestCase
             VirtualRsaKeyPairCredential::ok(),
             VirtualAccessKeyCredential::ok()
         );
-        $this->assertNotNull(AlibabaCloud::all());
+        static::assertNotNull(AlibabaCloud::all());
     }
 
     /**
@@ -502,7 +502,7 @@ class ClientTraitTest extends TestCase
     public function testLoad()
     {
         AlibabaCloud::load();
-        $this->assertNotNull(AlibabaCloud::all());
+        static::assertNotNull(AlibabaCloud::all());
     }
 
     /**

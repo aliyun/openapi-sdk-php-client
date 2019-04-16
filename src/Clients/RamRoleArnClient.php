@@ -2,9 +2,9 @@
 
 namespace AlibabaCloud\Client\Clients;
 
-use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
 
 /**
  * Use the AssumeRole of the RAM account to complete  the authentication.

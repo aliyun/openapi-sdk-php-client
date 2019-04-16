@@ -2,7 +2,7 @@
 
 namespace AlibabaCloud\Client\Request\Traits;
 
-use AlibabaCloud\Client\Exception\ClientException;
+use RuntimeException;
 use AlibabaCloud\Client\Request\Request;
 
 /**
@@ -12,239 +12,184 @@ use AlibabaCloud\Client\Request\Request;
  */
 trait DeprecatedTrait
 {
+
     /**
-     * @deprecated deprecated since version 2.0, Use $this->options['body'] instead.
-     *
-     * @return     string
+     * @deprecated
+     * @codeCoverageIgnore
      */
-    public function getContent()
+    public function setContent()
     {
-        return isset($this->options['body'])
-            ? $this->options['body']
-            : null;
+        throw new RuntimeException('deprecated since 2.0, Use body() instead.');
     }
 
     /**
-     * @deprecated deprecated since version 2.0, Use body() instead.
-     *
-     * @param $content
-     *
-     * @return $this
-     * @throws ClientException
+     * @deprecated
+     * @codeCoverageIgnore
      */
-    public function setContent($content)
+    public function setMethod()
     {
-        return $this->body($content);
+        throw new RuntimeException('deprecated since 2.0, Use method() instead.');
     }
 
     /**
-     * @deprecated deprecated since version 2.0, Use method instead.
-     *
-     * @return     string
+     * @deprecated
+     * @codeCoverageIgnore
      */
-    public function getMethod()
+    public function setProtocol()
     {
-        return $this->method;
+        throw new RuntimeException('deprecated since 2.0, Use scheme() instead.');
     }
 
     /**
-     * @deprecated deprecated since version 2.0, Use method() instead.
-     *
-     * @param string $method
-     *
-     * @return $this
-     * @throws ClientException
-     */
-    public function setMethod($method)
-    {
-        return $this->method($method);
-    }
-
-    /**
-     * @deprecated deprecated since version 2.0, Use uri->getScheme() instead.
-     *
-     * @return             string
-     */
-    public function getProtocol()
-    {
-        return $this->uri->getScheme();
-    }
-
-    /**
-     * @deprecated deprecated since version 2.0, Use scheme() instead.
-     *
-     * @param string $scheme
-     *
-     * @return $this
-     * @throws ClientException
-     */
-    public function setProtocol($scheme)
-    {
-        return $this->scheme($scheme);
-    }
-
-    /**
-     * @deprecated deprecated since version 2.0, Use uri->getScheme() instead.
-     *
-     * @return     string
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public function getProtocolType()
     {
-        return $this->uri->getScheme();
+        throw new RuntimeException('deprecated since 2.0, Use uri->getScheme() instead.');
     }
 
     /**
-     * @deprecated deprecated since version 2.0, Use scheme() instead.
-     *
-     * @param string $scheme
-     *
-     * @return $this
-     * @throws ClientException
+     * @deprecated
+     * @codeCoverageIgnore
      */
-    public function setProtocolType($scheme)
+    public function setProtocolType()
     {
-        return $this->scheme($scheme);
+        throw new RuntimeException('deprecated since 2.0, Use scheme() instead.');
     }
 
     /**
-     * @deprecated deprecated since version 2.0, Use $this->options['headers'] instead.
-     *
-     * @return     array
+     * @deprecated
+     * @codeCoverageIgnore
+     */
+    public function setActionName()
+    {
+        throw new RuntimeException('deprecated since 2.0, Use action() instead.');
+    }
+
+    /**
+     * @deprecated
+     * @codeCoverageIgnore
+     */
+    public function setAcceptFormat()
+    {
+        throw new RuntimeException('deprecated since 2.0, Use format() instead.');
+    }
+
+    /**
+     * @deprecated
+     * @codeCoverageIgnore
+     */
+    public function getProtocol()
+    {
+        throw new RuntimeException('deprecated since 2.0, Use uri->getScheme() instead.');
+    }
+
+    /**
+     * @deprecated
+     * @codeCoverageIgnore
+     */
+    public function getContent()
+    {
+        throw new RuntimeException('deprecated since 2.0');
+    }
+
+    /**
+     * @deprecated
+     * @codeCoverageIgnore
+     */
+    public function getMethod()
+    {
+        throw new RuntimeException('deprecated since 2.0');
+    }
+
+    /**
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public function getHeaders()
     {
-        return isset($this->options['headers'])
-            ? $this->options['headers']
-            : [];
+        throw new RuntimeException('deprecated since 2.0');
     }
 
     /**
-     * @deprecated deprecated since version 2.0, Use $this->options['headers'] instead.
-     *
-     * @param string $headerKey
-     * @param string $headerValue
-     *
-     * @return $this
+     * @deprecated
+     * @codeCoverageIgnore
      */
-    public function addHeader($headerKey, $headerValue)
+    public function addHeader()
     {
-        $this->options['headers'][$headerKey] = $headerValue;
-
-        return $this;
+        throw new RuntimeException('deprecated since 2.0');
     }
 
     /**
-     * @deprecated deprecated since version 2.0.
-     * @return     array
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public function getQueryParameters()
     {
-        return isset($this->options['query'])
-            ? $this->options['query']
-            : [];
+        throw new RuntimeException('deprecated since 2.0');
     }
 
     /**
-     * @deprecated deprecated since version 2.0.
-     *
-     * @param string       $name
-     * @param string|mixed $value
-     *
-     * @return $this
+     * @deprecated
+     * @codeCoverageIgnore
      */
-    public function setQueryParameters($name, $value)
+    public function setQueryParameters()
     {
-        $this->options['query'][$name] = $value;
-
-        return $this;
+        throw new RuntimeException('deprecated since 2.0');
     }
 
     /**
-     * @deprecated deprecated since version 2.0.
-     * @return     array
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public function getDomainParameter()
     {
-        return isset($this->options['form_params'])
-            ? $this->options['form_params']
-            : [];
+        throw new RuntimeException('deprecated since 2.0');
     }
 
     /**
-     * @deprecated deprecated since version 2.0.
-     *
-     * @param string $name
-     * @param string $value
-     *
-     * @return $this
+     * @deprecated
+     * @codeCoverageIgnore
      */
-    public function putDomainParameters($name, $value)
+    public function putDomainParameters()
     {
-        $this->options['form_params'][$name] = $value;
-
-        return $this;
+        throw new RuntimeException('deprecated since 2.0');
     }
 
     /**
-     * @deprecated deprecated since version 2.0, Use action() instead.
-     *
-     * @param $actionName
-     *
-     * @return self
-     * @throws ClientException
-     */
-    public function setActionName($actionName)
-    {
-        return $this->action($actionName);
-    }
-
-    /**
-     * @deprecated deprecated since version 2.0.
-     * @return     string
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public function getActionName()
     {
-        return $this->action;
+        throw new RuntimeException('deprecated since 2.0');
     }
 
     /**
-     * @deprecated deprecated since version 2.0, Use format() instead.
-     *
-     * @param string $format
-     *
-     * @return self
-     * @throws ClientException
-     */
-    public function setAcceptFormat($format)
-    {
-        return $this->format($format);
-    }
-
-    /**
-     * @deprecated deprecated since version 2.0.
-     * @return     string
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public function getAcceptFormat()
     {
-        return $this->format;
+        throw new RuntimeException('deprecated since 2.0');
     }
 
     /**
-     * @deprecated deprecated since version 2.0.
-     * @return     string
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public function getLocationEndpointType()
     {
-        return $this->endpointType;
+        throw new RuntimeException('deprecated since 2.0');
     }
 
     /**
-     * @deprecated deprecated since version 2.0.
-     *
-     * @return     string
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public function getLocationServiceCode()
     {
-        return $this->serviceCode;
+        throw new RuntimeException('deprecated since 2.0');
     }
 }

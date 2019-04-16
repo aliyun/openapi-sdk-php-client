@@ -2,13 +2,13 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Request\RoaRequest;
-use AlibabaCloud\Client\Request\RpcRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Request\RoaRequest;
+use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Tests\Mock\Services\Rds\DeleteDatabaseRequest;
 
 /**
  * Class RequestTest

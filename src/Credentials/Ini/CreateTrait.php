@@ -2,14 +2,14 @@
 
 namespace AlibabaCloud\Client\Credentials\Ini;
 
-use AlibabaCloud\Client\Clients\AccessKeyClient;
-use AlibabaCloud\Client\Clients\BearerTokenClient;
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Clients\Client;
-use AlibabaCloud\Client\Clients\EcsRamRoleClient;
+use AlibabaCloud\Client\Clients\AccessKeyClient;
 use AlibabaCloud\Client\Clients\RamRoleArnClient;
 use AlibabaCloud\Client\Clients\RsaKeyPairClient;
+use AlibabaCloud\Client\Clients\EcsRamRoleClient;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\SDK;
+use AlibabaCloud\Client\Clients\BearerTokenClient;
 
 /**
  * Trait CreateTrait

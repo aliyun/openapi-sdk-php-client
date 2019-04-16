@@ -2,15 +2,16 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
+use ReflectionMethod;
+use RuntimeException;
+use ReflectionException;
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Credentials\BearerTokenCredential;
-use AlibabaCloud\Client\Credentials\CredentialsInterface;
+use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Request\RpcRequest;
-use PHPUnit\Framework\TestCase;
-use ReflectionException;
-use ReflectionMethod;
+use AlibabaCloud\Client\Credentials\CredentialsInterface;
+use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 
 /**
  * Class RpcRequestTest
@@ -21,6 +22,22 @@ use ReflectionMethod;
  */
 class RpcRequestTest extends TestCase
 {
+
+    /**
+     * @return array
+     */
+    public static function boolToString()
+    {
+        return [
+            ['true', 'true'],
+            ['false', 'false'],
+            [true, 'true'],
+            [false, 'false'],
+            ['string', 'string'],
+            [1, 1],
+            [null, null],
+        ];
+    }
 
     /**
      * @param $value
@@ -45,22 +62,6 @@ class RpcRequestTest extends TestCase
 
         // Assert
         self::assertEquals($expected, $actual);
-    }
-
-    /**
-     * @return array
-     */
-    public static function boolToString()
-    {
-        return [
-            ['true', 'true'],
-            ['false', 'false'],
-            [true, 'true'],
-            [false, 'false'],
-            ['string', 'string'],
-            [1, 1],
-            [null, null],
-        ];
     }
 
     /**
@@ -243,17 +244,9 @@ class RpcRequestTest extends TestCase
     {
         $request = new RpcRequest();
 
-        $request->setPrefix('set');
-        self::assertEquals('set', $request->getPrefix());
-        self::assertEquals(['Prefix' => 'set',], $request->options['query']);
-
         $request->withPrefix('with');
         self::assertEquals('with', $request->getPrefix());
         self::assertEquals(['Prefix' => 'with',], $request->options['query']);
-
-        $request->setprefix('set');
-        self::assertEquals('set', $request->getprefix());
-        self::assertEquals(['Prefix' => 'with', 'prefix' => 'set',], $request->options['query']);
 
         $request->withprefix('with');
         self::assertEquals('with', $request->getprefix());
@@ -261,7 +254,7 @@ class RpcRequestTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException RuntimeException
      * @expectedExceptionMessage Call to undefined method AlibabaCloud\Client\Request\RpcRequest::nowithvalue()
      * @throws ClientException
      */
@@ -269,5 +262,15 @@ class RpcRequestTest extends TestCase
     {
         $request = new RpcRequest();
         $request->nowithvalue('value');
+    }
+
+    /**
+     * @expectedException RuntimeException
+     * @expectedExceptionMessage Please use withParameter instead of setParameter
+     */
+    public function testExceptionWithSet()
+    {
+        $request = AlibabaCloud::rpc();
+        $request->setParameter();
     }
 }

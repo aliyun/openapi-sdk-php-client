@@ -3,8 +3,8 @@
 namespace AlibabaCloud\Client\Request;
 
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Filter\Filter;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class UserAgent

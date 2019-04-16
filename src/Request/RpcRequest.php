@@ -2,13 +2,13 @@
 
 namespace AlibabaCloud\Client\Request;
 
-use AlibabaCloud\Client\Credentials\BearerTokenCredential;
-use AlibabaCloud\Client\Credentials\StsCredential;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
 use Exception;
 use Ramsey\Uuid\Uuid;
 use RuntimeException;
+use AlibabaCloud\Client\Credentials\StsCredential;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 
 /**
  * RESTful RPC Request.
@@ -39,12 +39,28 @@ class RpcRequest extends Request
     {
         if (isset($this->options['query'])) {
             $this->options['query'] = array_map(
-                static function ($value) {
+                static function($value) {
                     return self::boolToString($value);
                 },
                 $this->options['query']
             );
         }
+    }
+
+    /**
+     * Convert a Boolean value to a string.
+     *
+     * @param bool|string $value
+     *
+     * @return string
+     */
+    public static function boolToString($value)
+    {
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
+
+        return $value;
     }
 
     /**
@@ -75,35 +91,6 @@ class RpcRequest extends Request
         $this->resolveSecurityToken();
         $this->resolveBearerToken();
         $this->options['query']['Signature'] = $this->signature();
-    }
-
-    /**
-     * Adjust parameter position
-     */
-    private function repositionParameters()
-    {
-        if ($this->method === 'POST' || $this->method === 'PUT') {
-            foreach ($this->options['query'] as $apiParamKey => $apiParamValue) {
-                $this->options['form_params'][$apiParamKey] = $apiParamValue;
-            }
-            unset($this->options['query']);
-        }
-    }
-
-    /**
-     * Convert a Boolean value to a string.
-     *
-     * @param bool|string $value
-     *
-     * @return string
-     */
-    public static function boolToString($value)
-    {
-        if (is_bool($value)) {
-            return $value ? 'true' : 'false';
-        }
-
-        return $value;
     }
 
     /**
@@ -177,6 +164,19 @@ class RpcRequest extends Request
     }
 
     /**
+     * Adjust parameter position
+     */
+    private function repositionParameters()
+    {
+        if ($this->method === 'POST' || $this->method === 'PUT') {
+            foreach ($this->options['query'] as $apiParamKey => $apiParamValue) {
+                $this->options['form_params'][$apiParamKey] = $apiParamValue;
+            }
+            unset($this->options['query']);
+        }
+    }
+
+    /**
      * Magic method for set or get request parameters.
      *
      * @param string $name
@@ -204,7 +204,7 @@ class RpcRequest extends Request
             $parameterName = $this->propertyNameByMethodName($name);
             $withMethod    = "with$parameterName";
 
-            return $this->$withMethod($arguments[0]);
+            throw new RuntimeException("Please use $withMethod instead of $name");
         }
 
         throw new RuntimeException('Call to undefined method ' . __CLASS__ . '::' . $name . '()');
