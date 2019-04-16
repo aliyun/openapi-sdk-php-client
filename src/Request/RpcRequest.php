@@ -137,9 +137,9 @@ class RpcRequest extends Request
      */
     public function stringToSign()
     {
-        $query       = isset($this->options['query']) ? $this->options['query'] : [];
-        $form_params = isset($this->options['form_params']) ? $this->options['form_params'] : [];
-        $parameters  = \AlibabaCloud\Client\arrayMerge([$query, $form_params]);
+        $query      = isset($this->options['query']) ? $this->options['query'] : [];
+        $formParams = isset($this->options['form_params']) ? $this->options['form_params'] : [];
+        $parameters = \AlibabaCloud\Client\arrayMerge([$query, $formParams]);
         ksort($parameters);
         $canonicalizedQuery = '';
         foreach ($parameters as $key => $value) {
@@ -186,13 +186,13 @@ class RpcRequest extends Request
      */
     public function __call($name, $arguments)
     {
-        if (\strpos($name, 'get') === 0) {
+        if (strncmp($name, 'get', 3) === 0) {
             $parameterName = $this->propertyNameByMethodName($name);
 
             return $this->__get($parameterName);
         }
 
-        if (\strpos($name, 'with') === 0) {
+        if (strncmp($name, 'with', 4) === 0) {
             $parameterName = $this->propertyNameByMethodName($name, 4);
             $this->__set($parameterName, $arguments[0]);
             $this->options['query'][$parameterName] = $arguments[0];
@@ -200,7 +200,7 @@ class RpcRequest extends Request
             return $this;
         }
 
-        if (\strpos($name, 'set') === 0) {
+        if (strncmp($name, 'set', 3) === 0) {
             $parameterName = $this->propertyNameByMethodName($name);
             $withMethod    = "with$parameterName";
 

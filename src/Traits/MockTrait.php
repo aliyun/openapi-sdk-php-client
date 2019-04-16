@@ -61,8 +61,7 @@ trait MockTrait
         ResponseInterface $response = null,
         Exception $previous = null,
         array $handlerContext = []
-    )
-    {
+    ) {
         self::$mockQueue[] = new RequestException(
             $message,
             $request,

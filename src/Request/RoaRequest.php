@@ -248,7 +248,7 @@ class RoaRequest extends Request
         $array = [];
         foreach ($this->options['headers'] as $headerKey => $headerValue) {
             $key = strtolower($headerKey);
-            if (strpos($key, 'x-acs-') === 0) {
+            if (strncmp($key, 'x-acs-', 6) === 0) {
                 $array[$key] = $headerValue;
             }
         }
@@ -285,13 +285,13 @@ class RoaRequest extends Request
      */
     private function resolvePath()
     {
-        $result = $this->pathPattern;
+        $path = $this->pathPattern;
         foreach ($this->pathParameters as $pathKey => $apiValue) {
             $target = "[$pathKey]";
-            $result = str_replace($target, $apiValue, $result);
+            $path   = str_replace($target, $apiValue, $path);
         }
 
-        return $result;
+        return $path;
     }
 
     /**
@@ -346,13 +346,13 @@ class RoaRequest extends Request
      */
     public function __call($name, $arguments)
     {
-        if (\strpos($name, 'get') === 0) {
+        if (strncmp($name, 'get', 3) === 0) {
             $parameterName = $this->propertyNameByMethodName($name);
 
             return $this->__get($parameterName);
         }
 
-        if (\strpos($name, 'with') === 0) {
+        if (strncmp($name, 'with', 4) === 0) {
             $parameterName = $this->propertyNameByMethodName($name, 4);
             $this->__set($parameterName, $arguments[0]);
             $this->pathParameters[$parameterName] = $arguments[0];
@@ -360,7 +360,7 @@ class RoaRequest extends Request
             return $this;
         }
 
-        if (\strpos($name, 'set') === 0) {
+        if (strncmp($name, 'set', 3) === 0) {
             $parameterName = $this->propertyNameByMethodName($name);
             $withMethod    = "with$parameterName";
 

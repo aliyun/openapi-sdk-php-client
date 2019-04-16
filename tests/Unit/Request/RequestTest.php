@@ -250,10 +250,8 @@ class RequestTest extends TestCase
         $roaRequest->scheme($scheme);
 
         // Assert
-        self::assertEquals($scheme, $rpcRequest->scheme);
         self::assertEquals($scheme, $rpcRequest->uri->getScheme());
 
-        self::assertEquals($scheme, $roaRequest->scheme);
         self::assertEquals($scheme, $roaRequest->uri->getScheme());
     }
 

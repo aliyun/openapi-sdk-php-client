@@ -77,7 +77,7 @@ trait ClientTrait
         $this->options = \AlibabaCloud\Client\arrayMerge(
             [
                 $this->httpClient()->options,
-                $this->options,
+                $this->options
             ]
         );
     }

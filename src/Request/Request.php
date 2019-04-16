@@ -61,11 +61,6 @@ abstract class Request implements ArrayAccess
     /**
      * @var string
      */
-    public $scheme = 'http';
-
-    /**
-     * @var string
-     */
     public $method = 'GET';
 
     /**
@@ -104,7 +99,7 @@ abstract class Request implements ArrayAccess
     {
         $this->client                     = CredentialsProvider::getDefaultName();
         $this->uri                        = new Uri();
-        $this->uri                        = $this->uri->withScheme($this->scheme);
+        $this->uri                        = $this->uri->withScheme('http');
         $this->options['http_errors']     = false;
         $this->options['connect_timeout'] = self::CONNECT_TIMEOUT;
         $this->options['timeout']         = self::TIMEOUT;
@@ -215,8 +210,7 @@ abstract class Request implements ArrayAccess
     {
         HttpFilter::scheme($scheme);
 
-        $this->scheme = \strtolower($scheme);
-        $this->uri    = $this->uri->withScheme($this->scheme);
+        $this->uri = $this->uri->withScheme($scheme);
 
         return $this;
     }
@@ -390,7 +384,7 @@ abstract class Request implements ArrayAccess
         }
 
         return new Client([
-                              'handler' => $stack,
+                              'handler' => $stack
                           ]);
     }
 

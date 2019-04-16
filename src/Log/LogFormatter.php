@@ -60,8 +60,7 @@ class LogFormatter extends MessageFormatter
         RequestInterface $request,
         ResponseInterface $response = null,
         Exception $error = null
-    )
-    {
+    ) {
         $this->template = str_replace('{pid}', getmypid(), $this->template);
         $this->template = str_replace('{cost}', self::getCost(), $this->template);
         $this->template = str_replace('{start_time}', self::$ts->format('Y-m-d H:i:s.u'), $this->template);
