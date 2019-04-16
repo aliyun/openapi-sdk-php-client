@@ -36,8 +36,7 @@ class ServerException extends AlibabaCloudException
         Result $result,
         $errorMessage = SDK::RESPONSE_EMPTY,
         $errorCode = SDK::SERVICE_UNKNOWN_ERROR
-    )
-    {
+    ) {
         $this->result       = $result;
         $this->errorMessage = $errorMessage;
         $this->errorCode    = $errorCode;

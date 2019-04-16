@@ -37,9 +37,9 @@ class UserAgent
         self::defaultFields();
 
         $os         = \PHP_OS;
-        $os_version = php_uname('r');
-        $os_mode    = php_uname('m');
-        $userAgent  = "AlibabaCloud ($os $os_version; $os_mode) ";
+        $osVersion = php_uname('r');
+        $osMode    = php_uname('m');
+        $userAgent  = "AlibabaCloud ($os $osVersion; $osMode) ";
 
         $newUserAgent = [];
 
