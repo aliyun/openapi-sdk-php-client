@@ -2,14 +2,14 @@
 
 namespace AlibabaCloud\Client\Tests\Feature\Credentials;
 
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Dds\DescribeRegionsRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeAccessPointsRequest;
-use AlibabaCloud\Client\Tests\Mock\Services\Vpc\DescribeVpcsRequest;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Tests\Mock\Services\Vpc\DescribeVpcsRequest;
+use AlibabaCloud\Client\Tests\Mock\Services\Dds\DescribeRegionsRequest;
+use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
+use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeAccessPointsRequest;
 
 /**
  * Class AccessKeyCredentialTest
@@ -59,7 +59,7 @@ class AccessKeyCredentialTest extends TestCase
             ->timeout(30)
             ->request();
 
-        $this->assertArrayHasKey('AccessPointSet', $result);
+        static::assertArrayHasKey('AccessPointSet', $result);
     }
 
     /**
@@ -74,7 +74,7 @@ class AccessKeyCredentialTest extends TestCase
             ->timeout(30)
             ->request();
 
-        $this->assertArrayHasKey('Regions', $result);
+        static::assertArrayHasKey('Regions', $result);
     }
 
     /**
@@ -89,7 +89,7 @@ class AccessKeyCredentialTest extends TestCase
             ->timeout(30)
             ->request();
 
-        $this->assertArrayHasKey('ChangingChargeType', $result);
+        static::assertArrayHasKey('ChangingChargeType', $result);
     }
 
     /**
@@ -104,6 +104,6 @@ class AccessKeyCredentialTest extends TestCase
             ->timeout(30)
             ->request();
 
-        $this->assertArrayHasKey('Vpcs', $result);
+        static::assertArrayHasKey('Vpcs', $result);
     }
 }

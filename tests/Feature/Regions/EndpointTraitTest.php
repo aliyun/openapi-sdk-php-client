@@ -2,12 +2,12 @@
 
 namespace AlibabaCloud\Client\Tests\Feature\Regions;
 
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Regions\LocationService;
-use AlibabaCloud\Client\Request\RpcRequest;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Regions\LocationService;
+use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class EndpointTraitTest

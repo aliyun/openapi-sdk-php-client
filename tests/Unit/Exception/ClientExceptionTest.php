@@ -2,8 +2,8 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Exception;
 
-use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class ClientExceptionTest
@@ -29,7 +29,7 @@ class ClientExceptionTest extends TestCase
         $exception = new ClientException($errorMessage, $errorCode);
 
         // Assert
-        $this->assertEquals($errorMessage, $exception->getErrorMessage());
-        $this->assertEquals($errorCode, $exception->getErrorCode());
+        static::assertEquals($errorMessage, $exception->getErrorMessage());
+        static::assertEquals($errorCode, $exception->getErrorCode());
     }
 }

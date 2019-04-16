@@ -2,12 +2,12 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Credentials\Ini;
 
-use AlibabaCloud\Client\Clients\EcsRamRoleClient;
-use AlibabaCloud\Client\Credentials\Ini\IniCredential;
-use AlibabaCloud\Client\Exception\ClientException;
-use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionException;
+use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Clients\EcsRamRoleClient;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Credentials\Ini\IniCredential;
 
 /**
  * Class OptionsTraitTest

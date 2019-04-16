@@ -2,13 +2,13 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Credentials;
 
+use Exception;
+use ReflectionException;
+use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\TestCase;
+use org\bovigo\vfs\vfsStreamFile;
 use AlibabaCloud\Client\Config\Config;
 use clagiordano\weblibs\configmanager\ConfigManager;
-use Exception;
-use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamFile;
-use PHPUnit\Framework\TestCase;
-use ReflectionException;
 
 /**
  * Class AccessKeyCredentialTest

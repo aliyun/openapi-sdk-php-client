@@ -2,8 +2,8 @@
 
 namespace AlibabaCloud\Client\Traits;
 
-use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Filter\ClientFilter;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Trait RegionTrait

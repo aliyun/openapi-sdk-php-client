@@ -2,11 +2,11 @@
 
 namespace AlibabaCloud\Client\Tests\Feature\Request;
 
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClusterServicesRequest;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClusterServicesRequest;
 
 /**
  * Class RequestTest
@@ -58,7 +58,7 @@ class RequestTest extends TestCase
                 ->request();
         } catch (ServerException $e) {
             // Assert
-            $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
+            static::assertEquals('UnsupportedSignatureType', $e->getErrorCode());
         }
     }
 
@@ -106,7 +106,7 @@ class RequestTest extends TestCase
             // Assert
         } catch (ServerException $e) {
             // Assert
-            $this->assertEquals('ErrorClusterNotFound', $e->getErrorCode());
+            static::assertEquals('ErrorClusterNotFound', $e->getErrorCode());
         }
     }
 

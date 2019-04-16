@@ -2,10 +2,10 @@
 
 namespace AlibabaCloud\Client\Credentials\Requests;
 
+use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Credentials\Providers\Provider;
 use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Request\RpcRequest;
 
 /**
  * Retrieving assume role credentials.

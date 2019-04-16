@@ -2,12 +2,12 @@
 
 namespace AlibabaCloud\Client\Tests\Feature\Request;
 
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeRegionsRequest;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class RpcRequestTest
@@ -41,9 +41,9 @@ class RpcRequestTest extends TestCase
                                                 ->timeout(30)
                                                 ->request();
 
-        $this->assertNotNull($result->RequestId);
-        $this->assertNotNull($result->Regions->Region[0]->LocalName);
-        $this->assertNotNull($result->Regions->Region[0]->RegionId);
+        static::assertNotNull($result->RequestId);
+        static::assertNotNull($result->Regions->Region[0]->LocalName);
+        static::assertNotNull($result->Regions->Region[0]->RegionId);
     }
 
     /**
@@ -72,14 +72,14 @@ class RpcRequestTest extends TestCase
                     ],
                 ]
             );
-            $this->assertEquals(1, $request->options['query']['test_true']);
-            $this->assertEquals(1, $request->options['query']['test_false']);
+            static::assertEquals(1, $request->options['query']['test_true']);
+            static::assertEquals(1, $request->options['query']['test_false']);
             $result = $request->connectTimeout(25)
                               ->timeout(30)
                               ->request();
             self::assertArrayHasKey('Regions', $result);
         } catch (ServerException $e) {
-            $this->assertEquals('UnsupportedSignatureType', $e->getErrorCode());
+            static::assertEquals('UnsupportedSignatureType', $e->getErrorCode());
         }
     }
 

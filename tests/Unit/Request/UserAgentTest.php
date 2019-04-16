@@ -2,11 +2,11 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Request\RpcRequest;
-use AlibabaCloud\Client\Request\UserAgent;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Request\UserAgent;
+use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class UserAgentTest

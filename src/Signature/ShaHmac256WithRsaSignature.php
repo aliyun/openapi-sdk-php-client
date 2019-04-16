@@ -2,9 +2,9 @@
 
 namespace AlibabaCloud\Client\Signature;
 
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\SDK;
 use Exception;
+use AlibabaCloud\Client\SDK;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class ShaHmac256WithRsaSignature

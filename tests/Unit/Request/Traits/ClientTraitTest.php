@@ -2,18 +2,18 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request\Traits;
 
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Clients\EcsRamRoleClient;
-use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
-use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
-use AlibabaCloud\Client\Credentials\Requests\AssumeRole;
-use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKey;
-use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Credentials\Requests\AssumeRole;
+use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
+use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
+use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
+use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKey;
 use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class ClientTraitTest
@@ -54,7 +54,7 @@ class ClientTraitTest extends TestCase
         $name = 'testHttpClientWithCustomChain';
         AlibabaCloud::flush();
         CredentialsProvider::chain(
-            static function () use ($name) {
+            static function() use ($name) {
                 AlibabaCloud::ecsRamRoleClient('role')->name($name);
             }
         );

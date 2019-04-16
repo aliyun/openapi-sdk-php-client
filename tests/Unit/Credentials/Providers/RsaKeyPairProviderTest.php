@@ -2,16 +2,16 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Credentials\Providers;
 
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Tests\Mock\Mock;
 use AlibabaCloud\Client\Clients\RsaKeyPairClient;
-use AlibabaCloud\Client\Credentials\AccessKeyCredential;
-use AlibabaCloud\Client\Credentials\Providers\RsaKeyPairProvider;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Tests\Mock\Mock;
+use AlibabaCloud\Client\Credentials\AccessKeyCredential;
+use AlibabaCloud\Client\Credentials\Providers\RsaKeyPairProvider;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class RsaKeyPairProviderTest

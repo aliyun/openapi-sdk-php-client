@@ -2,9 +2,9 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Request\RpcRequest;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class DeprecatedTraitTest
@@ -13,101 +13,6 @@ use PHPUnit\Framework\TestCase;
  */
 class DeprecatedTraitTest extends TestCase
 {
-    /**
-     * @throws ClientException
-     */
-    public function testGetContent()
-    {
-        // Setup
-        $request = new RpcRequest();
-
-        // Assert
-        self::assertEquals(null, $request->getContent());
-        $content = 'test';
-
-        // Test
-        $request->setContent($content);
-
-        // Assert
-        self::assertEquals($content, $request->getContent());
-    }
-
-    /**
-     * @throws ClientException
-     */
-    public function testGetMethod()
-    {
-        // Setup
-        $request = new RpcRequest();
-
-        // Assert
-        self::assertEquals('GET', $request->getMethod());
-        $content = 'test';
-
-        // Test
-        $request->setMethod($content);
-
-        // Assert
-        self::assertEquals(\strtoupper($content), $request->getMethod());
-    }
-
-    /**
-     * @throws ClientException
-     */
-    public function testGetProtocolType()
-    {
-        // Setup
-        $request = new RpcRequest();
-
-        // Assert
-        self::assertEquals('http', $request->getProtocol());
-        self::assertEquals('http', $request->getProtocolType());
-        $value = 'test';
-
-        // Test
-        $request->setProtocol($value);
-        $request->setProtocolType($value);
-
-        // Assert
-        self::assertEquals($value, $request->getProtocol());
-        self::assertEquals($value, $request->getProtocolType());
-    }
-
-    /**
-     * @throws ClientException
-     */
-    public function testGetHeaders()
-    {
-        // Setup
-        $request = new RpcRequest();
-
-        $value = 'test';
-
-        // Test
-        $request->addHeader('key', $value);
-
-        // Assert
-        self::assertArrayHasKey('key', $request->getHeaders());
-    }
-
-    /**
-     * @throws ClientException
-     */
-    public function testGetQueryParameters()
-    {
-        // Setup
-        $request = new RpcRequest();
-
-        // Assert
-        self::assertEquals([], $request->getQueryParameters());
-        $value = 'test';
-
-        // Test
-        $request->setQueryParameters('key', $value);
-
-        // Assert
-        self::assertArrayHasKey('key', $request->getQueryParameters());
-    }
 
     /**
      * @throws ClientException
@@ -118,52 +23,7 @@ class DeprecatedTraitTest extends TestCase
         $request = new RpcRequest();
 
         // Assert
-        self::assertEquals([], $request->getDomainParameter());
-        $value = 'test';
-
-        // Test
-        $request->putDomainParameters('key', $value);
-
-        // Assert
-        self::assertArrayHasKey('key', $request->getDomainParameter());
-    }
-
-    /**
-     * @throws ClientException
-     */
-    public function testGetActionName()
-    {
-        // Setup
-        $request = new RpcRequest();
-
-        // Assert
-        self::assertEquals(null, $request->getActionName());
-        $content = 'test';
-
-        // Test
-        $request->setActionName($content);
-
-        // Assert
-        self::assertEquals($content, $request->getActionName());
-    }
-
-    /**
-     * @throws ClientException
-     */
-    public function testGetAcceptFormat()
-    {
-        // Setup
-        $request = new RpcRequest();
-
-        // Assert
-        self::assertEquals('JSON', $request->getAcceptFormat());
-        $content = 'test';
-
-        // Test
-        $request->setAcceptFormat($content);
-
-        // Assert
-        self::assertEquals(\strtoupper($content), $request->getAcceptFormat());
+        self::assertEquals([], isset($request->options['form_params']) ? $request->options['form_params'] : []);
     }
 
     /**
@@ -175,14 +35,14 @@ class DeprecatedTraitTest extends TestCase
         $request = new RpcRequest();
 
         // Assert
-        self::assertEquals('openAPI', $request->getLocationEndpointType());
+        self::assertEquals('openAPI', $request->endpointType);
         $endpointType = 'test';
 
         // Test
         $request->endpointType = $endpointType;
 
         // Assert
-        self::assertEquals($endpointType, $request->getLocationEndpointType());
+        self::assertEquals($endpointType, $request->endpointType);
     }
 
     /**
@@ -194,14 +54,14 @@ class DeprecatedTraitTest extends TestCase
         $request = new RpcRequest();
 
         // Assert
-        self::assertEquals(null, $request->getLocationServiceCode());
+        self::assertEquals(null, $request->serviceCode);
         $content = 'test';
 
         // Test
         $request->serviceCode = $content;
 
         // Assert
-        self::assertEquals($content, $request->getLocationServiceCode());
+        self::assertEquals($content, $request->serviceCode);
     }
 
     /**

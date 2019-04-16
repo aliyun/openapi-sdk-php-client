@@ -2,13 +2,13 @@
 
 namespace AlibabaCloud\Client\Tests\Feature\Credentials;
 
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Tests\Mock\Services\CCC\ListPhoneNumbersRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
 use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeAccessPointsRequest;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class BearerTokenCredentialTest

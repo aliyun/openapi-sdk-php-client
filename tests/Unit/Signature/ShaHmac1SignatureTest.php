@@ -2,8 +2,8 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Signature;
 
-use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 
 /**
  * Class ShaHmac1SignatureTest
@@ -32,10 +32,10 @@ class ShaHmac1SignatureTest extends TestCase
         $signature = new ShaHmac1Signature();
 
         // Assert
-        $this->assertInstanceOf(ShaHmac1Signature::class, $signature);
-        $this->assertEquals('HMAC-SHA1', $signature->getMethod());
-        $this->assertEquals('1.0', $signature->getVersion());
-        $this->assertEquals('', $signature->getType());
-        $this->assertEquals($expected, $signature->sign($string, $accessKeySecret));
+        static::assertInstanceOf(ShaHmac1Signature::class, $signature);
+        static::assertEquals('HMAC-SHA1', $signature->getMethod());
+        static::assertEquals('1.0', $signature->getVersion());
+        static::assertEquals('', $signature->getType());
+        static::assertEquals($expected, $signature->sign($string, $accessKeySecret));
     }
 }

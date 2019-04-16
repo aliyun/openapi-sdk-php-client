@@ -2,11 +2,11 @@
 
 namespace AlibabaCloud\Client\Tests\Feature\Credentials;
 
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Tests\Mock\Services\Dds\DescribeRegionsRequest;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Tests\Mock\Services\Dds\DescribeRegionsRequest;
 
 /**
  * Class EcsRamRoleCredentialTest

@@ -2,11 +2,11 @@
 
 namespace AlibabaCloud\Client\Tests\Feature\Credentials;
 
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeAccessPointsRequest;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeAccessPointsRequest;
 
 /**
  * Class RamRoleArnCredentialTest
@@ -87,7 +87,7 @@ class RamRoleArnCredentialTest extends TestCase
                 ->connectTimeout(25)
                 ->timeout(30)
                 ->request();
-            $this->assertTrue(isset($result['AccessPointSet']));
+            static::assertTrue(isset($result['AccessPointSet']));
         } catch (ServerException $e) {
             self::assertEquals(
                 'You are not authorized to do this action. You should be authorized by RAM.',
@@ -125,7 +125,7 @@ class RamRoleArnCredentialTest extends TestCase
                 ->connectTimeout(25)
                 ->timeout(30)
                 ->request();
-            $this->assertTrue(isset($result['AccessPointSet']));
+            static::assertTrue(isset($result['AccessPointSet']));
         } catch (ServerException $e) {
             self::assertEquals(
                 'You are not authorized to do this action. You should be authorized by RAM.',

@@ -2,12 +2,12 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Clients;
 
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\Clients\StsClient;
-use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Signature\ShaHmac1Signature;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class StsClientTest

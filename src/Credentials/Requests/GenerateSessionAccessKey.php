@@ -2,9 +2,9 @@
 
 namespace AlibabaCloud\Client\Credentials\Requests;
 
-use AlibabaCloud\Client\Credentials\Providers\Provider;
-use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RpcRequest;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Credentials\Providers\Provider;
 
 /**
  * Use the RSA key pair to complete the authentication (supported only on Japanese site)

@@ -75,6 +75,27 @@ class RoaRequest extends Request
     }
 
     /**
+     * @param array $data
+     *
+     * @return string
+     */
+    public function ksortAndEncode(array $data)
+    {
+        ksort($data);
+        $string = '';
+        foreach ($data as $key => $value) {
+            $encode = urlencode($value);
+            $string .= "$key=$encode&";
+        }
+
+        if (0 < count($data)) {
+            $string = substr($string, 0, -1);
+        }
+
+        return $string;
+    }
+
+    /**
      * @throws ClientException
      * @throws ServerException
      */
@@ -89,6 +110,25 @@ class RoaRequest extends Request
         $this->resolveSecurityToken();
         $this->resolveBearerToken();
         $this->options['headers']['Authorization'] = $this->signature();
+    }
+
+    /**
+     * Returns the accept header according to format.
+     *
+     * @param string $format
+     *
+     * @return string
+     */
+    private static function formatToAccept($format)
+    {
+        switch (\strtoupper($format)) {
+            case 'JSON':
+                return 'application/json';
+            case 'XML':
+                return 'application/xml';
+            default:
+                return 'application/octet-stream';
+        }
     }
 
     /**
@@ -114,46 +154,6 @@ class RoaRequest extends Request
     }
 
     /**
-     * @param array $data
-     *
-     * @return string
-     */
-    public function ksortAndEncode(array $data)
-    {
-        ksort($data);
-        $string = '';
-        foreach ($data as $key => $value) {
-            $encode = urlencode($value);
-            $string .= "$key=$encode&";
-        }
-
-        if (0 < count($data)) {
-            $string = substr($string, 0, -1);
-        }
-
-        return $string;
-    }
-
-    /**
-     * Returns the accept header according to format.
-     *
-     * @param string $format
-     *
-     * @return string
-     */
-    private static function formatToAccept($format)
-    {
-        switch (\strtoupper($format)) {
-            case 'JSON':
-                return 'application/json';
-            case 'XML':
-                return 'application/xml';
-            default:
-                return 'application/octet-stream';
-        }
-    }
-
-    /**
      * @throws ClientException
      * @throws ServerException
      */
@@ -173,6 +173,38 @@ class RoaRequest extends Request
         if ($this->credential() instanceof BearerTokenCredential) {
             $this->options['headers']['x-acs-bearer-token'] = $this->credential()->getBearerToken();
         }
+    }
+
+    /**
+     * Sign the request message.
+     *
+     * @return string
+     * @throws ClientException
+     * @throws ServerException
+     */
+    private function signature()
+    {
+        /**
+         * @var AccessKeyCredential $credential
+         */
+        $credential  = $this->credential();
+        $accessKeyId = $credential->getAccessKeyId();
+        $signature   = $this->httpClient()
+                            ->getSignature()
+                            ->sign(
+                                $this->stringToSign(),
+                                $credential->getAccessKeySecret()
+                            );
+
+        return "acs $accessKeyId:$signature";
+    }
+
+    /**
+     * @return string
+     */
+    public function stringToSign()
+    {
+        return $this->headerStringToSign() . $this->resourceStringToSign();
     }
 
     /**
@@ -207,55 +239,6 @@ class RoaRequest extends Request
     }
 
     /**
-     * @return string
-     */
-    private function resourceStringToSign()
-    {
-        $this->uri = $this->uri->withPath($this->resolvePath())
-                               ->withQuery(
-                                   $this->ksortAndEncode(
-                                       isset($this->options['query'])
-                                           ? $this->options['query']
-                                           : []
-                                   )
-                               );
-
-        return $this->uri->getPath() . '?' . $this->uri->getQuery();
-    }
-
-    /**
-     * @return string
-     */
-    public function stringToSign()
-    {
-        return $this->headerStringToSign() . $this->resourceStringToSign();
-    }
-
-    /**
-     * Sign the request message.
-     *
-     * @return string
-     * @throws ClientException
-     * @throws ServerException
-     */
-    private function signature()
-    {
-        /**
-         * @var AccessKeyCredential $credential
-         */
-        $credential  = $this->credential();
-        $accessKeyId = $credential->getAccessKeyId();
-        $signature   = $this->httpClient()
-                            ->getSignature()
-                            ->sign(
-                                $this->stringToSign(),
-                                $credential->getAccessKeySecret()
-                            );
-
-        return "acs $accessKeyId:$signature";
-    }
-
-    /**
      * Construct standard Header for Alibaba Cloud.
      *
      * @return string
@@ -276,6 +259,23 @@ class RoaRequest extends Request
         }
 
         return $string;
+    }
+
+    /**
+     * @return string
+     */
+    private function resourceStringToSign()
+    {
+        $this->uri = $this->uri->withPath($this->resolvePath())
+                               ->withQuery(
+                                   $this->ksortAndEncode(
+                                       isset($this->options['query'])
+                                           ? $this->options['query']
+                                           : []
+                                   )
+                               );
+
+        return $this->uri->getPath() . '?' . $this->uri->getQuery();
     }
 
     /**
@@ -364,7 +364,7 @@ class RoaRequest extends Request
             $parameterName = $this->propertyNameByMethodName($name);
             $withMethod    = "with$parameterName";
 
-            return $this->$withMethod($arguments[0]);
+            throw new RuntimeException("Please use $withMethod instead of $name");
         }
 
         throw new RuntimeException('Call to undefined method ' . __CLASS__ . '::' . $name . '()');

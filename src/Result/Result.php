@@ -2,9 +2,13 @@
 
 namespace AlibabaCloud\Client\Result;
 
+use Countable;
+use Exception;
+use ArrayAccess;
+use IteratorAggregate;
+use GuzzleHttp\Psr7\Response;
 use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Traits\HasDataTrait;
-use GuzzleHttp\Psr7\Response;
 
 /**
  * Result from Alibaba Cloud
@@ -13,7 +17,7 @@ use GuzzleHttp\Psr7\Response;
  *
  * @package   AlibabaCloud\Client\Result
  */
-class Result implements \ArrayAccess, \IteratorAggregate, \Countable
+class Result implements ArrayAccess, IteratorAggregate, Countable
 {
     use HasDataTrait;
 
@@ -87,7 +91,7 @@ class Result implements \ArrayAccess, \IteratorAggregate, \Countable
     {
         try {
             return json_decode(json_encode(simplexml_load_string($string)), true);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return [];
         }
     }

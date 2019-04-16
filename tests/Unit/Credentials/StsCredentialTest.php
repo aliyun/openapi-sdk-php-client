@@ -2,9 +2,9 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Credentials;
 
-use AlibabaCloud\Client\Credentials\StsCredential;
-use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Credentials\StsCredential;
 
 /**
  * Class StsCredentialTest

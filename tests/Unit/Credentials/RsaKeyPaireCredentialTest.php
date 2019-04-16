@@ -2,10 +2,10 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Credentials;
 
-use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
+use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 
 /**
  * Class RsaKeyPaireCredentialTest

@@ -2,10 +2,10 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Signature;
 
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class ShaHmac256WithRsaSignatureTest
@@ -36,11 +36,11 @@ class ShaHmac256WithRsaSignatureTest extends TestCase
         $signature = new ShaHmac256WithRsaSignature();
 
         // Assert
-        $this->assertInstanceOf(ShaHmac256WithRsaSignature::class, $signature);
-        $this->assertEquals('SHA256withRSA', $signature->getMethod());
-        $this->assertEquals('1.0', $signature->getVersion());
-        $this->assertEquals('PRIVATEKEY', $signature->getType());
-        $this->assertEquals(
+        static::assertInstanceOf(ShaHmac256WithRsaSignature::class, $signature);
+        static::assertEquals('SHA256withRSA', $signature->getMethod());
+        static::assertEquals('1.0', $signature->getVersion());
+        static::assertEquals('PRIVATEKEY', $signature->getType());
+        static::assertEquals(
             $expected,
             $signature->sign($string, \file_get_contents($privateKeyFile))
         );

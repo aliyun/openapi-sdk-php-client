@@ -2,15 +2,15 @@
 
 namespace AlibabaCloud\Client\Tests\Feature\Credentials;
 
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Credentials\Ini\IniCredential;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Credentials\Ini\IniCredential;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualAccessKeyCredential;
-use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualBearerTokenCredential;
-use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualEcsRamRoleCredential;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRamRoleArnCredential;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
-use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualEcsRamRoleCredential;
+use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualBearerTokenCredential;
 
 /**
  * Class IniCredentialFeatureTest
@@ -21,35 +21,6 @@ use PHPUnit\Framework\TestCase;
  */
 class IniCredentialFeatureTest extends TestCase
 {
-    /**
-     * @throws ClientException
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-        AlibabaCloud::del('phpunit');
-        IniCredential::forgetLoadedCredentialsFile();
-    }
-
-    /**
-     * @throws ClientException
-     */
-    public function testAccessKeyOk()
-    {
-        AlibabaCloud::load(VirtualAccessKeyCredential::ok());
-        $client = AlibabaCloud::get('ok');
-        self::assertEquals('foo', $client->getCredential()->getAccessKeyId());
-        self::assertEquals('bar', $client->getCredential()->getAccessKeySecret());
-        self::assertEquals(0.2, $client->options['timeout']);
-        self::assertEquals(0.03, $client->options['connect_timeout']);
-        self::assertEquals(true, $client->options['debug']);
-        self::assertEquals('tcp://localhost:8125', $client->options['proxy']['http']);
-        self::assertEquals('tcp://localhost:9124', $client->options['proxy']['https']);
-        self::assertEquals(['.mit.edu', 'foo.com'], $client->options['proxy']['no']);
-        self::assertEquals(['/path/server.pem', 'password'], $client->options['cert']);
-        self::assertEquals('cn-hangzhou', $client->regionId);
-    }
-
     /**
      * @expectedException        \AlibabaCloud\Client\Exception\ClientException
      * @expectedExceptionMessage Format error: vfs://AlibabaCloud/credentials
@@ -125,6 +96,35 @@ class IniCredentialFeatureTest extends TestCase
     public static function testNoSecret()
     {
         AlibabaCloud::load(VirtualAccessKeyCredential::noSecret());
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+        AlibabaCloud::del('phpunit');
+        IniCredential::forgetLoadedCredentialsFile();
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function testAccessKeyOk()
+    {
+        AlibabaCloud::load(VirtualAccessKeyCredential::ok());
+        $client = AlibabaCloud::get('ok');
+        self::assertEquals('foo', $client->getCredential()->getAccessKeyId());
+        self::assertEquals('bar', $client->getCredential()->getAccessKeySecret());
+        self::assertEquals(0.2, $client->options['timeout']);
+        self::assertEquals(0.03, $client->options['connect_timeout']);
+        self::assertEquals(true, $client->options['debug']);
+        self::assertEquals('tcp://localhost:8125', $client->options['proxy']['http']);
+        self::assertEquals('tcp://localhost:9124', $client->options['proxy']['https']);
+        self::assertEquals(['.mit.edu', 'foo.com'], $client->options['proxy']['no']);
+        self::assertEquals(['/path/server.pem', 'password'], $client->options['cert']);
+        self::assertEquals('cn-hangzhou', $client->regionId);
     }
 
     /**
@@ -221,8 +221,8 @@ class IniCredentialFeatureTest extends TestCase
     {
         AlibabaCloud::load(VirtualAccessKeyCredential::akClientWithAttributes('akClientWithAttributes'));
         AlibabaCloud::load(VirtualAccessKeyCredential::akClientWithAttributesNoCertPassword('NoCertPassword'));
-        $this->assertTrue(AlibabaCloud::has('akClientWithAttributes'));
-        $this->assertFalse(AlibabaCloud::has('NoCertPassword'));
+        static::assertTrue(AlibabaCloud::has('akClientWithAttributes'));
+        static::assertFalse(AlibabaCloud::has('NoCertPassword'));
     }
 
     /**
@@ -231,7 +231,7 @@ class IniCredentialFeatureTest extends TestCase
     public function testAkClientWithAttributesNoCertPassword()
     {
         AlibabaCloud::load(VirtualAccessKeyCredential::akClientWithAttributesNoCertPassword('NoCertPassword'));
-        $this->assertTrue(AlibabaCloud::has('NoCertPassword'));
+        static::assertTrue(AlibabaCloud::has('NoCertPassword'));
     }
 
     /**

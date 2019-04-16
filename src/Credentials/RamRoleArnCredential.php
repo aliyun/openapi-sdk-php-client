@@ -2,8 +2,8 @@
 
 namespace AlibabaCloud\Client\Credentials;
 
-use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Filter\CredentialFilter;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Use the AssumeRole of the RAM account to complete  the authentication.

@@ -2,10 +2,10 @@
 
 namespace AlibabaCloud\Client\Credentials\Providers;
 
+use Closure;
+use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\SDK;
-use Closure;
 
 /**
  * Class CredentialsProvider
@@ -96,7 +96,7 @@ class CredentialsProvider
      */
     public static function env()
     {
-        return static function () {
+        return static function() {
             $accessKeyId     = \AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_ACCESS_KEY_ID');
             $accessKeySecret = \AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_ACCESS_KEY_SECRET');
 
@@ -111,7 +111,7 @@ class CredentialsProvider
      */
     public static function ini()
     {
-        return static function () {
+        return static function() {
             $ini = \AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_CREDENTIALS_FILE');
 
             if ($ini) {
@@ -160,7 +160,7 @@ class CredentialsProvider
      */
     public static function instance()
     {
-        return static function () {
+        return static function() {
             $instance = \AlibabaCloud\Client\envNotEmpty('ALIBABA_CLOUD_ECS_METADATA');
             if ($instance) {
                 AlibabaCloud::ecsRamRoleClient($instance)->asDefaultClient();

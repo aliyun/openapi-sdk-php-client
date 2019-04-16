@@ -1,11 +1,9 @@
 # CHANGELOG
 
-## 1.3.1 - 2019-04-15
+## 2.0.0 - 2019-04-15
 - Improved parameters methods.
-
-
-## 1.3.0 - 2019-04-12
-- Optimize request processing logic.
+- Abolish method starting with `set` by exception message.
+- Abolish DeprecatedTrait by exception message.
 
 
 ## 1.2.1 - 2019-04-11

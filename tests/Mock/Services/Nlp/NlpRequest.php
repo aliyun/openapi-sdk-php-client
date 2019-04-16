@@ -2,8 +2,8 @@
 
 namespace AlibabaCloud\Client\Tests\Mock\Services\Nlp;
 
-use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Request\RoaRequest;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class NlpRequest

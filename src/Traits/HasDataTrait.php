@@ -3,8 +3,8 @@
 namespace AlibabaCloud\Client\Traits;
 
 use Adbar\Dot;
-use AlibabaCloud\Client\Result\Result;
 use JmesPath\Env as JmesPath;
+use AlibabaCloud\Client\Result\Result;
 
 /**
  * Trait HasDataTrait
@@ -309,7 +309,7 @@ trait HasDataTrait
     /**
      * @param array $data
      */
-    protected function dot($data = [])
+    protected function dot(array $data = [])
     {
         $this->dot = new Dot($data);
     }

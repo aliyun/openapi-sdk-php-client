@@ -2,16 +2,17 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
+use Stringy\Stringy;
+use RuntimeException;
+use ReflectionMethod;
+use ReflectionException;
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Credentials\BearerTokenCredential;
+use AlibabaCloud\Client\Request\RoaRequest;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Request\RoaRequest;
+use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClusterServicesRequest;
-use PHPUnit\Framework\TestCase;
-use ReflectionException;
-use ReflectionMethod;
-use Stringy\Stringy;
 
 /**
  * Class RoaRequestTest
@@ -416,17 +417,9 @@ class RoaRequestTest extends TestCase
         $request = new RoaRequest();
         self::assertEquals([], $request->pathParameters);
 
-        $request->setPrefix('set');
-        self::assertEquals('set', $request->getPrefix());
-        self::assertEquals(['Prefix' => 'set',], $request->pathParameters);
-
         $request->withPrefix('with');
         self::assertEquals('with', $request->getPrefix());
         self::assertEquals(['Prefix' => 'with',], $request->pathParameters);
-
-        $request->setprefix('set');
-        self::assertEquals('set', $request->getprefix());
-        self::assertEquals(['Prefix' => 'with', 'prefix' => 'set',], $request->pathParameters);
 
         $request->withprefix('with');
         self::assertEquals('with', $request->getprefix());
@@ -434,7 +427,7 @@ class RoaRequestTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException RuntimeException
      * @expectedExceptionMessage Call to undefined method AlibabaCloud\Client\Request\RoaRequest::nowithvalue()
      * @throws ClientException
      */
@@ -442,5 +435,15 @@ class RoaRequestTest extends TestCase
     {
         $request = new RoaRequest();
         $request->nowithvalue('value');
+    }
+
+    /**
+     * @expectedException RuntimeException
+     * @expectedExceptionMessage Please use withParameter instead of setParameter
+     */
+    public function testExceptionWithSet()
+    {
+        $request = AlibabaCloud::roa();
+        $request->setParameter();
     }
 }

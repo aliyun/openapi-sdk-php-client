@@ -2,11 +2,11 @@
 
 namespace AlibabaCloud\Client\Tests\Feature\Request;
 
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeRegionsRequest;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Tests\Mock\Services\Ecs\DescribeRegionsRequest;
 
 /**
  * Class ProxyTest
@@ -41,7 +41,7 @@ class ProxyTest extends TestCase
 
         // Assert
         $headers = $result->getResponse()->getHeaders();
-        $this->assertArrayNotHasKey('Via', $headers);
+        static::assertArrayNotHasKey('Via', $headers);
     }
 
     /**
@@ -72,11 +72,11 @@ class ProxyTest extends TestCase
 
         // Assert
         $headers = $result->getResponse()->getHeaders();
-        $this->assertArrayHasKey('Via', $headers);
-        $this->assertEquals('HTTP/1.1 o_o', $headers['Via'][0]);
-        $this->assertNotNull($result->RequestId);
-        $this->assertNotNull($result->Regions->Region[0]->LocalName);
-        $this->assertNotNull($result->Regions->Region[0]->RegionId);
+        static::assertArrayHasKey('Via', $headers);
+        static::assertEquals('HTTP/1.1 o_o', $headers['Via'][0]);
+        static::assertNotNull($result->RequestId);
+        static::assertNotNull($result->Regions->Region[0]->LocalName);
+        static::assertNotNull($result->Regions->Region[0]->RegionId);
     }
 
     /**
@@ -107,11 +107,11 @@ class ProxyTest extends TestCase
 
         // Assert
         $headers = $result->getResponse()->getHeaders();
-        $this->assertArrayHasKey('Via', $headers);
-        $this->assertEquals('HTTP/1.1 o_o', $headers['Via'][0]);
-        $this->assertNotNull($result->RequestId);
-        $this->assertNotNull($result->Regions->Region[0]->LocalName);
-        $this->assertNotNull($result->Regions->Region[0]->RegionId);
+        static::assertArrayHasKey('Via', $headers);
+        static::assertEquals('HTTP/1.1 o_o', $headers['Via'][0]);
+        static::assertNotNull($result->RequestId);
+        static::assertNotNull($result->Regions->Region[0]->LocalName);
+        static::assertNotNull($result->Regions->Region[0]->RegionId);
     }
 
     /**

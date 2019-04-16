@@ -2,11 +2,11 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Traits;
 
+use OutOfBoundsException;
+use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use OutOfBoundsException;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class MockTraitTest

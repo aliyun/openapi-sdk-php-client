@@ -2,12 +2,12 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Clients;
 
-use AlibabaCloud\Client\Clients\AccessKeyClient;
-use AlibabaCloud\Client\Credentials\AccessKeyCredential;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Clients\AccessKeyClient;
+use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 
 /**
  * Class AccessKeyClientTest

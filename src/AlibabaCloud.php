@@ -2,14 +2,14 @@
 
 namespace AlibabaCloud\Client;
 
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Traits\ClientTrait;
-use AlibabaCloud\Client\Traits\DefaultRegionTrait;
-use AlibabaCloud\Client\Traits\EndpointTrait;
-use AlibabaCloud\Client\Traits\HistoryTrait;
 use AlibabaCloud\Client\Traits\LogTrait;
 use AlibabaCloud\Client\Traits\MockTrait;
+use AlibabaCloud\Client\Traits\ClientTrait;
+use AlibabaCloud\Client\Traits\HistoryTrait;
 use AlibabaCloud\Client\Traits\RequestTrait;
+use AlibabaCloud\Client\Traits\EndpointTrait;
+use AlibabaCloud\Client\Traits\DefaultRegionTrait;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class AlibabaCloud
@@ -30,7 +30,7 @@ class AlibabaCloud
     /**
      * Version of the Client
      */
-    const VERSION = '1.3.1';
+    const VERSION = '2.0.0';
 
     /**
      * This static method can directly call the specific service.
