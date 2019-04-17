@@ -22,6 +22,7 @@ use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
  * RESTful ROA Request.
  *
  * @package   AlibabaCloud\Client\Request
+ * @method setParameter()
  */
 class RoaRequest extends Request
 {
