@@ -60,7 +60,7 @@ abstract class Request implements ArrayAccess
     const TIMEOUT = 10;
 
     /**
-     * @var string
+     * @var string HTTP Method
      */
     public $method = 'GET';
 
@@ -68,6 +68,11 @@ abstract class Request implements ArrayAccess
      * @var string
      */
     public $format = 'JSON';
+
+    /**
+     * @var string HTTP Scheme
+     */
+    protected $scheme = 'http';
 
     /**
      * @var string
@@ -100,7 +105,7 @@ abstract class Request implements ArrayAccess
     {
         $this->client                     = CredentialsProvider::getDefaultName();
         $this->uri                        = new Uri();
-        $this->uri                        = $this->uri->withScheme('http');
+        $this->uri                        = $this->uri->withScheme($this->scheme);
         $this->options['http_errors']     = false;
         $this->options['connect_timeout'] = self::CONNECT_TIMEOUT;
         $this->options['timeout']         = self::TIMEOUT;
@@ -146,7 +151,7 @@ abstract class Request implements ArrayAccess
     }
 
     /**
-     * Set the response data format.
+     * Set Accept format.
      *
      * @param string $format
      *
@@ -158,6 +163,36 @@ abstract class Request implements ArrayAccess
         ApiFilter::format($format);
 
         $this->format = \strtoupper($format);
+
+        return $this;
+    }
+
+    /**
+     * @param $contentType
+     *
+     * @return $this
+     * @throws ClientException
+     */
+    public function contentType($contentType)
+    {
+        HttpFilter::contentType($contentType);
+
+        $this->options['headers']['Content-Type'] = $contentType;
+
+        return $this;
+    }
+
+    /**
+     * @param string $accept
+     *
+     * @return $this
+     * @throws ClientException
+     */
+    public function accept($accept)
+    {
+        HttpFilter::accept($accept);
+
+        $this->options['headers']['Accept'] = $accept;
 
         return $this;
     }
@@ -211,7 +246,8 @@ abstract class Request implements ArrayAccess
     {
         HttpFilter::scheme($scheme);
 
-        $this->uri = $this->uri->withScheme($scheme);
+        $this->scheme = $scheme;
+        $this->uri    = $this->uri->withScheme($scheme);
 
         return $this;
     }

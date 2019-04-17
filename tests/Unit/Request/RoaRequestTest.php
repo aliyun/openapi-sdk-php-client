@@ -7,8 +7,8 @@ use RuntimeException;
 use ReflectionMethod;
 use ReflectionException;
 use AlibabaCloud\Client\Encode;
-use AlibabaCloud\Client\Format;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Accept;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Request\RoaRequest;
 use AlibabaCloud\Client\Credentials\StsCredential;
@@ -152,23 +152,24 @@ class RoaRequestTest extends TestCase
      * @param $format
      * @param $expected
      *
-     * @dataProvider formatToAccept
+     * @dataProvider contentType
      */
-    public function testFormatToAccept($format, $expected)
+    public function testContentType($format, $expected)
     {
-        self::assertEquals($expected, Format::create($format)->toString());
+        self::assertEquals($expected, Accept::create($format)->toString());
     }
 
     /**
      * @return array
      */
-    public function formatToAccept()
+    public function contentType()
     {
         return [
             ['JSON', 'application/json',],
             ['XML', 'application/xml',],
             ['RAW', 'application/octet-stream',],
             ['NON', 'application/octet-stream',],
+            ['FORM', 'application/x-www-form-urlencoded',],
         ];
     }
 
