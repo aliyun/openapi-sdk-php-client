@@ -102,9 +102,15 @@ class RpcRequest extends Request
      */
     private function resolveSecurityToken()
     {
-        if ($this->credential() instanceof StsCredential && $this->credential()->getSecurityToken()) {
-            $this->options['query']['SecurityToken'] = $this->credential()->getSecurityToken();
+        if (!$this->credential() instanceof StsCredential) {
+            return;
         }
+
+        if (!$this->credential()->getSecurityToken()) {
+            return;
+        }
+
+        $this->options['query']['SecurityToken'] = $this->credential()->getSecurityToken();
     }
 
     /**

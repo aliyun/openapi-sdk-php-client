@@ -2,8 +2,10 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request\Traits;
 
+use Stringy\Stringy;
 use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Clients\EcsRamRoleClient;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
@@ -54,7 +56,7 @@ class ClientTraitTest extends TestCase
         $name = 'testHttpClientWithCustomChain';
         AlibabaCloud::flush();
         CredentialsProvider::chain(
-            static function () use ($name) {
+            static function() use ($name) {
                 AlibabaCloud::ecsRamRoleClient('role')->name($name);
             }
         );
@@ -177,5 +179,39 @@ class ClientTraitTest extends TestCase
         // Assert
         self::assertEquals('key', $request->credential()->getAccessKeyId());
         self::assertEquals('secret', $request->credential()->getAccessKeySecret());
+    }
+
+    /**
+     * Only versions greater than 5.6 will take effect.
+     *
+     * @throws ClientException
+     * @throws ServerException
+     */
+    public function testConfig()
+    {
+        Request::config([
+                            'curl' => [CURLOPT_RESOLVE => ['cdn.aliyuncs.com:80:127.0.0.1']],
+                        ]);
+
+        AlibabaCloud::accessKeyClient(
+            \getenv('ACCESS_KEY_ID'),
+            \getenv('ACCESS_KEY_SECRET')
+        )->asDefaultClient()->regionId('cn-hangzhou');
+
+        try {
+            AlibabaCloud::rpc()
+                        ->method('POST')
+                        ->product('Cdn')
+                        ->version('2014-11-11')
+                        ->action('DescribeCdnService')
+                        ->connectTimeout(25)
+                        ->timeout(30)
+                        ->request();
+        } catch (ClientException $exception) {
+            self::assertTrue(
+                Stringy::create($exception->getMessage())
+                       ->contains('Failed to connect to cdn.aliyuncs.com')
+            );
+        }
     }
 }

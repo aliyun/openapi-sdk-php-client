@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
 use ReflectionMethod;
+use ReflectionObject;
 use RuntimeException;
 use ReflectionException;
 use PHPUnit\Framework\TestCase;
@@ -272,5 +273,26 @@ class RpcRequestTest extends TestCase
     {
         $request = AlibabaCloud::rpc();
         $request->setParameter();
+    }
+
+    /**
+     * @covers \AlibabaCloud\Client\Request\RoaRequest::resolveSecurityToken
+     * @throws ReflectionException
+     * @throws ClientException
+     */
+    public function testResolveSecurityToken()
+    {
+        // Setup
+        AlibabaCloud::stsClient('foo', 'bar', 'token')->name('resolveSecurityToken');
+        $request = AlibabaCloud::rpc()->client('resolveSecurityToken');
+        $object  = new ReflectionObject($request);
+
+        // Test
+        $method = $object->getMethod('resolveSecurityToken');
+        $method->setAccessible(true);
+        $method->invoke($request);
+
+        // Assert
+        self::assertEquals('token', $request->options['query']['SecurityToken']);
     }
 }

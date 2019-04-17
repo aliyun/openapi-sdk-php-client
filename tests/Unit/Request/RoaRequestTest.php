@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
 use Stringy\Stringy;
+use ReflectionObject;
 use RuntimeException;
 use ReflectionMethod;
 use ReflectionException;
@@ -427,10 +428,32 @@ class RoaRequestTest extends TestCase
     /**
      * @expectedException RuntimeException
      * @expectedExceptionMessage Please use withParameter instead of setParameter
+     * @throws ClientException
      */
     public function testExceptionWithSet()
     {
         $request = AlibabaCloud::roa();
         $request->setParameter();
+    }
+
+    /**
+     * @covers \AlibabaCloud\Client\Request\RoaRequest::resolveSecurityToken
+     * @throws ReflectionException
+     * @throws ClientException
+     */
+    public function testResolveSecurityToken()
+    {
+        // Setup
+        $request = AlibabaCloud::roa();
+        $object  = new ReflectionObject($request);
+        AlibabaCloud::stsClient('foo', 'bar', 'token')->asDefaultClient();
+
+        // Test
+        $method = $object->getMethod('resolveSecurityToken');
+        $method->setAccessible(true);
+        $method->invoke($request);
+
+        // Assert
+        self::assertEquals('token', $request->options['headers']['x-acs-security-token']);
     }
 }
