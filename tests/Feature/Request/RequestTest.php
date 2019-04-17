@@ -104,10 +104,28 @@ class RequestTest extends TestCase
                     ->timeout(30)
                     ->request();
             // Assert
-        } catch (ServerException $e) {
+        } catch (ServerException $exception) {
             // Assert
-            static::assertEquals('ErrorClusterNotFound', $e->getErrorCode());
+            static::assertEquals('ErrorClusterNotFound', $exception->getErrorCode());
         }
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function testAccept()
+    {
+        // Setup
+        $roa = AlibabaCloud::roa();
+        $rpc = AlibabaCloud::rpc();
+
+        // Test
+        $roa->accept('accept');
+        $rpc->accept('accept');
+
+        // Assert
+        self::assertEquals('accept', $roa->options['headers']['Accept']);
+        self::assertEquals('accept', $rpc->options['headers']['Accept']);
     }
 
     /**

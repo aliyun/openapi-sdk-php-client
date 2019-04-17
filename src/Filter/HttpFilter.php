@@ -140,27 +140,27 @@ class HttpFilter
     }
 
     /**
-     * @param $contentType
+     * @param $accept
      *
      * @return mixed
      * @throws ClientException
      */
-    public static function accept($contentType)
+    public static function accept($accept)
     {
-        if (!is_string($contentType)) {
+        if (!is_string($accept)) {
             throw new ClientException(
                 'Accept must be a string',
                 SDK::INVALID_ARGUMENT
             );
         }
 
-        if ($contentType === '') {
+        if ($accept === '') {
             throw new ClientException(
                 'Accept cannot be empty',
                 SDK::INVALID_ARGUMENT
             );
         }
 
-        return $contentType;
+        return $accept;
     }
 }

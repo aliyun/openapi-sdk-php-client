@@ -374,8 +374,8 @@ class RequestTest extends TestCase
         $roaRequest->client($clientName);
 
         // Assert
-        self::assertEquals($clientName, $rpcRequest->client);
-        self::assertEquals($clientName, $roaRequest->client);
+        self::assertEquals(strtolower($clientName), $rpcRequest->client);
+        self::assertEquals(strtolower($clientName), $roaRequest->client);
     }
 
     /**

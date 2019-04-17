@@ -127,12 +127,10 @@ abstract class Request implements ArrayAccess
      */
     public function appendUserAgent($name, $value)
     {
-        Filter::name($name);
+        $filter_name = Filter::name($name);
 
-        Filter::value($value);
-
-        if (!UserAgent::isGuarded($name)) {
-            $this->userAgent[$name] = $value;
+        if (!UserAgent::isGuarded($filter_name)) {
+            $this->userAgent[$filter_name] = Filter::value($value);
         }
 
         return $this;
@@ -160,9 +158,7 @@ abstract class Request implements ArrayAccess
      */
     public function format($format)
     {
-        ApiFilter::format($format);
-
-        $this->format = \strtoupper($format);
+        $this->format = ApiFilter::format($format);
 
         return $this;
     }
@@ -175,9 +171,7 @@ abstract class Request implements ArrayAccess
      */
     public function contentType($contentType)
     {
-        HttpFilter::contentType($contentType);
-
-        $this->options['headers']['Content-Type'] = $contentType;
+        $this->options['headers']['Content-Type'] = HttpFilter::contentType($contentType);
 
         return $this;
     }
@@ -190,9 +184,7 @@ abstract class Request implements ArrayAccess
      */
     public function accept($accept)
     {
-        HttpFilter::accept($accept);
-
-        $this->options['headers']['Accept'] = $accept;
+        $this->options['headers']['Accept'] = HttpFilter::accept($accept);
 
         return $this;
     }
@@ -207,9 +199,7 @@ abstract class Request implements ArrayAccess
      */
     public function body($body)
     {
-        HttpFilter::body($body);
-
-        $this->options['body'] = $body;
+        $this->options['body'] = HttpFilter::body($body);
 
         return $this;
     }
@@ -244,9 +234,7 @@ abstract class Request implements ArrayAccess
      */
     public function scheme($scheme)
     {
-        HttpFilter::scheme($scheme);
-
-        $this->scheme = $scheme;
+        $this->scheme = HttpFilter::scheme($scheme);
         $this->uri    = $this->uri->withScheme($scheme);
 
         return $this;
@@ -262,9 +250,7 @@ abstract class Request implements ArrayAccess
      */
     public function host($host)
     {
-        HttpFilter::host($host);
-
-        $this->uri = $this->uri->withHost($host);
+        $this->uri = $this->uri->withHost(HttpFilter::host($host));
 
         return $this;
     }
@@ -290,9 +276,7 @@ abstract class Request implements ArrayAccess
      */
     public function client($clientName)
     {
-        ClientFilter::clientName($clientName);
-
-        $this->client = $clientName;
+        $this->client = ClientFilter::clientName($clientName);
 
         return $this;
     }
