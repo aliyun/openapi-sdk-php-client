@@ -141,7 +141,7 @@ class RpcRequestTest extends TestCase
         // Test
         $method = new ReflectionMethod(
             RpcRequest::class,
-            'resolveParameters'
+            'resolveParameter'
         );
         $method->setAccessible(true);
         $method->invokeArgs($request, [$credential]);

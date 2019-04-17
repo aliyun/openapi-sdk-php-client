@@ -9,6 +9,7 @@ use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Middleware;
 use AlibabaCloud\Client\SDK;
 use GuzzleHttp\HandlerStack;
+use AlibabaCloud\Client\Encode;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Filter\Filter;
 use AlibabaCloud\Client\Result\Result;
@@ -35,7 +36,7 @@ use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
  * @package   AlibabaCloud\Client\Request
  *
  * @method string stringToSign()
- * @method string resolveParameters()
+ * @method string resolveParameter()
  */
 abstract class Request implements ArrayAccess
 {
@@ -278,28 +279,35 @@ abstract class Request implements ArrayAccess
     }
 
     /**
+     * @throws ClientException
+     * @throws ServerException
+     */
+    public function resolveOption()
+    {
+        $this->options['headers']['User-Agent'] = UserAgent::toString($this->userAgent);
+
+        $this->cleanQuery();
+        $this->cleanFormParams();
+        $this->resolveHost();
+        $this->resolveParameter();
+
+        if (isset($this->options['form_params'])) {
+            $this->options['form_params'] = \GuzzleHttp\Psr7\parse_query(
+                Encode::create($this->options['form_params'])->toString()
+            );
+        }
+
+        $this->mergeOptionsIntoClient();
+    }
+
+    /**
      * @return Result
      * @throws ClientException
      * @throws ServerException
      */
     public function request()
     {
-        $this->options['headers']['User-Agent'] = UserAgent::toString($this->userAgent);
-
-        $this->removeRedundantQuery();
-        $this->removeRedundantHeaders();
-        $this->removeRedundantHFormParams();
-        $this->resolveHost();
-        $this->resolveParameters();
-
-        if (isset($this->options['form_params'])) {
-            $this->options['form_params'] = \GuzzleHttp\Psr7\parse_query(
-                self::getPostHttpBody($this->options['form_params'])
-            );
-        }
-
-        $this->mergeOptionsIntoClient();
-
+        $this->resolveOption();
         $result = new Result($this->response(), $this);
 
         if (!$result->isSuccess()) {
@@ -314,7 +322,7 @@ abstract class Request implements ArrayAccess
      *
      * @codeCoverageIgnore
      */
-    private function removeRedundantQuery()
+    private function cleanQuery()
     {
         if (isset($this->options['query']) && $this->options['query'] === []) {
             unset($this->options['query']);
@@ -326,38 +334,11 @@ abstract class Request implements ArrayAccess
      *
      * @codeCoverageIgnore
      */
-    private function removeRedundantHeaders()
-    {
-        if (isset($this->options['headers']) && $this->options['headers'] === []) {
-            unset($this->options['headers']);
-        }
-    }
-
-    /**
-     * Remove redundant Headers
-     *
-     * @codeCoverageIgnore
-     */
-    private function removeRedundantHFormParams()
+    private function cleanFormParams()
     {
         if (isset($this->options['form_params']) && $this->options['form_params'] === []) {
             unset($this->options['form_params']);
         }
-    }
-
-    /**
-     * @param array $post
-     *
-     * @return bool|string
-     */
-    public static function getPostHttpBody(array $post)
-    {
-        $content = '';
-        foreach ($post as $apiKey => $apiValue) {
-            $content .= "$apiKey=" . urlencode($apiValue) . '&';
-        }
-
-        return substr($content, 0, -1);
     }
 
     /**
@@ -383,9 +364,9 @@ abstract class Request implements ArrayAccess
             ));
         }
 
-        return new Client([
-                              'handler' => $stack
-                          ]);
+        self::$config['handler'] = $stack;
+
+        return new Client(self::$config);
     }
 
     /**
@@ -400,11 +381,11 @@ abstract class Request implements ArrayAccess
                 (string)$this->uri,
                 $this->options
             );
-        } catch (GuzzleException $e) {
+        } catch (GuzzleException $exception) {
             throw new ClientException(
-                $e->getMessage(),
+                $exception->getMessage(),
                 SDK::SERVER_UNREACHABLE,
-                $e
+                $exception
             );
         }
     }

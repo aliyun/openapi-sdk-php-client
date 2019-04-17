@@ -28,18 +28,21 @@ class RpcRequest extends Request
      *
      * @throws ClientException
      */
-    public function resolveParameters()
+    public function resolveParameter()
     {
         $this->resolveBoolInParameters();
         $this->resolveCommonParameters();
         $this->repositionParameters();
     }
 
+    /**
+     * Convert a Boolean value to a string
+     */
     private function resolveBoolInParameters()
     {
         if (isset($this->options['query'])) {
             $this->options['query'] = array_map(
-                static function($value) {
+                static function ($value) {
                     return self::boolToString($value);
                 },
                 $this->options['query']
@@ -138,15 +141,15 @@ class RpcRequest extends Request
     public function stringToSign()
     {
         $query      = isset($this->options['query']) ? $this->options['query'] : [];
-        $formParams = isset($this->options['form_params']) ? $this->options['form_params'] : [];
-        $parameters = \AlibabaCloud\Client\arrayMerge([$query, $formParams]);
+        $form       = isset($this->options['form_params']) ? $this->options['form_params'] : [];
+        $parameters = \AlibabaCloud\Client\arrayMerge([$query, $form]);
         ksort($parameters);
-        $canonicalizedQuery = '';
+        $canonicalized = '';
         foreach ($parameters as $key => $value) {
-            $canonicalizedQuery .= '&' . $this->percentEncode($key) . '=' . $this->percentEncode($value);
+            $canonicalized .= '&' . $this->percentEncode($key) . '=' . $this->percentEncode($value);
         }
 
-        return $this->method . '&%2F&' . $this->percentEncode(substr($canonicalizedQuery, 1));
+        return $this->method . '&%2F&' . $this->percentEncode(substr($canonicalized, 1));
     }
 
     /**
