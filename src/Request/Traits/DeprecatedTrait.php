@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Request\Traits;
 
+use AlibabaCloud\Client\Exception\ClientException;
 use RuntimeException;
 use AlibabaCloud\Client\Request\Request;
 
@@ -14,30 +15,42 @@ trait DeprecatedTrait
 {
 
     /**
+     * @param $content
+     *
+     * @return $this
+     * @throws ClientException
      * @deprecated
      * @codeCoverageIgnore
      */
-    public function setContent()
+    public function setContent($content)
     {
-        throw new RuntimeException('deprecated since 2.0, Use body() instead.');
+        return $this->body($content);
     }
 
     /**
+     * @param $method
+     *
+     * @return $this
+     * @throws ClientException
      * @deprecated
      * @codeCoverageIgnore
      */
-    public function setMethod()
+    public function setMethod($method)
     {
-        throw new RuntimeException('deprecated since 2.0, Use method() instead.');
+        return $this->method($method);
     }
 
     /**
+     * @param $scheme
+     *
+     * @return $this
+     * @throws ClientException
      * @deprecated
      * @codeCoverageIgnore
      */
-    public function setProtocol()
+    public function setProtocol($scheme)
     {
-        throw new RuntimeException('deprecated since 2.0, Use scheme() instead.');
+        return $this->scheme($scheme);
     }
 
     /**
@@ -46,34 +59,46 @@ trait DeprecatedTrait
      */
     public function getProtocolType()
     {
-        throw new RuntimeException('deprecated since 2.0, Use uri->getScheme() instead.');
+        return $this->uri->getScheme();
     }
 
     /**
+     * @param $scheme
+     *
+     * @return $this
+     * @throws ClientException
      * @deprecated
      * @codeCoverageIgnore
      */
-    public function setProtocolType()
+    public function setProtocolType($scheme)
     {
-        throw new RuntimeException('deprecated since 2.0, Use scheme() instead.');
+        return $this->scheme($scheme);
     }
 
     /**
+     * @param $actionName
+     *
+     * @return $this
+     * @throws ClientException
      * @deprecated
      * @codeCoverageIgnore
      */
-    public function setActionName()
+    public function setActionName($actionName)
     {
-        throw new RuntimeException('deprecated since 2.0, Use action() instead.');
+        return $this->action($actionName);
     }
 
     /**
+     * @param $format
+     *
+     * @return $this
+     * @throws ClientException
      * @deprecated
      * @codeCoverageIgnore
      */
-    public function setAcceptFormat()
+    public function setAcceptFormat($format)
     {
-        throw new RuntimeException('deprecated since 2.0, Use format() instead.');
+        return $this->format($format);
     }
 
     /**
@@ -82,7 +107,7 @@ trait DeprecatedTrait
      */
     public function getProtocol()
     {
-        throw new RuntimeException('deprecated since 2.0, Use uri->getScheme() instead.');
+        return $this->uri->getScheme();
     }
 
     /**
@@ -91,7 +116,9 @@ trait DeprecatedTrait
      */
     public function getContent()
     {
-        throw new RuntimeException('deprecated since 2.0');
+        return isset($this->options['body'])
+            ? $this->options['body']
+            : null;
     }
 
     /**
@@ -100,7 +127,7 @@ trait DeprecatedTrait
      */
     public function getMethod()
     {
-        throw new RuntimeException('deprecated since 2.0');
+        return $this->method;
     }
 
     /**
@@ -109,16 +136,24 @@ trait DeprecatedTrait
      */
     public function getHeaders()
     {
-        throw new RuntimeException('deprecated since 2.0');
+        return isset($this->options['headers'])
+            ? $this->options['headers']
+            : [];
     }
 
     /**
+     * @param $headerKey
+     * @param $headerValue
+     *
+     * @return $this
      * @deprecated
      * @codeCoverageIgnore
      */
-    public function addHeader()
+    public function addHeader($headerKey, $headerValue)
     {
-        throw new RuntimeException('deprecated since 2.0');
+        $this->options['headers'][$headerKey] = $headerValue;
+
+        return $this;
     }
 
     /**
@@ -127,16 +162,24 @@ trait DeprecatedTrait
      */
     public function getQueryParameters()
     {
-        throw new RuntimeException('deprecated since 2.0');
+        return isset($this->options['query'])
+            ? $this->options['query']
+            : [];
     }
 
     /**
+     * @param $name
+     * @param $value
+     *
+     * @return $this
      * @deprecated
      * @codeCoverageIgnore
      */
-    public function setQueryParameters()
+    public function setQueryParameters($name, $value)
     {
-        throw new RuntimeException('deprecated since 2.0');
+        $this->options['query'][$name] = $value;
+
+        return $this;
     }
 
     /**
@@ -145,16 +188,24 @@ trait DeprecatedTrait
      */
     public function getDomainParameter()
     {
-        throw new RuntimeException('deprecated since 2.0');
+        return isset($this->options['form_params'])
+            ? $this->options['form_params']
+            : [];
     }
 
     /**
+     * @param $name
+     * @param $value
+     *
+     * @return $this
      * @deprecated
      * @codeCoverageIgnore
      */
-    public function putDomainParameters()
+    public function putDomainParameters($name, $value)
     {
-        throw new RuntimeException('deprecated since 2.0');
+        $this->options['form_params'][$name] = $value;
+
+        return $this;
     }
 
     /**
@@ -163,7 +214,7 @@ trait DeprecatedTrait
      */
     public function getActionName()
     {
-        throw new RuntimeException('deprecated since 2.0');
+        return $this->action;
     }
 
     /**
@@ -172,7 +223,7 @@ trait DeprecatedTrait
      */
     public function getAcceptFormat()
     {
-        throw new RuntimeException('deprecated since 2.0');
+        return $this->format;
     }
 
     /**
@@ -181,7 +232,7 @@ trait DeprecatedTrait
      */
     public function getLocationEndpointType()
     {
-        throw new RuntimeException('deprecated since 2.0');
+        return $this->endpointType;
     }
 
     /**
@@ -190,6 +241,6 @@ trait DeprecatedTrait
      */
     public function getLocationServiceCode()
     {
-        throw new RuntimeException('deprecated since 2.0');
+        return $this->serviceCode;
     }
 }

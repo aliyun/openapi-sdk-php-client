@@ -2,7 +2,6 @@
 
 namespace AlibabaCloud\Client\Traits;
 
-use RuntimeException;
 use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Clients\Client;
@@ -84,11 +83,12 @@ trait ClientTrait
 
     /**
      * @codeCoverageIgnore
+     * @throws ClientException
      * @deprecated
      */
     public static function getGlobalClient()
     {
-        throw new RuntimeException('deprecated since 2.0, Use getDefaultClient() instead.');
+        return self::getDefaultClient();
     }
 
     /**

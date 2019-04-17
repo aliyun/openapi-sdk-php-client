@@ -46,22 +46,34 @@ class LocationService
     }
 
     /**
+     * @param Request $request
+     * @param string  $domain
+     *
+     * @return string
+     * @throws ClientException
+     * @throws ServerException
      * @deprecated
      * @codeCoverageIgnore
      */
-    public static function findProductDomain()
+    public static function findProductDomain(Request $request, $domain = 'location.aliyuncs.com')
     {
-        throw new RuntimeException('deprecated since 2.0, Use resolveHost() instead.');
+        return self::resolveHost($request, $domain);
     }
 
     /**
+     * @param $regionId
+     * @param $product
+     * @param $domain
+     *
+     * @throws ClientException
      * @deprecated
      * @codeCoverageIgnore
      */
-    public static function addEndPoint()
+    public static function addEndPoint($regionId, $product, $domain)
     {
-        throw new RuntimeException('deprecated since 2.0, Use addHost() instead.');
+        self::addHost($product, $domain, $regionId);
     }
+
 
     /**
      * @param Request $request
