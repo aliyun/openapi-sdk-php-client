@@ -2,35 +2,73 @@
 
 namespace AlibabaCloud\Client\Profile;
 
-use RuntimeException;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Clients\Client;
+use AlibabaCloud\Client\Exception\ClientException;
 
 /**
  * Class DefaultProfile
  *
  * @package    AlibabaCloud\Client\Profile
- *
- * @deprecated
  * @codeCoverageIgnore
+ * @deprecated deprecated since version 2.0, Use AlibabaCloud instead.
  */
 class DefaultProfile
 {
-    public static function getProfile()
+
+    /**
+     * @param string $regionId
+     * @param string $accessKeyId
+     * @param string $accessKeySecret
+     *
+     * @return Client
+     * @throws ClientException
+     */
+    public static function getProfile($regionId, $accessKeyId, $accessKeySecret)
     {
-        throw new RuntimeException('deprecated since 2.0, Use AlibabaCloud::accessKeyClient() instead.');
+        return AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
+                           ->regionId($regionId);
     }
 
-    public static function getRamRoleArnProfile()
+    /**
+     * @param string $regionId
+     * @param string $accessKeyId
+     * @param string $accessKeySecret
+     * @param string $roleArn
+     * @param string $roleSessionName
+     *
+     * @return Client
+     * @throws ClientException
+     */
+    public static function getRamRoleArnProfile($regionId, $accessKeyId, $accessKeySecret, $roleArn, $roleSessionName)
     {
-        throw new RuntimeException('deprecated since 2.0, Use AlibabaCloud::ramRoleArnClient() instead.');
+        return AlibabaCloud::ramRoleArnClient($accessKeyId, $accessKeySecret, $roleArn, $roleSessionName)
+                           ->regionId($regionId);
     }
 
-    public static function getEcsRamRoleProfile()
+    /**
+     * @param string $regionId
+     * @param string $roleName
+     *
+     * @return Client
+     * @throws ClientException
+     */
+    public static function getEcsRamRoleProfile($regionId, $roleName)
     {
-        throw new RuntimeException('deprecated since 2.0, Use AlibabaCloud::ecsRamRoleClient() instead.');
+        return AlibabaCloud::ecsRamRoleClient($roleName)
+                           ->regionId($regionId);
     }
 
-    public static function getBearerTokenProfile()
+    /**
+     * @param string $regionId
+     * @param string $bearerToken
+     *
+     * @return Client
+     * @throws ClientException
+     */
+    public static function getBearerTokenProfile($regionId, $bearerToken)
     {
-        throw new RuntimeException('deprecated since 2.0, Use AlibabaCloud::bearerTokenClient() instead.');
+        return AlibabaCloud::bearerTokenClient($bearerToken)
+                           ->regionId($regionId);
     }
 }

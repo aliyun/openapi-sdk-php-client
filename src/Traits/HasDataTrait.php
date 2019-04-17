@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Traits;
 
 use Adbar\Dot;
+use ArrayIterator;
 use JmesPath\Env as JmesPath;
 use AlibabaCloud\Client\Result\Result;
 
@@ -199,7 +200,7 @@ trait HasDataTrait
     /**
      * Get an iterator for the stored items
      *
-     * @return \ArrayIterator
+     * @return ArrayIterator
      */
     public function getIterator()
     {

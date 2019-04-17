@@ -2,7 +2,6 @@
 
 namespace AlibabaCloud\Client\Traits;
 
-use RuntimeException;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Filter\ClientFilter;
 use AlibabaCloud\Client\Exception\ClientException;
@@ -22,21 +21,25 @@ trait DefaultRegionTrait
     protected static $defaultRegionId;
 
     /**
+     * @param $regionId
+     *
+     * @throws ClientException
      * @deprecated
      * @codeCoverageIgnore
      */
-    public static function setGlobalRegionId()
+    public static function setGlobalRegionId($regionId)
     {
-        throw new RuntimeException('deprecated since 2.0, Use setDefaultRegionId() instead.');
+        self::setDefaultRegionId($regionId);
     }
 
     /**
+     * @return string|null
      * @deprecated
      * @codeCoverageIgnore
      */
     public static function getGlobalRegionId()
     {
-        throw new RuntimeException('deprecated since 2.0, Use getGlobalRegionId() instead.');
+        return self::getDefaultRegionId();
     }
 
     /**

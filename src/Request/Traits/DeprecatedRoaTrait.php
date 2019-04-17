@@ -2,8 +2,6 @@
 
 namespace AlibabaCloud\Client\Request\Traits;
 
-use RuntimeException;
-
 /**
  * @package    AlibabaCloud\Client\Request\Traits
  * @codeCoverageIgnore
@@ -11,38 +9,47 @@ use RuntimeException;
 trait DeprecatedRoaTrait
 {
     /**
+     * @param $name
+     * @param $value
+     *
+     * @return $this
      * @deprecated
      * @codeCoverageIgnore
      */
-    public function putPathParameter()
+    public function putPathParameter($name, $value)
     {
-        throw new RuntimeException('deprecated since 2.0, Use pathParameter() instead.');
+        return $this->pathParameter($name, $value);
     }
 
     /**
+     * @param $pathPattern
+     *
+     * @return $this
      * @deprecated
      * @codeCoverageIgnore
      */
-    public function setUriPattern()
+    public function setUriPattern($pathPattern)
     {
-        throw new RuntimeException('deprecated since 2.0, Use pathPattern() instead.');
+        return $this->pathPattern($pathPattern);
     }
 
     /**
+     * @return string
      * @deprecated
      * @codeCoverageIgnore
      */
     public function getUriPattern()
     {
-        throw new RuntimeException('deprecated since 2.0, Use pathPattern instead.');
+        return $this->pathPattern;
     }
 
     /**
+     * @return array
      * @deprecated
      * @codeCoverageIgnore
      */
     public function getPathParameters()
     {
-        throw new RuntimeException('deprecated since 2.0, Use pathParameters instead.');
+        return $this->pathParameters;
     }
 }

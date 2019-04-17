@@ -144,7 +144,7 @@ class ServerException extends AlibabaCloudException
      */
     public function getErrorType()
     {
-        throw new RuntimeException('deprecated since 2.0.');
+        return 'Server';
     }
 
     /**
@@ -153,6 +153,6 @@ class ServerException extends AlibabaCloudException
      */
     public function getHttpStatus()
     {
-        throw new RuntimeException('deprecated since 2.0, Use getResult()->getResponse()->getStatusCode() instead.');
+        return $this->getResult()->getResponse()->getStatusCode();
     }
 }

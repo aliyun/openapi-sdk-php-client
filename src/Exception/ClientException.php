@@ -33,6 +33,6 @@ class ClientException extends AlibabaCloudException
      */
     public function getErrorType()
     {
-        throw new RuntimeException('deprecated since 2.0.');
+        return 'Client';
     }
 }

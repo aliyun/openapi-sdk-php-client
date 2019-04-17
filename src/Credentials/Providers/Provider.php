@@ -15,16 +15,19 @@ class Provider
      * For TSC Duration Seconds
      */
     const DURATION_SECONDS = 3600;
+
     /**
      * @var array
      */
     protected static $credentialsCache = [];
+
     /**
      * Expiration time slot for temporary security credentials.
      *
      * @var int
      */
     protected $expirationSlot = 180;
+
     /**
      * @var Client
      */

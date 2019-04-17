@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Exception;
 
+use Exception;
 use RuntimeException;
 
 /**
@@ -9,7 +10,7 @@ use RuntimeException;
  *
  * @package   AlibabaCloud\Client\Exception
  */
-abstract class AlibabaCloudException extends \Exception
+abstract class AlibabaCloudException extends Exception
 {
 
     /**
@@ -49,11 +50,14 @@ abstract class AlibabaCloudException extends \Exception
 
     /**
      * @codeCoverageIgnore
+     *
+     * @param $errorMessage
+     *
      * @deprecated
      */
-    public function setErrorMessage()
+    public function setErrorMessage($errorMessage)
     {
-        throw new RuntimeException('deprecated since 2.0.');
+        $this->errorMessage = $errorMessage;
     }
 
     /**
@@ -62,6 +66,5 @@ abstract class AlibabaCloudException extends \Exception
      */
     public function setErrorType()
     {
-        throw new RuntimeException('deprecated since 2.0.');
     }
 }
