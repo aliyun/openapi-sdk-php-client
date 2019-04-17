@@ -3,11 +3,12 @@
 namespace AlibabaCloud\Client\Request;
 
 use Exception;
+use Stringy\Stringy;
 use Ramsey\Uuid\Uuid;
 use RuntimeException;
 use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Encode;
-use AlibabaCloud\Client\Format;
+use AlibabaCloud\Client\Accept;
 use AlibabaCloud\Client\Filter\Filter;
 use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Credentials\StsCredential;
@@ -55,8 +56,9 @@ class RoaRequest extends Request
     public function resolveParameter()
     {
         $this->resolveQuery();
-        $this->resolveBody();
         $this->resolveHeaders();
+        $this->resolveBody();
+        $this->resolveSignature();
     }
 
     private function resolveQuery()
@@ -68,36 +70,72 @@ class RoaRequest extends Request
 
     private function resolveBody()
     {
-        if (isset($this->options['form_params']) && !isset($this->options['body'])) {
-            $params = \AlibabaCloud\Client\arrayMerge(
-                [
-                    $this->data,
-                    $this->options['form_params']
-                ]
-            );
-
-            $this->options['body']                    = Encode::create($params)->ksort()->toString();
-            $this->options['headers']['Content-MD5']  = base64_encode(md5($this->options['body'], true));
-            $this->options['headers']['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
-            unset($this->options['form_params']);
+        // If the body has already been specified, it will not be resolved.
+        if (isset($this->options['body'])) {
+            return;
         }
+
+        if (!isset($this->options['form_params'])) {
+            return;
+        }
+
+        // Merge data, compatible with parameters set from constructor.
+        $params = \AlibabaCloud\Client\arrayMerge(
+            [
+                $this->data,
+                $this->options['form_params']
+            ]
+        );
+
+        $this->encodeBody($params);
+
+        unset($this->options['form_params']);
+    }
+
+    /**
+     * Determine the body format based on the Content-Type and calculate the MD5 value.
+     *
+     * @param array $params
+     */
+    private function encodeBody(array $params)
+    {
+        $stringy = Stringy::create($this->options['headers']['Content-Type']);
+
+        if ($stringy->contains('application/json', false)) {
+            $this->options['body']                   = json_encode($params);
+            $this->options['headers']['Content-MD5'] = base64_encode(md5($this->options['body'], true));
+
+            return;
+        }
+
+        $this->options['body']                    = Encode::create($params)->ksort()->toString();
+        $this->options['headers']['Content-MD5']  = base64_encode(md5($this->options['body'], true));
+        $this->options['headers']['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
     }
 
     /**
      * @throws ClientException
      * @throws ServerException
+     * @throws Exception
      */
     private function resolveHeaders()
     {
         $this->options['headers']['x-acs-version']   = $this->version;
         $this->options['headers']['x-acs-region-id'] = $this->realRegionId();
         $this->options['headers']['Date']            = gmdate($this->dateTimeFormat);
-        $this->options['headers']['Accept']          = Format::create($this->format)->toString();
-        $this->resolveSignature();
+
+        $signature                                           = $this->httpClient()->getSignature();
+        $this->options['headers']['x-acs-signature-method']  = $signature->getMethod();
+        $this->options['headers']['x-acs-signature-nonce']   = Uuid::uuid1()->toString();
+        $this->options['headers']['x-acs-signature-version'] = $signature->getVersion();
+        if ($signature->getType()) {
+            $this->options['headers']['x-acs-signature-type'] = $signature->getType();
+        }
+
+        $this->resolveAccept();
         $this->resolveContentType();
         $this->resolveSecurityToken();
         $this->resolveBearerToken();
-        $this->options['headers']['Authorization'] = $this->signature();
     }
 
     /**
@@ -106,19 +144,26 @@ class RoaRequest extends Request
      */
     private function resolveSignature()
     {
-        $signature                                           = $this->httpClient()->getSignature();
-        $this->options['headers']['x-acs-signature-method']  = $signature->getMethod();
-        $this->options['headers']['x-acs-signature-nonce']   = Uuid::uuid1()->toString();
-        $this->options['headers']['x-acs-signature-version'] = $signature->getVersion();
-        if ($signature->getType()) {
-            $this->options['headers']['x-acs-signature-type'] = $signature->getType();
+        $this->options['headers']['Authorization'] = $this->signature();
+    }
+
+    /**
+     * If accept is not specified, it is determined by format.
+     */
+    private function resolveAccept()
+    {
+        if (!isset($this->options['headers']['Accept'])) {
+            $this->options['headers']['Accept'] = Accept::create($this->format)->toString();
         }
     }
 
+    /**
+     * If the Content-Type is not specified, it is determined according to accept.
+     */
     private function resolveContentType()
     {
         if (!isset($this->options['headers']['Content-Type'])) {
-            $this->options['headers']['Content-Type'] = "{$this->options['headers']['Accept']};chrset=utf-8";
+            $this->options['headers']['Content-Type'] = "{$this->options['headers']['Accept']}; chrset=utf-8";
         }
     }
 

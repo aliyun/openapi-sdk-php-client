@@ -76,8 +76,6 @@ class RoaRequestTest extends TestCase
     }
 
     /**
-     * Only in the pr-environment
-     *
      * @throws ClientException
      * @throws ServerException
      */
@@ -96,17 +94,14 @@ class RoaRequestTest extends TestCase
                                ->version('2019-03-25')
                                ->method('POST')
                                ->action('SearchImage')
-                               ->pathPattern('/v2/image/search');
+                               ->pathPattern('/v2/image/search')
+                               ->contentType('application/x-www-form-urlencoded; charset=UTF-8');
 
         $content = file_get_contents(__DIR__ . '/ImageSearch.jpg');
 
-        //        Request::config([
-        //                            'curl' => [CURLOPT_RESOLVE => [\getenv('IMAGE_SEARCH_HOST')]]
-        //                        ]);
-
         $result = $request->options([
                                         'form_params' => [
-                                            'InstanceName' => 'yuanshoutest2',
+                                            'InstanceName' => getenv('IMAGE_SEARCH_INSTANCE_NAME'),
                                             'PicContent'   => base64_encode($content),
                                             'Start'        => 0,
                                             'Num'          => 10

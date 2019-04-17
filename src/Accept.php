@@ -3,11 +3,11 @@
 namespace AlibabaCloud\Client;
 
 /**
- * Class Format
+ * Class Accept
  *
  * @package AlibabaCloud\Client
  */
-class Format
+class Accept
 {
     /**
      * @var string
@@ -15,7 +15,7 @@ class Format
     private $format;
 
     /**
-     * Format constructor.
+     * Accept constructor.
      *
      * @param string $format
      */
@@ -27,7 +27,7 @@ class Format
     /**
      * @param $format
      *
-     * @return Format
+     * @return Accept
      */
     public static function create($format)
     {
@@ -43,9 +43,11 @@ class Format
 
         $list = [
             'JSON' => 'application/json',
-            'XML'  => 'application/xml'
+            'XML'  => 'application/xml',
+            'RAW'  => 'application/octet-stream',
+            'FORM' => 'application/x-www-form-urlencoded'
         ];
 
-        return isset($list[$key]) ? $list[$key] : 'application/octet-stream';
+        return isset($list[$key]) ? $list[$key] : $list['RAW'];
     }
 }
