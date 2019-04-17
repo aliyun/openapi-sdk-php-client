@@ -64,7 +64,7 @@ class ClientTraitTest extends TestCase
 
     /**
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage Client 'DefaultProvider' not found
+     * @expectedExceptionMessage Client 'defaultprovider' not found
      * @throws ClientException
      */
     public function testHttpClientWithDefaultProvider()

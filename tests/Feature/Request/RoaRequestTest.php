@@ -95,6 +95,7 @@ class RoaRequestTest extends TestCase
                                ->method('POST')
                                ->action('SearchImage')
                                ->pathPattern('/v2/image/search')
+                               ->accept('application/json')
                                ->contentType('application/x-www-form-urlencoded; charset=UTF-8');
 
         $content = file_get_contents(__DIR__ . '/ImageSearch.jpg');

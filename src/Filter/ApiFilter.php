@@ -134,7 +134,7 @@ class ApiFilter
             );
         }
 
-        return $format;
+        return \strtoupper($format);
     }
 
     /**
