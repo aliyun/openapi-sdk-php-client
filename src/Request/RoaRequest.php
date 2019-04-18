@@ -174,9 +174,15 @@ class RoaRequest extends Request
      */
     private function resolveSecurityToken()
     {
-        if ($this->credential() instanceof StsCredential && $this->credential()->getSecurityToken()) {
-            $this->options['headers']['x-acs-security-token'] = $this->credential()->getSecurityToken();
+        if (!$this->credential() instanceof StsCredential) {
+            return;
         }
+
+        if (!$this->credential()->getSecurityToken()) {
+            return;
+        }
+
+        $this->options['headers']['x-acs-security-token'] = $this->credential()->getSecurityToken();
     }
 
     /**
@@ -202,16 +208,16 @@ class RoaRequest extends Request
         /**
          * @var AccessKeyCredential $credential
          */
-        $credential  = $this->credential();
-        $accessKeyId = $credential->getAccessKeyId();
-        $signature   = $this->httpClient()
-                            ->getSignature()
-                            ->sign(
-                                $this->stringToSign(),
-                                $credential->getAccessKeySecret()
-                            );
+        $credential    = $this->credential();
+        $access_key_id = $credential->getAccessKeyId();
+        $signature     = $this->httpClient()
+                              ->getSignature()
+                              ->sign(
+                                  $this->stringToSign(),
+                                  $credential->getAccessKeySecret()
+                              );
 
-        return "acs $accessKeyId:$signature";
+        return "acs $access_key_id:$signature";
     }
 
     /**

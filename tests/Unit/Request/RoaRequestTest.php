@@ -456,4 +456,25 @@ class RoaRequestTest extends TestCase
         // Assert
         self::assertEquals('token', $request->options['headers']['x-acs-security-token']);
     }
+
+    /**
+     * @covers \AlibabaCloud\Client\Request\RoaRequest::resolveSecurityToken
+     * @throws ReflectionException
+     * @throws ClientException
+     */
+    public function testNoSecurityToken()
+    {
+        // Setup
+        $request = AlibabaCloud::roa();
+        $object  = new ReflectionObject($request);
+        AlibabaCloud::stsClient('foo', 'bar')->asDefaultClient();
+
+        // Test
+        $method = $object->getMethod('resolveSecurityToken');
+        $method->setAccessible(true);
+        $method->invoke($request);
+
+        // Assert
+        self::assertFalse(isset($request->options['headers']['x-acs-security-token']));
+    }
 }
