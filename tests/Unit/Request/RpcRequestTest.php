@@ -276,7 +276,7 @@ class RpcRequestTest extends TestCase
     }
 
     /**
-     * @covers \AlibabaCloud\Client\Request\RoaRequest::resolveSecurityToken
+     * @covers \AlibabaCloud\Client\Request\RpcRequest::resolveSecurityToken
      * @throws ReflectionException
      * @throws ClientException
      */
