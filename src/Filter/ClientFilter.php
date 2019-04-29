@@ -99,4 +99,22 @@ class ClientFilter
 
         return $timeout;
     }
+
+    /**
+     * @param int $Milliseconds
+     *
+     * @return mixed
+     * @throws ClientException
+     */
+    public static function milliseconds($Milliseconds)
+    {
+        if (!is_int($Milliseconds)) {
+            throw new ClientException(
+                'Milliseconds must be int',
+                SDK::INVALID_ARGUMENT
+            );
+        }
+
+        return $Milliseconds;
+    }
 }

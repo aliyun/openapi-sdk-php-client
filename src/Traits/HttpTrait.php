@@ -19,29 +19,57 @@ trait HttpTrait
     public $options = [];
 
     /**
-     * @param int|float $timeout
+     * @param int|float $seconds
      *
      * @return $this
      * @throws ClientException
      */
-    public function timeout($timeout)
+    public function timeout($seconds)
     {
-        $this->options['timeout'] = ClientFilter::timeout($timeout);
+        $this->options['timeout'] = ClientFilter::timeout($seconds);
 
         return $this;
     }
 
     /**
-     * @param int|float $connectTimeout
+     * @param int $milliseconds
      *
      * @return $this
      * @throws ClientException
      */
-    public function connectTimeout($connectTimeout)
+    public function timeoutMilliseconds($milliseconds)
     {
-        $this->options['connect_timeout'] = ClientFilter::connectTimeout($connectTimeout);
+        ClientFilter::milliseconds($milliseconds);
+        $seconds = $milliseconds / 1000;
+
+        return $this->timeout($seconds);
+    }
+
+    /**
+     * @param int|float $seconds
+     *
+     * @return $this
+     * @throws ClientException
+     */
+    public function connectTimeout($seconds)
+    {
+        $this->options['connect_timeout'] = ClientFilter::connectTimeout($seconds);
 
         return $this;
+    }
+
+    /**
+     * @param int $milliseconds
+     *
+     * @return $this
+     * @throws ClientException
+     */
+    public function connectTimeoutMilliseconds($milliseconds)
+    {
+        ClientFilter::milliseconds($milliseconds);
+        $seconds = $milliseconds / 1000;
+
+        return $this->connectTimeout($seconds);
     }
 
     /**
