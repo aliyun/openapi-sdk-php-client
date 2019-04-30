@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.1 - 2019-04-30
+- Allow timeouts to be set in microseconds.
+
+
 ## 1.3.0 - 2019-04-18
 - Improved parameters methods.
 - Optimized the logic for body encode.
