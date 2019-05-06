@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.4.0 - 2019-05-06
+- Support `Retry` and `Asynchronous` for Request.
+
+
 ## 1.3.1 - 2019-04-30
 - Allow timeouts to be set in microseconds.
 
