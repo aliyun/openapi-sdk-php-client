@@ -65,6 +65,25 @@ class ClientFilter
     }
 
     /**
+     * @param $times
+     *
+     * @return string
+     *
+     * @throws ClientException
+     */
+    public static function retry($times)
+    {
+        if (!is_int($times)) {
+            throw new ClientException(
+                'Retry must be a int',
+                SDK::INVALID_ARGUMENT
+            );
+        }
+
+        return $times;
+    }
+
+    /**
      * @param $connectTimeout
      *
      * @return mixed

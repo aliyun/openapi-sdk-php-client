@@ -108,6 +108,77 @@ try {
 }
 ```
 
+
+# Asynchronous
+
+Use `requestAsync()` instead of `request()` to return a `Promise` object for asynchronous requests.
+
+```php
+<?php
+
+use AlibabaCloud\Client\AlibabaCloud;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\RequestException;
+        
+$promise = AlibabaCloud::rpc()
+                       ->method('POST')
+                       ->product('Cdn')
+                       ->version('2014-11-11')
+                       ->action('DescribeCdnService')
+                       ->requestAsync();
+
+$promise->then(
+    static function(ResponseInterface $res) {
+        echo $res->getStatusCode();
+
+        return $res;
+    },
+    static function(RequestException $e) {
+        echo $e->getMessage() ;
+    }
+)->wait();
+```
+
+
+# Retry
+
+The default failure does not retry. Use the `retryByServer()` or `retryByClient()` method to set the number and condition of retry. Asynchronous requests do not support retry.
+
+> In the following code example, retry `3` times, if the server returns something including `a` or `b` or `c` or the return status code is `500` or `502`.
+
+```php
+<?php
+
+use AlibabaCloud\Client\AlibabaCloud;
+        
+AlibabaCloud::rpc()
+            ->method('POST')
+            ->product('Cdn')
+            ->version('2014-11-11')
+            ->action('DescribeCdnServiceNotFound')
+            ->retryByServer(3, ['a', 'b'], [500, 502])
+            ->request();
+```
+
+> In the following code example, retry `3` times, if the client exception message contains `timed` or the exception code contains `0`.
+
+```php
+<?php
+
+use AlibabaCloud\Client\AlibabaCloud;
+        
+AlibabaCloud::rpc()
+            ->method('POST')
+            ->product('Cdn')
+            ->version('2014-11-11')
+            ->action('DescribeCdnService')
+            ->connectTimeout(0.1)
+            ->timeout(0.1)
+            ->retryByClient(3, ['timed'], [0])
+            ->request();
+```
+
+
 ***
 [← Client](2-Client-EN.md) | Request[(中文)](3-Request-CN.md) | [Result →](4-Result-EN.md)
 

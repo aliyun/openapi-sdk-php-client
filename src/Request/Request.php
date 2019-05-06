@@ -13,6 +13,7 @@ use AlibabaCloud\Client\Encode;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Filter\Filter;
 use AlibabaCloud\Client\Result\Result;
+use GuzzleHttp\Promise\PromiseInterface;
 use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Log\LogFormatter;
 use AlibabaCloud\Client\Traits\HttpTrait;
@@ -23,6 +24,7 @@ use AlibabaCloud\Client\Filter\ClientFilter;
 use AlibabaCloud\Client\Request\Traits\AcsTrait;
 use AlibabaCloud\Client\Traits\ArrayAccessTrait;
 use AlibabaCloud\Client\Traits\ObjectAccessTrait;
+use AlibabaCloud\Client\Request\Traits\RetryTrait;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Request\Traits\MagicTrait;
@@ -48,6 +50,7 @@ abstract class Request implements ArrayAccess
     use AcsTrait;
     use ArrayAccessTrait;
     use ObjectAccessTrait;
+    use RetryTrait;
 
     /**
      * Request Connect Timeout
@@ -330,11 +333,30 @@ abstract class Request implements ArrayAccess
         $this->resolveOption();
         $result = new Result($this->response(), $this);
 
+        if ($this->shouldServerRetry($result)) {
+            return $this->request();
+        }
+
         if (!$result->isSuccess()) {
             throw new ServerException($result);
         }
 
         return $result;
+    }
+
+    /***
+     * @return PromiseInterface
+     * @throws Exception
+     */
+    public function requestAsync()
+    {
+        $this->resolveOption();
+
+        return self::createClient()->requestAsync(
+            $this->method,
+            (string)$this->uri,
+            $this->options
+        );
     }
 
     /**
@@ -402,6 +424,9 @@ abstract class Request implements ArrayAccess
                 $this->options
             );
         } catch (GuzzleException $exception) {
+            if ($this->shouldClientRetry($exception)) {
+                return $this->response();
+            }
             throw new ClientException(
                 $exception->getMessage(),
                 SDK::SERVER_UNREACHABLE,
