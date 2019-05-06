@@ -102,4 +102,31 @@ class RetryByServerTest extends TestCase
             self::assertEquals(4, AlibabaCloud::countHistory());
         }
     }
+
+    /**
+     * @throws ClientException
+     * @throws Exception
+     */
+    public function testRetryWithFalse()
+    {
+        AlibabaCloud::accessKeyClient(
+            \getenv('ACCESS_KEY_ID'),
+            \getenv('ACCESS_KEY_SECRET')
+        )->asDefaultClient()->regionId('cn-hangzhou');
+
+        try {
+            AlibabaCloud::rpc()
+                        ->method('POST')
+                        ->product('Cdn')
+                        ->version('2014-11-11')
+                        ->action('DescribeCdnServiceNotFound')
+                        ->connectTimeout(25)
+                        ->timeout(30)
+                        ->retryByServer(3, [], [])
+                        ->request();
+        } catch (Exception $exception) {
+            self::assertTrue(Stringy::create($exception->getMessage())->contains('Action or Version'));
+            self::assertEquals(1, AlibabaCloud::countHistory());
+        }
+    }
 }

@@ -75,4 +75,58 @@ class RetryByClientTest extends TestCase
             self::assertEquals(4, AlibabaCloud::countHistory());
         }
     }
+
+    /**
+     * @throws ClientException
+     * @throws Exception
+     */
+    public function testRetryWithCode()
+    {
+        AlibabaCloud::accessKeyClient(
+            \getenv('ACCESS_KEY_ID'),
+            \getenv('ACCESS_KEY_SECRET')
+        )->asDefaultClient()->regionId('cn-hangzhou');
+
+        try {
+            AlibabaCloud::rpc()
+                        ->method('POST')
+                        ->product('Cdn')
+                        ->version('2014-11-11')
+                        ->action('DescribeCdnService')
+                        ->connectTimeout(0.001)
+                        ->timeout(0.001)
+                        ->retryByClient(3, [], [0])
+                        ->request();
+        } catch (Exception $exception) {
+            self::assertTrue(Stringy::create($exception->getMessage())->contains('timed'));
+            self::assertEquals(4, AlibabaCloud::countHistory());
+        }
+    }
+
+    /**
+     * @throws ClientException
+     * @throws Exception
+     */
+    public function testRetryWithFalse()
+    {
+        AlibabaCloud::accessKeyClient(
+            \getenv('ACCESS_KEY_ID'),
+            \getenv('ACCESS_KEY_SECRET')
+        )->asDefaultClient()->regionId('cn-hangzhou');
+
+        try {
+            AlibabaCloud::rpc()
+                        ->method('POST')
+                        ->product('Cdn')
+                        ->version('2014-11-11')
+                        ->action('DescribeCdnService')
+                        ->connectTimeout(0.001)
+                        ->timeout(0.001)
+                        ->retryByClient(3, [])
+                        ->request();
+        } catch (Exception $exception) {
+            self::assertTrue(Stringy::create($exception->getMessage())->contains('timed'));
+            self::assertEquals(1, AlibabaCloud::countHistory());
+        }
+    }
 }
