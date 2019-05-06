@@ -108,6 +108,76 @@ try {
 }
 ```
 
+
+# 异步
+
+使用 `requestAsync()` 代替 `request()` 即可返回 `Promise` 对象，实现异步请求。
+
+```php
+<?php
+
+use AlibabaCloud\Client\AlibabaCloud;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\RequestException;
+        
+$promise = AlibabaCloud::rpc()
+                       ->method('POST')
+                       ->product('Cdn')
+                       ->version('2014-11-11')
+                       ->action('DescribeCdnService')
+                       ->requestAsync();
+
+$promise->then(
+    static function(ResponseInterface $res) {
+        echo $res->getStatusCode();
+
+        return $res;
+    },
+    static function(RequestException $e) {
+        echo $e->getMessage() ;
+    }
+)->wait();
+```
+
+
+# 重试
+
+默认失败不重试，使用 `retryByServer()` 或 `retryByClient()` 方法，可设置重试的次数和条件，异步请求不支持重试。
+
+> 以下代码示例中，重试 `3` 次，条件是：当服务器返回内容包括 `a` 或 `b` 或 `c` 或返回状态码是 `500` 或 `502`。
+
+```php
+<?php
+
+use AlibabaCloud\Client\AlibabaCloud;
+        
+AlibabaCloud::rpc()
+            ->method('POST')
+            ->product('Cdn')
+            ->version('2014-11-11')
+            ->action('DescribeCdnServiceNotFound')
+            ->retryByServer(3, ['a', 'b'], [500, 502])
+            ->request();
+```
+
+> 以下代码示例中，重试 `3` 次，条件是：客户端异常消息中包含 `timed` 或异常码包含 `0`。
+
+```php
+<?php
+
+use AlibabaCloud\Client\AlibabaCloud;
+        
+AlibabaCloud::rpc()
+            ->method('POST')
+            ->product('Cdn')
+            ->version('2014-11-11')
+            ->action('DescribeCdnService')
+            ->connectTimeout(0.1)
+            ->timeout(0.1)
+            ->retryByClient(3, ['timed'], [0])
+            ->request();
+```
+
 ***
 [← 客户端](2-Client-CN.md) | 请求[(English)](3-Request-EN.md) | [结果 →](4-Result-CN.md)
 
