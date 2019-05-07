@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.0 - 2019-05-07
+- Improved `Resolver` for products.
+
+
 ## 1.4.0 - 2019-05-06
 - Support `Retry` and `Asynchronous` for Request.
 
