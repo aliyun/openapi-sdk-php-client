@@ -16,7 +16,6 @@ use AlibabaCloud\Client\Exception\ClientException;
  *
  * @package   AlibabaCloud\Client
  * @mixin     \AlibabaCloud\ProductsResolver
- * @mixin     \AlibabaCloud\ServiceResolverTrait
  */
 class AlibabaCloud
 {
@@ -49,20 +48,17 @@ class AlibabaCloud
 
         $product_resolver = 'AlibabaCloud\\ProductsResolver';
         if (\class_exists($product_resolver)) {
-            // Load products by instance this class.
             new $product_resolver;
             $product_class = 'AlibabaCloud' . '\\' . $product;
-            if (\class_exists($product_class)) {
-                return new $product_class;
-            }
         }
 
         $service_resolver = 'AlibabaCloud\\ServiceResolverTrait';
         if (\trait_exists($service_resolver)) {
             $product_class = 'AlibabaCloud' . '\\' . $product . '\\' . $product;
-            if (\class_exists($product_class)) {
-                return new $product_class;
-            }
+        }
+
+        if (isset($product_class) && \class_exists($product_class)) {
+            return new $product_class;
         }
 
         if (!\class_exists($product_resolver) && !\trait_exists($service_resolver)) {
