@@ -1444,12 +1444,14 @@ return [
                     'eu-west-1'           => 'mts.eu-west-1.aliyuncs.com',
                     'eu-central-1'        => 'mts.eu-central-1.aliyuncs.com',
                     'ap-south-1'          => 'mts.ap-south-1.aliyuncs.com',
+                    'ap-southeast-5'      => 'mts.ap-southeast-5.aliyuncs.com',
                 ],
             'saf'             =>
                 [
-                    'cn-shanghai' => 'saf.cn-shanghai.aliyuncs.com',
-                    'cn-hangzhou' => 'saf.cn-shanghai.aliyuncs.com',
-                    'cn-shenzhen' => 'saf.cn-shenzhen.aliyuncs.com',
+                    'cn-shanghai'    => 'saf.cn-shanghai.aliyuncs.com',
+                    'cn-hangzhou'    => 'saf.cn-shanghai.aliyuncs.com',
+                    'cn-shenzhen'    => 'saf.cn-shenzhen.aliyuncs.com',
+                    'ap-southeast-1' => 'riskcontrol-share.aliyuncs.com',
                 ],
             'arms'            =>
                 [
@@ -1488,6 +1490,13 @@ return [
                     'cn-shenzhen'    => 'vod.cn-shanghai.aliyuncs.com',
                     'ap-southeast-1' => 'vod.ap-southeast-1.aliyuncs.com',
                     'eu-central-1'   => 'vod.eu-central-1.aliyuncs.com',
+                    'cn-zhangjiakou' => 'vod.cn-zhangjiakou.aliyuncs.com',
+                    'cn-hongkong'    => 'vod.cn-hongkong.aliyuncs.com',
+                    'ap-southeast-5' => 'vod.ap-southeast-5.aliyuncs.com',
+                    'ap-northeast-1' => 'vod.ap-northeast-1.aliyuncs.com',
+                    'eu-west-1'      => 'vod.eu-west-1.aliyuncs.com',
+                    'us-west-1'      => 'vod.us-west-1.aliyuncs.com',
+                    'ap-south-1'     => 'vod.ap-south-1.aliyuncs.com',
                 ],
             'afs'             =>
                 [
@@ -1711,6 +1720,8 @@ return [
                     'ap-southeast-1' => 'openanalytics.ap-southeast-1.aliyuncs.com',
                     'ap-southeast-3' => 'openanalytics.ap-southeast-3.aliyuncs.com',
                     'eu-west-1'      => 'openanalytics.eu-west-1.aliyuncs.com',
+                    'cn-hongkong'    => 'openanalytics.cn-hongkong.aliyuncs.com',
+                    'us-west-1'      => 'openanalytics.us-west-1.aliyuncs.com',
                 ],
             'clouddesktop'    =>
                 [
@@ -1778,6 +1789,7 @@ return [
                     'eu-central-1'   => 'gpdb.eu-central-1.aliyuncs.com',
                     'ap-south-1'     => 'gpdb.ap-south-1.aliyuncs.com',
                     'ap-northeast-1' => 'gpdb.ap-northeast-1.aliyuncs.com',
+                    'cn-hongkong'    => 'gpdb.aliyuncs.com',
                 ],
             'eci'             =>
                 [
