@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.1 - 2019-05-09
+- Supported `Resolver` for Third-party dependencies.
+
+
 ## 1.5.0 - 2019-05-07
 - Improved `Resolver` for products.
 
