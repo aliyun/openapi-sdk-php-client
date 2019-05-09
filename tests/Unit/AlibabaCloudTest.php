@@ -16,7 +16,7 @@ class AlibabaCloudTest extends TestCase
 {
     /**
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage Please install alibabacloud/sdk to support product quick access.
+     * @expectedExceptionMessageRegExp /May not yet support product/
      */
     public static function testCallStatic()
     {

@@ -102,14 +102,14 @@ trait RetryTrait
             return false;
         }
 
-        if (in_array($result->getResponse()->getStatusCode(), $this->serverRetryStatusCodes)) {
+        if (in_array($result->getStatusCode(), $this->serverRetryStatusCodes)) {
             $this->serverRetry--;
 
             return true;
         }
 
         foreach ($this->serverRetryStrings as $message) {
-            if (Stringy::create($result->getResponse()->getBody())->contains($message)) {
+            if (Stringy::create($result->getBody())->contains($message)) {
                 $this->serverRetry--;
 
                 return true;

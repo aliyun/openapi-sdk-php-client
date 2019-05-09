@@ -47,9 +47,6 @@ $result->count('AccessPointSet.AccessPointType');
 // 请求结果是否成功
 $result->isSuccess();
 
-// 获取结果的返回对象
-$result->getResponse();
-
 // 获取结果的请求对象
 $result->getRequest();
 ```

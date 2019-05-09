@@ -46,7 +46,7 @@ class ServerException extends AlibabaCloudException
 
         parent::__construct(
             $this->getMessageString(),
-            $this->result->getResponse()->getStatusCode()
+            $this->result->getStatusCode()
         );
     }
 
@@ -95,7 +95,7 @@ class ServerException extends AlibabaCloudException
      */
     private function bodyAsErrorMessage()
     {
-        $body = (string)$this->result->getResponse()->getBody();
+        $body = (string)$this->result->getBody();
         if ($this->errorMessage === SDK::RESPONSE_EMPTY && $body) {
             $this->errorMessage = $body;
         }
@@ -114,8 +114,8 @@ class ServerException extends AlibabaCloudException
             $method  = $this->getResult()->getRequest()->method;
             $uri     = (string)$this->getResult()->getRequest()->uri;
             $message .= " $method \"$uri\"";
-            if ($this->result->getResponse()) {
-                $message .= ' ' . $this->result->getResponse()->getStatusCode();
+            if ($this->result) {
+                $message .= ' ' . $this->result->getStatusCode();
             }
         }
 
@@ -153,6 +153,6 @@ class ServerException extends AlibabaCloudException
      */
     public function getHttpStatus()
     {
-        return $this->getResult()->getResponse()->getStatusCode();
+        return $this->getResult()->getStatusCode();
     }
 }

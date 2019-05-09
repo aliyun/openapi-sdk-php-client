@@ -15,7 +15,6 @@ use AlibabaCloud\Client\Exception\ClientException;
  * Class AlibabaCloud
  *
  * @package   AlibabaCloud\Client
- * @mixin     \AlibabaCloud\ProductsResolver
  * @mixin     \AlibabaCloud\IdeHelper
  */
 class AlibabaCloud
@@ -47,26 +46,10 @@ class AlibabaCloud
     {
         $product = \ucfirst($product);
 
-        $product_resolver = 'AlibabaCloud\\ProductsResolver';
-        if (\class_exists($product_resolver)) {
-            new $product_resolver;
-            $product_class = 'AlibabaCloud' . '\\' . $product;
-        }
+        $product_class = 'AlibabaCloud' . '\\' . $product . '\\' . $product;
 
-        $service_resolver = 'AlibabaCloud\\IdeHelper';
-        if (\trait_exists($service_resolver)) {
-            $product_class = 'AlibabaCloud' . '\\' . $product . '\\' . $product;
-        }
-
-        if (isset($product_class) && \class_exists($product_class)) {
+        if (\class_exists($product_class)) {
             return new $product_class;
-        }
-
-        if (!\class_exists($product_resolver) && !\trait_exists($service_resolver)) {
-            throw new ClientException(
-                'Please install alibabacloud/sdk to support product quick access.',
-                SDK::SERVICE_NOT_FOUND
-            );
         }
 
         throw new ClientException(

@@ -72,9 +72,9 @@ class EcsRamRoleProvider extends Provider
      */
     public function request()
     {
-        $result = new Result($this->getResponse());
+        $result = $this->getResponse();
 
-        if ($result->getResponse()->getStatusCode() === 404) {
+        if ($result->getStatusCode() === 404) {
             $message = 'The role was not found in the instance';
             throw new ClientException($message, SDK::INVALID_CREDENTIAL);
         }
@@ -111,17 +111,17 @@ class EcsRamRoleProvider extends Provider
 
         try {
             return RpcRequest::createClient()->request('GET', $url, $options);
-        } catch (GuzzleException $e) {
-            if (Stringy::create($e->getMessage())->contains('timed')) {
+        } catch (GuzzleException $exception) {
+            if (Stringy::create($exception->getMessage())->contains('timed')) {
                 $message = 'Timeout or instance does not belong to Alibaba Cloud';
             } else {
-                $message = $e->getMessage();
+                $message = $exception->getMessage();
             }
 
             throw new ClientException(
                 $message,
                 SDK::SERVER_UNREACHABLE,
-                $e
+                $exception
             );
         }
     }

@@ -81,7 +81,8 @@ class ResultTest extends TestCase
         $result = new Result(new Response());
 
         // Assert
-        self::assertInstanceOf(Response::class, $result->getResponse());
+        self::assertInstanceOf(Response::class, $result);
+        self::assertInstanceOf(Result::class, $result);
     }
 
     /**

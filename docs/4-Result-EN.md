@@ -47,9 +47,6 @@ $result->count('AccessPointSet.AccessPointType');
 // Is the result requested successful
 $result->isSuccess();
 
-// Get response from the result
-$result->getResponse();
-
 // Get the request object from the result
 $result->getRequest();
 ```

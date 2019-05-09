@@ -102,7 +102,7 @@ try {
     // Get result object
     print_r($exception->getResult());
     // Get response object
-    print_r($exception->getResult()->getResponse());
+    print_r($exception->getResult());
     // Get request object
     print_r($exception->getResult()->getRequest());
 }
@@ -117,7 +117,7 @@ Use `requestAsync()` instead of `request()` to return a `Promise` object for asy
 <?php
 
 use AlibabaCloud\Client\AlibabaCloud;
-use Psr\Http\Message\ResponseInterface;
+use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Exception\RequestException;
         
 $promise = AlibabaCloud::rpc()
@@ -128,10 +128,10 @@ $promise = AlibabaCloud::rpc()
                        ->requestAsync();
 
 $promise->then(
-    static function(ResponseInterface $res) {
-        echo $res->getStatusCode();
+    static function(Result $result) {
+        echo $result->getStatusCode();
 
-        return $res;
+        return $result;
     },
     static function(RequestException $e) {
         echo $e->getMessage() ;

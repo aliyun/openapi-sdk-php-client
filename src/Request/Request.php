@@ -13,6 +13,7 @@ use AlibabaCloud\Client\Encode;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Filter\Filter;
 use AlibabaCloud\Client\Result\Result;
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Promise\PromiseInterface;
 use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Log\LogFormatter;
@@ -331,7 +332,7 @@ abstract class Request implements ArrayAccess
     public function request()
     {
         $this->resolveOption();
-        $result = new Result($this->response(), $this);
+        $result = $this->response();
 
         if ($this->shouldServerRetry($result)) {
             return $this->request();
@@ -352,11 +353,69 @@ abstract class Request implements ArrayAccess
     {
         $this->resolveOption();
 
-        return self::createClient()->requestAsync(
+        return self::createClient($this)->requestAsync(
             $this->method,
             (string)$this->uri,
             $this->options
         );
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Client
+     * @throws Exception
+     */
+    public static function createClient(Request $request = null)
+    {
+        if (AlibabaCloud::hasMock()) {
+            $stack = HandlerStack::create(AlibabaCloud::getMock());
+        } else {
+            $stack = HandlerStack::create();
+        }
+
+        if (AlibabaCloud::isRememberHistory()) {
+            $stack->push(Middleware::history(AlibabaCloud::referenceHistory()));
+        }
+
+        if (AlibabaCloud::getLogger()) {
+            $stack->push(Middleware::log(
+                AlibabaCloud::getLogger(),
+                new LogFormatter(AlibabaCloud::getLogFormat())
+            ));
+        }
+
+        $stack->push(Middleware::mapResponse(static function (ResponseInterface $response) use ($request) {
+            return new Result($response, $request);
+        }));
+
+        self::$config['handler'] = $stack;
+
+        return new Client(self::$config);
+    }
+
+    /**
+     * @throws ClientException
+     * @throws Exception
+     */
+    private function response()
+    {
+        try {
+            return self::createClient($this)->request(
+                $this->method,
+                (string)$this->uri,
+                $this->options
+            );
+        } catch (GuzzleException $exception) {
+            if ($this->shouldClientRetry($exception)) {
+                return $this->response();
+            }
+            throw new ClientException(
+                $exception->getMessage(),
+                SDK::SERVER_UNREACHABLE,
+                $exception
+            );
+        }
     }
 
     /**
@@ -380,58 +439,6 @@ abstract class Request implements ArrayAccess
     {
         if (isset($this->options['form_params']) && $this->options['form_params'] === []) {
             unset($this->options['form_params']);
-        }
-    }
-
-    /**
-     * @return Client
-     * @throws Exception
-     */
-    public static function createClient()
-    {
-        if (AlibabaCloud::hasMock()) {
-            $stack = HandlerStack::create(AlibabaCloud::getMock());
-        } else {
-            $stack = HandlerStack::create();
-        }
-
-        if (AlibabaCloud::isRememberHistory()) {
-            $stack->push(Middleware::history(AlibabaCloud::referenceHistory()));
-        }
-
-        if (AlibabaCloud::getLogger()) {
-            $stack->push(Middleware::log(
-                AlibabaCloud::getLogger(),
-                new LogFormatter(AlibabaCloud::getLogFormat())
-            ));
-        }
-
-        self::$config['handler'] = $stack;
-
-        return new Client(self::$config);
-    }
-
-    /**
-     * @throws ClientException
-     * @throws Exception
-     */
-    private function response()
-    {
-        try {
-            return self::createClient()->request(
-                $this->method,
-                (string)$this->uri,
-                $this->options
-            );
-        } catch (GuzzleException $exception) {
-            if ($this->shouldClientRetry($exception)) {
-                return $this->response();
-            }
-            throw new ClientException(
-                $exception->getMessage(),
-                SDK::SERVER_UNREACHABLE,
-                $exception
-            );
         }
     }
 }

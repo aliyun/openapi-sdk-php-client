@@ -6,6 +6,7 @@ use Exception;
 use Stringy\Stringy;
 use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Result\Result;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\RequestException;
 use AlibabaCloud\Client\Exception\ClientException;
@@ -40,13 +41,15 @@ class RequestAsyncTest extends TestCase
                                ->requestAsync();
 
         $promise->then(
-            static function (ResponseInterface $res) {
+            static function (Result $result) {
+                self::assertArrayHasKey('ChangingChargeType', $result);
+
                 self::assertNotEmpty(
                     200,
-                    $res->getStatusCode()
+                    $result->getStatusCode()
                 );
 
-                return $res;
+                return $result;
             },
             static function (RequestException $e) {
                 self::assertEquals(
