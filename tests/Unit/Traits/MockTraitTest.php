@@ -46,9 +46,9 @@ class MockTraitTest extends TestCase
                         ->product('ecs')
                         ->regionId('cn-hangzhou')
                         ->request();
-        } catch (ServerException $e) {
-            self::assertEquals('message', $e->getErrorMessage());
-            self::assertEquals($body, $e->getResult()->toArray());
+        } catch (ServerException $exception) {
+            self::assertEquals('message', $exception->getErrorMessage());
+            self::assertEquals($body, $exception->getResult()->toArray());
         }
 
         AlibabaCloud::rpc()

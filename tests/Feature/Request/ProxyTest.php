@@ -40,7 +40,7 @@ class ProxyTest extends TestCase
                                                 ->request();
 
         // Assert
-        $headers = $result->getResponse()->getHeaders();
+        $headers = $result->getHeaders();
         static::assertArrayNotHasKey('Via', $headers);
     }
 
@@ -71,7 +71,7 @@ class ProxyTest extends TestCase
                                                 ->request();
 
         // Assert
-        $headers = $result->getResponse()->getHeaders();
+        $headers = $result->getHeaders();
         static::assertArrayHasKey('Via', $headers);
         static::assertEquals('HTTP/1.1 o_o', $headers['Via'][0]);
         static::assertNotNull($result->RequestId);
@@ -106,7 +106,7 @@ class ProxyTest extends TestCase
                                                 ->request();
 
         // Assert
-        $headers = $result->getResponse()->getHeaders();
+        $headers = $result->getHeaders();
         static::assertArrayHasKey('Via', $headers);
         static::assertEquals('HTTP/1.1 o_o', $headers['Via'][0]);
         static::assertNotNull($result->RequestId);

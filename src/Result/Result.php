@@ -6,7 +6,9 @@ use Countable;
 use Exception;
 use ArrayAccess;
 use IteratorAggregate;
+use InvalidArgumentException;
 use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
 use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Traits\HasDataTrait;
 
@@ -17,16 +19,9 @@ use AlibabaCloud\Client\Traits\HasDataTrait;
  *
  * @package   AlibabaCloud\Client\Result
  */
-class Result implements ArrayAccess, IteratorAggregate, Countable
+class Result extends Response implements ArrayAccess, IteratorAggregate, Countable
 {
     use HasDataTrait;
-
-    /**
-     * Instance of the response.
-     *
-     * @var Response
-     */
-    protected $response;
 
     /**
      * Instance of the request.
@@ -38,25 +33,35 @@ class Result implements ArrayAccess, IteratorAggregate, Countable
     /**
      * Result constructor.
      *
-     * @param Response $response
-     * @param Request  $request
+     * @param ResponseInterface $response
+     * @param Request           $request
      */
-    public function __construct(Response $response, Request $request = null)
+    public function __construct(ResponseInterface $response, Request $request = null)
     {
+        parent::__construct(
+            $response->getStatusCode(),
+            $response->getHeaders(),
+            $response->getBody(),
+            $response->getProtocolVersion(),
+            $response->getReasonPhrase()
+        );
+
         $format = ($request instanceof Request) ? \strtoupper($request->format) : 'JSON';
+
+        $content = $this->getBody()->getContents();
 
         switch ($format) {
             case 'JSON':
-                $data = $this->jsonToArray($response->getBody()->getContents());
+                $data = $this->jsonToArray($content);
                 break;
             case 'XML':
-                $data = $this->xmlToArray($response->getBody()->getContents());
+                $data = $this->xmlToArray($content);
                 break;
             case 'RAW':
-                $data = $this->jsonToArray($response->getBody()->getContents());
+                $data = $this->jsonToArray($content);
                 break;
             default:
-                $data = $this->jsonToArray($response->getBody()->getContents());
+                $data = $this->jsonToArray($content);
         }
 
         if (empty($data)) {
@@ -64,8 +69,7 @@ class Result implements ArrayAccess, IteratorAggregate, Countable
         }
 
         $this->dot($data);
-        $this->response = $response;
-        $this->request  = $request;
+        $this->request = $request;
     }
 
     /**
@@ -77,7 +81,7 @@ class Result implements ArrayAccess, IteratorAggregate, Countable
     {
         try {
             return \GuzzleHttp\json_decode($response, true);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $exception) {
             return [];
         }
     }
@@ -101,7 +105,7 @@ class Result implements ArrayAccess, IteratorAggregate, Countable
      */
     public function __toString()
     {
-        return (string)$this->response->getBody();
+        return (string)$this->getBody();
     }
 
     /**
@@ -114,10 +118,11 @@ class Result implements ArrayAccess, IteratorAggregate, Countable
 
     /**
      * @return Response
+     * @deprecated
      */
     public function getResponse()
     {
-        return $this->response;
+        return $this;
     }
 
     /**
@@ -125,7 +130,7 @@ class Result implements ArrayAccess, IteratorAggregate, Countable
      */
     public function isSuccess()
     {
-        return 200 <= $this->response->getStatusCode()
-               && 300 > $this->response->getStatusCode();
+        return 200 <= $this->getStatusCode()
+               && 300 > $this->getStatusCode();
     }
 }

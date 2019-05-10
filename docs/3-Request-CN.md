@@ -102,7 +102,7 @@ try {
     // 获取结果对象
     print_r($exception->getResult());
     // 获取响应对象
-    print_r($exception->getResult()->getResponse());
+    print_r($exception->getResult());
     // 获取请求对象
     print_r($exception->getResult()->getRequest());
 }
@@ -117,7 +117,7 @@ try {
 <?php
 
 use AlibabaCloud\Client\AlibabaCloud;
-use Psr\Http\Message\ResponseInterface;
+use AlibabaCloud\Client\Result\Result;
 use GuzzleHttp\Exception\RequestException;
         
 $promise = AlibabaCloud::rpc()
@@ -128,10 +128,10 @@ $promise = AlibabaCloud::rpc()
                        ->requestAsync();
 
 $promise->then(
-    static function(ResponseInterface $res) {
-        echo $res->getStatusCode();
+    static function(Result $result) {
+        echo $result->getStatusCode();
 
-        return $res;
+        return $result;
     },
     static function(RequestException $e) {
         echo $e->getMessage() ;
