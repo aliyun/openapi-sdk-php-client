@@ -9,8 +9,6 @@ use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Exception\ClientException;
 
 /**
- * Trait ActionResolverTrait
- *
  * @internal
  * @codeCoverageIgnore
  * @mixin Rpc
@@ -20,27 +18,34 @@ use AlibabaCloud\Client\Exception\ClientException;
  */
 trait ActionResolverTrait
 {
+
     /**
-     * ActionResolverTrait constructor.
-     *
-     * @param array $options
-     *
-     * @throws ReflectionException
-     * @throws ClientException
+     * Resolve Action name from class name
      */
-    public function __construct(array $options = [])
+    private function resolveActionName()
     {
-        parent::__construct($options);
-
-        if ((new ReflectionClass(AlibabaCloud::class))->hasMethod('appendUserAgent')) {
-            if (class_exists('AlibabaCloud\Release')) {
-                AlibabaCloud::appendUserAgent('SDK', \AlibabaCloud\Release::VERSION);
-            }
-        }
-
         if (!$this->action) {
             $array        = explode('\\', get_class($this));
             $this->action = array_pop($array);
         }
+    }
+
+    /**
+     * Append SDK version into User-Agent
+     *
+     * @throws ClientException
+     * @throws ReflectionException
+     */
+    private function appendSdkUA()
+    {
+        if (!(new ReflectionClass(AlibabaCloud::class))->hasMethod('appendUserAgent')) {
+            return;
+        }
+
+        if (!class_exists('AlibabaCloud\Release')) {
+            return;
+        }
+
+        AlibabaCloud::appendUserAgent('SDK', \AlibabaCloud\Release::VERSION);
     }
 }

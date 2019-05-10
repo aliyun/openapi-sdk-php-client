@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.2 - 2019-05-10
+- Improved `Result` object.
+
+
 ## 1.5.1 - 2019-05-09
 - Supported `Resolver` for Third-party dependencies.
 
