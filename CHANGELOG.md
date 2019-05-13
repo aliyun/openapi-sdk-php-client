@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.5.3 - 2019-05-13
+- Improved `Endpoint` tips.
+- Improved `Endpoints` for `STS`.
+
+
 ## 1.5.2 - 2019-05-10
 - Improved `Result` object.
 

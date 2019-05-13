@@ -1146,7 +1146,6 @@ return [
                     'eu-central-1'   => 'sts.eu-central-1.aliyuncs.com',
                     'me-east-1'      => 'sts.me-east-1.aliyuncs.com',
                     'eu-west-1'      => 'sts.eu-west-1.aliyuncs.com',
-                    'global'         => 'sts.aliyuncs.com',
                 ],
             'dts'             =>
                 [
