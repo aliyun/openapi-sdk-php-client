@@ -143,7 +143,8 @@ trait AcsTrait
 
             if (!$host) {
                 throw new ClientException(
-                    "No host found for {$this->product} in the {$regionId}, you can specify host by host() method.",
+                    "No host found for {$this->product} in the {$regionId}, you can specify host by host() method. " .
+                    'Like $request->host(\'xxx.xxx.aliyuncs.com\')',
                     SDK::HOST_NOT_FOUND
                 );
             }
