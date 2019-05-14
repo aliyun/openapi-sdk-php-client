@@ -11,7 +11,6 @@ use ReflectionException;
 /**
  * Class Roa
  *
- * @internal
  * @codeCoverageIgnore
  * @package AlibabaCloud\Client\Resolver
  */
