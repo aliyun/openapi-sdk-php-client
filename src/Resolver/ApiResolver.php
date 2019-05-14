@@ -7,7 +7,6 @@ use AlibabaCloud\Client\Exception\ClientException;
 /**
  * Class ApiResolver
  *
- * @internal
  * @codeCoverageIgnore
  * @package AlibabaCloud\Client\Resolver
  */

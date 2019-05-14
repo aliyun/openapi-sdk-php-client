@@ -46,30 +46,44 @@ class Result extends Response implements ArrayAccess, IteratorAggregate, Countab
             $response->getReasonPhrase()
         );
 
-        $format = ($request instanceof Request) ? \strtoupper($request->format) : 'JSON';
+        $this->request = $request;
 
+        $this->resolveData();
+    }
+
+    private function resolveData()
+    {
         $content = $this->getBody()->getContents();
 
-        switch ($format) {
+        switch ($this->getRequestFormat()) {
             case 'JSON':
-                $data = $this->jsonToArray($content);
+                $result_data = $this->jsonToArray($content);
                 break;
             case 'XML':
-                $data = $this->xmlToArray($content);
+                $result_data = $this->xmlToArray($content);
                 break;
             case 'RAW':
-                $data = $this->jsonToArray($content);
+                $result_data = $this->jsonToArray($content);
                 break;
             default:
-                $data = $this->jsonToArray($content);
+                $result_data = $this->jsonToArray($content);
         }
 
-        if (empty($data)) {
-            $data = [];
+        if (!$result_data) {
+            $result_data = [];
         }
 
-        $this->dot($data);
-        $this->request = $request;
+        $this->dot($result_data);
+    }
+
+    /**
+     * @return string
+     */
+    private function getRequestFormat()
+    {
+        return ($this->request instanceof Request)
+            ? \strtoupper($this->request->format)
+            : 'JSON';
     }
 
     /**

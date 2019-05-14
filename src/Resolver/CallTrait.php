@@ -7,7 +7,6 @@ use RuntimeException;
 /**
  * Trait CallTrait
  *
- * @internal
  * @codeCoverageIgnore
  * @package AlibabaCloud\Client\Resolver
  */
