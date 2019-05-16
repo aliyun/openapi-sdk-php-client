@@ -45,13 +45,19 @@ $request->verify(['verify' => ['/path/to/cert.pem','password']]);
 use AlibabaCloud\Client\AlibabaCloud;
 
 // Use the system's CA bundle
-AlibabaCloud::accessKeyClient('foo', 'bar')->verify(true)->asDefaultClient();
+AlibabaCloud::accessKeyClient('foo', 'bar')
+            ->verify(true)
+            ->asDefaultClient();
 
 // Use a custom SSL certificate on disk
-AlibabaCloud::accessKeyClient('foo', 'bar')->verify(['verify' => '/path/to/cert.pem'])->asDefaultClient();
+AlibabaCloud::accessKeyClient('foo', 'bar')
+            ->verify(['verify' => '/path/to/cert.pem'])
+            ->asDefaultClient();
 
 // Use a custom SSL certificate with password on disk
-AlibabaCloud::accessKeyClient('foo', 'bar')->verify(['/path/to/cert.pem','password'])->asDefaultClient();
+AlibabaCloud::accessKeyClient('foo', 'bar')
+            ->verify(['/path/to/cert.pem','password'])
+            ->asDefaultClient();
 ```
 
 ## Reference

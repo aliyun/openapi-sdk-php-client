@@ -29,11 +29,13 @@ $request = AlibabaCloud::rpc()
 use AlibabaCloud\Client\AlibabaCloud;
 
 // 为某产品增加在 cn-hangzhou 区域的域名
-AlibabaCloud::addHost('product_name', 'product_name.cn-hangzhou.aliyuncs.com', 'cn-hangzhou');
+AlibabaCloud::addHost('product', 'product.cn-hangzhou.aliyuncs.com', 'cn-hangzhou');
 
 // 为某产品增加全局域名，如果指定区域没有被指定域名，将使用全局域名
-AlibabaCloud::addHost('product_name', 'product_name.aliyuncs.com');
+AlibabaCloud::addHost('product', 'product.aliyuncs.com');
 ```
 
 ***
 [← 区域](5-Region-CN.md) | 域名[(English)](6-Host-EN.md) | [SSL 验证 →](7-Verify-CN.md)
+
+[endpoints]: https://developer.aliyun.com/endpoints

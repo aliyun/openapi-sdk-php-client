@@ -44,13 +44,19 @@ $request->verify(['verify' => ['/path/to/cert.pem','password']]);
 use AlibabaCloud\Client\AlibabaCloud;
 
 // 在操作系统中寻找
-AlibabaCloud::accessKeyClient('foo', 'bar')->verify(true)->asDefaultClient();
+AlibabaCloud::accessKeyClient('foo', 'bar')
+            ->verify(true)
+            ->asDefaultClient();
 
 // 使用指定的文件
-AlibabaCloud::accessKeyClient('foo', 'bar')->verify(['verify' => '/path/to/cert.pem'])->asDefaultClient();
+AlibabaCloud::accessKeyClient('foo', 'bar')
+            ->verify(['verify' => '/path/to/cert.pem'])
+            ->asDefaultClient();
 
 // 使用指定的文件和密码
-AlibabaCloud::accessKeyClient('foo', 'bar')->verify(['/path/to/cert.pem','password'])->asDefaultClient();
+AlibabaCloud::accessKeyClient('foo', 'bar')
+            ->verify(['/path/to/cert.pem','password'])
+            ->asDefaultClient();
 ```
 
 ## 参考

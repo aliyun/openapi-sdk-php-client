@@ -49,3 +49,5 @@ AlibabaCloud::getDefaultRegionId();
 
 ***
 [← 结果](4-Result-CN.md) | 区域[(English)](5-Region-EN.md) | [域名 →](6-Host-CN.md)
+
+[regions]: https://help.aliyun.com/document_detail/40654.html
