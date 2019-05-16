@@ -28,11 +28,13 @@ $request = AlibabaCloud::rpc()
 use AlibabaCloud\Client\AlibabaCloud;
 
 // Add a Host in the cn-hangzhou region for a product
-AlibabaCloud::addHost('product_name', 'product_name.cn-hangzhou.aliyuncs.com', 'cn-hangzhou');
+AlibabaCloud::addHost('product', 'product.cn-hangzhou.aliyuncs.com', 'cn-hangzhou');
 
 // Add a global Host for a product. If the specified Region is not specified Host, the global Host will be used.
-AlibabaCloud::addHost('product_name', 'product_name.aliyuncs.com');
+AlibabaCloud::addHost('product', 'product.aliyuncs.com');
 ```
 
 ***
 [← Region](5-Region-EN.md) | Host[(中文)](6-Host-CN.md) | [SSL Verify →](7-Verify-EN.md)
+
+[endpoints]: https://developer.aliyun.com/endpoints
