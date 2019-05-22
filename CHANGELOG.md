@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.5.4 - 2019-05-22
+- Updated `Endpoints`.
+- Fixed `Content-Type` in header.
+
+
 ## 1.5.3 - 2019-05-13
 - Improved `Endpoint` tips.
 - Improved `Endpoints` for `STS`.
