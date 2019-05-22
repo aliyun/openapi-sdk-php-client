@@ -164,7 +164,7 @@ class RoaRequest extends Request
     private function resolveContentType()
     {
         if (!isset($this->options['headers']['Content-Type'])) {
-            $this->options['headers']['Content-Type'] = "{$this->options['headers']['Accept']}; chrset=utf-8";
+            $this->options['headers']['Content-Type'] = "{$this->options['headers']['Accept']}; charset=utf-8";
         }
     }
 
