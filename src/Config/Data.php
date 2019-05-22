@@ -1567,6 +1567,8 @@ return [
                     'cn-shenzhen'    => 'ddosbgp.aliyuncs.com',
                     'cn-hongkong'    => 'ddosbgp.cn-hongkong.aliyuncs.com',
                     'us-west-1'      => 'ddosbgp.us-west-1.aliyuncs.com',
+                    'ap-southeast-1' => 'ddosbgp.ap-southeast-1.aliyuncs.com',
+                    'us-east-1'      => 'ddosbgp.us-east-1.aliyuncs.com',
                 ],
             'ehs'             =>
                 [
@@ -2187,7 +2189,20 @@ return [
                 ],
             'webx'            =>
                 [
-                    'cn-shenzhen' => 'webx.cn-shenzhen.aliyuncs.com',
+                    'cn-shenzhen' => 'webplus.cn-hangzhou.aliyuncs.com',
+                ],
+            'sddp'            =>
+                [
+                    'cn-zhangjiakou' => 'sddp.cn-zhangjiakou.aliyuncs.com',
+                ],
+            'oos'             =>
+                [
+                    'cn-hangzhou' => 'oos.cn-hangzhou.aliyuncs.com',
+                ],
+            'fnf'             =>
+                [
+                    'cn-hangzhou' => 'cn-hangzhou.fnf.aliyuncs.com',
+                    'cn-shanghai' => 'cn-shanghai.gamma.test.fnf.aliyun-inc.com',
                 ],
         ],
 ];
