@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.5 - 2019-05-23
+- Improved `Signature`.
+
+
 ## 1.5.4 - 2019-05-22
 - Updated `Endpoints`.
 - Fixed `Content-Type` in header.
