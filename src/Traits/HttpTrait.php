@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Traits;
 
+use AlibabaCloud\Client\Support\Arrays;
 use AlibabaCloud\Client\Filter\ClientFilter;
 use AlibabaCloud\Client\Exception\ClientException;
 
@@ -132,7 +133,7 @@ trait HttpTrait
     public function options(array $options)
     {
         if ($options !== []) {
-            $this->options = \AlibabaCloud\Client\arrayMerge([$this->options, $options]);
+            $this->options = Arrays::merge([$this->options, $options]);
         }
 
         return $this;

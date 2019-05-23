@@ -7,7 +7,7 @@ namespace AlibabaCloud\Client\Signature;
  *
  * @package   AlibabaCloud\Signature
  */
-class BearerTokenSignature implements SignatureInterface
+class BearerTokenSignature extends Signature implements SignatureInterface
 {
 
     /**

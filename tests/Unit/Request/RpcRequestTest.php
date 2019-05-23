@@ -7,6 +7,7 @@ use ReflectionObject;
 use RuntimeException;
 use ReflectionException;
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\Support\Sign;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Credentials\StsCredential;
@@ -167,7 +168,7 @@ class RpcRequestTest extends TestCase
 
         // Test
         $method = new ReflectionMethod(
-            RpcRequest::class,
+            Sign::class,
             'percentEncode'
         );
         $method->setAccessible(true);

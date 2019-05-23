@@ -197,35 +197,6 @@ function block($result, $title)
 }
 
 /**
- * @param array $arrays
- *
- * @return array
- */
-function arrayMerge(array $arrays)
-{
-    $result = [];
-    foreach ($arrays as $array) {
-        foreach ($array as $key => $value) {
-            if (is_int($key)) {
-                $result[] = $value;
-                continue;
-            }
-
-            if (isset($result[$key]) && is_array($result[$key])) {
-                $result[$key] = arrayMerge(
-                    [$result[$key], $value]
-                );
-                continue;
-            }
-
-            $result[$key] = $value;
-        }
-    }
-
-    return $result;
-}
-
-/**
  * Gets the value of an environment variable.
  *
  * @param string $key

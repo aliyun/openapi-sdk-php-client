@@ -2204,5 +2204,10 @@ return [
                     'cn-hangzhou' => 'cn-hangzhou.fnf.aliyuncs.com',
                     'cn-shanghai' => 'cn-shanghai.gamma.test.fnf.aliyun-inc.com',
                 ],
+            'smc'             =>
+                [
+                    'cn-huhehaote' => 'smc.aliyuncs.com',
+                    'cn-hangzhou'  => 'smc.aliyuncs.com',
+                ],
         ],
 ];
