@@ -11,7 +11,7 @@ use AlibabaCloud\Client\Exception\ClientException;
  *
  * @package   AlibabaCloud\Signature
  */
-class ShaHmac256WithRsaSignature implements SignatureInterface
+class ShaHmac256WithRsaSignature extends Signature implements SignatureInterface
 {
 
     /**

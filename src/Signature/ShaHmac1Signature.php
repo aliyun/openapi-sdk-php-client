@@ -7,7 +7,7 @@ namespace AlibabaCloud\Client\Signature;
  *
  * @package   AlibabaCloud\Signature
  */
-class ShaHmac1Signature implements SignatureInterface
+class ShaHmac1Signature extends Signature implements SignatureInterface
 {
 
     /**

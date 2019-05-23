@@ -7,9 +7,12 @@ use ReflectionObject;
 use RuntimeException;
 use ReflectionMethod;
 use ReflectionException;
+use GuzzleHttp\Psr7\Request;
 use AlibabaCloud\Client\Encode;
 use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\Accept;
+use AlibabaCloud\Client\Support\Path;
+use AlibabaCloud\Client\Support\Sign;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Request\RoaRequest;
 use AlibabaCloud\Client\Credentials\StsCredential;
@@ -41,11 +44,10 @@ class RoaRequestTest extends TestCase
         // Test
         $request->withClusterId($clusterId);
         $method = new ReflectionMethod(
-            DescribeClusterServicesRequest::class,
-            'resolvePath'
+            Path::class,
+            'assign'
         );
-        $method->setAccessible(true);
-        $actual = $method->invoke($request);
+        $actual = $method->invokeArgs($request, [$request->pathPattern, $request->pathParameters]);
 
         // Assert
         self::assertEquals($expected, $actual);
@@ -65,11 +67,10 @@ class RoaRequestTest extends TestCase
         // Test
         $request->pathParameter('ClusterId', $clusterId);
         $method = new ReflectionMethod(
-            DescribeClusterServicesRequest::class,
-            'resolvePath'
+            Path::class,
+            'assign'
         );
-        $method->setAccessible(true);
-        $actual = $method->invoke($request);
+        $actual = $method->invokeArgs($request, [$request->pathPattern, $request->pathParameters]);
 
         // Assert
         self::assertEquals($expected, $actual);
@@ -93,11 +94,18 @@ class RoaRequestTest extends TestCase
         // Test
         $request->pathParameter('ClusterId', $clusterId);
         $method = new ReflectionMethod(
-            DescribeClusterServicesRequest::class,
+            Sign::class,
             'acsHeaderString'
         );
         $method->setAccessible(true);
-        $actual = $method->invoke($request);
+
+        $requestPsr = new Request(
+            $request->method,
+            $request->uri,
+            $request->getHeaders()
+        );
+
+        $actual = $method->invokeArgs($request, [$requestPsr->getHeaders()]);
 
         // Assert
         self::assertTrue(Stringy::create($actual)->contains($expected));

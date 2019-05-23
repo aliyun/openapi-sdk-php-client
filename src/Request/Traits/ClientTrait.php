@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Request\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Clients\Client;
+use AlibabaCloud\Client\Support\Arrays;
 use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
@@ -87,7 +88,7 @@ trait ClientTrait
      */
     public function mergeOptionsIntoClient()
     {
-        $this->options = \AlibabaCloud\Client\arrayMerge(
+        $this->options = Arrays::merge(
             [
                 $this->httpClient()->options,
                 $this->options

@@ -5,6 +5,8 @@ namespace AlibabaCloud\Client\Request;
 use Exception;
 use Ramsey\Uuid\Uuid;
 use RuntimeException;
+use AlibabaCloud\Client\Support\Sign;
+use AlibabaCloud\Client\Support\Arrays;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
@@ -148,28 +150,9 @@ class RpcRequest extends Request
     {
         $query      = isset($this->options['query']) ? $this->options['query'] : [];
         $form       = isset($this->options['form_params']) ? $this->options['form_params'] : [];
-        $parameters = \AlibabaCloud\Client\arrayMerge([$query, $form]);
-        ksort($parameters);
-        $canonicalized = '';
-        foreach ($parameters as $key => $value) {
-            $canonicalized .= '&' . $this->percentEncode($key) . '=' . $this->percentEncode($value);
-        }
+        $parameters = Arrays::merge([$query, $form]);
 
-        return $this->method . '&%2F&' . $this->percentEncode(substr($canonicalized, 1));
-    }
-
-    /**
-     * @param string $string
-     *
-     * @return null|string|string[]
-     */
-    private function percentEncode($string)
-    {
-        $result = urlencode($string);
-        $result = str_replace(['+', '*'], ['%20', '%2A'], $result);
-        $result = preg_replace('/%7E/', '~', $result);
-
-        return $result;
+        return Sign::rpcString($this->method, $parameters);
     }
 
     /**

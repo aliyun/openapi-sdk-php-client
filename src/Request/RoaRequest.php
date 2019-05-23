@@ -9,7 +9,10 @@ use RuntimeException;
 use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Encode;
 use AlibabaCloud\Client\Accept;
+use AlibabaCloud\Client\Support\Path;
+use AlibabaCloud\Client\Support\Sign;
 use AlibabaCloud\Client\Filter\Filter;
+use AlibabaCloud\Client\Support\Arrays;
 use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
@@ -27,11 +30,6 @@ use AlibabaCloud\Client\Request\Traits\DeprecatedRoaTrait;
 class RoaRequest extends Request
 {
     use DeprecatedRoaTrait;
-
-    /**
-     * @var string
-     */
-    private static $headerSeparator = "\n";
 
     /**
      * @var string
@@ -59,6 +57,7 @@ class RoaRequest extends Request
         $this->resolveQuery();
         $this->resolveHeaders();
         $this->resolveBody();
+        $this->resolveUri();
         $this->resolveSignature();
     }
 
@@ -81,7 +80,7 @@ class RoaRequest extends Request
         }
 
         // Merge data, compatible with parameters set from constructor.
-        $params = \AlibabaCloud\Client\arrayMerge(
+        $params = Arrays::merge(
             [
                 $this->data,
                 $this->options['form_params']
@@ -221,98 +220,39 @@ class RoaRequest extends Request
     }
 
     /**
+     * @return void
+     */
+    private function resolveUri()
+    {
+        $query = isset($this->options['query'])
+            ? $this->options['query']
+            : [];
+        $path  = Path::assign($this->pathPattern, $this->pathParameters);
+
+        $this->uri = $this->uri->withPath($path)
+                               ->withQuery(
+                                   Encode::create($query)->ksort()->toString()
+                               );
+    }
+
+    /**
      * @return string
      */
     public function stringToSign()
     {
-        return $this->headerStringToSign() . $this->resourceStringToSign();
-    }
+        $query = isset($this->options['query'])
+            ? $this->options['query']
+            : [];
+        $query = Encode::create($query)->ksort()->toString();
+        $uri   = $this->uri->withQuery($query);
 
-    /**
-     * @return string
-     */
-    private function headerStringToSign()
-    {
-        $string = $this->method . self::$headerSeparator;
-        if (isset($this->options['headers']['Accept'])) {
-            $string .= $this->options['headers']['Accept'];
-        }
-        $string .= self::$headerSeparator;
+        $request = new \GuzzleHttp\Psr7\Request(
+            $this->method,
+            $uri,
+            $this->options['headers']
+        );
 
-        if (isset($this->options['headers']['Content-MD5'])) {
-            $string .= $this->options['headers']['Content-MD5'];
-        }
-        $string .= self::$headerSeparator;
-
-        if (isset($this->options['headers']['Content-Type'])) {
-            $string .= $this->options['headers']['Content-Type'];
-        }
-        $string .= self::$headerSeparator;
-
-        if (isset($this->options['headers']['Date'])) {
-            $string .= $this->options['headers']['Date'];
-        }
-        $string .= self::$headerSeparator;
-
-        $string .= $this->acsHeaderString();
-
-        return $string;
-    }
-
-    /**
-     * Construct standard Header for Alibaba Cloud.
-     *
-     * @return string
-     */
-    private function acsHeaderString()
-    {
-        $array = [];
-        foreach ($this->options['headers'] as $headerKey => $headerValue) {
-            $key = strtolower($headerKey);
-            if (strncmp($key, 'x-acs-', 6) === 0) {
-                $array[$key] = $headerValue;
-            }
-        }
-        ksort($array);
-        $string = '';
-        foreach ($array as $sortMapKey => $sortMapValue) {
-            $string .= $sortMapKey . ':' . $sortMapValue . self::$headerSeparator;
-        }
-
-        return $string;
-    }
-
-    /**
-     * @return string
-     */
-    private function resourceStringToSign()
-    {
-        $this->uri = $this->uri->withPath($this->resolvePath())
-                               ->withQuery(
-                                   Encode::create(isset($this->options['query'])
-                                                      ? $this->options['query']
-                                                      : [])
-                                         ->ksort()
-                                         ->toString()
-                               );
-
-        return $this->uri->getPath() . '?' . $this->uri->getQuery();
-    }
-
-    /**
-     * Assign path parameters to the url.
-     *
-     * @return string
-     */
-    private function resolvePath()
-    {
-        $path = $this->pathPattern;
-        foreach ($this->pathParameters as $pathKey => $value) {
-            $target = "[$pathKey]";
-            $path   = str_replace($target, $value, $path);
-        }
-
-        return $path;
+        return Sign::roaString($request);
     }
 
     /**
