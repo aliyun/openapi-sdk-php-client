@@ -1,4 +1,4 @@
-[← Prerequisites](0-Prerequisites-EN.md) | Installation[(中文)](1-Installation-CN.md) | [Client →](2-Client-EN.md)
+[← Prerequisites](0-Prerequisites.md) | Installation[(中文)](../zh/1-Installation.md) | [Client →](2-Client.md)
 ***
 
 # Installation
@@ -7,7 +7,7 @@ There are ways to install Alibaba Cloud Client for PHP:
 - [As a dependency via Composer](#as-a-dependency-via-composer)
 - [Installing by Using the ZIP file](#installing-by-using-the-zip-file)
 
-Before you install ensure your environment is using PHP version 5.5 or later. Learn more about [environment requirements and recommendations](0-Prerequisites-EN.md).
+Before you install ensure your environment is using PHP version 5.5 or later. Learn more about [environment requirements and recommendations](0-Prerequisites.md).
 
 ## As a dependency via Composer
 Composer is the recommended way to install. Composer is a tool for PHP that manages and installs the dependencies of your project. For more information on how to install Composer, configure autoloading, and follow other best practices for defining dependencies, see [getcomposer.org](https://getcomposer.org).
@@ -50,4 +50,4 @@ require __DIR__ . '/vendor/autoload.php';
 ```
 
 ***
-[← Prerequisites](0-Prerequisites-EN.md) | Installation[(中文)](1-Installation-CN.md) | [Client →](2-Client-EN.md)
+[← Prerequisites](0-Prerequisites.md) | Installation[(中文)](../zh/1-Installation.md) | [Client →](2-Client.md)

@@ -30,7 +30,7 @@ Alibaba Cloud Client for PHP is a client tool that helps PHP developers manage c
 
 
 ## Prerequisites
-Your system will need to meet the [Prerequisites](docs/0-Prerequisites-EN.md), including having PHP >= 5.5. We highly recommend having it compiled with the cURL extension and cURL 7.16.2+.
+Your system will need to meet the [Prerequisites](docs/en/0-Prerequisites.md), including having PHP >= 5.5. We highly recommend having it compiled with the cURL extension and cURL 7.16.2+.
 
 
 ## Installation
@@ -40,7 +40,7 @@ composer require alibabacloud/client
 ```
 > Some users may not be able to install due to network problems, you can try to switch the Composer mirror.
 
-Please see the [Installation](docs/1-Installation-EN.md) for more detailed information about installing the Alibaba Cloud Client for PHP through Composer and other means.
+Please see the [Installation](docs/en/1-Installation.md) for more detailed information about installing the Alibaba Cloud Client for PHP through Composer and other means.
 
 
 ## Quick Examples
@@ -113,17 +113,17 @@ try {
 
 
 ## Documentation
-* [Prerequisites](docs/0-Prerequisites-EN.md)
-* [Installation](docs/1-Installation-EN.md)
-* [Client](docs/2-Client-EN.md)
-* [Request](docs/3-Request-EN.md)
-* [Result](docs/4-Result-EN.md)
-* [Region](docs/5-Region-EN.md)
-* [Host](docs/6-Host-EN.md)
-* [SSL Verify](docs/7-Verify-EN.md)
-* [Debug](docs/8-Debug-EN.md)
-* [Log](docs/9-Log-EN.md)
-* [Test](docs/10-Test-EN.md)
+* [Prerequisites](docs/en/0-Prerequisites.md)
+* [Installation](docs/en/1-Installation.md)
+* [Client](docs/en/2-Client.md)
+* [Request](docs/en/3-Request.md)
+* [Result](docs/en/4-Result.md)
+* [Region](docs/en/5-Region.md)
+* [Host](docs/en/6-Host.md)
+* [SSL Verify](docs/en/7-Verify.md)
+* [Debug](docs/en/8-Debug.md)
+* [Log](docs/en/9-Log.md)
+* [Test](docs/en/10-Test.md)
 
 
 ## Issues

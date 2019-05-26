@@ -1,4 +1,4 @@
-[← 域名](6-Host-CN.md) | SSL 验证[(English)](7-Verify-EN.md) | [调试 →](8-Debug-CN.md)
+[← 域名](6-Host.md) | SSL 验证[(English)](../en/7-Verify.md) | [调试 →](8-Debug.md)
 ***
 
 # SSL 验证
@@ -64,4 +64,4 @@ AlibabaCloud::accessKeyClient('foo', 'bar')
 
 
 ***
-[← 域名](6-Host-CN.md) | SSL 验证[(English)](7-Verify-EN.md) | [调试 →](8-Debug-CN.md)
+[← 域名](6-Host.md) | SSL 验证[(English)](../en/7-Verify.md) | [调试 →](8-Debug.md)

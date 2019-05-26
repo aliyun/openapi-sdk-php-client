@@ -30,7 +30,7 @@ Alibaba Cloud Client for PHP 是帮助 PHP 开发者管理凭据、发送请求�
 
 
 ## 先决条件
-您的系统需要满足[先决条件](docs/0-Prerequisites-CN.md)，包括 PHP> = 5.5。 我们强烈建议使用cURL扩展，并使用TLS后端编译cURL 7.16.2+。
+您的系统需要满足[先决条件](docs/zh/0-Prerequisites.md)，包括 PHP> = 5.5。 我们强烈建议使用cURL扩展，并使用TLS后端编译cURL 7.16.2+。
 
 
 ## 安装依赖
@@ -40,7 +40,7 @@ composer require alibabacloud/client
 ```
 > 一些用户可能由于网络问题无法安装，可以尝试切换 Composer 镜像地址。
 
-请看 [安装](docs/1-Installation-CN.md) 有关通过 Composer 和其他方式安装的详细信息。
+请看[安装](docs/zh/1-Installation.md)有关通过 Composer 和其他方式安装的详细信息。
 
 
 ## 快速使用
@@ -113,17 +113,17 @@ try {
 
 
 ## 文档
-* [先决条件](docs/0-Prerequisites-CN.md)
-* [安装](docs/1-Installation-CN.md)
-* [客户端](docs/2-Client-CN.md)
-* [请求](docs/3-Request-CN.md)
-* [结果](docs/4-Result-CN.md)
-* [区域](docs/5-Region-CN.md)
-* [域名](docs/6-Host-CN.md)
-* [SSL 验证](docs/7-Verify-CN.md)
-* [调试](docs/8-Debug-CN.md)
-* [日志](docs/9-Log-CN.md)
-* [测试](docs/10-Test-CN.md)
+* [先决条件](docs/zh/0-Prerequisites.md)
+* [安装](docs/zh/1-Installation.md)
+* [客户端](docs/zh/2-Client.md)
+* [请求](docs/zh/3-Request.md)
+* [结果](docs/zh/4-Result.md)
+* [区域](docs/zh/5-Region.md)
+* [域名](docs/zh/6-Host.md)
+* [SSL 验证](docs/zh/7-Verify.md)
+* [调试](docs/zh/8-Debug.md)
+* [日志](docs/zh/9-Log.md)
+* [测试](docs/zh/10-Test.md)
 
 
 ## 问题
