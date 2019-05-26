@@ -28,7 +28,6 @@ use AlibabaCloud\Client\Traits\ObjectAccessTrait;
 use AlibabaCloud\Client\Request\Traits\RetryTrait;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Request\Traits\MagicTrait;
 use AlibabaCloud\Client\Request\Traits\ClientTrait;
 use AlibabaCloud\Client\Request\Traits\DeprecatedTrait;
 use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
@@ -46,7 +45,6 @@ abstract class Request implements ArrayAccess
     use DeprecatedTrait;
     use HttpTrait;
     use RegionTrait;
-    use MagicTrait;
     use ClientTrait;
     use AcsTrait;
     use ArrayAccessTrait;
@@ -113,12 +111,15 @@ abstract class Request implements ArrayAccess
         $this->options['http_errors']     = false;
         $this->options['connect_timeout'] = self::CONNECT_TIMEOUT;
         $this->options['timeout']         = self::TIMEOUT;
-        if ($options !== []) {
-            $this->options($options);
-        }
 
+        // Turn on debug mode based on environment variable.
         if (strtolower(\AlibabaCloud\Client\env('DEBUG')) === 'sdk') {
             $this->options['debug'] = true;
+        }
+
+        // Rewrite configuration if the user has a configuration.
+        if ($options !== []) {
+            $this->options($options);
         }
     }
 

@@ -23,23 +23,23 @@ trait CallTrait
     public function __call($name, $arguments)
     {
         if (strncmp($name, 'get', 3) === 0) {
-            $parameter = $this->propertyNameByMethodName($name);
+            $parameter = \mb_strcut($name, 3);
 
             return $this->__get($parameter);
         }
 
         if (strncmp($name, 'with', 4) === 0) {
-            $parameter = $this->propertyNameByMethodName($name, 4);
+            $parameter = \mb_strcut($name, 4);
 
-            $value                                    = $arguments[0];
-            $this->data[$parameter]                   = $value;
+            $value                                 = $arguments[0];
+            $this->data[$parameter]                = $value;
             $this->parameterPosition()[$parameter] = $value;
 
             return $this;
         }
 
         if (strncmp($name, 'set', 3) === 0) {
-            $parameter   = $this->propertyNameByMethodName($name);
+            $parameter   = \mb_strcut($name, 3);
             $with_method = "with$parameter";
 
             return $this->$with_method($arguments[0]);
