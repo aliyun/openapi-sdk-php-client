@@ -1,4 +1,4 @@
-[← Home](../README.md) | Prerequisites[(中文)](0-Prerequisites-CN.md) | [Installation →](1-Installation-EN.md)
+[← Home](../../README.md) | Prerequisites[(中文)](../zh/0-Prerequisites.md) | [Installation →](1-Installation.md)
 ***
 
 # Requirements and Recommendations
@@ -16,7 +16,7 @@ Before using the Alibaba Cloud Client for PHP, please ensure your environment su
 - In a production environment, do not use [Xdebug][xdebug]
 
 ***
-[← Home](../README.md) | Prerequisites[(中文)](0-Prerequisites-CN.md) | [Installation →](1-Installation-EN.md)
+[← Home](../../README.md) | Prerequisites[(中文)](../zh/0-Prerequisites.md) | [Installation →](1-Installation.md)
 
 [composer]: https://getcomposer.org
 [cURL]: http://php.net/manual/en/book.curl.php

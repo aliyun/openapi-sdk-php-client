@@ -1,4 +1,4 @@
-[← Result](4-Result-EN.md) | Region[(中文)](5-Region-CN.md) | [Host →](6-Host-EN.md)
+[← Result](4-Result.md) | Region[(中文)](../zh/5-Region.md) | [Host →](6-Host.md)
 ***
 
 # Region
@@ -48,6 +48,6 @@ AlibabaCloud::getDefaultRegionId();
 ```
 
 ***
-[← Result](4-Result-EN.md) | Region[(中文)](5-Region-CN.md) | [Host →](6-Host-EN.md)
+[← Result](4-Result.md) | Region[(中文)](../zh/5-Region.md) | [Host →](6-Host.md)
 
 [regions]: https://www.alibabacloud.com/help/doc-detail/40654.html

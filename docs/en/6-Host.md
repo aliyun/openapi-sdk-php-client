@@ -1,4 +1,4 @@
-[← Region](5-Region-EN.md) | Host[(中文)](6-Host-CN.md) | [SSL Verify →](7-Verify-EN.md)
+[← Region](5-Region.md) | Host[(中文)](../zh/6-Host.md) | [SSL Verify →](7-Verify.md)
 ***
 
 # Host
@@ -35,6 +35,6 @@ AlibabaCloud::addHost('product', 'product.aliyuncs.com');
 ```
 
 ***
-[← Region](5-Region-EN.md) | Host[(中文)](6-Host-CN.md) | [SSL Verify →](7-Verify-EN.md)
+[← Region](5-Region.md) | Host[(中文)](../zh/6-Host.md) | [SSL Verify →](7-Verify.md)
 
 [endpoints]: https://developer.aliyun.com/endpoints
