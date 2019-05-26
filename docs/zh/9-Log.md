@@ -1,4 +1,4 @@
-[← 调试](8-Debug-CN.md) | 日志[(English)](9-Log-EN.md) | [测试 →](10-Test-CN.md)
+[← 调试](8-Debug.md) | 日志[(English)](../en/9-Log.md) | [测试 →](10-Test.md)
 ***
 
 # 日志
@@ -68,4 +68,4 @@ AlibabaCloud::setLogFormat('{hostname} [{date_common_log}]');
 | {start_time}     | 开始时间 |
 
 ***
-[← 调试](8-Debug-CN.md) | 日志[(English)](9-Log-EN.md) | [测试 →](10-Test-CN.md)
+[← 调试](8-Debug.md) | 日志[(English)](../en/9-Log.md) | [测试 →](10-Test.md)

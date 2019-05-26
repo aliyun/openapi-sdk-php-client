@@ -1,4 +1,4 @@
-[← Request](3-Request-EN.md) | Result[(中文)](4-Result-CN.md) | [Region →](5-Region-EN.md)
+[← Request](3-Request.md) | Result[(中文)](../zh/4-Result.md) | [Region →](5-Region.md)
 ***
 
 # Result
@@ -52,4 +52,4 @@ $result->getRequest();
 ```
 
 ***
-[← Request](3-Request-EN.md) | Result[(中文)](4-Result-CN.md) | [Region →](5-Region-EN.md)
+[← Request](3-Request.md) | Result[(中文)](../zh/4-Result.md) | [Region →](5-Region.md)

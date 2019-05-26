@@ -1,4 +1,4 @@
-[← Host](6-Host-EN.md) | SSL Verify[(中文)](7-Verify-CN.md) | [Debug →](8-Debug-EN.md)
+[← Host](6-Host.md) | SSL Verify[(中文)](../zh/7-Verify.md) | [Debug →](8-Debug.md)
 ***
 
 # SSL Verify
@@ -65,4 +65,4 @@ AlibabaCloud::accessKeyClient('foo', 'bar')
 
 
 ***
-[← Host](6-Host-EN.md) | SSL Verify[(中文)](7-Verify-CN.md) | [Debug →](8-Debug-EN.md)
+[← Host](6-Host.md) | SSL Verify[(中文)](../zh/7-Verify.md) | [Debug →](8-Debug.md)
