@@ -34,7 +34,7 @@
         "ext-mbstring": "*",
         "ext-simplexml": "*",
         "ext-xmlwriter": "*",
-        "ramsey/uuid": "^3.5",
+        "ramsey/uuid": "3.5.*",
         "moontoast/math": "^1.1",
         "guzzlehttp/guzzle": "^6.3",
         "danielstjules/stringy": "^3.1",
