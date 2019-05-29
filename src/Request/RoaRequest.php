@@ -4,7 +4,6 @@ namespace AlibabaCloud\Client\Request;
 
 use Exception;
 use Stringy\Stringy;
-use Ramsey\Uuid\Uuid;
 use RuntimeException;
 use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Encode;
@@ -126,7 +125,7 @@ class RoaRequest extends Request
 
         $signature                                           = $this->httpClient()->getSignature();
         $this->options['headers']['x-acs-signature-method']  = $signature->getMethod();
-        $this->options['headers']['x-acs-signature-nonce']   = Uuid::uuid1()->toString();
+        $this->options['headers']['x-acs-signature-nonce']   = Sign::uuid();
         $this->options['headers']['x-acs-signature-version'] = $signature->getVersion();
         if ($signature->getType()) {
             $this->options['headers']['x-acs-signature-type'] = $signature->getType();
