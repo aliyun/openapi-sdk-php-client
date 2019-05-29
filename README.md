@@ -1,4 +1,4 @@
-English | [简体中文](./README-CN.md)
+English | [简体中文](README-ZH.md)
 
 
 <p align="center">
