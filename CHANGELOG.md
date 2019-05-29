@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.6 - 2019-05-29
+- Fixed `uuid` version lock.
+
+
 ## 1.5.5 - 2019-05-23
 - Improved `Signature`.
 
