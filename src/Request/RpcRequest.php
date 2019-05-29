@@ -3,7 +3,6 @@
 namespace AlibabaCloud\Client\Request;
 
 use Exception;
-use Ramsey\Uuid\Uuid;
 use RuntimeException;
 use AlibabaCloud\Client\Support\Sign;
 use AlibabaCloud\Client\Support\Arrays;
@@ -81,7 +80,7 @@ class RpcRequest extends Request
         $this->options['query']['Format']           = $this->format;
         $this->options['query']['SignatureMethod']  = $signature->getMethod();
         $this->options['query']['SignatureVersion'] = $signature->getVersion();
-        $this->options['query']['SignatureNonce']   = Uuid::uuid1()->toString();
+        $this->options['query']['SignatureNonce']   = Sign::uuid();
         $this->options['query']['Timestamp']        = gmdate($this->dateTimeFormat);
         $this->options['query']['Action']           = $this->action;
         if ($this->credential()->getAccessKeyId()) {
