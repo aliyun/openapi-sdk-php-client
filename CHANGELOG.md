@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.7 - 2019-05-29
+- Improved `uuid`.
+
+
 ## 1.5.6 - 2019-05-29
 - Fixed `uuid` version lock.
 
