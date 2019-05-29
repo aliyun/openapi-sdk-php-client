@@ -26,15 +26,5 @@ class ArraysTest extends TestCase
                            ],
                            $params
         );
-
-        $params = Arrays::mergeTree($array1, $array2);
-
-        self::assertEquals(
-            [
-                               1 => 'abc',
-                               0 => 'a'
-                           ],
-                           $params
-        );
     }
 }
