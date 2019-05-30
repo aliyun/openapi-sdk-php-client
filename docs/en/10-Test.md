@@ -1,4 +1,4 @@
-[← Log](9-Log.md) | Test[(中文)](../zh/10-Test.md) | [Home →](../../README.md)
+[← Log](9-Log.md) | Test[(中文)](../zh/10-Test.md) | [Home →](../../README-EN.md)
 ***
 
 # Test
@@ -67,4 +67,4 @@ AlibabaCloud::cancelMock();
 ```
 
 ***
-[← Log](9-Log.md) | Test[(中文)](../zh/10-Test.md) | [Home →](../../README.md)
+[← Log](9-Log.md) | Test[(中文)](../zh/10-Test.md) | [Home →](../../README-EN.md)
