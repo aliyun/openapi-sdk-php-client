@@ -131,6 +131,7 @@ class Result extends Response implements ArrayAccess, IteratorAggregate, Countab
     }
 
     /**
+     * @codeCoverageIgnore
      * @return Response
      * @deprecated
      */

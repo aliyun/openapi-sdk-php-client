@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.8 - 2019-05-30
+- Improved `Arrays`.
+
+
 ## 1.5.7 - 2019-05-29
 - Improved `uuid`.
 
