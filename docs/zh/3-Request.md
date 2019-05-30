@@ -181,5 +181,5 @@ AlibabaCloud::rpc()
 ***
 [← 客户端](2-Client.md) | 请求[(English)](../en/3-Request.md) | [结果 →](4-Result.md)
 
-[SDK]: https://github.com/aliyun/openapi-sdk-php/blob/master/README-CN.md
+[SDK]: https://github.com/aliyun/openapi-sdk-php/blob/master/README.md
 [guzzle-docs]: https://guzzle-cn.readthedocs.io/zh_CN/latest/request-options.html
