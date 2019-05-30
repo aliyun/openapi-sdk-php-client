@@ -38,8 +38,7 @@
         "danielstjules/stringy": "^3.1",
         "mtdowling/jmespath.php": "^2.4",
         "adbario/php-dot-notation": "^2.2",
-        "clagiordano/weblibs-configmanager": "^1.0",
-        "nette/utils": "^2.3"
+        "clagiordano/weblibs-configmanager": "^1.0"
     },
     "require-dev": {
         "ext-spl": "*",

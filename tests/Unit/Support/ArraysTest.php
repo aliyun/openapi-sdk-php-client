@@ -20,21 +20,11 @@ class ArraysTest extends TestCase
 
         self::assertEquals(
             [
-                               0 => 'abc',
-                               1 => 'a',
-                               2 => 'b'
-                           ],
-                           $params
-        );
-
-        $params = Arrays::mergeTree($array1, $array2);
-
-        self::assertEquals(
-            [
-                               1 => 'abc',
-                               0 => 'a'
-                           ],
-                           $params
+                0 => 'abc',
+                1 => 'a',
+                2 => 'b'
+            ],
+            $params
         );
     }
 }

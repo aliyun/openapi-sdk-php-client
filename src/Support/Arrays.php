@@ -7,7 +7,7 @@ namespace AlibabaCloud\Client\Support;
  *
  * @package AlibabaCloud\Client\Support
  */
-class Arrays extends \Nette\Utils\Arrays
+class Arrays
 {
 
     /**
