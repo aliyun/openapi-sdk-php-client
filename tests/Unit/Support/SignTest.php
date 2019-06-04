@@ -9,6 +9,6 @@ class SignTest extends TestCase
 {
     public function testUUID()
     {
-        self::assertEquals(36, strlen(Sign::uuid()));
+        self::assertEquals(32, strlen(Sign::uuid('uuid')));
     }
 }
