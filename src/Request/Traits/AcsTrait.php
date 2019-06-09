@@ -127,30 +127,33 @@ trait AcsTrait
      */
     public function resolveHost()
     {
-        if ($this->uri->getHost() === 'localhost') {
-            $regionId = $this->realRegionId();
-
-            // 1. Find in the local array file
-            $host = AlibabaCloud::resolveHost(
-                $this->product,
-                $regionId
-            );
-
-            // 2. Find in the Location service
-            if (!$host && $this->serviceCode) {
-                $host = LocationService::resolveHost($this);
-            }
-
-            if (!$host) {
-                throw new ClientException(
-                    "No host found for {$this->product} in the {$regionId}, you can specify host by host() method. " .
-                    'Like $request->host(\'xxx.xxx.aliyuncs.com\')',
-                    SDK::HOST_NOT_FOUND
-                );
-            }
-
-            $this->uri = $this->uri->withHost($host);
+        // Return if specified
+        if ($this->uri->getHost() !== 'localhost') {
+            return;
         }
+
+        $region_id = $this->realRegionId();
+        $host      = '';
+
+        // 1. Find in the local array file
+        if (!$host) {
+            $host = AlibabaCloud::resolveHost($this->product, $region_id);
+        }
+
+        // 2. Find in the Location service
+        if (!$host && $this->serviceCode) {
+            $host = LocationService::resolveHost($this);
+        }
+
+        if (!$host) {
+            throw new ClientException(
+                "No host found for {$this->product} in the {$region_id}, you can specify host by host() method. " .
+                'Like $request->host(\'xxx.xxx.aliyuncs.com\')',
+                SDK::HOST_NOT_FOUND
+            );
+        }
+
+        $this->uri = $this->uri->withHost($host);
     }
 
     /**
