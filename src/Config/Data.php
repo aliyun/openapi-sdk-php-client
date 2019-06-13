@@ -1644,6 +1644,7 @@ return [
                     'eu-central-1'   => 'hbase.eu-central-1.aliyuncs.com',
                     'me-east-1'      => 'hbase.me-east-1.aliyuncs.com',
                     'ap-south-1'     => 'hbase.ap-south-1.aliyuncs.com',
+                    'eu-west-1'      => 'hbase.eu-west-1.aliyuncs.com',
                 ],
             'ddosbasic'       =>
                 [
@@ -1716,6 +1717,7 @@ return [
                     'eu-central-1'   => 'sgw.eu-central-1.aliyuncs.com',
                     'cn-qingdao'     => 'sgw.cn-shanghai.aliyuncs.com',
                     'cn-shenzhen'    => 'sgw.cn-shanghai.aliyuncs.com',
+                    'cn-huhehaote'   => 'sgw.cn-shanghai.aliyuncs.com',
                 ],
             'openanalytics'   =>
                 [
@@ -1807,6 +1809,12 @@ return [
                     'ap-southeast-1' => 'eci.aliyuncs.com',
                     'us-west-1'      => 'eci.aliyuncs.com',
                     'cn-hongkong'    => 'eci.aliyuncs.com',
+                    'cn-zhangjiakou' => 'eci.cn-zhangjiakou.aliyuncs.com',
+                    'cn-huhehaote'   => 'eci.cn-huhehaote.aliyuncs.com',
+                    'ap-southeast-2' => 'eci.ap-southeast-2.aliyuncs.com',
+                    'eu-west-1'      => 'eci.eu-west-1.aliyuncs.com',
+                    'us-east-1'      => 'eci.aliyuncs.com',
+                    'eu-central-1'   => 'eci.eu-central-1.aliyuncs.com',
                 ],
             'airec'           =>
                 [
@@ -1939,6 +1947,10 @@ return [
                     'cn-beijing'     => 'baas.aliyuncs.com',
                     'cn-shanghai'    => 'baas.aliyuncs.com',
                     'cn-shenzhen'    => 'baas.aliyuncs.com',
+                    'cn-hongkong'    => 'baas.aliyuncs.com',
+                    'ap-southeast-2' => 'baas.aliyuncs.com',
+                    'us-east-1'      => 'baas.aliyuncs.com',
+                    'eu-central-1'   => 'baas.aliyuncs.com',
                 ],
             'alimt'           =>
                 [
@@ -2078,6 +2090,7 @@ return [
                 [
                     'cn-beijing'  => 'dfs.cn-beijing.aliyuncs.com',
                     'cn-shanghai' => 'dfs.cn-shanghai.aliyuncs.com',
+                    'cn-hangzhou' => 'dfs.cn-hangzhou.aliyuncs.com',
                 ],
             'vs'              =>
                 [
@@ -2159,7 +2172,7 @@ return [
                 ],
             'vcs'             =>
                 [
-                    'cn-hangzhou' => 'vcs.aliyuncs.com',
+                    'cn-hangzhou' => 'vcs.cn-hangzhou.aliyuncs.com',
                     'cn-shanghai' => 'vcs.cn-shanghai.aliyuncs.com',
                 ],
             'vds'             =>
@@ -2189,7 +2202,10 @@ return [
                 ],
             'webx'            =>
                 [
-                    'cn-shenzhen' => 'webplus.cn-hangzhou.aliyuncs.com',
+                    'cn-shenzhen'    => 'webplus.cn-hangzhou.aliyuncs.com',
+                    'cn-beijing'     => 'webplus.cn-hangzhou.aliyuncs.com',
+                    'cn-zhangjiakou' => 'webplus.cn-hangzhou.aliyuncs.com',
+                    'cn-shanghai'    => 'webplus.cn-hangzhou.aliyuncs.com',
                 ],
             'sddp'            =>
                 [
@@ -2208,6 +2224,24 @@ return [
                 [
                     'cn-huhehaote' => 'smc.aliyuncs.com',
                     'cn-hangzhou'  => 'smc.aliyuncs.com',
+                ],
+            'foasconsole'     =>
+                [
+                    'cn-beijing'     => 'foasconsole.aliyuncs.com',
+                    'cn-zhangjiakou' => 'foasconsole.aliyuncs.com',
+                    'cn-hangzhou'    => 'foasconsole.aliyuncs.com',
+                    'cn-shanghai'    => 'foasconsole.aliyuncs.com',
+                    'cn-shenzhen'    => 'foasconsole.aliyuncs.com',
+                    'cn-hongkong'    => 'foasconsole.aliyuncs.com',
+                    'ap-southeast-1' => 'foasconsole.aliyuncs.com',
+                    'ap-southeast-3' => 'foasconsole.aliyuncs.com',
+                    'ap-northeast-1' => 'foasconsole.aliyuncs.com',
+                ],
+            'serverless'      =>
+                [
+                    'cn-beijing'  => 'sae.cn-beijing.aliyuncs.com',
+                    'cn-hangzhou' => 'sae.cn-hangzhou.aliyuncs.com',
+                    'cn-shanghai' => 'sae.cn-shanghai.aliyuncs.com',
                 ],
         ],
 ];
