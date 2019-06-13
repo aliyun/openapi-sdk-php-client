@@ -69,9 +69,7 @@
     "autoload-dev": {
         "psr-4": {
             "AlibabaCloud\\Client\\Tests\\": "tests/"
-        },
-        "classmap": [
-        ]
+        }
     },
     "config": {
         "preferred-install": "dist",
