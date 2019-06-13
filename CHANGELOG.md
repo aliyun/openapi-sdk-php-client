@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.5.10 - 2019-06-13
+- Improved `Resovler`.
+- Updated `endpoints`.
+
+
 ## 1.5.9 - 2019-06-04
 - Improved `UUID`.
 
