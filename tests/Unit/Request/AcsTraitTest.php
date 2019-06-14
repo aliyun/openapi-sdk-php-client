@@ -257,7 +257,7 @@ class AcsTraitTest extends TestCase
 
         // Assert
         self::assertEquals(
-            $regionId,
+            strtolower($regionId),
             $request->realRegionId()
         );
     }
@@ -337,7 +337,7 @@ class AcsTraitTest extends TestCase
 
         // Assert
         self::assertEquals(
-            $regionId,
+            strtolower($regionId),
             $request->realRegionId()
         );
     }
@@ -359,9 +359,91 @@ class AcsTraitTest extends TestCase
 
         // Assert
         self::assertEquals(
-            $regionId,
+            strtolower($regionId),
             $request->realRegionId()
         );
+    }
+
+    /**
+     * @throws ClientException
+     * @throws ServerException
+     */
+    public function testEndpointMap()
+    {
+        // Setup
+        $request = AlibabaCloud::rpc();
+        $region  = 'cn-hangzhou';
+        $request->regionId($region);
+        $request->endpointMap[$region] = 'b.com';
+
+        // Test
+        $request->resolveHost();
+        self::assertEquals('http://b.com', (string)$request->uri);
+
+        // Setup
+        $request = AlibabaCloud::rpc();
+        $region  = 'cn-shanghai';
+        $request->regionId($region);
+        $request->product('ecs');
+
+        // Test
+        $request->resolveHost();
+        self::assertEquals('http://ecs-cn-hangzhou.aliyuncs.com', (string)$request->uri);
+    }
+
+    /**
+     * @throws ClientException
+     * @throws ServerException
+     */
+    public function testEndpointRegional()
+    {
+        // Setup
+        $request = AlibabaCloud::rpc();
+        $region  = 'cn-hangzhou';
+        $request->regionId($region);
+        $request->product('ecs');
+        $request->endpointRegional = 'regional';
+
+        // Test
+        $request->resolveHost();
+        self::assertEquals('http://ecs.cn-hangzhou.aliyuncs.com', (string)$request->uri);
+    }
+
+    /**
+     * @throws ClientException
+     * @throws ServerException
+     */
+    public function testEndpointCentral()
+    {
+        // Setup
+        $request = AlibabaCloud::rpc();
+        $region  = 'cn-hangzhou';
+        $request->regionId($region);
+        $request->product('ecs');
+        $request->endpointRegional = 'central';
+
+        // Test
+        $request->resolveHost();
+        self::assertEquals('http://ecs.aliyuncs.com', (string)$request->uri);
+    }
+
+    /**
+     * @throws ClientException
+     * @throws ServerException
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage endpointRegional is invalid.
+     */
+    public function testEndpointRegionalRnvalid()
+    {
+        // Setup
+        $request = AlibabaCloud::rpc();
+        $region  = 'cn-hangzhou';
+        $request->regionId($region);
+        $request->product('ecs');
+        $request->endpointRegional = 'invalid';
+
+        // Test
+        $request->resolveHost();
     }
 
     /**

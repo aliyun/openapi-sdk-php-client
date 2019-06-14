@@ -45,6 +45,26 @@ trait AcsTrait
     public $endpointType = 'openAPI';
 
     /**
+     * @var string|null
+     */
+    public $network = 'public';
+
+    /**
+     * @var array|null
+     */
+    public $endpointMap;
+
+    /**
+     * @var string|null
+     */
+    public $endpointRegional;
+
+    /**
+     * @var string
+     */
+    public $endpointSuffix = '';
+
+    /**
      * @param string $action
      *
      * @return $this
@@ -52,9 +72,7 @@ trait AcsTrait
      */
     public function action($action)
     {
-        ApiFilter::action($action);
-
-        $this->action = $action;
+        $this->action = ApiFilter::action($action);
 
         return $this;
     }
@@ -67,9 +85,7 @@ trait AcsTrait
      */
     public function version($version)
     {
-        ApiFilter::version($version);
-
-        $this->version = $version;
+        $this->version = ApiFilter::version($version);
 
         return $this;
     }
@@ -82,9 +98,7 @@ trait AcsTrait
      */
     public function product($product)
     {
-        ApiFilter::product($product);
-
-        $this->product = $product;
+        $this->product = ApiFilter::product($product);
 
         return $this;
     }
@@ -97,9 +111,7 @@ trait AcsTrait
      */
     public function endpointType($endpointType)
     {
-        ApiFilter::endpointType($endpointType);
-
-        $this->endpointType = $endpointType;
+        $this->endpointType = ApiFilter::endpointType($endpointType);
 
         return $this;
     }
@@ -112,9 +124,7 @@ trait AcsTrait
      */
     public function serviceCode($serviceCode)
     {
-        ApiFilter::serviceCode($serviceCode);
-
-        $this->serviceCode = $serviceCode;
+        $this->serviceCode = ApiFilter::serviceCode($serviceCode);
 
         return $this;
     }
@@ -135,12 +145,22 @@ trait AcsTrait
         $region_id = $this->realRegionId();
         $host      = '';
 
-        // 1. Find in the local array file
+        // 1. Find host by map.
+        if ($this->network === 'public' && isset($this->endpointMap[$region_id])) {
+            $host = $this->endpointMap[$region_id];
+        }
+
+        // 2. Find host by rules.
+        if (!$host && $this->endpointRegional !== null) {
+            $host = AlibabaCloud::resolveHostByRule($this, $region_id);
+        }
+
+        // 3. Find in the local array file.
         if (!$host) {
             $host = AlibabaCloud::resolveHost($this->product, $region_id);
         }
 
-        // 2. Find in the Location service
+        // 4. Find in the Location service.
         if (!$host && $this->serviceCode) {
             $host = LocationService::resolveHost($this);
         }

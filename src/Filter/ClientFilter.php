@@ -35,7 +35,7 @@ class ClientFilter
             );
         }
 
-        return $regionId;
+        return strtolower($regionId);
     }
 
     /**
