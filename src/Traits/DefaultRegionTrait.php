@@ -61,8 +61,6 @@ trait DefaultRegionTrait
      */
     public static function setDefaultRegionId($regionId)
     {
-        ClientFilter::regionId($regionId);
-
-        self::$defaultRegionId = $regionId;
+        self::$defaultRegionId = ClientFilter::regionId($regionId);
     }
 }
