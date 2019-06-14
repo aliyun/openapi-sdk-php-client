@@ -4,11 +4,13 @@ namespace AlibabaCloud\Client\Traits;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Config\Config;
+use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Filter\ApiFilter;
 use AlibabaCloud\Client\Filter\HttpFilter;
 use AlibabaCloud\Client\Filter\ClientFilter;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Exception\ClientException;
+use InvalidArgumentException;
 
 /**
  * Help developers set up and get host.
@@ -72,5 +74,31 @@ trait EndpointTrait
         self::$hosts[$product][$regionId] = $host;
 
         LocationService::addHost($product, $host, $regionId);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return string
+     * @throws ClientException
+     */
+    public static function resolveHostByRule(Request $request)
+    {
+        $regionId = $request->realRegionId();
+        $network  = $request->network ?: 'public';
+        $suffix   = $request->endpointSuffix;
+        if ($network === 'public') {
+            $network = '';
+        }
+
+        if ($request->endpointRegional === 'regional') {
+            return "{$request->product}{$suffix}{$network}.{$regionId}.aliyuncs.com";
+        }
+
+        if ($request->endpointRegional === 'central') {
+            return "{$request->product}{$suffix}{$network}.aliyuncs.com";
+        }
+
+        throw new InvalidArgumentException('endpointRegional is invalid.');
     }
 }
