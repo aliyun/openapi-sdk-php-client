@@ -49,7 +49,7 @@ class Sign
      */
     private static function resourceString(UriInterface $uri)
     {
-        return $uri->getPath() . '?' . $uri->getQuery();
+        return $uri->getPath() . '?' . rawurldecode($uri->getQuery());
     }
 
     /**
