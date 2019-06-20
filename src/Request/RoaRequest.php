@@ -223,14 +223,11 @@ class RoaRequest extends Request
      */
     private function resolveUri()
     {
-        $query = isset($this->options['query'])
-            ? $this->options['query']
-            : [];
-        $path  = Path::assign($this->pathPattern, $this->pathParameters);
+        $path = Path::assign($this->pathPattern, $this->pathParameters);
 
         $this->uri = $this->uri->withPath($path)
                                ->withQuery(
-                                   Encode::create($query)->ksort()->toString()
+                                   $this->queryString()
                                );
     }
 
@@ -239,19 +236,25 @@ class RoaRequest extends Request
      */
     public function stringToSign()
     {
-        $query = isset($this->options['query'])
-            ? $this->options['query']
-            : [];
-        $query = Encode::create($query)->ksort()->toString();
-        $uri   = $this->uri->withQuery($query);
-
         $request = new \GuzzleHttp\Psr7\Request(
             $this->method,
-            $uri,
+            $this->uri,
             $this->options['headers']
         );
 
         return Sign::roaString($request);
+    }
+
+    /**
+     * @return bool|string
+     */
+    private function queryString()
+    {
+        $query = isset($this->options['query'])
+            ? $this->options['query']
+            : [];
+
+        return Encode::create($query)->ksort()->toString();
     }
 
     /**
