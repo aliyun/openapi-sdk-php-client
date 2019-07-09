@@ -1,8 +1,8 @@
-简体中文 | [English](README-EN.md)
+English | [简体中文](/README-zh-CN.md)
 
 
 <p align="center">
-<a href=" https://www.alibabacloud.com"><img src="https://aliyunsdk-pages.alicdn.com/icons/Aliyun.svg"></a>
+<a href=" https://www.alibabacloud.com"><img src="https://aliyunsdk-pages.alicdn.com/icons/AlibabaCloud.svg"></a>
 </p>
 
 <h1 align="center">Alibaba Cloud Client for PHP</h1>
@@ -22,31 +22,31 @@
 </p>
 
 
-Alibaba Cloud Client for PHP 是帮助 PHP 开发者管理凭据、发送请求的客户端工具，[Alibaba Cloud SDK for PHP][SDK] 由本工具提供底层支持。
+Alibaba Cloud Client for PHP is a client tool that helps PHP developers manage credentials and send requests, [Alibaba Cloud SDK for PHP][SDK] dependency on this tool.
 
 
-## 在线示例
-[API Explorer](https://api.aliyun.com) 提供在线调用阿里云产品，并动态生成 SDK 代码和快速检索接口等能力，能显著降低使用云 API 的难度。
+## Online Demo
+[API Explorer](https://api.aliyun.com) provides the ability to call the cloud product OpenAPI online, and dynamically generate SDK Example code and quick retrieval interface, which can significantly reduce the difficulty of using the cloud API.
 
 
-## 先决条件
-您的系统需要满足[先决条件](docs/zh/0-Prerequisites.md)，包括 PHP> = 5.5。 我们强烈建议使用cURL扩展，并使用TLS后端编译cURL 7.16.2+。
+## Prerequisites
+Your system will need to meet the [Prerequisites](/docs/en-US/0-Prerequisites.md), including having PHP >= 5.5. We highly recommend having it compiled with the cURL extension and cURL 7.16.2+.
 
 
-## 安装依赖
-如果已在系统上[全局安装 Composer](https://getcomposer.org/doc/00-intro.md#globally)，请直接在项目目录中运行以下内容来安装 Alibaba Cloud Client for PHP 作为依赖项：
+## Installation
+If Composer is already [installed globally on your system](https://getcomposer.org/doc/00-intro.md#globally), run the following in the base directory of your project to install Alibaba Cloud Client for PHP as a dependency:
 ```
 composer require alibabacloud/client
 ```
-> 一些用户可能由于网络问题无法安装，可以尝试切换 Composer 镜像地址。
+> Some users may not be able to install due to network problems, you can try to switch the Composer mirror.
 
-请看[安装](docs/zh/1-Installation.md)有关通过 Composer 和其他方式安装的详细信息。
+Please see the [Installation](/docs/en-US/1-Installation.md) for more detailed information about installing the Alibaba Cloud Client for PHP through Composer and other means.
 
 
-## 快速使用
-在您开始之前，您需要注册阿里云帐户并获取您的[凭证](https://usercenter.console.aliyun.com/#/manage/ak)。
+## Quick Examples
+Before you begin, you need to sign up for an Alibaba Cloud account and retrieve your [Credentials](https://usercenter.console.aliyun.com/#/manage/ak).
 
-### 创建客户端
+### Create Client
 ```php
 <?php
 
@@ -55,7 +55,7 @@ use AlibabaCloud\Client\AlibabaCloud;
 AlibabaCloud::accessKeyClient('accessKeyId', 'accessKeySecret')->asDefaultClient();
 ```
 
-### ROA 请求
+### ROA Request
 ```php
 <?php
 
@@ -65,18 +65,18 @@ use AlibabaCloud\Client\Exception\ServerException;
 
 try {
     $result = AlibabaCloud::roa()
-                          ->regionId('cn-hangzhou') // 指定请求的区域，不指定则使用客户端区域、默认区域
-                          ->product('CS') // 指定产品
-                          ->version('2015-12-15') // 指定产品版本
-                          ->action('DescribeClusterServices') // 指定产品接口
-                          ->serviceCode('cs') // 设置 ServiceCode 以备寻址，非必须
-                          ->endpointType('openAPI') // 设置类型，非必须
-                          ->method('GET') // 指定请求方式
-                          ->host('cs.aliyun.com') // 指定域名则不会寻址，如认证方式为 Bearer Token 的服务则需要指定
-                          ->pathPattern('/clusters/[ClusterId]/services') // 指定ROA风格路径规则
-                          ->withClusterId('123456') // 为路径中参数赋值，方法名：with + 参数
-                          ->request(); // 发起请求并返回结果对象，请求需要放在设置的最后面
-
+                          ->regionId('cn-hangzhou') // Specify the requested regionId, if not specified, use the client regionId, then default regionId
+                          ->product('CS') // Specify product
+                          ->version('2015-12-15') // Specify product version
+                          ->action('DescribeClusterServices') // Specify product interface
+                          ->serviceCode('cs') // Set ServiceCode for addressing, optional
+                          ->endpointType('openAPI') // Set type, optional
+                          ->method('GET') // Set request method
+                          ->host('cs.aliyun.com') // Location Service will not be enabled if the host is specified. For example, service with a Certification type-Bearer Token should be specified
+                          ->pathPattern('/clusters/[ClusterId]/services') // Specify path rule with ROA-style
+                          ->withClusterId('123456') // Assign values to parameters in the path. Method: with + Parameter
+                          ->request(); // Make a request and return to result object. The request is to be placed at the end of the setting
+                          
     print_r($result->toArray());
     
 } catch (ClientException $exception) {
@@ -86,7 +86,7 @@ try {
 }
 ```
 
-### RPC 请求
+### RPC Request
 ```php
 <?php
 
@@ -101,9 +101,9 @@ try {
                           ->action('DescribeCdnService')
                           ->method('POST')
                           ->request();
-
+    
     print_r($result->toArray());
-
+    
 } catch (ClientException $exception) {
     print_r($exception->getErrorMessage());
 } catch (ServerException $exception) {
@@ -112,59 +112,59 @@ try {
 ```
 
 
-## 文档
-* [先决条件](docs/zh/0-Prerequisites.md)
-* [安装](docs/zh/1-Installation.md)
-* [客户端](docs/zh/2-Client.md)
-* [请求](docs/zh/3-Request.md)
-* [结果](docs/zh/4-Result.md)
-* [区域](docs/zh/5-Region.md)
-* [域名](docs/zh/6-Host.md)
-* [SSL 验证](docs/zh/7-Verify.md)
-* [调试](docs/zh/8-Debug.md)
-* [日志](docs/zh/9-Log.md)
-* [测试](docs/zh/10-Test.md)
+## Documentation
+* [Prerequisites](/docs/en-US/0-Prerequisites.md)
+* [Installation](/docs/en-US/1-Installation.md)
+* [Client](/docs/en-US/2-Client.md)
+* [Request](/docs/en-US/3-Request.md)
+* [Result](/docs/en-US/4-Result.md)
+* [Region](/docs/en-US/5-Region.md)
+* [Host](/docs/en-US/6-Host.md)
+* [SSL Verify](/docs/en-US/7-Verify.md)
+* [Debug](/docs/en-US/8-Debug.md)
+* [Log](/docs/en-US/9-Log.md)
+* [Test](/docs/en-US/10-Test.md)
 
 
-## 问题
-[提交 Issue](https://github.com/aliyun/openapi-sdk-php-client/issues/new/choose)，不符合指南的问题可能会立即关闭。
+## Issues
+[Opening an Issue](https://github.com/aliyun/openapi-sdk-php-client/issues/new/choose), Issues not conforming to the guidelines may be closed immediately.
 
 
-## 发行说明
-每个版本的详细更改记录在[发行说明](CHANGELOG.md)中。
+## Changelog
+Detailed changes for each release are documented in the [release notes](/CHANGELOG.md).
 
 
-## 贡献
-提交 Pull Request 之前请阅读[贡献指南](CONTRIBUTING.md)。
+## Contribution
+Please make sure to read the [Contributing Guide](/CONTRIBUTING.md) before making a pull request.
 
 
-## 相关
-* [阿里云服务 Regions & Endpoints][endpoints]
+## References
+* [Alibaba Cloud Regions & Endpoints][endpoints]
 * [OpenAPI Explorer][open-api]
 * [Packagist][packagist]
 * [Composer][composer]
-* [Guzzle中文文档][guzzle-docs]
-* [最新源码][latest-release]
+* [Guzzle Documentation][guzzle-docs]
+* [Latest Release][latest-release]
 
 
-## 许可证
-[Apache-2.0](LICENSE.md)
+## License
+[Apache-2.0](/LICENSE.md)
 
-版权所有 1999-2019 阿里巴巴集团
+Copyright 1999-2019 Alibaba Group Holding Ltd.
 
 
-[SDK]: https://github.com/aliyun/openapi-sdk-php/blob/master/README.md
-[open-api]: https://api.aliyun.com
+[SDK]: https://github.com/aliyun/openapi-sdk-php/blob/master/README-EN.md
+[open-api]: https://api.alibabacloud.com
 [latest-release]: https://github.com/aliyun/openapi-sdk-php-client
-[guzzle-docs]: https://guzzle-cn.readthedocs.io/zh_CN/latest/request-options.html
+[guzzle-docs]: http://docs.guzzlephp.org/en/stable/request-options.html
 [composer]: https://getcomposer.org
 [packagist]: https://packagist.org/packages/alibabacloud/sdk
 [home]: https://home.console.aliyun.com
-[aliyun]: https://www.aliyun.com
-[regions]: https://help.aliyun.com/document_detail/40654.html
+[alibabacloud]: https://www.alibabacloud.com
+[regions]: https://www.alibabacloud.com/help/doc-detail/40654.html
 [endpoints]: https://developer.aliyun.com/endpoints
-[cURL]: http://php.net/manual/zh/book.curl.php
-[OPCache]: http://php.net/manual/zh/book.opcache.php
+[cURL]: http://php.net/manual/en/book.curl.php
+[OPCache]: http://php.net/manual/en/book.opcache.php
 [xdebug]: http://xdebug.org
-[OpenSSL]: http://php.net/manual/zh/book.openssl.php
+[OpenSSL]: http://php.net/manual/en/book.openssl.php
 [client]: https://github.com/aliyun/openapi-sdk-php-client

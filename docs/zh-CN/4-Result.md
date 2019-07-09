@@ -1,4 +1,4 @@
-[← 请求](3-Request.md) | 结果[(English)](../en/4-Result.md) | [区域 →](5-Region.md)
+[← 请求](/docs/zh-CN/3-Request.md) | 结果[(English)](/docs/en-US/4-Result.md) | [区域 →](/docs/zh-CN/5-Region.md)
 ***
 
 # 结果
@@ -52,4 +52,4 @@ $result->getRequest();
 ```
 
 ***
-[← 请求](3-Request.md) | 结果[(English)](../en/4-Result.md) | [区域 →](5-Region.md)
+[← 请求](/docs/zh-CN/3-Request.md) | 结果[(English)](/docs/en-US/4-Result.md) | [区域 →](/docs/zh-CN/5-Region.md)

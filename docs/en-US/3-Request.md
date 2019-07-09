@@ -1,4 +1,4 @@
-[← Client](2-Client.md) | Request[(中文)](../zh/3-Request.md) | [Result →](4-Result.md)
+[← Client](/docs/en-US/2-Client.md) | Request[(中文)](/docs/zh-CN/3-Request.md) | [Result →](/docs/en-US/4-Result.md)
 ***
 
 # Request
@@ -180,7 +180,7 @@ AlibabaCloud::rpc()
 
 
 ***
-[← Client](2-Client.md) | Request[(中文)](../zh/3-Request.md) | [Result →](4-Result.md)
+[← Client](/docs/en-US/2-Client.md) | Request[(中文)](/docs/zh-CN/3-Request.md) | [Result →](/docs/en-US/4-Result.md)
 
 [SDK]: https://github.com/aliyun/openapi-sdk-php/blob/master/README-EN.md
 [guzzle-docs]: http://docs.guzzlephp.org/en/stable/request-options.html
