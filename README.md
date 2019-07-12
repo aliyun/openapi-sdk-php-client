@@ -153,7 +153,7 @@ Please make sure to read the [Contributing Guide](/CONTRIBUTING.md) before makin
 Copyright 1999-2019 Alibaba Group Holding Ltd.
 
 
-[SDK]: https://github.com/aliyun/openapi-sdk-php/blob/master/README-EN.md
+[SDK]: https://github.com/aliyun/openapi-sdk-php
 [open-api]: https://api.alibabacloud.com
 [latest-release]: https://github.com/aliyun/openapi-sdk-php-client
 [guzzle-docs]: http://docs.guzzlephp.org/en/stable/request-options.html

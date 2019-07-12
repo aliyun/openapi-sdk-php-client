@@ -153,7 +153,7 @@ try {
 版权所有 1999-2019 阿里巴巴集团
 
 
-[SDK]: https://github.com/aliyun/openapi-sdk-php/blob/master/README.md
+[SDK]: https://github.com/aliyun/openapi-sdk-php
 [open-api]: https://api.aliyun.com
 [latest-release]: https://github.com/aliyun/openapi-sdk-php-client
 [guzzle-docs]: https://guzzle-cn.readthedocs.io/zh_CN/latest/request-options.html
