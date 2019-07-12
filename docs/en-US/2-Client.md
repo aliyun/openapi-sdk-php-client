@@ -1,4 +1,4 @@
-[← Installation](1-Installation.md) | Client[(中文)](../zh/2-Client.md) | [Request →](3-Request.md)
+[← Installation](/docs/en-US/1-Installation.md) | Client[(中文)](/docs/zh-CN/2-Client.md) | [Request →](/docs/en-US/3-Request.md)
 ***
 
 # Client
@@ -213,7 +213,7 @@ AlibabaCloud::get('client1')->getSessionCredential();
 ```
 
 ***
-[← Installation](1-Installation.md) | Client[(中文)](../zh/2-Client.md) | [Request →](3-Request.md)
+[← Installation](/docs/en-US/1-Installation.md) | Client[(中文)](/docs/zh-CN/2-Client.md) | [Request →](/docs/en-US/3-Request.md)
 
 [ak]: https://usercenter.console.aliyun.com/#/manage/ak
 [ram]: https://ram.console.aliyun.com/users

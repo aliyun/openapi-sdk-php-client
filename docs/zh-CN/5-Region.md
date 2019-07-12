@@ -1,4 +1,4 @@
-[← 结果](4-Result.md) | 区域[(English)](../en/5-Region.md) | [域名 →](6-Host.md)
+[← 结果](/docs/zh-CN/4-Result.md) | 区域[(English)](/docs/en-US/5-Region.md) | [域名 →](/docs/zh-CN/6-Host.md)
 ***
 
 # 区域
@@ -48,6 +48,6 @@ AlibabaCloud::getDefaultRegionId();
 ```
 
 ***
-[← 结果](4-Result.md) | 区域[(English)](../en/5-Region.md) | [域名 →](6-Host.md)
+[← 结果](/docs/zh-CN/4-Result.md) | 区域[(English)](/docs/en-US/5-Region.md) | [域名 →](/docs/zh-CN/6-Host.md)
 
 [regions]: https://help.aliyun.com/document_detail/40654.html

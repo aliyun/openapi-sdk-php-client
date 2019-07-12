@@ -1,4 +1,4 @@
-[← 区域](5-Region.md) | 域名[(English)](../en/6-Host.md) | [SSL 验证 →](7-Verify.md)
+[← 区域](/docs/zh-CN/5-Region.md) | 域名[(English)](/docs/en-US/6-Host.md) | [SSL 验证 →](/docs/zh-CN/7-Verify.md)
 ***
 
 # 域名
@@ -36,6 +36,6 @@ AlibabaCloud::addHost('product', 'product.aliyuncs.com');
 ```
 
 ***
-[← 区域](5-Region.md) | 域名[(English)](../en/6-Host.md) | [SSL 验证 →](7-Verify.md)
+[← 区域](/docs/zh-CN/5-Region.md) | 域名[(English)](/docs/en-US/6-Host.md) | [SSL 验证 →](/docs/zh-CN/7-Verify.md)
 
 [endpoints]: https://developer.aliyun.com/endpoints
