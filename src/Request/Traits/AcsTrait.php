@@ -78,6 +78,31 @@ trait AcsTrait
     }
 
     /**
+     * @codeCoverageIgnore
+     *
+     * @param string $endpointSuffix
+     *
+     * @return AcsTrait
+     * @throws ClientException
+     */
+    public function endpointSuffix($endpointSuffix)
+    {
+        $this->endpointSuffix = ApiFilter::endpointSuffix($endpointSuffix);
+
+        return $this;
+    }
+
+    /**
+     * @param string $network
+     */
+    public function network($network)
+    {
+        $this->network = ApiFilter::network($network);
+
+        return $this;
+    }
+
+    /**
      * @param string $version
      *
      * @return $this

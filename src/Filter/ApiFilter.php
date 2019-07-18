@@ -88,7 +88,61 @@ class ApiFilter
     }
 
     /**
-     * @param $version
+     * @codeCoverageIgnore
+     *
+     * @param string $endpointSuffix
+     *
+     * @return mixed
+     * @throws ClientException
+     */
+    public static function endpointSuffix($endpointSuffix)
+    {
+        if (!is_string($endpointSuffix)) {
+            throw new ClientException(
+                'Endpoint Suffix must be a string',
+                SDK::INVALID_ARGUMENT
+            );
+        }
+
+        if ($endpointSuffix === '') {
+            throw new ClientException(
+                'Endpoint Suffix cannot be empty',
+                SDK::INVALID_ARGUMENT
+            );
+        }
+
+        return $endpointSuffix;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     *
+     * @param string $network
+     *
+     * @return mixed
+     * @throws ClientException
+     */
+    public static function network($network)
+    {
+        if (!is_string($network)) {
+            throw new ClientException(
+                'Network Suffix must be a string',
+                SDK::INVALID_ARGUMENT
+            );
+        }
+
+        if ($network === '') {
+            throw new ClientException(
+                'Network Suffix cannot be empty',
+                SDK::INVALID_ARGUMENT
+            );
+        }
+
+        return $network;
+    }
+
+    /**
+     * @param string $version
      *
      * @return mixed
      * @throws ClientException
