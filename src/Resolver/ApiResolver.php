@@ -2,6 +2,8 @@
 
 namespace AlibabaCloud\Client\Resolver;
 
+use ReflectionObject;
+use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Exception\ClientException;
 
 /**
@@ -38,16 +40,39 @@ abstract class ApiResolver
 
         if (\class_exists($class)) {
             if (isset($arguments[0])) {
-                return new $class($arguments[0]);
+                return $this->warpEndpoint(new $class($arguments[0]));
             }
 
-            return new $class();
+            return $this->warpEndpoint(new $class());
         }
 
         throw new ClientException(
             "{$product_name} contains no $api",
             'SDK.ApiNotFound'
         );
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Request
+     */
+    public function warpEndpoint(Request $request)
+    {
+        $reflect        = new ReflectionObject($request);
+        $product_dir    = dirname(dirname($reflect->getFileName()));
+        $endpoints_json = "$product_dir/endpoints.json";
+        if (file_exists($endpoints_json)) {
+            $endpoints = json_decode(file_get_contents($endpoints_json), true);
+            if (isset($endpoints['endpoint_map'])) {
+                $request->endpointMap = $endpoints['endpoint_map'];
+            }
+            if (isset($endpoints['endpoint_regional'])) {
+                $request->endpointRegional = $endpoints['endpoint_regional'];
+            }
+        }
+
+        return $request;
     }
 
     /**
