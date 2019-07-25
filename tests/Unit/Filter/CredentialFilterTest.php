@@ -37,7 +37,7 @@ class CredentialFilterTest extends TestCase
         return [
             [
                 ' ',
-                '',
+                'AccessKeySecret',
                 'AccessKey ID format is invalid',
             ],
             [
