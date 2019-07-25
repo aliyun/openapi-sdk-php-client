@@ -114,8 +114,8 @@ class CredentialFilter
     }
 
     /**
-     * @param $accessKeyId
-     * @param $accessKeySecret
+     * @param string $accessKeyId
+     * @param string $accessKeySecret
      *
      * @throws ClientException
      */
