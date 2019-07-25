@@ -114,8 +114,8 @@ class CredentialFilter
     }
 
     /**
-     * @param $accessKeyId
-     * @param $accessKeySecret
+     * @param string $accessKeyId
+     * @param string $accessKeySecret
      *
      * @throws ClientException
      */
@@ -135,6 +135,13 @@ class CredentialFilter
             );
         }
 
+        if (str_replace(' ', '', $accessKeyId) !== $accessKeyId) {
+            throw new ClientException(
+                'AccessKey ID format is invalid',
+                SDK::INVALID_ARGUMENT
+            );
+        }
+
         if (!is_string($accessKeySecret)) {
             throw new ClientException(
                 'AccessKey Secret must be a string',
@@ -145,6 +152,13 @@ class CredentialFilter
         if ($accessKeySecret === '') {
             throw new ClientException(
                 'AccessKey Secret cannot be empty',
+                SDK::INVALID_ARGUMENT
+            );
+        }
+
+        if (str_replace(' ', '', $accessKeySecret) !== $accessKeySecret) {
+            throw new ClientException(
+                'AccessKey Secret format is invalid',
                 SDK::INVALID_ARGUMENT
             );
         }
