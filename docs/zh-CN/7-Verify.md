@@ -12,8 +12,7 @@
 ## 默认值
 - `false` 
 
-## 设置
-### 请求设置
+## 请求设置
 ```php
 <?php
 
@@ -35,7 +34,7 @@ $request->verify(['verify' => '/path/to/cert.pem']);
 $request->verify(['verify' => ['/path/to/cert.pem','password']]);
 ```
 
-### 请求设置
+## 客户端设置
 > 当请求没有设置时，将使用客户端设置。
 
 ```php

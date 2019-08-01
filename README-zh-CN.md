@@ -38,7 +38,7 @@ Alibaba Cloud Client for PHP 是帮助 PHP 开发者管理凭据、发送请求�
 ```
 composer require alibabacloud/client
 ```
-> 一些用户可能由于网络问题无法安装，可以尝试切换 Composer 镜像地址。
+> 一些用户可能由于网络问题无法安装，可以使用[阿里云 Composer 全量镜像](https://developer.aliyun.com/composer)。
 
 请看[安装](/docs/zh-CN/1-Installation.md)有关通过 Composer 和其他方式安装的详细信息。
 
@@ -46,7 +46,6 @@ composer require alibabacloud/client
 ## 快速使用
 在您开始之前，您需要注册阿里云帐户并获取您的[凭证](https://usercenter.console.aliyun.com/#/manage/ak)。
 
-### 创建客户端
 ```php
 <?php
 
@@ -55,7 +54,7 @@ use AlibabaCloud\Client\AlibabaCloud;
 AlibabaCloud::accessKeyClient('accessKeyId', 'accessKeySecret')->asDefaultClient();
 ```
 
-### ROA 请求
+## ROA 请求
 ```php
 <?php
 
@@ -86,7 +85,7 @@ try {
 }
 ```
 
-### RPC 请求
+## RPC 请求
 ```php
 <?php
 

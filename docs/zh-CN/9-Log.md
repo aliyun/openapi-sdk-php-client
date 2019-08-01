@@ -4,7 +4,6 @@
 # 日志
 
 ## 设置 Logger
-
 若要启动日志功能，请传入实现了 `LoggerInterface` 接口的对象，例如：`Monolog\Logger`。
 
 ```php
@@ -21,14 +20,12 @@ $logger->pushHandler(new StreamHandler($logFile));
 AlibabaCloud::setLogger($logger);
 ```
 
-## 日志格式化
-
-### 默认格式
+## 默认日志格式
 ```text
 "{method} {uri} HTTP/{version}" {code} {cost} {hostname} {pid}
 ```
 
-### 设置格式
+## 设置日志格式
 ```php
 <?php
 
@@ -37,8 +34,7 @@ use AlibabaCloud\Client\AlibabaCloud;
 AlibabaCloud::setLogFormat('{hostname} [{date_common_log}]');
 ```
 
-### 变量
-
+## 变量
 日志内容支持以下变量替换：
 
 | 变量      |   描述       |
