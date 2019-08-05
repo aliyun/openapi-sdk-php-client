@@ -2,7 +2,6 @@
 ***
 
 # 请求
-
 每个请求都支持链式设置、构造设置等，除请求参数外，还可单独设置 `客户端`、 `超时`、 `区域`、 `调试模式` 等。构造参数和 `options()` 参数请参考：[请求选项 Guzzle中文文档][guzzle-docs]
 
 > [Alibaba Cloud SDK for PHP][SDK] 在继承 Alibaba Cloud Client for PHP 的基础上提供了产品快捷访问方法，让您更加轻松的使用阿里云服务。
@@ -110,7 +109,6 @@ try {
 
 
 # 异步
-
 使用 `requestAsync()` 代替 `request()` 即可返回 `Promise` 对象，实现异步请求。
 
 ```php
