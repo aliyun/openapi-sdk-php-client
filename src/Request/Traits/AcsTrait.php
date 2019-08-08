@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Request\Traits;
 
+use GuzzleHttp\Psr7\Uri;
 use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Request\Request;
@@ -14,7 +15,7 @@ use AlibabaCloud\Client\Exception\ServerException;
  * Trait AcsTrait
  *
  * @package   AlibabaCloud\Client\Request\Traits
- *
+ * @property Uri $uri
  * @mixin     Request
  */
 trait AcsTrait
@@ -177,7 +178,7 @@ trait AcsTrait
 
         // 2. Find host by rules.
         if (!$host && $this->endpointRegional !== null) {
-            $host = AlibabaCloud::resolveHostByRule($this, $region_id);
+            $host = AlibabaCloud::resolveHostByRule($this);
         }
 
         // 3. Find in the local array file.
