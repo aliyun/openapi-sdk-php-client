@@ -171,6 +171,28 @@ trait AcsTrait
         $region_id = $this->realRegionId();
         $host      = '';
 
+        $this->resolveHostWays($host, $region_id);
+
+        if (!$host) {
+            throw new ClientException(
+                "No host found for {$this->product} in the {$region_id}, you can specify host by host() method. " .
+                'Like $request->host(\'xxx.xxx.aliyuncs.com\')',
+                SDK::HOST_NOT_FOUND
+            );
+        }
+
+        $this->uri = $this->uri->withHost($host);
+    }
+
+    /**
+     * @param string $host
+     * @param string $region_id
+     *
+     * @throws ClientException
+     * @throws ServerException
+     */
+    private function resolveHostWays(&$host, $region_id)
+    {
         // 1. Find host by map.
         if ($this->network === 'public' && isset($this->endpointMap[$region_id])) {
             $host = $this->endpointMap[$region_id];
@@ -190,16 +212,6 @@ trait AcsTrait
         if (!$host && $this->serviceCode) {
             $host = LocationService::resolveHost($this);
         }
-
-        if (!$host) {
-            throw new ClientException(
-                "No host found for {$this->product} in the {$region_id}, you can specify host by host() method. " .
-                'Like $request->host(\'xxx.xxx.aliyuncs.com\')',
-                SDK::HOST_NOT_FOUND
-            );
-        }
-
-        $this->uri = $this->uri->withHost($host);
     }
 
     /**
