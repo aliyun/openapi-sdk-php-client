@@ -6,13 +6,17 @@ use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Traits\HttpTrait;
 use AlibabaCloud\Client\Traits\RegionTrait;
 use AlibabaCloud\Client\Credentials\StsCredential;
+use AlibabaCloud\Client\Signature\ShaHmac1Signature;
 use AlibabaCloud\Client\Signature\SignatureInterface;
+use AlibabaCloud\Client\Signature\ShaHmac256Signature;
+use AlibabaCloud\Client\Signature\BearerTokenSignature;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\CredentialsInterface;
 use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
 use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
 use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
 use AlibabaCloud\Client\Credentials\BearerTokenCredential;
+use AlibabaCloud\Client\Signature\ShaHmac256WithRsaSignature;
 
 /**
  * Custom Client.
@@ -59,7 +63,7 @@ class Client
     }
 
     /**
-     * @return SignatureInterface
+     * @return SignatureInterface|BearerTokenSignature|ShaHmac1Signature|ShaHmac256Signature|ShaHmac256WithRsaSignature
      */
     public function getSignature()
     {
