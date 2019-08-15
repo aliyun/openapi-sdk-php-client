@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.15 - 2019-08-14
+- Improved Client.
+
+
 ## 1.5.14 - 2019-07-25
 - Improved Credential Filter.
 

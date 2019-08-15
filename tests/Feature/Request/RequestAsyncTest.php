@@ -87,7 +87,7 @@ class RequestAsyncTest extends TestCase
                 return $res;
             },
             static function (RequestException $e) {
-                self::assertTrue(Stringy::create($e->getMessage())->contains('timed'));
+                self::assertTrue(Stringy::create($e->getMessage())->contains('cURL error'));
             }
         )->wait();
     }
