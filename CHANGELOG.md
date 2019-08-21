@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.5.16 - 2019-08-21
+- Updated Endpoints Data.
+
 ## 1.5.15 - 2019-08-14
 - Improved Client.
 
