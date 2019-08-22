@@ -8,13 +8,13 @@ use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 
 /**
- * Class RsaKeyPaireCredentialTest
+ * Class RsaKeyPairCredentialTest
  *
  * @package   AlibabaCloud\Client\Tests\Unit\Credentials
  *
  * @coversDefaultClass \AlibabaCloud\Client\Credentials\RsaKeyPairCredential
  */
-class RsaKeyPaireCredentialTest extends TestCase
+class RsaKeyPairCredentialTest extends TestCase
 {
     public static function testNotFoundFile()
     {
