@@ -193,8 +193,10 @@ trait AcsTrait
      */
     private function resolveHostWays(&$host, $region_id)
     {
+        $host = AlibabaCloud::resolveHostByStatic($this->product, $region_id);
+
         // 1. Find host by map.
-        if ($this->network === 'public' && isset($this->endpointMap[$region_id])) {
+        if (!$host && $this->network === 'public' && isset($this->endpointMap[$region_id])) {
             $host = $this->endpointMap[$region_id];
         }
 
