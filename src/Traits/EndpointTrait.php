@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Traits;
 
+use InvalidArgumentException;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Config\Config;
 use AlibabaCloud\Client\Request\Request;
@@ -10,7 +11,6 @@ use AlibabaCloud\Client\Filter\HttpFilter;
 use AlibabaCloud\Client\Filter\ClientFilter;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Exception\ClientException;
-use InvalidArgumentException;
 
 /**
  * Help developers set up and get host.
@@ -51,6 +51,21 @@ trait EndpointTrait
         }
 
         return $domain;
+    }
+
+    /**
+     * @param string $product
+     * @param string $regionId
+     *
+     * @return string
+     */
+    public static function resolveHostByStatic($product, $regionId)
+    {
+        if (isset(self::$hosts[$product][$regionId])) {
+            return self::$hosts[$product][$regionId];
+        }
+
+        return '';
     }
 
     /**
