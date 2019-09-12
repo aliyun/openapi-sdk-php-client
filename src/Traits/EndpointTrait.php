@@ -2,6 +2,7 @@
 
 namespace AlibabaCloud\Client\Traits;
 
+use InvalidArgumentException;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Config\Config;
 use AlibabaCloud\Client\Request\Request;
@@ -10,7 +11,7 @@ use AlibabaCloud\Client\Filter\HttpFilter;
 use AlibabaCloud\Client\Filter\ClientFilter;
 use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Exception\ClientException;
-use InvalidArgumentException;
+
 
 /**
  * Help developers set up and get host.
@@ -25,6 +26,11 @@ trait EndpointTrait
      * @var array Host cache.
      */
     private static $hosts = [];
+
+    /**
+     * @var array user customized EndpointData
+     */
+    private static $hostsByUserConfig = [];
 
     /**
      * Resolve host based on product name and region.
@@ -71,9 +77,46 @@ trait EndpointTrait
 
         ClientFilter::regionId($regionId);
 
+        self::addHostByUserConfig($product, $regionId, $host);
+
         self::$hosts[$product][$regionId] = $host;
 
         LocationService::addHost($product, $host, $regionId);
+    }
+
+    /**
+     * Add user customized host.
+     *
+     * @param string $product
+     * @param string $regionId
+     * @param string $host
+     */
+    private static function addHostByUserConfig($product, $regionId, $host)
+    {
+        if (empty($product) || empty($regionId) || empty($host)) {
+            return;
+        }
+        $key = self::hostUserConfigKey($product, $regionId);
+        if (false === $key) {
+            return;
+        }
+
+        self::$hostsByUserConfig[$key] = $host;
+    }
+
+    /**
+     * @param string $product
+     * @param string $regionId
+     *
+     * @return string
+     */
+    public static function resolveHostByUserConfig($product, $regionId)
+    {
+        $key = self::hostUserConfigKey($product, $regionId);
+        if (false === $key) {
+            return "";
+        }
+        return isset(self::$hostsByUserConfig[$key]) ? self::$hostsByUserConfig[$key] : "";
     }
 
     /**
@@ -100,5 +143,19 @@ trait EndpointTrait
         }
 
         throw new InvalidArgumentException('endpointRegional is invalid.');
+    }
+
+    /**
+     * @param string $product
+     * @param string $regionId
+     *
+     * @return string
+     */
+    private static function hostUserConfigKey($product, $regionId)
+    {
+        if (empty($product) || empty($regionId)) {
+            return false;
+        }
+        return $product . "_" . $regionId;
     }
 }

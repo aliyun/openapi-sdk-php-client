@@ -95,6 +95,9 @@ trait AcsTrait
 
     /**
      * @param string $network
+     *
+     * @return $this
+     * @throws ClientException
      */
     public function network($network)
     {
@@ -193,8 +196,11 @@ trait AcsTrait
      */
     private function resolveHostWays(&$host, $region_id)
     {
+        // 0. Get host by user customized
+        $host = AlibabaCloud::resolveHostByUserConfig($this->product, $region_id);
+
         // 1. Find host by map.
-        if ($this->network === 'public' && isset($this->endpointMap[$region_id])) {
+        if (!$host && $this->network === 'public' && isset($this->endpointMap[$region_id])) {
             $host = $this->endpointMap[$region_id];
         }
 
