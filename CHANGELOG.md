@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.17 - 2019-09-15
+- Improved Host Finder.
+- Updated Endpoints Data.
+
 ## 1.5.16 - 2019-08-21
 - Updated Endpoints Data.
 
