@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.20 - 2019-12-30
+- Improved Docs.
+- Updated Endpoints.
+
 ## 1.5.19 - 2019-12-17
 - Updated Endpoints.
 
