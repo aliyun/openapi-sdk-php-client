@@ -24,6 +24,7 @@ try {
                              ->serviceCode('cs') // 设置 ServiceCode 以备寻址，非必须
                              ->endpointType('openAPI') // 设置类型，非必须
                              ->method('GET') // 指定请求方式
+                             ->scheme('https') // 指定请求方案，默认HTTP
                              ->host('cs.aliyun.com') // 指定域名则不会寻址，如认证方式为 Bearer Token 的服务则需要指定
                              ->pathPattern('/clusters/[ClusterId]/services') // 指定ROA风格路径规则
                              ->connectTimeout(0.1) // 设置连接超时10毫秒，当单位小于1，则自动转换为毫秒

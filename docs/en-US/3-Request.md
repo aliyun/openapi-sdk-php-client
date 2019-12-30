@@ -25,6 +25,7 @@ try {
                              ->serviceCode('cs') // Set ServiceCode for addressing, optional
                              ->endpointType('openAPI') // Set type, optional
                              ->method('GET') // Set request method
+                             ->scheme('https') // Specify scheme, default is HTTP
                              ->host('cs.aliyun.com') // Location Service will not be enabled if the host is specified. For example, service with a Certification type-Bearer Token should be specified
                              ->pathPattern('/clusters/[ClusterId]/services') // Specify path rule with ROA-style
                              ->connectTimeout(0.1) // 10 milliseconds of connection timeout. When the units < 1, units will be converted to milliseconds automatically
