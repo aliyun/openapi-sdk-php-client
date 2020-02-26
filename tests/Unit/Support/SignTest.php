@@ -2,13 +2,13 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Support;
 
-use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\Support\Sign;
+use PHPUnit\Framework\TestCase;
 
 class SignTest extends TestCase
 {
     public function testUUID()
     {
-        self::assertEquals(32, strlen(Sign::uuid('uuid')));
+        self::assertEquals(53, strlen(Sign::uuid('uuid')));
     }
 }
