@@ -66,7 +66,7 @@ class RsaKeyPairProviderTest extends TestCase
         );
         $cacheMethod->setAccessible(true);
         $result = [
-            'Expiration'             => '2020-02-02 11:11:11',
+            'Expiration'             => '2049-10-01 11:11:11',
             'SessionAccessKeyId'     => 'foo',
             'SessionAccessKeySecret' => 'bar',
         ];
