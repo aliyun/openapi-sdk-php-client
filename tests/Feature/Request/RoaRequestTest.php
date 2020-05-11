@@ -82,8 +82,8 @@ class RoaRequestTest extends TestCase
     public function testSearchImage()
     {
         AlibabaCloud::accessKeyClient(
-            \getenv('IMAGE_SEARCH_ACCESS_KEY_ID'),
-            \getenv('IMAGE_SEARCH_ACCESS_KEY_SECRET')
+            \getenv('ACCESS_KEY_ID'),
+            \getenv('ACCESS_KEY_SECRET')
         )->regionId('cn-shanghai')->name('im');
 
         $request = AlibabaCloud::roa()
