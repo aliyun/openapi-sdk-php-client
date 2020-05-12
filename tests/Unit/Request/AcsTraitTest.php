@@ -2,11 +2,11 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
-use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Request\RpcRequest;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Client\Request\RpcRequest;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class AcsTraitTest
@@ -119,6 +119,22 @@ class AcsTraitTest extends TestCase
 
         // Assert
         self::assertEquals($product, $request->product);
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function testNetwork()
+    {
+        // Setup
+        $network = 'vpc';
+        $request = new RpcRequest();
+
+        // Test
+        $request->network($network);
+
+        // Assert
+        self::assertEquals($network, $request->network);
     }
 
     /**
