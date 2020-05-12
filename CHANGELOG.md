@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.5.22 - 2020-05-12
+- Updated Endpoints.
+
 ## 1.5.21 - 2020-02-26
 - Improved Nonce.
 - Updated Endpoints.
