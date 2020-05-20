@@ -54,7 +54,7 @@ class RequestTest extends TestCase
                 ->client('BEARER_TOKEN')
                 ->withClusterId(\time())
                 ->connectTimeout(25)
-                ->timeout(30)
+                ->timeout(50)
                 ->request();
         } catch (ServerException $e) {
             // Assert

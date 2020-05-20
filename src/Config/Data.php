@@ -163,6 +163,7 @@ return [
                     'cn-chengdu'            => 'rds.cn-chengdu.aliyuncs.com',
                     'cn-north-2-gov-1'      => 'rds.aliyuncs.com',
                     'cn-yushanfang'         => 'rds.aliyuncs.com',
+                    'cn-huhehaote-nebula-1' => 'rds.cn-chengdu.aliyuncs.com',
                 ],
             'vpc'             =>
                 [
@@ -3368,6 +3369,7 @@ return [
                     'cn-hangzhou'    => 'edasmsc.aliyuncs.com',
                     'cn-shanghai'    => 'edasmsc.aliyuncs.com',
                     'cn-shenzhen'    => 'edasmsc.aliyuncs.com',
+                    'cn-hongkong'    => 'edasmsc.aliyuncs.com',
                 ],
             'polarx'          =>
                 [
@@ -3444,7 +3446,7 @@ return [
             'pai'             =>
                 [
                     'cn-beijing'     => 'pai.cn-beijing.aliyuncs.com',
-                    'cn-hangzhou'    => 'pai-cn-hangzhou.data.aliyun.com',
+                    'cn-hangzhou'    => 'pai.cn-hangzhou.data.aliyun.com',
                     'cn-shanghai'    => 'pai.cn-shanghai.aliyuncs.com',
                     'cn-shenzhen'    => 'pai.cn-shenzhen.aliyuncs.com',
                     'cn-hongkong'    => 'pai.cn-hongkong.aliyuncs.com',
@@ -3471,7 +3473,7 @@ return [
                 ],
             'sasti'           =>
                 [
-                    'cn-zhangjiakou' => 'ti.aliyuncs.com',
+                    'cn-zhangjiakou' => 'sasti.aliyuncs.com',
                 ],
             'config'          =>
                 [

@@ -163,7 +163,7 @@ trait AcsTrait
      */
     public function resolveHost()
     {
-        // Return if host specified
+        // Return if specified
         if ($this->uri->getHost() !== 'localhost') {
             return;
         }
@@ -248,14 +248,6 @@ trait AcsTrait
 
         if (AlibabaCloud::getDefaultRegionId() !== null) {
             return AlibabaCloud::getDefaultRegionId();
-        }
-
-        if ($this->uri->getHost() !== 'localhost') {
-            return;
-        }
-
-        if ($this->endpointRegional === 'central') {
-            return;
         }
 
         throw new ClientException("Missing required 'RegionId' for Request", SDK::INVALID_REGION_ID);
