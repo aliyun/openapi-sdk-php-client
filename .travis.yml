@@ -59,8 +59,4 @@ script:
   - test -z $ACCESS_KEY_ID -a -z $ACCESS_KEY_SECRET || composer test
 
 after_success:
-  # Code coverage report
-  - >
-    if [ $(phpenv version-name) == "7.1" ]; then
-      bash <(curl -s https://codecov.io/bash)
-    fi
+  - bash <(curl -s https://codecov.io/bash)
