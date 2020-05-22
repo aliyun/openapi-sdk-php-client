@@ -250,6 +250,10 @@ trait AcsTrait
             return AlibabaCloud::getDefaultRegionId();
         }
 
+        if ($this->product && AlibabaCloud::isGlobalProduct($this->product)) {
+            return 'global';
+        }
+
         throw new ClientException("Missing required 'RegionId' for Request", SDK::INVALID_REGION_ID);
     }
 }

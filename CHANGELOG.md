@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.5.23 - 2020-05-22
+- Optimized global product support.
+
 ## 1.5.22 - 2020-05-12
 - Updated Endpoints.
 
