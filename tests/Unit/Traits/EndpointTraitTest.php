@@ -185,8 +185,20 @@ class EndpointTraitTest extends TestCase
     public function testGlobal()
     {
         // Assert
-        self::assertEquals('dysmsapi.aliyuncs.com', AlibabaCloud::resolveHost('dysmsapi'));
+        self::assertEquals('', AlibabaCloud::resolveHost('dysmsapi'));
         self::assertEquals('dysmsapi.aliyuncs.com', AlibabaCloud::resolveHost('dysmsapi', 'cn-hangzhou'));
+    }
+
+
+    public function testIsGlobalProduct()
+    {
+        self::assertTrue(AlibabaCloud::isGlobalProduct('ccc'));
+        self::assertFalse(AlibabaCloud::isGlobalProduct('no'));
+        self::assertTrue(AlibabaCloud::isGlobalProduct('Ram'));
+        self::assertTrue(AlibabaCloud::isGlobalProduct('ram'));
+        self::assertFalse(AlibabaCloud::isGlobalProduct('tdsr'));
+        self::assertFalse(AlibabaCloud::isGlobalProduct(''));
+        self::assertFalse(AlibabaCloud::isGlobalProduct(null));
     }
 
     /**

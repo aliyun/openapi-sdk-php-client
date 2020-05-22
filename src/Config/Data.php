@@ -5,7 +5,6 @@ return [
         [
             'dysmsapi'        =>
                 [
-                    'global'         => 'dysmsapi.aliyuncs.com',
                     'cn-hangzhou'    => 'dysmsapi.aliyuncs.com',
                     'ap-southeast-1' => 'dysmsapi.ap-southeast-1.aliyuncs.com',
                 ],

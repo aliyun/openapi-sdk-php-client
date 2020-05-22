@@ -54,6 +54,17 @@ trait EndpointTrait
     }
 
     /**
+     * @param $productCode
+     *
+     * @return bool
+     */
+    public static function isGlobalProduct($productCode)
+    {
+        $productCode = strtolower($productCode);
+        return (bool)Config::get("endpoints.{$productCode}.global");
+    }
+
+    /**
      * @param string $product
      * @param string $regionId
      *
