@@ -230,7 +230,6 @@ trait AcsTrait
         if (!$host && $this->serviceCode) {
             $host = LocationService::resolveHost($this);
         }
-
     }
 
     /**

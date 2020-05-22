@@ -2,20 +2,20 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request\Traits;
 
-use Stringy\Stringy;
-use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Clients\EcsRamRoleClient;
+use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
+use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
+use AlibabaCloud\Client\Credentials\Requests\AssumeRole;
+use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKey;
+use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Credentials\Requests\AssumeRole;
-use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
-use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
-use AlibabaCloud\Client\Credentials\Providers\CredentialsProvider;
-use AlibabaCloud\Client\Credentials\Requests\GenerateSessionAccessKey;
+use AlibabaCloud\Client\Request\Request;
 use AlibabaCloud\Client\Tests\Mock\Services\Cdn\DescribeCdnServiceRequest;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
+use PHPUnit\Framework\TestCase;
+use Stringy\Stringy;
 
 /**
  * Class ClientTraitTest
@@ -46,6 +46,26 @@ class ClientTraitTest extends TestCase
         // Assert
         self::assertEquals('key', $request->credential()->getAccessKeyId());
         self::assertEquals('secret', $request->credential()->getAccessKeySecret());
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey ID format is invalid
+     * @throws ClientException
+     */
+    public function testAccessKeyId()
+    {
+        AlibabaCloud::accessKeyClient(' ', 'secret');
+    }
+
+    /**
+     * @expectedException \AlibabaCloud\Client\Exception\ClientException
+     * @expectedExceptionMessage AccessKey Secret format is invalid
+     * @throws ClientException
+     */
+    public function testAccessKeySecret()
+    {
+        AlibabaCloud::accessKeyClient('key', ' ');
     }
 
     /**

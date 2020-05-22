@@ -121,9 +121,6 @@ class AcsTraitTest extends TestCase
         self::assertEquals($product, $request->product);
     }
 
-    /**
-     * @throws ClientException
-     */
     public function testNetwork()
     {
         // Setup
@@ -559,7 +556,8 @@ class AcsTraitTest extends TestCase
 
     /**
      * @expectedException \AlibabaCloud\Client\Exception\ClientException
-     * @expectedExceptionMessage No host found for no in the cn-hangzhou, you can specify host by host() method. Like $request->host('xxx.xxx.aliyuncs.com')
+     * @expectedExceptionMessage No host found for no in the cn-hangzhou, you can specify host by host() method. Like
+     *                           $request->host('xxx.xxx.aliyuncs.com')
      * @throws ClientException
      * @throws ServerException
      */

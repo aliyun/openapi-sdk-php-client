@@ -1,3 +1,5 @@
+dist: trusty
+
 language: php
 
 php:
@@ -6,7 +8,8 @@ php:
   - 7.1
   - 7.2
   - 7.3
-  - hhvm
+  - 7.4
+  - hhvm-3.24
   - nightly
 env:
   - COMPOSER_OPTS=""
@@ -14,16 +17,30 @@ env:
 
 matrix:
   allow_failures:
-    - php: hhvm
+    - php: hhvm-3.24
     - php: nightly
   fast_finish: true
 
 sudo: false
 
+before_install:
+  - echo "memory_limit=4G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+
 install:
-  - 'if [ $(phpenv version-name) == "5.5" ]; then rm ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini; fi'
-  - 'if [ $(phpenv version-name) != "hhvm" ] && [ $(phpenv version-name) != "nightly" ]; then echo "xdebug.overload_var_dump = 0" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi'
-  - 'if { [ $(phpenv version-name) == "7.2" ] || [ $(phpenv version-name) == "7.3" ]; } && [ -v COMPOSER_OPTS ]; then composer require --dev phpunit/phpunit "^5.7.11"; fi'
+  # Build job specific tweaks
+  - >
+    if [ $(phpenv version-name) == "5.5" ]; then
+      rm ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
+    fi
+  - >
+    if [ $(phpenv version-name) != "hhvm-3.24" ] && [ $(phpenv version-name) != "nightly" ]; then
+      echo "xdebug.overload_var_dump = 0" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    fi
+  - >
+    if { [ $(phpenv version-name) == "7.2" ] || [ $(phpenv version-name) == "7.3" ] || [$(phpenv version-name) == "7.4"]; } && [ -v COMPOSER_OPTS ]; then
+      composer require --dev phpunit/phpunit "^5.7.11"
+    fi
+  # Resolve dependencies
   - composer --version
   - travis_retry composer update $COMPOSER_OPTS --no-interaction --prefer-source --profile
   # Install Proxy
@@ -38,8 +55,12 @@ install:
 script:
   # Start Proxy
   - sudo o_o &
-  # Test
+  # Unit Test
   - test -z $ACCESS_KEY_ID -a -z $ACCESS_KEY_SECRET || composer test
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  # Code coverage report
+  - >
+    if [ $(phpenv version-name) == "7.1" ]; then
+      bash <(curl -s https://codecov.io/bash)
+    fi

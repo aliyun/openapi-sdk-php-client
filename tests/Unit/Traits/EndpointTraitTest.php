@@ -2,11 +2,11 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Traits;
 
-use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Request\RpcRequest;
-use AlibabaCloud\Client\Regions\LocationService;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Regions\LocationService;
+use AlibabaCloud\Client\Request\RpcRequest;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class EndpointTraitTest
@@ -47,6 +47,17 @@ class EndpointTraitTest extends TestCase
 
         // Assert
         self::assertEquals($host, AlibabaCloud::resolveHost($product, $regionId));
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function testResolveHostByStatic()
+    {
+        $host = 'host.com';
+        AlibabaCloud::addHost('product', $host, 'cn-hangzhou');
+        $expected = AlibabaCloud::resolveHostByStatic('product', 'cn-hangzhou');
+        self::assertEquals($host, $expected);
     }
 
     /**
