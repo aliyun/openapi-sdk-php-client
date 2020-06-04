@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.5.24 - 2020-06-04
+- Fixed Resolve Host.
+
 ## 1.5.23 - 2020-05-22
 - Optimized global product support.
 
