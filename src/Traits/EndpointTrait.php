@@ -60,8 +60,12 @@ trait EndpointTrait
      */
     public static function isGlobalProduct($productCode)
     {
+        $global = LocationService::GLOBAL_REGION;
+        if (self::resolveHostByStatic($productCode, $global)) {
+            return true;
+        }
         $productCode = strtolower($productCode);
-        return (bool)Config::get("endpoints.{$productCode}.global");
+        return (bool)Config::get("endpoints.{$productCode}.{$global}");
     }
 
     /**
