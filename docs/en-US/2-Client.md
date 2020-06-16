@@ -1,7 +1,7 @@
 [← Installation](/docs/en-US/1-Installation.md) | Client[(中文)](/docs/zh-CN/2-Client.md) | [Request →](/docs/en-US/3-Request.md)
 ***
 
-# Client
+# Client & Credentials
 You may create multiple different clients simultaneously. Each client can have its own configuration, and each request can be sent by specified client. Use the Default Client if it is not specified. The client can be created by auto-loading of the configuration files, or created and managed manually. Different types of clients require different `Credential`，and different `Signature` algorithms that are selected. You may also customize the client: that is, pass in custom credentials and signatures.
 
 ## Client Type
