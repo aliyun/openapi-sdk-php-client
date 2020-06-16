@@ -112,7 +112,7 @@ try {
 ## Documentation
 * [Prerequisites](/docs/en-US/0-Prerequisites.md)
 * [Installation](/docs/en-US/1-Installation.md)
-* [Client](/docs/en-US/2-Client.md)
+* [Client & Credentials](/docs/en-US/2-Client.md)
 * [Request](/docs/en-US/3-Request.md)
 * [Result](/docs/en-US/4-Result.md)
 * [Region](/docs/en-US/5-Region.md)
