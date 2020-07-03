@@ -53,7 +53,7 @@ class RamRoleArnClientTest extends TestCase
         try {
             $client->getSessionCredential();
         } catch (ServerException $exception) {
-            self::assertEquals('Specified access key is not found.', $exception->getErrorMessage());
+            self::assertEquals('Specified access key is not found or invalid.', $exception->getErrorMessage());
         } catch (ClientException $exception) {
             self::assertStringStartsWith('cURL error', $exception->getErrorMessage());
         }

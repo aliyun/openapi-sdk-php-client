@@ -2,14 +2,14 @@
 
 namespace AlibabaCloud\Client\Tests\Feature\Request;
 
-use Exception;
-use Stringy\Stringy;
-use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Result\Result;
-use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Exception\RequestException;
 use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Result\Result;
+use Exception;
+use GuzzleHttp\Exception\RequestException;
+use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
+use Stringy\Stringy;
 
 /**
  * Class RequestAsyncTest
@@ -86,7 +86,7 @@ class RequestAsyncTest extends TestCase
 
                 return $res;
             },
-            static function (RequestException $e) {
+            static function (Exception $e) {
                 self::assertTrue(Stringy::create($e->getMessage())->contains('cURL error'));
             }
         )->wait();

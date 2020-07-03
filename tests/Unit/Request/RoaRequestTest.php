@@ -2,23 +2,23 @@
 
 namespace AlibabaCloud\Client\Tests\Unit\Request;
 
-use Stringy\Stringy;
-use ReflectionObject;
-use RuntimeException;
-use ReflectionMethod;
-use ReflectionException;
-use GuzzleHttp\Psr7\Request;
-use AlibabaCloud\Client\Encode;
-use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\Accept;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Credentials\BearerTokenCredential;
+use AlibabaCloud\Client\Credentials\StsCredential;
+use AlibabaCloud\Client\Encode;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Request\RoaRequest;
 use AlibabaCloud\Client\Support\Path;
 use AlibabaCloud\Client\Support\Sign;
-use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Request\RoaRequest;
-use AlibabaCloud\Client\Credentials\StsCredential;
-use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Credentials\BearerTokenCredential;
 use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClusterServicesRequest;
+use GuzzleHttp\Psr7\Request;
+use PHPUnit\Framework\TestCase;
+use ReflectionException;
+use ReflectionMethod;
+use ReflectionObject;
+use RuntimeException;
+use Stringy\Stringy;
 
 /**
  * Class RoaRequestTest
@@ -153,6 +153,14 @@ class RoaRequestTest extends TestCase
                     'c' => 'c',
                 ],
                 'Version=2015-12-15&b=b&c=c',
+            ],
+            [
+                [
+                    'b' => 'b',
+                    'c' => 'c',
+                    'd' => '',
+                ],
+                'Version=2015-12-15&b=b&c=c&d',
             ],
         ];
     }

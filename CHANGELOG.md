@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.25 - 2020-07-04
+- Fixed ROA signature.
+- Deprecated `LogFormatter`.
+
 ## 1.5.24 - 2020-06-04
 - Fixed Resolve Host.
 
