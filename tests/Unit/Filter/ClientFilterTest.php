@@ -50,6 +50,49 @@ class ClientFilterTest extends TestCase
     }
 
     /**
+     * @dataProvider regionId
+     *
+     * @param $expected
+     * @param $contentType
+     * @param $exceptionMessage
+     */
+    public function testRegionId($expected, $contentType, $exceptionMessage){
+        try {
+            self::assertEquals($expected, ClientFilter::regionId($contentType));
+        } catch (ClientException $exception) {
+            self::assertEquals($exceptionMessage, $exception->getMessage());
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function regionId(){
+        return [
+            [
+                1,
+                1,
+                'Region ID must be a string',
+            ],
+            [
+                '',
+                '',
+                'Region ID cannot be empty',
+            ],
+            [
+                'regionId中文',
+                'regionId中文',
+                'Invalid Region ID',
+            ],
+            [
+                'cn-hangzhou',
+                'cn-hangzhou',
+                '',
+            ]
+        ];
+    }
+
+    /**
      * @dataProvider accept
      *
      * @param $expected
