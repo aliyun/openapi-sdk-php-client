@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.5.29 - 2020-08-03
+- Fixed RPC Signature.
+
 ## 1.5.28 - 2020-08-03
 - Updated `endpoints`.
 
