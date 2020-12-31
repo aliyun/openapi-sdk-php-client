@@ -70,6 +70,10 @@ trait ClientTrait
      */
     public function httpClient()
     {
+        if ($this->httpClient){
+            return $this->httpClient;
+        }
+
         if (!AlibabaCloud::all()) {
             if (CredentialsProvider::hasCustomChain()) {
                 CredentialsProvider::customProvider($this->client);
