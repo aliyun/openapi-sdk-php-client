@@ -56,7 +56,8 @@ class ClientFilterTest extends TestCase
      * @param $contentType
      * @param $exceptionMessage
      */
-    public function testRegionId($expected, $contentType, $exceptionMessage){
+    public function testRegionId($expected, $contentType, $exceptionMessage)
+    {
         try {
             self::assertEquals($expected, ClientFilter::regionId($contentType));
         } catch (ClientException $exception) {
@@ -67,7 +68,8 @@ class ClientFilterTest extends TestCase
     /**
      * @return array
      */
-    public function regionId(){
+    public function regionId()
+    {
         return [
             [
                 1,

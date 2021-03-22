@@ -6,7 +6,6 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
-
 class RamTest extends TestCase
 {
     /**
