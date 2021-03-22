@@ -133,7 +133,6 @@ class RequestTest extends TestCase
      */
     protected function setUp()
     {
-        parent::setUp();
         AlibabaCloud::accessKeyClient(
             \getenv('ACCESS_KEY_ID'),
             \getenv('ACCESS_KEY_SECRET')

@@ -29,7 +29,6 @@ class EcsRamRoleCredentialTest extends TestCase
      */
     public function setUp()
     {
-        parent::setUp();
         $regionId = 'cn-hangzhou';
         $roleName = 'EcsRamRoleTest';
         AlibabaCloud::ecsRamRoleClient($roleName)
@@ -45,7 +44,6 @@ class EcsRamRoleCredentialTest extends TestCase
      */
     public function tearDown()
     {
-        parent::tearDown();
         AlibabaCloud::del($this->clientName);
     }
 

@@ -12,8 +12,8 @@ php:
   - hhvm-3.24
   - nightly
 env:
-  - COMPOSER_OPTS=""
-  - COMPOSER_OPTS="--prefer-lowest"
+  - COMPOSER_OPTS="" XDEBUG_MODE="coverage"
+  - COMPOSER_OPTS="--prefer-lowest" XDEBUG_MODE="coverage"
 
 matrix:
   allow_failures:
@@ -29,14 +29,6 @@ before_install:
 
 install:
   # Build job specific tweaks
-  - >
-    if [ $(phpenv version-name) == "5.5" ]; then
-      rm ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
-    fi
-  - >
-    if [ $(phpenv version-name) != "hhvm-3.24" ] && [ $(phpenv version-name) != "nightly" ]; then
-      echo "xdebug.overload_var_dump = 0" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-    fi
   - >
     if { [ $(phpenv version-name) == "7.2" ] || [ $(phpenv version-name) == "7.3" ] || [ $(phpenv version-name) == "7.4" ] ; } && [ -v COMPOSER_OPTS ]; then
       composer require --dev phpunit/phpunit "～5.7.27"
@@ -55,7 +47,7 @@ install:
 
 script:
   # Start Proxy
-  - sudo o_o &
+  - o_o &
   # Unit Test
   - test -z $ACCESS_KEY_ID -a -z $ACCESS_KEY_SECRET || composer test
 
