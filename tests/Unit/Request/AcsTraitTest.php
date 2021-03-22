@@ -590,7 +590,6 @@ class AcsTraitTest extends TestCase
 
     protected function tearDown()
     {
-        parent::tearDown();
         AlibabaCloud::cancelMock();
     }
 }

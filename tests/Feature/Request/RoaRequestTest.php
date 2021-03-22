@@ -31,15 +31,15 @@ class RoaRequestTest extends TestCase
             )->asDefaultClient()->regionId('cn-hangzhou');
 
             $result = AlibabaCloud::roa()
-                                  ->pathPattern('/clusters/[ClusterId]/services')
-                                  ->method('GET')
-                                  ->product('CS')
-                                  ->version('2015-12-15')
-                                  ->action('DescribeClusterServices')
-                                  ->pathParameter('ClusterId', $clusterId)
-                                  ->connectTimeout(25)
-                                  ->timeout(30)
-                                  ->request();
+                ->pathPattern('/clusters/[ClusterId]/services')
+                ->method('GET')
+                ->product('CS')
+                ->version('2015-12-15')
+                ->action('DescribeClusterServices')
+                ->pathParameter('ClusterId', $clusterId)
+                ->connectTimeout(25)
+                ->timeout(30)
+                ->request();
 
             self::assertNotEmpty($result->toArray());
         } catch (ServerException $e) {
@@ -64,14 +64,14 @@ class RoaRequestTest extends TestCase
         $request = new NlpRequest();
         $request->pathParameter('Domain', 'general');
         $request->jsonBody([
-                               'lang' => 'ZH',
-                               'text' => 'Iphone专用数据线'
-                           ]);
+            'lang' => 'ZH',
+            'text' => 'Iphone专用数据线'
+        ]);
 
         $result = $request->client('content')
-                          ->connectTimeout(25)
-                          ->timeout(30)
-                          ->request();
+            ->connectTimeout(25)
+            ->timeout(30)
+            ->request();
         self::assertEquals('Iphone', $result['data'][0]['word']);
     }
 
@@ -87,29 +87,32 @@ class RoaRequestTest extends TestCase
         )->regionId('cn-shanghai')->name('im');
 
         $request = AlibabaCloud::roa()
-                               ->connectTimeout(40)
-                               ->timeout(50)
-                               ->client('im')
-                               ->product('ImageSearch')
-                               ->version('2019-03-25')
-                               ->method('POST')
-                               ->action('SearchImage')
-                               ->pathPattern('/v2/image/search')
-                               ->accept('application/json')
-                               ->contentType('application/x-www-form-urlencoded; charset=UTF-8');
+            ->connectTimeout(40)
+            ->timeout(50)
+            ->client('im')
+            ->product('ImageSearch')
+            ->version('2019-03-25')
+            ->method('POST')
+            ->action('SearchImage')
+            ->pathPattern('/v2/image/search')
+            ->accept('application/json')
+            ->contentType('application/x-www-form-urlencoded; charset=UTF-8');
 
         $content = file_get_contents(__DIR__ . '/ImageSearch.jpg');
 
-        $result = $request->options([
-                                        'form_params' => [
-                                            'InstanceName' => getenv('IMAGE_SEARCH_INSTANCE_NAME'),
-                                            'PicContent'   => base64_encode($content),
-                                            'Start'        => 0,
-                                            'Num'          => 10
-                                        ]
-                                    ])
-                          ->request();
-
-        self::assertArrayHasKey('Auctions', $result);
+        try {
+            $result = $request->options([
+                'form_params' => [
+                    'InstanceName' => getenv('IMAGE_SEARCH_INSTANCE_NAME'),
+                    'PicContent'   => base64_encode($content),
+                    'Start'        => 0,
+                    'Num'          => 10
+                ]
+            ])
+                ->request();
+            self::assertArrayHasKey('Actions', $result);
+        } catch (ServerException $e) {
+            self::assertEquals(400, $e->getCode());
+        }
     }
 }

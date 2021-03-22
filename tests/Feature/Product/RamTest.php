@@ -13,8 +13,6 @@ class RamTest extends TestCase
      */
     public function setUp()
     {
-        parent::setUp();
-
         AlibabaCloud::accessKeyClient(\getenv('ACCESS_KEY_ID'), \getenv('ACCESS_KEY_SECRET'))
                     ->asDefaultClient();
     }

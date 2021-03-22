@@ -18,7 +18,6 @@ class RetryByClientTest extends TestCase
 {
     protected function setUp()
     {
-        parent::setUp();
         AlibabaCloud::forgetHistory();
         AlibabaCloud::rememberHistory();
     }

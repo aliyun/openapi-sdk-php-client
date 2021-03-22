@@ -212,7 +212,6 @@ class CredentialsProviderTest extends TestCase
 
     protected function setUp()
     {
-        parent::setUp();
         AlibabaCloud::flush();
     }
 }
