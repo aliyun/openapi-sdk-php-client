@@ -19,8 +19,6 @@ class DistinguishSignatureAndCredentialErrorsTest extends TestCase
      */
     public function setUp()
     {
-        parent::setUp();
-
         AlibabaCloud::accessKeyClient(\getenv('ACCESS_KEY_ID'), 'bad')
                     ->regionId('cn-shanghai')
                     ->asDefaultClient();

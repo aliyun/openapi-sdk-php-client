@@ -27,11 +27,6 @@ class HttpTraitTest extends TestCase
         AlibabaCloud::getDefaultClient();
     }
 
-    public function setUp()
-    {
-        parent::setUp();
-    }
-
     /**
      * @throws ClientException
      */

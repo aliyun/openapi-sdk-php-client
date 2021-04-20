@@ -30,7 +30,6 @@ class ConfigTest extends TestCase
      */
     public function tearDown()
     {
-        parent::tearDown();
         self::setStaticProperty(null);
     }
 

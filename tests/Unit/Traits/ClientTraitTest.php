@@ -68,7 +68,6 @@ class ClientTraitTest extends TestCase
 
     public function setUp()
     {
-        parent::setUp();
         self::$regionId        = 'cn-hangzhou';
         self::$accessKeyId     = \getenv('ACCESS_KEY_ID');
         self::$accessKeySecret = \getenv('ACCESS_KEY_SECRET');

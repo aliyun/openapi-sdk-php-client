@@ -35,7 +35,7 @@ install:
 
 test_script:
   # Start Proxy
-  - ps: Start-Process -FilePath o_o -NoNewWindow
+  - ps: o_o &
   # Test
   - cd %APPVEYOR_BUILD_FOLDER%
   - vendor\bin\phpunit --colors=always

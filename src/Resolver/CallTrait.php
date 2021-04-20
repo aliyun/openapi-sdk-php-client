@@ -3,7 +3,6 @@
 namespace AlibabaCloud\Client\Resolver;
 
 use RuntimeException;
-use ArgumentCountError;
 
 /**
  * Trait CallTrait
@@ -59,7 +58,7 @@ trait CallTrait
     private function getCallArguments($name, array $arguments, $index = 0)
     {
         if (!isset($arguments[$index])) {
-            throw new ArgumentCountError("Missing arguments to method $name");
+            throw new \InvalidArgumentException("Missing arguments to method $name");
         }
 
         return $arguments[$index];

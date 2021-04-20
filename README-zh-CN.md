@@ -21,7 +21,7 @@ Alibaba Cloud Client for PHP 是帮助 PHP 开发者管理凭据、发送请求�
 [Troubleshoot](https://troubleshoot.api.aliyun.com/?source=github_sdk) 提供 OpenAPI 使用诊断服务，通过 `RequestID` 或 `报错信息` ，帮助开发者快速定位，为开发者提供解决方案。
 
 ## 在线示例
-[API Explorer](https://api.aliyun.com) 提供在线调用阿里云产品，并动态生成 SDK 代码和快速检索接口等能力，能显著降低使用云 API 的难度。
+[阿里云 OpenAPI 开发者门户]https://next.api.aliyun.com/) 提供在线调用阿里云产品，并动态生成 SDK 代码和快速检索接口等能力，能显著降低使用云 API 的难度。
 
 
 ## 先决条件
@@ -139,7 +139,7 @@ try {
 
 ## 相关
 * [阿里云服务 Regions & Endpoints][endpoints]
-* [OpenAPI Explorer][open-api]
+* [阿里云 OpenAPI 开发者门户][open-api]
 * [Packagist][packagist]
 * [Composer][composer]
 * [Guzzle中文文档][guzzle-docs]
@@ -153,7 +153,7 @@ Copyright (c) 2009-present, Alibaba Cloud All rights reserved.
 
 
 [SDK]: https://github.com/aliyun/openapi-sdk-php
-[open-api]: https://api.aliyun.com
+[open-api]: https://next.api.aliyun.com/
 [latest-release]: https://github.com/aliyun/openapi-sdk-php-client
 [guzzle-docs]: https://guzzle-cn.readthedocs.io/zh_CN/latest/request-options.html
 [composer]: https://getcomposer.org

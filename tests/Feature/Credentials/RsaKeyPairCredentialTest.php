@@ -28,7 +28,6 @@ class RsaKeyPairCredentialTest extends TestCase
      */
     public function setUp()
     {
-        parent::setUp();
         $regionId       = 'ap-northeast-1';
         $publicKeyId    = \AlibabaCloud\Client\env('PUBLIC_KEY_ID');
         $privateKeyFile = VirtualRsaKeyPairCredential::privateKeyFileUrl();
@@ -42,7 +41,6 @@ class RsaKeyPairCredentialTest extends TestCase
      */
     public function tearDown()
     {
-        parent::tearDown();
         AlibabaCloud::del($this->clientName);
     }
 

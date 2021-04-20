@@ -244,7 +244,6 @@ class UserAgentTest extends TestCase
 
     protected function tearDown()
     {
-        parent::tearDown();
         UserAgent::clear();
     }
 }

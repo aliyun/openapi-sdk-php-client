@@ -49,7 +49,7 @@
     "drupal/coder": "^8.3",
     "symfony/dotenv": "^3.4",
     "league/climate": "^3.2.4",
-    "phpunit/phpunit": "^5.7.27",
+    "phpunit/phpunit": "^5.7.27|^6.1",
     "monolog/monolog": "^1.24",
     "composer/composer": "^1.8",
     "mikey179/vfsstream": "^1.6",

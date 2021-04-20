@@ -129,7 +129,6 @@ EOT;
 
     protected function setUp()
     {
-        parent::setUp();
         AlibabaCloud::flush();
         CredentialsProvider::flush();
     }

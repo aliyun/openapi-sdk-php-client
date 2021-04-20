@@ -103,7 +103,6 @@ class IniCredentialFeatureTest extends TestCase
      */
     public function tearDown()
     {
-        parent::tearDown();
         AlibabaCloud::del('phpunit');
         IniCredential::forgetLoadedCredentialsFile();
     }

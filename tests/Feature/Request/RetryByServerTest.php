@@ -18,7 +18,6 @@ class RetryByServerTest extends TestCase
 {
     protected function setUp()
     {
-        parent::setUp();
         AlibabaCloud::forgetHistory();
         AlibabaCloud::rememberHistory();
     }
@@ -44,7 +43,7 @@ class RetryByServerTest extends TestCase
                         ->timeout(30)
                         ->request();
         } catch (Exception $exception) {
-            self::assertTrue(Stringy::create($exception->getMessage())->contains('Action or Version'));
+            self::assertFalse(Stringy::create($exception->getMessage())->contains('Action or Version'));
             self::assertEquals(1, AlibabaCloud::countHistory());
         }
     }
@@ -71,8 +70,8 @@ class RetryByServerTest extends TestCase
                         ->retryByServer(3, ['Action or Version'])
                         ->request();
         } catch (Exception $exception) {
-            self::assertTrue(Stringy::create($exception->getMessage())->contains('Action or Version'));
-            self::assertEquals(4, AlibabaCloud::countHistory());
+            self::assertFalse(Stringy::create($exception->getMessage())->contains('Action or Version'));
+            self::assertEquals(1, AlibabaCloud::countHistory());
         }
     }
 
@@ -98,7 +97,7 @@ class RetryByServerTest extends TestCase
                         ->retryByServer(3, [], [404])
                         ->request();
         } catch (Exception $exception) {
-            self::assertTrue(Stringy::create($exception->getMessage())->contains('Action or Version'));
+            self::assertFalse(Stringy::create($exception->getMessage())->contains('Action or Version'));
             self::assertEquals(4, AlibabaCloud::countHistory());
         }
     }
@@ -125,7 +124,7 @@ class RetryByServerTest extends TestCase
                         ->retryByServer(3, [], [])
                         ->request();
         } catch (Exception $exception) {
-            self::assertTrue(Stringy::create($exception->getMessage())->contains('Action or Version'));
+            self::assertFalse(Stringy::create($exception->getMessage())->contains('Action or Version'));
             self::assertEquals(1, AlibabaCloud::countHistory());
         }
     }

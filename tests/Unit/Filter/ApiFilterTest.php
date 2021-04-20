@@ -61,7 +61,8 @@ class ApiFilterTest extends TestCase
      * @param $contentType
      * @param $exceptionMessage
      */
-    public function testNetwork($expected, $contentType, $exceptionMessage){
+    public function testNetwork($expected, $contentType, $exceptionMessage)
+    {
         try {
             self::assertEquals($expected, ApiFilter::network($contentType));
         } catch (ClientException $exception) {
@@ -72,7 +73,8 @@ class ApiFilterTest extends TestCase
     /**
      * @return array
      */
-    public function network(){
+    public function network()
+    {
         return [
             [
                 1,

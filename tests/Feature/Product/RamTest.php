@@ -6,7 +6,6 @@ use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 
-
 class RamTest extends TestCase
 {
     /**
@@ -14,8 +13,6 @@ class RamTest extends TestCase
      */
     public function setUp()
     {
-        parent::setUp();
-
         AlibabaCloud::accessKeyClient(\getenv('ACCESS_KEY_ID'), \getenv('ACCESS_KEY_SECRET'))
                     ->asDefaultClient();
     }
