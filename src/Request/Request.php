@@ -54,12 +54,12 @@ abstract class Request implements ArrayAccess
     /**
      * Request Connect Timeout
      */
-    public const CONNECT_TIMEOUT = 5;
+    const CONNECT_TIMEOUT = 5;
 
     /**
      * Request Timeout
      */
-    public const TIMEOUT = 10;
+    const TIMEOUT = 10;
 
     /**
      * @var string HTTP Method
