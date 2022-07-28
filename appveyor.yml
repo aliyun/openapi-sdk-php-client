@@ -29,13 +29,14 @@ install:
   - echo extension=php_sockets.dll >> C:\tools\phpci\php\php.ini
   - echo extension=php_curl.dll >> C:\tools\phpci\php\php.ini
   - cd %APPVEYOR_BUILD_FOLDER%
+  - composer config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer false
   - composer install --prefer-dist --no-progress
   # Install Proxy
   - npm install o_o -g
 
 test_script:
   # Start Proxy
-  - ps: o_o &
+  - ps: Start-Process -FilePath "o_o" -NoNewWindow
   # Test
   - cd %APPVEYOR_BUILD_FOLDER%
   - vendor\bin\phpunit --colors=always
