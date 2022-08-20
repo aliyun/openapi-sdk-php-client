@@ -113,7 +113,8 @@ abstract class Request implements ArrayAccess
         $this->options['timeout']         = self::TIMEOUT;
 
         // Turn on debug mode based on environment variable.
-        if (strtolower(\AlibabaCloud\Client\env('DEBUG')) === 'sdk') {
+        $debug = \AlibabaCloud\Client\env('DEBUG');
+        if (is_string($debug) && strtolower($debug) === 'sdk') {
             $this->options['debug'] = true;
         }
 
