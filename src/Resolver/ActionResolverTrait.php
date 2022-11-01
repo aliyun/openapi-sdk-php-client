@@ -41,10 +41,6 @@ trait ActionResolverTrait
             return;
         }
 
-        if (!class_exists('AlibabaCloud\Release')) {
-            return;
-        }
-
-        AlibabaCloud::appendUserAgent('SDK', \AlibabaCloud\Release::VERSION);
+        AlibabaCloud::appendUserAgent('SDK', AlibabaCloud::VERSION);
     }
 }
