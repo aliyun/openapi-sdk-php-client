@@ -16,10 +16,10 @@ English | [简体中文](/README-zh-CN.md)
 Alibaba Cloud Client for PHP is a client tool that helps PHP developers manage credentials and send requests, [Alibaba Cloud SDK for PHP][SDK] dependency on this tool.
 
 ## Troubleshoot
-[Troubleshoot](https://troubleshoot.api.aliyun.com/?source=github_sdk) Provide OpenAPI diagnosis service to help developers locate quickly and provide solutions for developers through `RequestID` or `error message`.
+[Troubleshoot](https://api.aliyun.com/troubleshoot?source=github_sdk) Provide OpenAPI diagnosis service to help developers locate quickly and provide solutions for developers through `RequestID` or `error message`.
 
 ## Online Demo
-[Alibaba Cloud OpenAPI Developer Portal](https://next.api.aliyun.com/) provides the ability to call the cloud product OpenAPI online, and dynamically generate SDK Example code and quick retrieval interface, which can significantly reduce the difficulty of using the cloud API.
+[Alibaba Cloud OpenAPI Developer Portal](https://api.aliyun.com/) provides the ability to call the cloud product OpenAPI online, and dynamically generate SDK Example code and quick retrieval interface, which can significantly reduce the difficulty of using the cloud API.
 
 ## Prerequisites
 Your system will need to meet the [Prerequisites](/docs/en-US/0-Prerequisites.md), including having PHP >= 5.5. We highly recommend having it compiled with the cURL extension and cURL 7.16.2+.
@@ -151,7 +151,7 @@ Copyright (c) 2009-present, Alibaba Cloud All rights reserved.
 
 
 [SDK]: https://github.com/aliyun/openapi-sdk-php
-[open-api]: https://next.api.aliyun.com/
+[open-api]: https://api.aliyun.com/
 [latest-release]: https://github.com/aliyun/openapi-sdk-php-client
 [guzzle-docs]: http://docs.guzzlephp.org/en/stable/request-options.html
 [composer]: https://getcomposer.org
