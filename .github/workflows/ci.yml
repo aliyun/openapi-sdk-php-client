@@ -12,18 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: ['7.2', '7.3', '7.4', '8.0', '8.1']
+        php-versions: [
+          '5.6', '7.0', '7.1',
+          '7.2', '7.3', '7.4', '8.0', '8.1'
+        ]
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
-
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 10.x
+      uses: actions/checkout@v4
 
     - name: Install Proxy
-      run: npm install o_o -g --registry=https://registry.npm.taobao.org
+      run: npm install o_o -g
 
     - name: Start Proxy
       run: o_o &
@@ -34,7 +33,7 @@ jobs:
         php-version: ${{ matrix.php-versions }}
         extensions: mbstring, intl
         ini-values: post_max_size=256M, max_execution_time=180
-        coverage: xdebug        
+        coverage: xdebug
         tools: php-cs-fixer, phpunit
     
     - name: Validate composer.json and composer.lock
@@ -45,6 +44,7 @@ jobs:
 
     - name: Run test case
       run: composer test4HighVersion
+      if: ${{ contains(fromJSON('["7.2", "7.3", "7.4", "8.0", "8.1"]'), matrix.php-versions) }}
       env:
         REGION_ID: ${{ secrets.REGION_ID }}
         ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
@@ -54,6 +54,19 @@ jobs:
         IMAGE_SEARCH_ACCESS_KEY_ID: ${{ secrets.IMAGE_SEARCH_ACCESS_KEY_ID }}
         IMAGE_SEARCH_ACCESS_KEY_SECRET: ${{ secrets.IMAGE_SEARCH_ACCESS_KEY_SECRET }}
         IMAGE_SEARCH_INSTANCE_NAME: ${{ secrets.IMAGE_SEARCH_INSTANCE_NAME }}
-    
+
+    - name: Run test case
+      run: composer test4LowVersion
+      if: ${{ contains(fromJSON('["5.6", "7.0", "7.1"]'), matrix.php-versions) }}
+      env:
+        REGION_ID: ${{ secrets.REGION_ID }}
+        ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
+        ACCESS_KEY_SECRET: ${{ secrets.ACCESS_KEY_SECRET }}
+        PRIVATE_KEY_LINE_1: ${{ secrets.PRIVATE_KEY_LINE_1 }}
+        PUBLIC_KEY_ID: ${{ secrets.PUBLIC_KEY_ID }}
+        IMAGE_SEARCH_ACCESS_KEY_ID: ${{ secrets.IMAGE_SEARCH_ACCESS_KEY_ID }}
+        IMAGE_SEARCH_ACCESS_KEY_SECRET: ${{ secrets.IMAGE_SEARCH_ACCESS_KEY_SECRET }}
+        IMAGE_SEARCH_INSTANCE_NAME: ${{ secrets.IMAGE_SEARCH_INSTANCE_NAME }}
+
     - name: CodeCov
       run: bash <(curl -s https://codecov.io/bash)
