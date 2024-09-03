@@ -47,7 +47,7 @@ trait ClientTrait
      */
     public function credential()
     {
-        if ($this instanceof AssumeRole || $this instanceof GenerateSessionAccessKey) {
+        if ($this instanceof GenerateSessionAccessKey) {
             return $this->httpClient()->getCredential();
         }
 
