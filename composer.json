@@ -97,29 +97,13 @@
     "test": [
       "phpunit --colors=always"
     ],
-    "test4HighVersion": [
+    "unit": [
       "@clearCache",
-      "phpunit --testsuite=Test4HighVersion --colors=always"
+      "phpunit --testsuite=Unit --colors=always"
     ],
-    "test4LowVersion": [
+    "feature": [
       "@clearCache",
-      "phpunit --testsuite=Test4LowVersion --colors=always"
-    ],
-    "unit4HighVersion": [
-      "@clearCache",
-      "phpunit --testsuite=Unit4HighVersion --colors=always"
-    ],
-    "unit4LowVersion": [
-      "@clearCache",
-      "phpunit --testsuite=Unit4LowVersion --colors=always"
-    ],
-    "feature4HighVersion": [
-      "@clearCache",
-      "phpunit --testsuite=Feature4HighVersion --colors=always"
-    ],
-    "feature4LowVersion": [
-      "@clearCache",
-      "phpunit --testsuite=Feature4LowVersion --colors=always"
+      "phpunit --testsuite=Feature --colors=always"
     ],
     "coverage": "open cache/coverage/index.html",
     "clearCache": "rm -rf cache/*",

@@ -14,26 +14,12 @@
         <testsuite name="All">
             <directory>tests</directory>
         </testsuite>
-        <testsuite name="Test4HighVersion">
-            <directory>./tests/HigherthanorEqualtoVersion7_2</directory>
-        </testsuite>
-        <testsuite name="Test4LowVersion">
-            <directory>./tests/LowerthanVersion7_2</directory>
-        </testsuite>
-        <testsuite name="Unit4HighVersion">
-            <directory suffix="Test.php">./tests/HigherthanorEqualtoVersion7_2/Unit</directory>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
 
-        <testsuite name="Feature4HighVersion">
-            <directory suffix="Test.php">./tests/HigherthanorEqualtoVersion7_2/Feature</directory>
-        </testsuite>
-
-        <testsuite name="Unit4LowVersion">
-            <directory suffix="Test.php">./tests/LowerthanVersion7_2/Unit</directory>
-        </testsuite>
-
-        <testsuite name="Feature4LowVersion">
-            <directory suffix="Test.php">./tests/LowerthanVersion7_2/Feature</directory>
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>
     </testsuites>
 

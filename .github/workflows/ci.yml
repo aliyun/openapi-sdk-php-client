@@ -1,0 +1,60 @@
+name: HighVersion CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2']
+      fail-fast: false
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 10.x
+
+    - name: Install Proxy
+      run: npm install o_o -g --registry=https://registry.npmmirror.com
+
+    - name: Start Proxy
+      run: o_o &
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: mbstring, intl
+        ini-values: post_max_size=256M, max_execution_time=180
+        coverage: xdebug        
+        tools: php-cs-fixer, phpunit
+    
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Run test case
+      run: composer test
+      env:
+        REGION_ID: ${{ secrets.REGION_ID }}
+        ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
+        ACCESS_KEY_SECRET: ${{ secrets.ACCESS_KEY_SECRET }}
+        PRIVATE_KEY_LINE_1: ${{ secrets.PRIVATE_KEY_LINE_1 }}
+        PUBLIC_KEY_ID: ${{ secrets.PUBLIC_KEY_ID }}
+        IMAGE_SEARCH_ACCESS_KEY_ID: ${{ secrets.IMAGE_SEARCH_ACCESS_KEY_ID }}
+        IMAGE_SEARCH_ACCESS_KEY_SECRET: ${{ secrets.IMAGE_SEARCH_ACCESS_KEY_SECRET }}
+        IMAGE_SEARCH_INSTANCE_NAME: ${{ secrets.IMAGE_SEARCH_INSTANCE_NAME }}
+    
+    - name: CodeCov
+      run: bash <(curl -s https://codecov.io/bash)
