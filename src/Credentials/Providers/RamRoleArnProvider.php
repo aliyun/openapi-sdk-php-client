@@ -10,6 +10,7 @@ use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Credentials\Requests\AssumeRole;
+use AlibabaCloud\Client\Filter\CredentialFilter;
 
 /**
  * Class RamRoleArnProvider
@@ -68,11 +69,15 @@ class RamRoleArnProvider extends Provider
     {
         $clientName = __CLASS__ . \uniqid('ak', true);
         $credential = $this->client->getCredential();
-
-        AlibabaCloud::accessKeyClient(
-            $credential->getAccessKeyId(),
-            $credential->getAccessKeySecret()
-        )->name($clientName);
+        if (!is_null($credential->getClient())) {
+            $clientName = $credential->getClient();
+        } else {
+            CredentialFilter::AccessKey($credential->getAccessKeyId(), $credential->getAccessKeySecret());
+            AlibabaCloud::accessKeyClient(
+                $credential->getAccessKeyId(),
+                $credential->getAccessKeySecret()
+            )->name($clientName);
+        }
 
         return (new AssumeRole($credential))
             ->client($clientName)

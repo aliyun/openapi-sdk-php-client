@@ -78,7 +78,7 @@ class ProviderTest extends TestCase
             ],
             [
                 new RamRoleArnClient('foo', 'bar', 'arn', 'name'),
-                'foo#bar#arn#name',
+                'foo#bar##arn#name',
             ],
             [
                 new RsaKeyPairClient('foo', VirtualRsaKeyPairCredential::ok()),

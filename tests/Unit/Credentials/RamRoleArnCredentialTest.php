@@ -3,6 +3,7 @@
 namespace AlibabaCloud\Client\Tests\Unit\Credentials;
 
 use PHPUnit\Framework\TestCase;
+use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
 
@@ -38,7 +39,7 @@ class RamRoleArnCredentialTest extends TestCase
         $this->assertEquals($sessionName, $credential->getRoleSessionName());
         $this->assertEquals($policy, $credential->getPolicy());
         $this->assertEquals(
-            "$accessKeyId#$accessKeySecret#$arn#$sessionName",
+            "$accessKeyId#$accessKeySecret##$arn#$sessionName",
             (string)$credential
         );
     }
@@ -46,68 +47,33 @@ class RamRoleArnCredentialTest extends TestCase
     /**
      * @throws ClientException
      */
-    public function testAccessKeyIdEmpty()
+    public function testClient()
     {
-        $this->expectException(ClientException::class);
-        $this->expectExceptionMessage('AccessKey ID cannot be empty');
         // Setup
-        $accessKeyId     = '';
+        $accessKeyId     = 'access_key_id';
         $accessKeySecret = 'access_key_secret';
         $arn             = 'role_arn';
         $sessionName     = 'role_session_name';
+        $policy          = '';
+
+        AlibabaCloud::accessKeyClient(
+            $accessKeyId,
+            $accessKeySecret
+        )->name('clientName');
 
         // Test
-        new RamRoleArnCredential($accessKeyId, $accessKeySecret, $arn, $sessionName);
+        $credential = (new RamRoleArnCredential(null, null, $arn, $sessionName))->withClient('clientName');
+
+        // Assert
+        $this->assertNull($credential->getAccessKeyId());
+        $this->assertNull($credential->getAccessKeySecret());
+        $this->assertEquals($arn, $credential->getRoleArn());
+        $this->assertEquals($sessionName, $credential->getRoleSessionName());
+        $this->assertEquals($policy, $credential->getPolicy());
+        $this->assertEquals(
+            "$accessKeyId#$accessKeySecret#clientName#$arn#$sessionName",
+            (string)$credential
+        );
     }
 
-    /**
-     * @throws ClientException
-     */
-    public function testAccessKeyIdFormat()
-    {
-        $this->expectException(ClientException::class);
-        $this->expectExceptionMessage('AccessKey ID must be a string');
-        // Setup
-        $accessKeyId     = null;
-        $accessKeySecret = 'access_key_secret';
-        $arn             = 'role_arn';
-        $sessionName     = 'role_session_name';
-
-        // Test
-        new RamRoleArnCredential($accessKeyId, $accessKeySecret, $arn, $sessionName);
-    }
-
-    /**
-     * @throws ClientException
-     */
-    public function testAccessKeySecretEmpty()
-    {
-        $this->expectException(ClientException::class);
-        $this->expectExceptionMessage('AccessKey Secret cannot be empty');
-        // Setup
-        $accessKeyId     = 'access_key_id';
-        $accessKeySecret = '';
-        $arn             = 'role_arn';
-        $sessionName     = 'role_session_name';
-
-        // Test
-        new RamRoleArnCredential($accessKeyId, $accessKeySecret, $arn, $sessionName);
-    }
-
-    /**
-     * @throws ClientException
-     */
-    public function testAccessKeySecretFormat()
-    {
-        $this->expectException(ClientException::class);
-        $this->expectExceptionMessage('AccessKey Secret must be a string');
-        // Setup
-        $accessKeyId     = 'access_key_id';
-        $accessKeySecret = null;
-        $arn             = 'role_arn';
-        $sessionName     = 'role_session_name';
-
-        // Test
-        new RamRoleArnCredential($accessKeyId, $accessKeySecret, $arn, $sessionName);
-    }
 }
