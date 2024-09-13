@@ -82,6 +82,11 @@ abstract class Request implements ArrayAccess
     public $client;
 
     /**
+     * @var \AlibabaCloud\Client\Clients\Client
+     */
+    public $httpClient;
+
+    /**
      * @var Uri
      */
     public $uri;
@@ -283,6 +288,19 @@ abstract class Request implements ArrayAccess
     {
         $this->client = ClientFilter::clientName($clientName);
 
+        return $this;
+    }
+
+
+    /**
+     *
+     *
+     * @param \AlibabaCloud\Client\Clients\Client $client
+     * @return $this
+     */
+    public function withHttpClient(\AlibabaCloud\Client\Clients\Client  $client)
+    {
+        $this->httpClient = $client;
         return $this;
     }
 

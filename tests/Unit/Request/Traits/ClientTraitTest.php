@@ -110,6 +110,17 @@ class ClientTraitTest extends TestCase
     /**
      * @throws ClientException
      */
+    public function testCustomHttpClient()
+    {
+        $httpClient =   AlibabaCloud::accessKeyClient('key', 'secret')
+                        ->regionId('cn-hangzhou');
+        $request = AlibabaCloud::rpc()->withHttpClient($httpClient);
+        self::assertEquals($httpClient,$request->httpClient);
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testMergeOptionsIntoClient()
     {
         // Setup
