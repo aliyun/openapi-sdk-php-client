@@ -32,7 +32,7 @@ class Client
     /**
      * @var CredentialsInterface|AccessKeyCredential|BearerTokenCredential|StsCredential|EcsRamRoleCredential|RamRoleArnCredential|RsaKeyPairCredential
      */
-    private $credential;
+    protected $credential;
 
     /**
      * @var SignatureInterface

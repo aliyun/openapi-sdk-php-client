@@ -34,6 +34,78 @@ class RamRoleArnProviderTest extends TestCase
     /**
      * @throws ClientException
      */
+    public function testAccessKeyIdEmpty()
+    {
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessage('AccessKey ID cannot be empty');
+        // Setup
+        $client = new RamRoleArnClient(
+            '',
+            'access_key_secret',
+            'role_arn',
+            'role_session_name'
+        );
+        $provider = new RamRoleArnProvider($client);
+        $provider->get();
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function testAccessKeyIdFormat()
+    {
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessage('AccessKey ID must be a string');
+        // Setup
+        $client = new RamRoleArnClient(
+            null,
+            'access_key_secret',
+            'role_arn',
+            'role_session_name'
+        );
+        $provider = new RamRoleArnProvider($client);
+        $provider->get();
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function testAccessKeySecretEmpty()
+    {
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessage('AccessKey Secret cannot be empty');
+        // Setup
+        $client = new RamRoleArnClient(
+            'access_key_id',
+            '',
+            'role_arn',
+            'role_session_name'
+        );
+        $provider = new RamRoleArnProvider($client);
+        $provider->get();
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function testAccessKeySecretFormat()
+    {
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessage('AccessKey Secret must be a string');
+        // Setup
+        $client = new RamRoleArnClient(
+            'access_key_id',
+            null,
+            'role_arn',
+            'role_session_name'
+        );
+        $provider = new RamRoleArnProvider($client);
+        $provider->get();
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function testGet()
     {
         // Setup
@@ -54,7 +126,6 @@ class RamRoleArnProviderTest extends TestCase
         } catch (ServerException $e) {
             self::assertEquals('InvalidAccessKeyId.NotFound', $e->getErrorCode());
         }
-        
     }
 
     /**
@@ -91,7 +162,6 @@ class RamRoleArnProviderTest extends TestCase
 
         // Assert
         self::assertInstanceOf(StsCredential::class, $actual);
-        
     }
 
     /**
@@ -108,7 +178,6 @@ class RamRoleArnProviderTest extends TestCase
 
         $provider = new RamRoleArnProvider($client);
         $provider->get();
-        
     }
 
     /**
@@ -140,7 +209,5 @@ class RamRoleArnProviderTest extends TestCase
         $provider = new RamRoleArnProvider($client);
         $credential = $provider->get();
         self::assertInstanceOf(StsCredential::class, $credential);
-        
     }
-
 }

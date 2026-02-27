@@ -2,7 +2,7 @@
 
 namespace AlibabaCloud\Client\Credentials;
 
-use AlibabaCloud\Client\Filter\CredentialFilter;
+use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 
 /**
@@ -12,6 +12,11 @@ use AlibabaCloud\Client\Exception\ClientException;
  */
 class RamRoleArnCredential implements CredentialsInterface
 {
+
+    /**
+     * @var string
+     */
+    private $client;
 
     /**
      * @var string
@@ -51,13 +56,24 @@ class RamRoleArnCredential implements CredentialsInterface
      */
     public function __construct($accessKeyId, $accessKeySecret, $roleArn, $roleSessionName, $policy = '')
     {
-        CredentialFilter::AccessKey($accessKeyId, $accessKeySecret);
-
         $this->accessKeyId     = $accessKeyId;
         $this->accessKeySecret = $accessKeySecret;
         $this->roleArn         = $roleArn;
         $this->roleSessionName = $roleSessionName;
         $this->policy          = $policy;
+    }
+
+    /**
+     * @param string $clientName
+     *
+     * @return $this
+     * @throws ClientException
+     */
+    public function withClient($clientName)
+    {
+        $this->client = $clientName;
+
+        return $this;
     }
 
     /**
@@ -74,6 +90,14 @@ class RamRoleArnCredential implements CredentialsInterface
     public function getAccessKeySecret()
     {
         return $this->accessKeySecret;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClient()
+    {
+        return $this->client;
     }
 
     /**
@@ -105,6 +129,12 @@ class RamRoleArnCredential implements CredentialsInterface
      */
     public function __toString()
     {
-        return "$this->accessKeyId#$this->accessKeySecret#$this->roleArn#$this->roleSessionName";
+        $accessKeyId = $this->accessKeyId;
+        $accessKeySecret = $this->accessKeySecret;
+        if (!is_null($this->client)) {
+            $accessKeyId = AlibabaCloud::get($this->client)->getCredential()->getAccessKeyId();
+            $accessKeySecret = AlibabaCloud::get($this->client)->getCredential()->getAccessKeySecret();
+        }
+        return "$accessKeyId#$accessKeySecret#$this->client#$this->roleArn#$this->roleSessionName";
     }
 }

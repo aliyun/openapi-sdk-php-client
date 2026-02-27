@@ -30,4 +30,17 @@ class RamRoleArnClient extends Client
             new ShaHmac1Signature()
         );
     }
+
+    /**
+     * @param string $clientName
+     *
+     * @return $this
+     * @throws ClientException
+     */
+    public function withCredentialClient($clientName)
+    {
+        $this->credential = $this->credential->withClient($clientName);
+
+        return $this;
+    }
 }
