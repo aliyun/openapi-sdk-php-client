@@ -6,7 +6,6 @@ use AlibabaCloud\Client\Support\Stringy;
 use RuntimeException;
 use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Result\Result;
-use AlibabaCloud\Client\Support\SensitiveData;
 
 /**
  * Class ServerException
@@ -44,10 +43,6 @@ class ServerException extends AlibabaCloudException
         $this->resolvePropertiesByReturn();
         $this->distinguishSignatureErrors();
         $this->bodyAsErrorMessage();
-        $request = $this->result->getRequest();
-        $this->errorMessage = $request
-            ? $request->redact($this->errorMessage)
-            : SensitiveData::redact($this->errorMessage);
 
         parent::__construct(
             $this->getMessageString(),
@@ -124,9 +119,7 @@ class ServerException extends AlibabaCloudException
             }
         }
 
-        return $this->result->getRequest()
-            ? $this->result->getRequest()->redact($message)
-            : SensitiveData::redact($message);
+        return $message;
     }
 
     /**
