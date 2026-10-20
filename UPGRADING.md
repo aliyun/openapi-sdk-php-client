@@ -23,12 +23,6 @@ Use `StsCredential` or `RamRoleArnCredential` in the same factory for temporary 
 
 SDK logger output, debug output, and exception messages mask AccessKey secrets, security/bearer tokens, and complete signatures. Debug mode now prints sanitized HTTP headers and errors instead of raw transport traces. Requests and readable results retain their original values. Synchronous and asynchronous transport failures expose a sanitized `ClientException` without the original unsafe transport exception chain.
 
-Run the offline signature and diagnostic regression tests after installing development dependencies:
-
-```sh
-vendor/bin/phpunit --no-configuration --bootstrap tests/bootstrap.php --filter '(SignatureV2Test|RequestDiagnosticsTest|SensitiveDataTest)' tests/Unit
-```
-
 1.x
 -----------------------
 - This is the first version. See <https://github.com/aliyun/openapi-sdk-php-client> for more information.
