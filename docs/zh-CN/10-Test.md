@@ -3,6 +3,8 @@
 
 # 测试
 
+签名算法升级的离线复测步骤见 [签名 V2 复测](/docs/zh-CN/11-Signature-V2-Testing.md)。
+
 ## Mock 响应
 ```php
 <?php
