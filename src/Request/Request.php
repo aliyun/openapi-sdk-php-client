@@ -17,6 +17,7 @@ use AlibabaCloud\Client\Request\Traits\DeprecatedTrait;
 use AlibabaCloud\Client\Request\Traits\RetryTrait;
 use AlibabaCloud\Client\Result\Result;
 use AlibabaCloud\Client\SDK;
+use AlibabaCloud\Client\Support\SensitiveData;
 use AlibabaCloud\Client\Traits\ArrayAccessTrait;
 use AlibabaCloud\Client\Traits\HttpTrait;
 use AlibabaCloud\Client\Traits\ObjectAccessTrait;
@@ -31,6 +32,7 @@ use GuzzleHttp\Middleware;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * Class Request
@@ -364,7 +366,12 @@ abstract class Request implements ArrayAccess
             $this->method,
             (string)$this->uri,
             $this->options
-        );
+        )->then(null, function ($exception) {
+            if ($exception instanceof GuzzleException) {
+                throw new ClientException($this->redact($exception->getMessage()), SDK::SERVER_UNREACHABLE);
+            }
+            throw $exception;
+        });
     }
 
     /**
@@ -385,12 +392,47 @@ abstract class Request implements ArrayAccess
             $stack->push(Middleware::history(AlibabaCloud::referenceHistory()));
         }
 
-        if (AlibabaCloud::getLogger()) {
-            $stack->push(Middleware::log(
-                AlibabaCloud::getLogger(),
-                new MessageFormatter(AlibabaCloud::getLogFormat())
-            ));
-        }
+        $stack->push(static function (callable $handler) use ($request) {
+            return static function (RequestInterface $message, array $options) use ($handler, $request) {
+                $debug = isset($options['debug']) ? $options['debug'] : false;
+                // Raw transport traces contain credentials, so format diagnostic copies instead.
+                $options['debug'] = false;
+                $log = static function ($response = null, $error = null) use ($message, $request, $debug) {
+                    $values = $response ? SensitiveData::values($response->getHeaders()) : [];
+                    $redact = static function ($text) use ($request, $values) {
+                        return $request ? $request->redact($text, $values) : SensitiveData::redact($text, $values);
+                    };
+                    if (AlibabaCloud::getLogger()) {
+                        $formatter = new MessageFormatter(AlibabaCloud::getLogFormat());
+                        AlibabaCloud::getLogger()->log(
+                            $error ? 'error' : 'info',
+                            $redact($formatter->format($message, $response, $error))
+                        );
+                    }
+                    if ($debug) {
+                        $formatter = new MessageFormatter("{req_headers}\n{res_headers}\n{error}");
+                        $output = $redact($formatter->format($message, $response, $error)) . "\n";
+                        if (is_resource($debug)) {
+                            fwrite($debug, $output);
+                        } else {
+                            file_put_contents('php://stderr', $output);
+                        }
+                    }
+                };
+
+                return $handler($message, $options)->then(
+                    static function ($response) use ($log) {
+                        $log($response);
+                        return $response;
+                    },
+                    static function ($error) use ($log) {
+                        $response = method_exists($error, 'getResponse') ? $error->getResponse() : null;
+                        $log($response, $error);
+                        throw $error;
+                    }
+                );
+            };
+        });
 
         $stack->push(Middleware::mapResponse(static function (ResponseInterface $response) use ($request) {
             return new Result($response, $request);
@@ -418,11 +460,20 @@ abstract class Request implements ArrayAccess
                 return $this->response();
             }
             throw new ClientException(
-                $exception->getMessage(),
-                SDK::SERVER_UNREACHABLE,
-                $exception
+                $this->redact($exception->getMessage()),
+                SDK::SERVER_UNREACHABLE
             );
         }
+    }
+
+    /**
+     * @param string $text
+     * @param array $values
+     * @return string
+     */
+    public function redact($text, array $values = [])
+    {
+        return SensitiveData::redact($text, array_merge($values, $this->sensitiveValues, SensitiveData::values($this->options)));
     }
 
     /**

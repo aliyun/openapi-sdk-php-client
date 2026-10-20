@@ -5,6 +5,18 @@
 您可以同时创建多个不同的客户端，每个客户端都可以有独立的配置，每一个请求都可以指定发送的客户端，如果不指定则使用默认客户端。客户端可以通过配置文件自动加载创建，也可以手动创建、管理。不同类型的客户端需要不同的凭证 `Credential`，内部也选取不同的签名算法 `Signature`，您也可以自定义客户端：即传入自定义的凭证和签名。
 
 ## AccessKey 客户端
+
+AccessKey 和各类临时凭证客户端的 RPC、ROA 请求现在默认使用 HMAC-SHA256，`SignatureVersion` 仍为 `1.0`。RSA 换证和 Bearer Token 认证保持原行为。已有 `composer.lock` 的项目需要实际更新 `alibabacloud/client` 依赖。
+
+如需兼容仅支持 HMAC-SHA1 的端点，可显式选择原算法；`StsCredential`、`RamRoleArnCredential` 也可使用相同方式，内部 AssumeRole、Location 请求继承所选客户端的签名算法。
+
+```php
+AlibabaCloud::client(
+    new \AlibabaCloud\Client\Credentials\AccessKeyCredential('accessKeyId', 'accessKeySecret'),
+    new \AlibabaCloud\Client\Signature\ShaHmac1Signature()
+)->asDefaultClient();
+```
+
 通过[用户信息管理][ak]设置AccessKey，它们具有该账户完全的权限，请妥善保管。有时出于安全考虑，您不能把具有完全访问权限的主账户 AccessKey 交于一个项目的开发者使用，您可以[创建RAM子账户][ram]并为子账户[授权][permissions]，使用RAM子用户的 AccessKey 来进行API调用。  
 > 示例代码：创建一个 AccessKey 方式认证的客户端，并设置为默认客户端，即命名为 `default` 的客户端。
 

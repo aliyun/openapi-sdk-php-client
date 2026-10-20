@@ -30,6 +30,9 @@ trait ClientTrait
      */
     private static $config = [];
 
+    /** @var array */
+    private $sensitiveValues = [];
+
     /**
      * @param array $config
      */
@@ -47,8 +50,9 @@ trait ClientTrait
      */
     public function credential()
     {
+        $credential = $this->rememberCredential($this->httpClient()->getCredential());
         if ($this instanceof AssumeRole || $this instanceof GenerateSessionAccessKey) {
-            return $this->httpClient()->getCredential();
+            return $credential;
         }
 
         $timeout = isset($this->options['timeout'])
@@ -59,7 +63,19 @@ trait ClientTrait
             ? $this->options['connect_timeout']
             : Request::CONNECT_TIMEOUT;
 
-        return $this->httpClient()->getSessionCredential($timeout, $connectTimeout);
+        return $this->rememberCredential($this->httpClient()->getSessionCredential($timeout, $connectTimeout));
+    }
+
+    private function rememberCredential(CredentialsInterface $credential)
+    {
+        foreach (['getAccessKeySecret', 'getSecurityToken', 'getBearerToken', 'getPrivateKey'] as $method) {
+            if (method_exists($credential, $method)) {
+                $this->sensitiveValues[] = $credential->$method();
+            }
+        }
+        $this->sensitiveValues = array_unique($this->sensitiveValues);
+
+        return $credential;
     }
 
     /**

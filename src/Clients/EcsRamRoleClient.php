@@ -3,7 +3,7 @@
 namespace AlibabaCloud\Client\Clients;
 
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Signature\ShaHmac256Signature;
 use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
 
 /**
@@ -20,7 +20,7 @@ class EcsRamRoleClient extends Client
     {
         parent::__construct(
             new EcsRamRoleCredential($roleName),
-            new ShaHmac1Signature()
+            new ShaHmac256Signature()
         );
     }
 }

@@ -4,6 +4,7 @@ namespace AlibabaCloud\Client\Credentials\Providers;
 
 use Exception;
 use AlibabaCloud\Client\Support\Stringy;
+use AlibabaCloud\Client\Support\SensitiveData;
 use AlibabaCloud\Client\SDK;
 use AlibabaCloud\Client\Result\Result;
 use Psr\Http\Message\ResponseInterface;
@@ -119,9 +120,8 @@ class EcsRamRoleProvider extends Provider
             }
 
             throw new ClientException(
-                $message,
-                SDK::SERVER_UNREACHABLE,
-                $exception
+                SensitiveData::redact($message),
+                SDK::SERVER_UNREACHABLE
             );
         }
     }

@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\Clients\RamRoleArnClient;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Signature\ShaHmac256Signature;
 use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
 
 /**
@@ -33,7 +33,7 @@ class RamRoleArnClientTest extends TestCase
         $client = new RamRoleArnClient($accessKeyId, $accessKeySecret, $roleArn, $roleSessionName);
 
         // Assert
-        self::assertInstanceOf(ShaHmac1Signature::class, $client->getSignature());
+        self::assertInstanceOf(ShaHmac256Signature::class, $client->getSignature());
         self::assertInstanceOf(RamRoleArnCredential::class, $client->getCredential());
         self::assertEquals($accessKeyId, $client->getCredential()->getAccessKeyId());
         self::assertEquals($accessKeySecret, $client->getCredential()->getAccessKeySecret());

@@ -83,13 +83,14 @@ class RoaRequestTest extends TestCase
     public function testConstructAcsHeader()
     {
         // Setup
+        AlibabaCloud::accessKeyClient('foo', 'bar')->asDefaultClient();
         $request = new  DescribeClusterServicesRequest();
         $request->withClusterId(\time());
         $request->regionId('cn-hangzhou');
         $clusterId = \time();
         $request->resolveParameter();
         $expected = "x-acs-region-id:cn-hangzhou\n" .
-                    "x-acs-signature-method:HMAC-SHA1\n";
+                    "x-acs-signature-method:HMAC-SHA256\n";
 
         // Test
         $request->pathParameter('ClusterId', $clusterId);

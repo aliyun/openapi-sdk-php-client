@@ -212,6 +212,11 @@ class RpcRequestTest extends TestCase
     {
         // Setup
         $request = new RpcRequest();
+        AlibabaCloud::client(
+            new \AlibabaCloud\Client\Credentials\AccessKeyCredential('foo', 'bar'),
+            new \AlibabaCloud\Client\Signature\ShaHmac1Signature()
+        )->name('sha1-fixture');
+        $request->client('sha1-fixture');
         $request->options['query'] = $parameters;
 
         // Test

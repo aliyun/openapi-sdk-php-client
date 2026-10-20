@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Unreleased
+
+- Default Signature V2 AK and temporary-credential requests to HMAC-SHA256, retaining explicit HMAC-SHA1 support and signature version 1.0.
+- Use the selected signer for AssumeRole requests and exclude stale signatures when retrying RPC requests.
+- Redact credentials and signatures in SDK logs, debug output, and exception messages without changing HTTP payloads or results.
+
 ## 1.5.32 - 2022-12-08
 
 - Support PHP versions: From 5.5 up to 8.1

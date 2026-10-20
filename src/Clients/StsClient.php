@@ -4,7 +4,7 @@ namespace AlibabaCloud\Client\Clients;
 
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Signature\ShaHmac256Signature;
 
 /**
  * Use the STS Token to complete the authentication.
@@ -22,7 +22,7 @@ class StsClient extends Client
     {
         parent::__construct(
             new StsCredential($accessKeyId, $accessKeySecret, $securityToken),
-            new ShaHmac1Signature()
+            new ShaHmac256Signature()
         );
     }
 }

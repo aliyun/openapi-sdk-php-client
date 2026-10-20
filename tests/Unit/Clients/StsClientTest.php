@@ -7,7 +7,7 @@ use AlibabaCloud\Client\Clients\StsClient;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Credentials\StsCredential;
-use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Signature\ShaHmac256Signature;
 
 /**
  * Class StsClientTest
@@ -35,7 +35,7 @@ class StsClientTest extends TestCase
         self::assertEquals($accessKeyId, $client->getCredential()->getAccessKeyId());
         self::assertEquals($accessKeySecret, $client->getCredential()->getAccessKeySecret());
         self::assertEquals($securityToken, $client->getCredential()->getSecurityToken());
-        self::assertInstanceOf(ShaHmac1Signature::class, $client->getSignature());
+        self::assertInstanceOf(ShaHmac256Signature::class, $client->getSignature());
         self::assertInstanceOf(StsCredential::class, $client->getCredential());
 
         return $client;

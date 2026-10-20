@@ -6,6 +6,8 @@ You may create multiple different clients simultaneously. Each client can have i
 
 ## Client Type
 
+AK-signed RPC and ROA requests now default to HMAC-SHA256, with signature version `1.0`. See the [upgrading guide](/UPGRADING.md) for explicit HMAC-SHA1 fallback and dependency updates.
+
 ### AccessKey Client
 Setup AccessKey through [User Information Management][ak], they have full authority over the account, please keep them safe. Sometimes for security reasons, you cannot hand over a primary account AccessKey with full access to the developer of a project. You may create a sub-account [RAM Sub-account][ram] , grant its [authorization][permissions]，and use the AccessKey of RAM Sub-account to make API calls.
 > Sample Code: Create a client with a certification type AccessKey, and set it to the Default Client，that is, a client named as `default`.

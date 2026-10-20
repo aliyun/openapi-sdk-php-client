@@ -69,9 +69,12 @@ class RamRoleArnProvider extends Provider
         $clientName = __CLASS__ . \uniqid('ak', true);
         $credential = $this->client->getCredential();
 
-        AlibabaCloud::accessKeyClient(
-            $credential->getAccessKeyId(),
-            $credential->getAccessKeySecret()
+        AlibabaCloud::client(
+            new \AlibabaCloud\Client\Credentials\AccessKeyCredential(
+                $credential->getAccessKeyId(),
+                $credential->getAccessKeySecret()
+            ),
+            $this->client->getSignature()
         )->name($clientName);
 
         return (new AssumeRole($credential))
