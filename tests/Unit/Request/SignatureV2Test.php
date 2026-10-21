@@ -107,7 +107,7 @@ class SignatureV2Test extends TestCase
     public function testAssumeRoleUsesSelectedAlgorithm($sha1)
     {
         $this->reset();
-        $sourceSecret = 'source-secret-' . ($sha1 ? 'sha1' : 'sha256');
+        $sourceSecret = uniqid('source-secret-' . ($sha1 ? 'sha1' : 'sha256') . '-', true);
         if ($sha1) {
             AlibabaCloud::client(
                 new RamRoleArnCredential('source-key', $sourceSecret, 'acs:ram::123:role/test', 'session'),
@@ -158,7 +158,7 @@ class SignatureV2Test extends TestCase
     public function testEcsRoleUsesSha256AfterMetadataExchange()
     {
         $this->reset();
-        AlibabaCloud::ecsRamRoleClient('signature-v2-test-role')->name('signing');
+        AlibabaCloud::ecsRamRoleClient(uniqid('signature-v2-test-role-', true))->name('signing');
         AlibabaCloud::mockResponse(200, [], [
             'AccessKeyId' => 'temporary-key', 'AccessKeySecret' => 'temporary-secret',
             'SecurityToken' => 'temporary-token', 'Expiration' => gmdate('c', time() + 7200)
@@ -167,7 +167,7 @@ class SignatureV2Test extends TestCase
         $this->rpc('GET')->request();
         $history = AlibabaCloud::getHistory();
         self::assertCount(2, $history);
-        self::assertStringContainsString('/latest/meta-data/ram/security-credentials/', (string)$history[0]['request']->getUri());
+        self::assertNotFalse(strpos((string)$history[0]['request']->getUri(), '/latest/meta-data/ram/security-credentials/'));
         self::assertSame('HMAC-SHA256', $this->parameters($history[1]['request'])['SignatureMethod']);
         $this->assertRpcSignature($history[1]['request'], 'temporary-secret', 'sha256');
         AlibabaCloud::cancelMock();
@@ -179,10 +179,10 @@ class SignatureV2Test extends TestCase
         $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA]);
         self::assertNotFalse($key);
         openssl_pkey_export($key, $pem);
-        $file = tempnam(sys_get_temp_dir(), 'signature-rsa-');
+        $file = tempnam(__DIR__, 'signature-rsa-');
         file_put_contents($file, $pem);
         try {
-            AlibabaCloud::rsaKeyPairClient('signature-v2-rsa-key', $file)->name('signing');
+            AlibabaCloud::rsaKeyPairClient(uniqid('signature-v2-rsa-key-', true), $file)->name('signing');
         } finally {
             unlink($file);
         }
