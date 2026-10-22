@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Monolog\Handler\StreamHandler;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClusterServicesRequest;
+use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClustersForRegionRequest;
 
 /**
  * Class LogTraitTest
@@ -38,18 +37,22 @@ class LogTraitTest extends TestCase
         AlibabaCloud::bearerTokenClient($bearerToken)
                     ->name('BEARER_TOKEN')
                     ->regionId($regionId);
+        AlibabaCloud::mockResponse(200, [], [
+            'clusters' => [],
+            'page_info' => ['page_number' => 1, 'page_size' => 10, 'total_count' => 0]
+        ]);
 
         // Test
         try {
-            (new  DescribeClusterServicesRequest())
+            (new DescribeClustersForRegionRequest())
                 ->client('BEARER_TOKEN')
-                ->withClusterId(\time())
+                ->host('example.test')
+                ->pathParameter('region_id', $regionId)
                 ->connectTimeout(25)
                 ->timeout(30)
                 ->request();
-        } catch (ServerException $e) {
-            // Assert
-            static::assertEquals('UnsupportedSignatureType', $e->getErrorCode());
+        } finally {
+            AlibabaCloud::cancelMock();
         }
 
         $logContent = file_get_contents($logFile);

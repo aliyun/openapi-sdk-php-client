@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Credentials\StsCredential;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Signature\ShaHmac256Signature;
 use AlibabaCloud\Client\Credentials\AccessKeyCredential;
 use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
 use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
@@ -486,7 +486,7 @@ class ClientTraitTest extends TestCase
         $accessKeyId = uniqid('', true);
         $accessKeySecret = uniqid('', true);
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)->name('client1');
-        static::assertInstanceOf(ShaHmac1Signature::class, AlibabaCloud::get('client1')->getSignature());
+        static::assertInstanceOf(ShaHmac256Signature::class, AlibabaCloud::get('client1')->getSignature());
     }
 
     /**

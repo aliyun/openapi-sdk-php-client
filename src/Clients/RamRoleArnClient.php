@@ -3,7 +3,7 @@
 namespace AlibabaCloud\Client\Clients;
 
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Signature\ShaHmac256Signature;
 use AlibabaCloud\Client\Credentials\RamRoleArnCredential;
 
 /**
@@ -27,7 +27,7 @@ class RamRoleArnClient extends Client
     {
         parent::__construct(
             new RamRoleArnCredential($accessKeyId, $accessKeySecret, $roleArn, $roleSessionName, $policy),
-            new ShaHmac1Signature()
+            new ShaHmac256Signature()
         );
     }
 }

@@ -3,7 +3,7 @@
 namespace AlibabaCloud\Client\Clients;
 
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Signature\ShaHmac256Signature;
 use AlibabaCloud\Client\Credentials\RsaKeyPairCredential;
 
 /**
@@ -24,7 +24,7 @@ class RsaKeyPairClient extends Client
     {
         parent::__construct(
             new RsaKeyPairCredential($publicKeyId, $privateKeyFile),
-            new ShaHmac1Signature()
+            new ShaHmac256Signature()
         );
     }
 }

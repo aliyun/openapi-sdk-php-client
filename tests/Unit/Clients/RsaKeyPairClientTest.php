@@ -5,7 +5,7 @@ namespace AlibabaCloud\Client\Tests\Unit\Clients;
 use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\Clients\RsaKeyPairClient;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Signature\ShaHmac256Signature;
 use AlibabaCloud\Client\Tests\Unit\Credentials\Ini\VirtualRsaKeyPairCredential;
 
 /**
@@ -34,6 +34,6 @@ class RsaKeyPairClientTest extends TestCase
             $privateKeyFile,
             $client->getCredential()->getPrivateKey()
         );
-        self::assertInstanceOf(ShaHmac1Signature::class, $client->getSignature());
+        self::assertInstanceOf(ShaHmac256Signature::class, $client->getSignature());
     }
 }

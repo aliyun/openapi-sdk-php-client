@@ -21,33 +21,28 @@ class RoaRequestTest extends TestCase
     public function testRoa()
     {
         // Setup
-        $clusterId = \time();
+        $regionId = 'cn-hangzhou';
+        AlibabaCloud::accessKeyClient(
+            getenv('ACCESS_KEY_ID'),
+            getenv('ACCESS_KEY_SECRET')
+        )->asDefaultClient()->regionId($regionId);
 
         // Test
-        try {
-            AlibabaCloud::accessKeyClient(
-                getenv('ACCESS_KEY_ID'),
-                getenv('ACCESS_KEY_SECRET')
-            )->asDefaultClient()->regionId('cn-hangzhou');
+        $result = AlibabaCloud::roa()
+            ->scheme('https')
+            ->pathPattern('/regions/[region_id]/clusters')
+            ->method('GET')
+            ->product('CS')
+            ->version('2015-12-15')
+            ->action('DescribeClustersForRegion')
+            ->pathParameter('region_id', $regionId)
+            ->connectTimeout(25)
+            ->timeout(30)
+            ->request();
 
-            $result = AlibabaCloud::roa()
-                ->pathPattern('/clusters/[ClusterId]/services')
-                ->method('GET')
-                ->product('CS')
-                ->version('2015-12-15')
-                ->action('DescribeClusterServices')
-                ->pathParameter('ClusterId', $clusterId)
-                ->connectTimeout(25)
-                ->timeout(30)
-                ->request();
-
-            self::assertNotEmpty($result->toArray());
-        } catch (ServerException $e) {
-            self::assertEquals(
-                "cluster ($clusterId) not found in our records",
-                $e->getErrorMessage()
-            );
-        }
+        self::assertSame(200, $result->getStatusCode());
+        self::assertTrue(is_array($result['clusters']));
+        self::assertArrayHasKey('page_info', $result->toArray());
     }
 
     /**

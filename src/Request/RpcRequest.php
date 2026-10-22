@@ -149,7 +149,8 @@ class RpcRequest extends Request
     {
         $query       = isset($this->options['query']) ? $this->options['query'] : [];
         $form_params = isset($this->options['form_params']) ? $this->options['form_params'] : [];
-        $parameters  = Arrays::merge([$query, $form_params]);
+        $parameters  = Arrays::merge([$form_params, $query]);
+        unset($parameters['Signature']);
 
         return Sign::rpcString($this->method, $parameters);
     }

@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\Clients\EcsRamRoleClient;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use AlibabaCloud\Client\Signature\ShaHmac1Signature;
+use AlibabaCloud\Client\Signature\ShaHmac256Signature;
 use AlibabaCloud\Client\Credentials\EcsRamRoleCredential;
 
 /**
@@ -33,7 +33,7 @@ class EcsRamRoleClientTest extends TestCase
         // Assert
         self::assertEquals($roleName, $client->getCredential()->getRoleName());
         self::assertInstanceOf(EcsRamRoleCredential::class, $client->getCredential());
-        self::assertInstanceOf(ShaHmac1Signature::class, $client->getSignature());
+        self::assertInstanceOf(ShaHmac256Signature::class, $client->getSignature());
 
         return $client;
     }
