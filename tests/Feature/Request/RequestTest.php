@@ -4,9 +4,8 @@ namespace AlibabaCloud\Client\Tests\Feature\Request;
 
 use PHPUnit\Framework\TestCase;
 use AlibabaCloud\Client\AlibabaCloud;
-use AlibabaCloud\Client\Exception\ServerException;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClusterServicesRequest;
+use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClustersForRegionRequest;
 
 /**
  * Class RequestTest
@@ -16,12 +15,10 @@ use AlibabaCloud\Client\Tests\Mock\Services\CS\DescribeClusterServicesRequest;
 class RequestTest extends TestCase
 {
     /**
-     * @before
      * @throws ClientException
      */
-    protected function initialize()
+    protected function initializeClient()
     {
-        parent::setUp();
         AlibabaCloud::accessKeyClient(
             \getenv('ACCESS_KEY_ID'),
             \getenv('ACCESS_KEY_SECRET')
@@ -35,19 +32,19 @@ class RequestTest extends TestCase
     {
         
         // Setup
-        $request = new DescribeClusterServicesRequest();
-        $clusterId = \time();
-        $request->withClusterId($clusterId);
+        $this->initializeClient();
+        $request = new DescribeClustersForRegionRequest();
+        $request->pathParameter('region_id', $request->realRegionId());
 
         // Test
-        try {
-            $request->connectTimeout(25)
-                ->timeout(30)
-                ->request();
-        } catch (ServerException $e) {
-            // Assert
-            self::assertEquals('ErrorClusterNotFound', $e->getErrorCode());
-        }
+        $result = $request->connectTimeout(25)
+            ->timeout(30)
+            ->request();
+
+        // Assert
+        self::assertSame(200, $result->getStatusCode());
+        self::assertTrue(is_array($result['clusters']));
+        self::assertArrayHasKey('page_info', $result->toArray());
     }
 
     /**
@@ -63,24 +60,29 @@ class RequestTest extends TestCase
             ->name('BEARER_TOKEN')
             ->regionId($regionId);
 
-        // Test
+        // CS uses AK authentication; verify Bearer headers without relying on service errors.
+        AlibabaCloud::mockResponse(200, [], ['clusters' => [], 'page_info' => []]);
         try {
-            (new DescribeClusterServicesRequest())
+            $request = (new DescribeClustersForRegionRequest())
                 ->client('BEARER_TOKEN')
-                ->withClusterId(\time())
+                ->host('example.test')
+                ->pathParameter('region_id', $regionId)
                 ->connectTimeout(25)
-                ->timeout(50)
-                ->request();
-        } catch (ServerException $e) {
-            // Assert
-            static::assertEquals('UnsupportedSignatureType', $e->getErrorCode());
+                ->timeout(50);
+            $request->request();
+
+            static::assertSame($bearerToken, $request->options['headers']['x-acs-bearer-token']);
+            static::assertSame('BEARERTOKEN', $request->options['headers']['x-acs-signature-type']);
+            static::assertSame('/regions/' . $regionId . '/clusters', $request->uri->getPath());
+        } finally {
+            AlibabaCloud::cancelMock();
         }
     }
 
     /**
      * @throws ClientException
      */
-    public function testInvalidUrl()
+    public function testWithNamedClient()
     {
         
         // Setup
@@ -92,17 +94,17 @@ class RequestTest extends TestCase
             ->name(__METHOD__);
 
         // Test
-        try {
-            (new DescribeClusterServicesRequest())
-                ->connectTimeout(25)
-                ->timeout(30)
-                ->client(__METHOD__)
-                ->withClusterId(\time())
-                ->request();
-        } catch (ServerException $e) {
-            // Assert
-            self::assertEquals('ErrorClusterNotFound', $e->getErrorCode());
-        }
+        $result = (new DescribeClustersForRegionRequest())
+            ->connectTimeout(25)
+            ->timeout(30)
+            ->client(__METHOD__)
+            ->pathParameter('region_id', $regionId)
+            ->request();
+
+        // Assert
+        self::assertSame(200, $result->getStatusCode());
+        self::assertTrue(is_array($result['clusters']));
+        self::assertArrayHasKey('page_info', $result->toArray());
     }
 
     /**
@@ -112,19 +114,19 @@ class RequestTest extends TestCase
     {
         
         // Setup
-        $request = new DescribeClusterServicesRequest();
-        $request->withClusterId(\time());
+        $this->initializeClient();
+        $request = new DescribeClustersForRegionRequest();
+        $request->pathParameter('region_id', $request->realRegionId());
 
         // Test
-        try {
-            $request->connectTimeout(25)
-                ->timeout(30)
-                ->request();
-            // Assert
-        } catch (ServerException $exception) {
-            // Assert
-            static::assertEquals('ErrorClusterNotFound', $exception->getErrorCode());
-        }
+        $result = $request->connectTimeout(25)
+            ->timeout(30)
+            ->request();
+
+        // Assert
+        static::assertSame(200, $result->getStatusCode());
+        static::assertTrue(is_array($result['clusters']));
+        static::assertArrayHasKey('page_info', $result->toArray());
     }
 
     /**
